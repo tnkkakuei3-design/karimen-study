@@ -1,0 +1,40 @@
+{
+  "appCommit": "a58ee318014ea7e9c8671c2aa381694a0b4bf11a",
+  "files": [
+    {
+      "file": "index.html",
+      "matches": true,
+      "sha256": "95d8122f226173f1ac9ffa70f5803e13e909da52a797a33fac16935cf4b6eb5b"
+    },
+    {
+      "file": "app.js",
+      "matches": true,
+      "sha256": "2b1fc9c9975cbb292d397446c2b2de1aa4ffc515c38f7b967cf13716fb9d21c9"
+    },
+    {
+      "file": "styles.css",
+      "matches": true,
+      "sha256": "5437cea8669de2a4f49b10a6e7d54b8c2545ddf5e07302156d3087a615e3e34f"
+    },
+    {
+      "file": "visuals.js",
+      "matches": true,
+      "sha256": "b50d9a475819e5b63fff4b7a996ac6f5c74a03ca3d3dadee278c406f904a088c"
+    },
+    {
+      "file": "model.js",
+      "matches": true,
+      "sha256": "a6f0a88b53fc6e9a9813d58a2df0634ae781d1b976735e16aab3cf4ad29ca4f9"
+    },
+    {
+      "file": "questions.js",
+      "matches": true,
+      "sha256": "601839351b4a2582fbbdddc41dbbab57d68b2a261aeaba407836e31abc42bfd8"
+    },
+    {
+      "file": "learning-content.js",
+      "matches": true,
+      "sha256": "e88e6b2ea9b5d104d368a79f623a2f0befb60c33e81787ec407b76759334ecca"
+    }
+  ]
+}
