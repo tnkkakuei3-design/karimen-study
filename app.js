@@ -37,7 +37,7 @@ function updateChrome() {
   document.body.classList.toggle('play-active', view === 'play');
   document.body.classList.toggle('focused-view', ['play','result'].includes(view));
   document.body.classList.toggle('exam-active', focusedExam);
-  for (const k of ['mock', 'learn', 'review']) { const b = $('tab-' + k); b.disabled = locked && k !== 'mock'; b.setAttribute('aria-selected', String(k === tab)); b.tabIndex = k === tab ? 0 : -1; }
+  for (const k of ['mock', 'learn', 'review']) { const b = $('tab-' + k); b.disabled = focusedExam && k !== 'mock'; b.setAttribute('aria-selected', String(k === tab)); b.tabIndex = k === tab ? 0 : -1; }
   $('review-dot').hidden = model.schedule().due.length === 0;
   $('footer').hidden = locked || ['play','result','notes'].includes(view);
   $('migration-notice').hidden = locked || !state.notices.length || !['mock','learn','review'].includes(view);
@@ -49,7 +49,15 @@ function show(name, top = true) {
 }
 function navigate(k) {
   if (!['mock','learn','review'].includes(k)) return;
-  if (state.session?.mode === 'exam' && k !== 'mock') { toast('模試を採点してから、学習・復習を開けます。'); return; }
+  if (state.session?.mode === 'exam' && k !== 'mock') {
+    if (model.expired()) { finish(true); if (!state.session && !externalChange) navigate(k); return; }
+    const s = state.session, label = k === 'learn' ? '学習' : '復習', left = s.answers.filter(a => a === null).length;
+    ask(`模試を採点して${label}へ進みますか？`, `第${s.worksheet}回の回答を採点・保存して、${label}を開きます。${left ? `未回答${left}問は不正解になります。` : '50問すべて回答済みです。'}続きから解く場合はキャンセルしてください。`, `採点して${label}へ`, () => {
+      if (state.session?.attemptId !== s.attemptId) return;
+      finish(false); if (!state.session && !externalChange) navigate(k);
+    });
+    return;
+  }
   tab = k; if (k === 'mock') renderMock(); if (k === 'learn') renderLearn(); if (k === 'review') renderReview(); show(k);
 }
 function resultsFor(n, kind, currentOnly = true) {

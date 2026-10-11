@@ -78,13 +78,37 @@ a.click('#next');assert.equal(a.query('#confirm').open,true);assert.equal(a.quer
 assert.equal(a.run('state.attempts.length'),0);assert.match(a.query('#confirm-message').textContent,/すべての回答を保存/);
 a.click('#confirm-no');assert.equal(a.run('state.session.answers.filter(v=>v!==null).length'),50);
 a.click('#next');a.click('#confirm-yes');assert.equal(a.query('#result').hidden,false);
-assert.equal(a.run('state.mockResults[1].best.scoreSnapshot'),50);assert.equal(a.run('state.attempts.length'),1);a.close();
+assert.equal(a.run('state.mockResults[1].best.scoreSnapshot'),50);assert.equal(a.run('state.attempts.length'),1);
+for(const target of ['learn','review']){assert.equal(a.query('#tab-'+target).disabled,false);a.click('#tab-'+target);assert.equal(a.query('#'+target).hidden,false);}
+a.close();
 // Missing answers still require the existing warning and do not prevent the final button from working.
 a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
 a.click('[data-action="jump"][data-index="49"]');a.click('#next');
 assert.equal(a.query('#confirm').open,true);assert.match(a.query('#confirm-message').textContent,/未回答が50問/);
 a.click('#confirm-no');assert.equal(a.run('state.session.index'),49);assert.equal(a.run('state.attempts.length'),0);
 a.click('#next');a.click('#confirm-yes');assert.equal(a.run('state.mockResults[1].best.scoreSnapshot'),0);a.close();
+// Visible tabs during a suspended mock offer grading before leaving; cancellation preserves the attempt.
+for(const target of ['learn','review']){
+ a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
+ a.click('[data-action="answer"][data-value="true"]');
+ const pending=a.run('JSON.stringify(state.session)');
+ a.click('[data-action="pause"]');a.click('#confirm-yes');
+ assert.equal(a.query('#tab-learn').disabled,false);assert.equal(a.query('#tab-review').disabled,false);
+ a.click('#tab-'+target);assert.equal(a.query('#confirm').open,true);
+ assert.match(a.query('#confirm-title').textContent,/模試を採点して/);assert.match(a.query('#confirm-message').textContent,/未回答49問/);
+ assert.equal(a.query('#'+target).hidden,true);assert.equal(a.run('state.attempts.length'),0);
+ a.click('#confirm-no');assert.equal(a.run('JSON.stringify(state.session)'),pending);assert.equal(a.query('#mock').hidden,false);
+ a.click('#tab-'+target);a.click('#confirm-yes');assert.equal(a.query('#'+target).hidden,false);
+ assert.equal(a.run('state.session'),null);assert.equal(a.run('state.attempts.length'),1);
+ assert.equal(a.run('state.attempts[0].answers[0]'),true);assert.equal(a.run('state.attempts[0].answers.filter(v=>v===null).length'),49);
+ const persisted=a.w.localStorage.getItem('karimen-study-v4');a.close();a=app({'karimen-study-v4':persisted});
+ a.click('#tab-'+target);assert.equal(a.query('#'+target).hidden,false);assert.equal(a.run('state.attempts.length'),1);a.close();
+}
+// An expired suspended mock grades once before opening the requested tab.
+a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
+a.click('[data-action="pause"]');a.click('#confirm-yes');a.clock.now=a.run('state.session.endAt');
+a.click('#tab-learn');assert.equal(a.query('#learn').hidden,false);assert.equal(a.run('state.session'),null);
+assert.equal(a.run('state.attempts.length'),1);assert.equal(a.run('state.attempts[0].timeout'),true);a.close();
 // Complete a genuine guided set through clicks; compare mock and guided achievements.
 a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-guided"]');
 for(let i=0;i<50;i++){const answer=a.run('activeQuestion(state.session.ids[state.session.index]).a');a.click(`[data-action="answer"][data-value="${answer}"]`);a.click('[data-action="next"]');}
