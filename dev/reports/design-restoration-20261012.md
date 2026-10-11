@@ -26,6 +26,25 @@ Cloud Chrome、opaque sandbox内の架空記録で確認。ユーザーの学習
 
 問題データ・記録モデル・ノートの教材内容・設問画像は無変更。内容版も維持。
 
+## 公開確認
+
+アプリの公開コミットは `6460e40ceea17e3de0ac60d84507b9bb73c07909`。既存URLを実ブラウザで開き、復元したホームの表示を確認した。公開先のindex.html・app.js・styles.css・visuals.js・model.js・questions.js・learning-content.jsの7ファイルは、検証済みローカルファイルとバイト単位で一致。[公開ファイルの照合結果](public-design-source-check-20261012.json)。GitHub Actionsの状態APIはレート制限のため取得できず、実際に配信された内容で公開を確認した。
+
+### 修正後の画面
+
+390pxの画像は検証用の隔離画面で撮影したもの。得点・進捗は見本で、ユーザーの記録ではない。PC画像は公開URLの実画面。
+
+- [ホーム・390px](../screenshots/design3-home-390.jpg)
+- [学習・390px](../screenshots/design3-learn-390.jpg)
+- [45点の結果・390px](../screenshots/design3-result45-390.jpg)
+- [45点の結果・360px](../screenshots/design3-result45-360.jpg)
+- [満点・ダーク・動きを抑える](../screenshots/design3-result50-dark-390.jpg)
+- [図付き問題](../screenshots/design3-exam-image-390.jpg)
+- [解答後の解説](../screenshots/design3-explanation-360.jpg)
+- [復習](../screenshots/design3-review-390.jpg)
+- [図解本文](../screenshots/design3-note-390.jpg)
+- [公開ホーム・PC](../screenshots/published-home-pc.jpg)
+
 ## 未確認
 
 物理的なiPhone／Android、Safari、端末固有safe-area、画面回転、OS設定との連動、読み上げ。PCブラウザでの幅指定をスマホ実機確認とは扱わない。オフライン・ホーム画面アイコンは対象外。

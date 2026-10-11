@@ -1,0 +1,49 @@
+{
+  "checkedAt": "2026-10-11T16:45:09.596150+00:00",
+  "releaseCommit": "6460e40ceea17e3de0ac60d84507b9bb73c07909",
+  "url": "https://tnkkakuei3-design.github.io/karimen-study/",
+  "files": [
+    {
+      "file": "index.html",
+      "matches": true,
+      "sha256": "1484c22a322adc1cb0e1a47f9590d1709827f18ea77cbf3d9ddbf958edcfff09",
+      "bytes": 5443
+    },
+    {
+      "file": "app.js",
+      "matches": true,
+      "sha256": "96cce3dfb7a63e24b50a480144689a3aafefc1e4d7f9ba3dfe2632c700532c7e",
+      "bytes": 51905
+    },
+    {
+      "file": "styles.css",
+      "matches": true,
+      "sha256": "f111ce3f76014ea34af101d1242d317e5079c60490c564d2ebb73cb6598cc2e3",
+      "bytes": 32307
+    },
+    {
+      "file": "visuals.js",
+      "matches": true,
+      "sha256": "5f0bc4a54aa61e52a71726f53e46e59de42545078084801faf566b4e893b5ad0",
+      "bytes": 38966
+    },
+    {
+      "file": "model.js",
+      "matches": true,
+      "sha256": "a6f0a88b53fc6e9a9813d58a2df0634ae781d1b976735e16aab3cf4ad29ca4f9",
+      "bytes": 16060
+    },
+    {
+      "file": "questions.js",
+      "matches": true,
+      "sha256": "601839351b4a2582fbbdddc41dbbab57d68b2a261aeaba407836e31abc42bfd8",
+      "bytes": 636551
+    },
+    {
+      "file": "learning-content.js",
+      "matches": true,
+      "sha256": "e88e6b2ea9b5d104d368a79f623a2f0befb60c33e81787ec407b76759334ecca",
+      "bytes": 162543
+    }
+  ]
+}
