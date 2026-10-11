@@ -57,7 +57,9 @@ async function load(){
   const config={width:Number(document.querySelector('#width').value),screen:document.querySelector('#screen').value,theme:document.querySelector('#theme').value,motion:document.querySelector('#motion').checked};
   frame.width=config.width;frame.height=780;
   audit.textContent='読み込み中';
-  const response=await fetch('../index.html?qa='+Date.now());if(!response.ok)throw new Error('HTML '+response.status);
+  const candidate=new URLSearchParams(location.search).get('candidate')==='design3';
+  document.querySelector('h1').textContent=candidate?'表示検証専用・デザイン修正案':'表示検証専用';
+  const response=await fetch((candidate?'./design-candidate/index.html':'../index.html')+'?qa='+Date.now());if(!response.ok)throw new Error('HTML '+response.status);
   let html=await response.text();if(version!==loadVersion)return;
   const boot='('+fixture.toString()+')('+JSON.stringify(config)+')';
   const base=new URL('../',location.href).href;
