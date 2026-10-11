@@ -719,6 +719,9 @@ body{-webkit-text-size-adjust:100%}
 .install-records strong{font-size:14px}
 .install-records p{font-size:12px}
 .install-native{margin:10px 0 0}
+.install-safari-tip{margin:12px 0;padding:12px 14px;border-radius:12px;background:var(--pale);font-size:13px}
+.install-safari-tip strong{color:var(--blue);font-size:13px}
+.install-guide .install-safari-tip p{margin:4px 0 0;font-size:12px;line-height:1.7}
 #home-install-close{margin-top:14px;flex-shrink:0}
 body.play-active .install-prompt,body.focused-view .install-prompt{display:none!important}
 @media(max-width:374px){.install-prompt{padding:14px}.install-prompt-heading{gap:10px}.install-prompt h2{font-size:15px}.install-prompt .install-icon{width:48px;height:48px}.install-guide{padding:18px}.install-guide h2{font-size:20px}}

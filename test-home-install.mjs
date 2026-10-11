@@ -73,5 +73,6 @@ a.w.dispatchEvent(new a.w.Event('appinstalled'));assert.equal(a.query('#home-ins
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'manifest.webmanifest'),'utf8'));
 assert.equal(manifest.short_name,'仮免ドリル');assert.equal(manifest.start_url,'./');assert.equal(manifest.scope,'./');
 for(const item of manifest.icons){const data=fs.readFileSync(path.join(root,item.src));assert.equal(`${data.readUInt32BE(16)}x${data.readUInt32BE(20)}`,item.sizes)}
-const apple=fs.readFileSync(path.join(root,'assets/icons/apple-touch-icon.png'));assert.equal(apple.readUInt32BE(16),180);assert.equal(apple.readUInt32BE(20),180);
+const apple=fs.readFileSync(path.join(root,'apple-touch-icon.png'));assert.equal(apple.readUInt32BE(16),180);assert.equal(apple.readUInt32BE(20),180);assert.equal(apple[25],2,'iOS icon is opaque truecolor PNG');
+assert.match(html,/<title>仮免ドリル<\/title>/);assert.match(html,/rel="apple-touch-icon"[^>]+\/karimen-study\/apple-touch-icon\.png\?v=/);
 console.log('Home-screen checks passed: first visit, dismissal/reload, settings return, standalone/desktop suppression, active/resumed learning, record export, Android manual/native paths and icon metadata.');

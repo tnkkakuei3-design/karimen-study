@@ -36,9 +36,10 @@
     if (standalone()) return '<p class="install-status">ホーム画面から起動しています。</p>';
     const ios = platform === 'ios';
     return `<div class="install-platforms seg" role="group" aria-label="追加する端末"><button data-install-platform="ios" aria-pressed="${ios}">iPhone / iPad</button><button data-install-platform="android" aria-pressed="${!ios}">Android</button></div>
-      <p class="muted">${ios ? 'Safariでこのページを開いて操作してください。' : 'Chromeでこのページを開いて操作してください。'}</p>
+      <p class="muted">${ios ? 'Safariアプリでこのページを開いて追加します。' : 'Chromeでこのページを開いて操作してください。'}</p>
+      ${ios ? '<div class="install-safari-tip"><strong>右下にコンパスマークがある方へ</strong><p>そのマークをタップしてSafariへ移り、下の手順で追加してください。</p></div>' : ''}
       ${!ios && deferredPrompt ? '<button class="btn wide install-native" data-install-action="native">ホーム画面に追加する</button>' : ''}
-      <ol class="install-steps">${ios ? `<li><span>${shareIcon}<strong>「共有」を開く</strong><small>見当たらない場合は、ページのメニューから「共有」を選びます。</small></span></li><li><span><strong>「ホーム画面に追加」を選ぶ</strong><small>共有メニューを下へスクロールすると見つかります。</small></span></li><li><span><strong>「追加」をタップ</strong><small>名前は「仮免ドリル」です。</small></span></li>` : '<li><span><strong>右上の「︙」を開く</strong></span></li><li><span><strong>「ホーム画面に追加」を選ぶ</strong><small>「インストール」や「インストールしてショートカットを作成」と表示される場合もあります。</small></span></li><li><span><strong>画面の案内に沿って追加</strong><small>「仮免ドリル」のアイコンが目印です。</small></span></li>'}</ol>
+      <ol class="install-steps">${ios ? `<li><span>${shareIcon}<strong>「共有」を開く</strong><small>見当たらない場合は、ページのメニューから「共有」を選びます。</small></span></li><li><span><strong>「ホーム画面に追加」を選ぶ</strong><small>共有メニューを下へスクロールすると見つかります。</small></span></li><li><span><strong>「追加」をタップ</strong><small>プーリーくんの画像と「仮免ドリル」の名前を確認します。</small></span></li>` : '<li><span><strong>右上の「︙」を開く</strong></span></li><li><span><strong>「ホーム画面に追加」を選ぶ</strong><small>「インストール」や「インストールしてショートカットを作成」と表示される場合もあります。</small></span></li><li><span><strong>画面の案内に沿って追加</strong><small>「仮免ドリル」のアイコンが目印です。</small></span></li>'}</ol>
       ${ios ? '<details class="install-help"><summary>「ホーム画面に追加」が見つからないとき</summary><p class="muted">共有メニューの下にある「アクションを編集」から追加できます。別のアプリ内で開いている場合は、Safariで開き直してください。</p></details>' : ''}
       ${hasProgress ? '<div class="install-records"><strong>学習済みの記録を引き継ぐには</strong><p class="muted">追加前に記録を書き出しておくと安心です。追加後に記録が表示されない場合は、設定の「読み込む」から引き継げます。</p><button class="textbtn" data-install-action="export">学習記録を書き出す</button></div>' : ''}`;
   }

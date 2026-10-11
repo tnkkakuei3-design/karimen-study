@@ -36,3 +36,13 @@ Built-in image_genによる編集。文字なしの青背景に、同じキャ�
 - https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html
 - https://support.google.com/chrome/answer/9658361?hl=ja&co=GENIE.Platform%3DAndroid
 - https://web.dev/learn/pwa/installation-prompt
+
+## iPhoneの文字アイコン表示への対応
+
+ホーム画面に「仮」の文字アイコン・長いページ名が出たとの報告。元の180/192/512pxアイコンとmanifestは公開URLでHTTP 200、MIME・寸法とも正常であり、画像欠落は再現しなかった。原因の断定はしていない。
+
+- アプリ内ブラウザの右下にコンパスがある場合、Safariに移ってから追加する手順を明記。
+- 追加前にプーリーくんの画像と短い名前を確認する案内。
+- apple-touch-iconをプロジェクト直下の不透明RGB PNGにし、絶対URLと新しいバージョンで指定、先読みも追加。
+- ページtitleも「仮免ドリル」に合わせ、アイコン/manifestの参照URLを更新。
+- iPhone実機での再追加結果はユーザー側での確認が必要。
