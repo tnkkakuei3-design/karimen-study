@@ -423,7 +423,14 @@ setInterval(() => {
   if (document.hidden || externalChange || view !== 'review') return;
   const signature = model.schedule().due.map(q => q.id).join(',');
   if (signature !== displayedReviewDue) {
-    if (!$('review').contains(document.activeElement)) { displayedReviewDue = signature; renderReview(); }
+    const focused = document.activeElement, action = focused?.dataset?.action, id = focused?.dataset?.id;
+    const inside = $('review').contains(focused), open = $('review').querySelector('.review-graduation')?.open;
+    displayedReviewDue = signature; renderReview();
+    if (open) $('review').querySelector('.review-graduation').open = true;
+    if (inside) {
+      const target = [...$('review').querySelectorAll('[data-action]')].find(el => el.dataset.action === action && el.dataset.id === id);
+      (target || $('review').querySelector('.review-graduation summary'))?.focus({preventScroll:true});
+    }
     updateChrome();
   }
 },1000);

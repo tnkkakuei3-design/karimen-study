@@ -10,18 +10,18 @@ const {JSDOM,VirtualConsole}=require(process.env.KARIMEN_JSDOM_PATH||'jsdom');
 const root=path.dirname(fileURLToPath(import.meta.url));
 const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
 function app(seed={}){
- const errors=[],downloads=[],clock={now:Date.parse('2026-10-11T12:00:00Z')};
+ const errors=[],downloads=[],intervals=[],clock={now:Date.parse('2026-10-11T12:00:00Z')};
  const console=new VirtualConsole();console.on('jsdomError',e=>errors.push(e));
  const dom=new JSDOM(html,{url:'https://tnkkakuei3-design.github.io/karimen-study/',runScripts:'outside-only',virtualConsole:console});
  const w=dom.window;let randomSeed=123456;w.Math.random=()=>((randomSeed=(Math.imul(randomSeed,1664525)+1013904223)>>>0)/4294967296);for(const [k,v] of Object.entries(seed))w.localStorage.setItem(k,typeof v==='string'?v:JSON.stringify(v));
- w.matchMedia=()=>({matches:false,addEventListener(){}});w.scrollTo=()=>{};w.requestAnimationFrame=fn=>fn();w.setInterval=()=>0;
+ w.matchMedia=()=>({matches:false,addEventListener(){}});w.scrollTo=()=>{};w.requestAnimationFrame=fn=>fn();w.setInterval=fn=>{intervals.push(fn);return intervals.length};
  w.HTMLElement.prototype.scrollIntoView=function(){};w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
  class ClockDate extends Date{constructor(...a){super(...(a.length?a:[clock.now]))}static now(){return clock.now}}
  w.Date=ClockDate;w.URL.createObjectURL=blob=>{downloads.push(blob);return 'blob:progress'};w.URL.revokeObjectURL=()=>{};
  const ctx=dom.getInternalVMContext();for(const name of ['questions.js','learning-content.js','model.js','visuals.js','app.js'])vm.runInContext(fs.readFileSync(path.join(root,name),'utf8'),ctx,{filename:name});
  const run=code=>vm.runInContext(code,ctx),query=selector=>w.document.querySelector(selector),all=selector=>[...w.document.querySelectorAll(selector)];
  const click=selector=>{const el=query(selector);assert.ok(el,`missing control: ${selector}`);assert.ok(!el.disabled,`disabled control: ${selector}`);el.click();if(errors.length)throw errors[0]};
- return {dom,w,clock,errors,downloads,run,query,all,click,close:()=>dom.window.close()};
+ return {dom,w,clock,intervals,errors,downloads,run,query,all,click,close:()=>dom.window.close()};
 }
 let a=app();assert.equal(a.run('achievementFor(50,50,false).kind'),'complete');assert.equal(a.run('achievementFor(10,10).kind'),'complete');assert.equal(a.run('achievementFor(44,50).kind'),'retry');assert.equal(a.run('achievementFor(45,50).kind'),'pass');assert.equal(a.run('achievementFor(48,50).kind'),'excellent');assert.equal(a.run('achievementFor(50,50).kind'),'perfect');assert.equal(a.all('#mock .set-card').length,10);assert.equal(a.query('#mock').hidden,false);assert.ok(a.query('#mock .home-character'));assert.equal(a.query('#tabs').hidden,false);assert.equal(a.query('#tab-mock').getAttribute('aria-selected'),'true');
 a.click('[data-action="detail"][data-set="3"]');assert.match(a.query('#detail').textContent,/代替問題 1問・補足問題 1問/);a.click('[data-action="start-mock"]');
@@ -302,3 +302,14 @@ a.click('[data-action="practice-close"]');
 assert.equal(a.query('#practice-dialog').open,false);
 assert.equal(a.run('JSON.stringify(state)'),preserved);
 assert.equal(a.errors.length,0);a.close();
+
+// Due stock refreshes at the deadline without losing the focused start control.
+a=app();a.run("model.record(301,!activeQuestion(301).a);model.record(301,activeQuestion(301).a);model.save();navigate('review')");
+assert.equal(a.query('#review [data-action="due"]'),null);
+a.query('#review [data-action="review-all"]').focus();
+a.clock.now+=30*60*1000;
+Object.defineProperty(a.w.document,'hidden',{value:false,configurable:true});
+a.intervals.forEach(fn=>fn());
+assert.ok(a.query('#review [data-action="due"]'));
+assert.equal(a.w.document.activeElement,a.query('#review [data-action="review-all"]'));
+a.close();
