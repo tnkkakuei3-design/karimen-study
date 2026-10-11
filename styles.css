@@ -637,6 +637,9 @@ body{-webkit-text-size-adjust:100%}
 .learn-guide{width:54px;height:72px}
 .review-guide{width:68px;height:72px}
 #learn .recommend{padding-block:12px;margin-bottom:14px}
+.learn-actions{display:grid;gap:10px;margin-bottom:14px}
+#learn .learn-actions .recommend{margin:0;min-width:0}
+.learn-actions .recommend-copy{min-width:0}
 .learning-overview{padding:10px 0}
 .learning-overview dt,.learning-overview small{font-size:12px}
 .learn-switch{margin:16px 0 12px}
@@ -672,6 +675,7 @@ body{-webkit-text-size-adjust:100%}
 .review-timing.is-empty .review-wait-count{font-size:18px;font-weight:650}
 @media(min-width:650px){
  .home-intro{margin-bottom:22px}
+ .learn-actions.has-resume{grid-template-columns:repeat(2,minmax(0,1fr))}
  .learn-guide{width:62px;height:82px}
  .review-guide{width:76px;height:82px}
  .learning-overview{padding:12px 0}

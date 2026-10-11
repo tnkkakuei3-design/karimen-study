@@ -311,3 +311,50 @@ assert.equal(a.all('#note-search').length,1);
 a.run("openNotes('n-hand')");assert.equal(a.all('#note-search').length,1);a.click('[data-action="note-return"]');assert.equal(a.all('#learn-notes details.note').length,47);
 a.click('#learn-tab-categories');assert.equal(a.query('#learn-categories').hidden,false);assert.equal(a.all('#learn .notes-entry').length,0);
 a.close();
+
+// Ten-question study stays available even when reviews are due or waiting.
+for(const reviewState of ['none','due','waiting']){
+ a=app();
+ if(reviewState!=='none')a.run('model.record(301,!activeQuestion(301).a);model.save()');
+ if(reviewState==='waiting')a.run('model.record(301,activeQuestion(301).a);model.save()');
+ a.click('#tab-learn');
+ assert.equal(a.all('#learn .learn-actions button').length,1);
+ assert.equal(a.query('#learn [data-action="resume"]'),null);
+ assert.equal(a.query('#learn [data-action="quick-study"] strong').textContent,'10問学ぶ');
+ a.click('#learn [data-action="quick-study"]');
+ assert.equal(a.run('state.session.kind'),'study');assert.equal(a.run('state.session.ids.length'),10);
+ assert.equal(a.errors.length,0);a.close();
+}
+// Study, guided practice and review each resume unchanged, including after reload.
+// Switching to ten new questions requires confirmation and retains the old answers.
+for(const kind of ['study','guided','review']){
+ a=app();
+ if(kind==='guided'){a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-guided"]');}
+ else if(kind==='review'){
+  a.run('for(const q of Q.slice(0,3))model.record(q.id,!q.a);model.save()');
+  a.click('#tab-review');a.click('#review [data-action="review-ready"]');
+ }else{a.click('#tab-learn');a.click('#learn [data-action="quick-study"]');}
+ a.click(`[data-action="answer"][data-value="${a.run('activeQuestion(state.session.ids[0]).a')}"]`);a.click('#next');
+ const originalSession=a.run('JSON.stringify(state.session)'),originalStats=a.run('JSON.stringify(state.stats)');
+ a.click('[data-action="pause"]');a.click('#tab-learn');
+ assert.equal(a.all('#learn .learn-actions button').length,2);
+ assert.match(a.query('#learn [data-action="resume"]').textContent,/途中から続ける/);
+ assert.match(a.query('#learn [data-action="resume"]').textContent,/1 \/ (3|10|50)問 回答済み/);
+ const savedLearning=a.w.localStorage.getItem('karimen-study-v4');a.close();a=app({'karimen-study-v4':savedLearning});
+ a.click('#tab-learn');a.click('#learn [data-action="resume"]');
+ assert.equal(a.run('JSON.stringify(state.session)'),originalSession);
+ assert.deepEqual(JSON.parse(a.run('JSON.stringify(state.stats)')),JSON.parse(originalStats));
+ a.click('[data-action="pause"]');a.click('#tab-learn');a.click('#learn [data-action="quick-study"]');
+ assert.ok(a.query('#confirm').open);a.click('#confirm-no');
+ assert.equal(a.run('JSON.stringify(state.session)'),originalSession);assert.equal(a.run('state.attempts.length'),0);
+ a.click('#learn [data-action="quick-study"]');a.click('#confirm-yes');
+ assert.equal(a.run('state.session.kind'),'study');assert.equal(a.run('state.session.ids.length'),10);
+ assert.notEqual(a.run('state.session.attemptId'),JSON.parse(originalSession).attemptId);
+ assert.equal(a.run('state.attempts.length'),1);assert.equal(a.run('state.attempts[0].mode'),kind);
+ assert.equal(a.run('state.attempts[0].attemptId'),JSON.parse(originalSession).attemptId);
+ assert.deepEqual(JSON.parse(a.run('JSON.stringify(state.attempts[0].answers)')),JSON.parse(originalSession).answers);
+ assert.equal(a.run('partialAttempt(state.attempts[0])'),true);assert.equal(a.run('state.attempts[0].scoreSnapshot'),1);
+ assert.deepEqual(JSON.parse(a.run('JSON.stringify(state.stats)')),JSON.parse(originalStats));
+ assert.equal(a.errors.length,0);a.close();
+}
+console.log('PASS: permanent ten-question study; conditional resume; reload, cancellation and preserved answers when starting fresh.');
