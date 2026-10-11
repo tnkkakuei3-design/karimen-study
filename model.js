@@ -7,6 +7,22 @@ const KarimenModel = (() => {
   const object = v => v && typeof v === 'object' && !Array.isArray(v);
   const worksheet = n => WORKSHEETS.find(w => w.worksheet === Number(n));
   const emptyArchive = () => ({ stats: {}, misses: {}, history: [], checks: {}, sessions: [], importSnapshots: [] });
+  function normalizeArchive(raw) {
+    const archive = { ...emptyArchive(), ...(object(raw) ? copy(raw) : {}) };
+    let damaged = raw != null && !object(raw);
+    for (const key of ['stats', 'misses', 'checks']) {
+      if (!object(archive[key])) { damaged = true; archive[key] = {}; }
+    }
+    for (const key of ['history', 'sessions', 'importSnapshots']) {
+      if (!Array.isArray(archive[key])) { damaged = true; archive[key] = []; }
+      else { const valid = archive[key].filter(object); damaged ||= valid.length !== archive[key].length; archive[key] = valid; }
+    }
+    const stats = Object.fromEntries(Object.entries(archive.stats).filter(([, value]) => object(value)));
+    damaged ||= Object.keys(stats).length !== Object.keys(archive.stats).length;
+    archive.stats = stats;
+    if (damaged) archive.unreadableArchive = copy(raw);
+    return archive;
+  }
   const fresh = () => ({ kind: 'karimen-progress', version: 4, answerRevision: 3,
     stats: {}, misses: {}, guidedResults: {}, mockResults: {}, attempts: [], completed: {},
     session: null, lastResult: null, legacyArchive: emptyArchive(), notices: [],
@@ -71,7 +87,7 @@ const KarimenModel = (() => {
     const s = fresh(), r = records(raw);
     Object.assign(s, settings(raw), { stats: r.stats, misses: r.misses });
     if (raw.version === 4) {
-      s.legacyArchive = { ...emptyArchive(), ...(object(raw.legacyArchive) ? copy(raw.legacyArchive) : {}) };
+      s.legacyArchive = normalizeArchive(raw.legacyArchive);
       s.guidedResults = sanitizeResults(raw.guidedResults); s.mockResults = sanitizeResults(raw.mockResults);
       s.attempts = (Array.isArray(raw.attempts) ? raw.attempts : []).filter(validAttempt).map(copy);
       s.completed = Object.fromEntries(Object.entries(object(raw.completed) ? raw.completed : {}).filter(([k, v]) => typeof k === 'string' && v === true));
@@ -114,12 +130,14 @@ const KarimenModel = (() => {
     if (raw.version === 4 && (Object.keys(r.archivedStats).length || Object.keys(r.archivedMisses).length)) {
       s.legacyArchive.unrecognizedImport = copy(raw);
     }
+    s.legacyArchive = normalizeArchive(s.legacyArchive);
     return s;
   }
   function create({ storage, now = () => Date.now(), makeId = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}` }) {
-    let state, error = '', blocked = false;
+    let state, error = '', blocked = false, conflicted = false;
     const read = k => { try { return storage.getItem(k); } catch { error = 'この環境では記録を読み書きできません。設定から書き出して保管してください。'; blocked = true; return null; } };
     const rawV4 = read(STORE);
+    let persistedRaw = rawV4;
     if (rawV4 !== null) {
       try { state = normalize(JSON.parse(rawV4)); }
       catch {
@@ -145,7 +163,17 @@ const KarimenModel = (() => {
     }
     function save() {
       if (blocked) return false;
-      try { storage.setItem(STORE, JSON.stringify(state)); error = ''; return true; }
+      try {
+        // A storage event may not have reached a suspended tab yet. Check again
+        // immediately before writing so its stale state cannot replace newer work.
+        if (storage.getItem(STORE) !== persistedRaw) {
+          blocked = true; conflicted = true;
+          error = '別のタブで記録が更新されました。上書きを止めています。再読み込みして続けてください。';
+          return false;
+        }
+        const serialized = JSON.stringify(state);
+        storage.setItem(STORE, serialized); persistedRaw = serialized; error = ''; return true;
+      }
       catch { error = '記録を保存できませんでした。容量やブラウザ設定を確認し、設定から記録を書き出してください。'; return false; }
     }
     const weak = id => (state.misses[id] || 0) > 0 || !!state.stats[id]?.reviewAt;
@@ -209,8 +237,9 @@ const KarimenModel = (() => {
       state.attempts.push(a); state.lastResult = a; state.session = null; save(); return a;
     }
     function importData(raw) {
+      if (conflicted) throw new Error('別のタブで記録が更新されました。再読み込みしてください。');
       if (state.session?.mode === 'exam') throw new Error('模試の終了後に読み込めます。');
-      const next = normalize(raw), previous = copy(state); previous.legacyArchive.importSnapshots = [];
+      const next = normalize(raw), previous = copy(state);
       next.legacyArchive.importSnapshots = [...(Array.isArray(next.legacyArchive.importSnapshots) ? next.legacyArchive.importSnapshots : []), { at: now(), state: previous }];
       state = next; blocked = false; return save();
     }
@@ -219,7 +248,7 @@ const KarimenModel = (() => {
       state = { ...fresh(), ...settings(state) }; return save();
     }
     save();
-    return { get state() { return state; }, get error() { return error; }, save, weak, due, schedule, record, begin, answer, finish, expired,
+    return { get state() { return state; }, get error() { return error; }, get conflicted() { return conflicted; }, save, weak, due, schedule, record, begin, answer, finish, expired,
       importData, reset, exportData: () => ({ ...copy(state), exportedAt: new Date(now()).toISOString() }),
       validateImport: normalize, worksheet, active };
   }

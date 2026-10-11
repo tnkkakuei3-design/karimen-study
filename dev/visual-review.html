@@ -10,7 +10,7 @@
 <header><h1>表示検証専用</h1><p>記録はすべて見本・実際の学習記録から隔離</p>
 <label>幅 <select id="width"><option>360</option><option selected>390</option><option>430</option><option>1200</option></select></label>
 <label>画面 <select id="screen">
-<option value="mock">模試・未受験</option><option value="mock-records">模試・得点あり</option><option value="learn">学習</option><option value="learn-review">学習・要復習あり</option><option value="review">復習・0件</option><option value="review-due">復習・予定あり</option><option value="exam">受験中</option><option value="exam-image">受験中・図</option><option value="exam-map">回答一覧</option><option value="explanation">学習・解説</option><option value="result44">結果44点</option><option value="result45">結果45点</option><option value="result48">結果48点</option><option value="result50">結果50点</option><option value="guided-result">50問練習の結果</option><option value="guided-detail">練習記録の花丸</option><option value="notes">図解一覧</option><option value="note">図解本文</option><option value="settings">設定</option><option value="preview">花丸見本</option>
+<option value="mock">模試・未受験</option><option value="mock-old">以前の内容版の模試記録</option><option value="note-safe">安全地帯・条件補足</option><option value="mock-records">模試・得点あり</option><option value="learn">学習</option><option value="learn-review">学習・要復習あり</option><option value="review">復習・0件</option><option value="review-due">復習・予定あり</option><option value="exam">受験中</option><option value="exam-image">受験中・図</option><option value="exam-map">回答一覧</option><option value="explanation">学習・解説</option><option value="result44">結果44点</option><option value="result45">結果45点</option><option value="result48">結果48点</option><option value="result50">結果50点</option><option value="guided-result">50問練習の結果</option><option value="guided-detail">練習記録の花丸</option><option value="notes">図解一覧</option><option value="note">図解本文</option><option value="settings">設定</option><option value="preview">花丸見本</option>
 </select></label><label>表示 <select id="theme"><option value="light">ライト</option><option value="dark">ダーク</option></select></label><label><input id="motion" type="checkbox">動きを抑える</label><button id="reload">読み直す</button><button id="measure">寸法を確認</button></header>
 <main><iframe id="app-frame" title="学科ドリルの検証画面" sandbox="allow-scripts" width="390" height="780"></iframe></main><div id="audit" role="status">読み込み中</div>
 <script>
@@ -34,7 +34,10 @@ function fixture(config){
     state.sound=false;state.theme=config.theme;state.reduceMotion=config.motion;state.notices=[];theme();
     const finishSet=(n,score,kind='mock')=>{const w=model.worksheet(n);model.begin({ids:w.orderedIds,kind,worksheet:n,label:'第'+n+'回'});state.session.answers=state.session.ids.map((id,i)=>i<score?activeQuestion(id).a:!activeQuestion(id).a);lastResult=model.finish();};
     const screen=config.screen;
-    if(screen==='mock-records'){
+    if(screen==='mock-old'){
+      finishSet(1,41);state.attempts[state.attempts.length-1].contentVersion='audit-previous-version';navigate('mock');detail(1);
+    }else if(screen==='note-safe'){openNotes('n-safe');
+    }else if(screen==='mock-records'){
       [45,50,48,44].forEach((score,i)=>finishSet(i+1,score));navigate('mock');
     }else if(screen==='review-due'||screen==='learn-review'){
       [301,311,403,435].forEach((id,i)=>{model.record(id,!activeQuestion(id).a);state.stats[id].reviewAt=Date.now()+(i<2?-3600000:86400000);state.stats[id].reviewPass=i%2;});navigate(screen==='learn-review'?'learn':'review');

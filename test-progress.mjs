@@ -62,4 +62,26 @@ a=app({version:3,stats:{301:{total:1,correct:1}},misses:{}});const old=a.storage
 const corrupt=new Map([[M.STORE,'{invalid']]);a=app(null,corrupt);assert.equal(a.model.state.legacyArchive.corruptRaw,'{invalid');assert.ok([...corrupt.keys()].some(k=>k.startsWith(M.STORE+'-recovery-')));
 const brokenStore={getItem:k=>k===M.STORE?'{invalid':null,setItem:()=>{throw Error('quota')}};const blocked=M.create({storage:brokenStore,now:()=>initialTime});assert.equal(blocked.save(),false);assert.match(blocked.error,/上書きを止め/);
 a=app();score(a,50);a.model.reset();assert.equal(a.model.state.attempts.length,0);assert.equal(a.model.state.session,null);assert.deepEqual(toPlain(a.model.state.mockResults),{});
-console.log('PASS: scoring 0/44/45/48/49/50; timed/guided separation; score snapshots; best beyond 10 attempts; idempotency; v2/v3/v4 migration; raw backups; unknown IDs; resume; timeout; 24h review; supplemental review; import/export; corruption/quota; reset.');
+// Repeated imports preserve earlier recovery snapshots even after a reload.
+{
+ const history=app();history.model.state.legacyArchive.history=[{score:41,at:initialTime}];
+ const blank=app().model.exportData();history.model.importData(blank);history.model.importData(blank);
+ history.model=history.create();
+ const first=history.model.state.legacyArchive.importSnapshots[0].state.legacyArchive.importSnapshots[0].state;
+ assert.equal(first.legacyArchive.history[0].score,41);
+}
+// Check before writing, even when a storage event has not reached a suspended tab.
+{
+ const first=app(),second=app(null,first.storage);
+ first.model.begin({ids:[301],kind:'study'});first.model.answer(Q[0].a);
+ const latest=first.storage.get(M.STORE);second.model.begin({ids:[302],kind:'study'});
+ assert.equal(second.model.conflicted,true);assert.equal(first.storage.get(M.STORE),latest);
+ assert.equal(second.model.save(),false);assert.throws(()=>second.model.importData(first.model.exportData()),/再読み込み/);
+}
+{
+ const raw=app().model.exportData();raw.legacyArchive={history:[null,{score:42}],stats:{1:null,2:{total:3}},sessions:'broken',checks:null};
+ const restored=M.normalize(raw);
+ assert.equal(restored.legacyArchive.history[0].score,42);assert.equal(restored.legacyArchive.stats[2].total,3);
+ assert.deepEqual(toPlain(restored.legacyArchive.sessions),[]);assert.equal(restored.legacyArchive.unreadableArchive.sessions,'broken');
+}
+console.log('PASS: scoring, migration, timer, review, repeated-import recovery, stale-tab write protection, malformed archive preservation.');

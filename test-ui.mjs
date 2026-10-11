@@ -80,4 +80,15 @@ assert.match(a.query('#result .accuracy').textContent,/14%/);assert.equal(a.all(
 // Export includes the suspended session and old record archive.
 a.run('model.begin({ids:[301],kind:"study"});');a.click('[data-action="settings"]');a.click('[data-action="export"]');assert.equal(a.downloads.length,1);assert.equal(a.run('model.exportData().session.ids[0]'),301);
 assert.equal(a.errors.length,0);a.close();
-console.log(`PASS: DOM navigation; all 500 prompts and ${imageCount} question-image bindings; 47 note bodies; answer secrecy; exam lock; timer/resume/timeout; result rerender; guided 50-click completion; settings; preview isolation; export.`);
+// Previous mock scores remain accessible after the content version changes.
+a=app();a.run(`model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});model.finish();state.mockResults[1].best.contentVersion='older';state.mockResults[1].best.scoreSnapshot=41;detail(1)`);
+assert.match(a.query('#detail').textContent,/以前の内容版の模試記録/);a.click('#detail [data-action="stored-result"]');
+assert.equal(a.run('lastResult.scoreSnapshot'),41);assert.match(a.query('#result').textContent,/得点は当時の保存値/);
+a.click('#tab-mock');assert.equal(a.query('#mock .achievement-progress b').textContent,'0');
+// A clear in another tab has key=null and must lock this tab.
+a.w.dispatchEvent(new a.w.StorageEvent('storage',{key:null,newValue:null}));
+assert.equal(a.run('externalChange'),true);assert.match(a.query('#storage-warning').textContent,/別のタブ/);
+a.click('#tab-learn');assert.equal(a.query('#mock').hidden,false);a.close();
+a=app({'karimen-study-v4':{kind:'karimen-progress',version:4,legacyArchive:{history:[null,{score:42}],stats:{1:null},sessions:[{answers:{bad:true},label:'壊れた途中記録'}],checks:null}}});
+a.run('renderArchive();show("archive")');assert.match(a.query('#archive').textContent,/42点/);assert.match(a.query('#archive').textContent,/壊れた途中記録/);assert.equal(a.errors.length,0);a.close();
+console.log(`PASS: DOM navigation; all 500 prompts and ${imageCount} question-image bindings; 47 note bodies; old-version mock access; malformed archive display; storage-clear lock; answer secrecy; timer; guided completion; preview isolation; export.`);
