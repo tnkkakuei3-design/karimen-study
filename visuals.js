@@ -126,14 +126,14 @@ function achievementFor(score,total,fullSet=true){
  return {kind:'retry',title:'合格まであと'+(45-score)+'点！',message:'間違えた問題を、次の得点に。'};
 }
 function flowerStamp(label = '合格'){
- const points=Array.from({length:145},(_,i)=>{const t=i/144*Math.PI*2,r=43+6*Math.cos(8*t);return (60+Math.cos(t)*r).toFixed(2)+','+(60+Math.sin(t)*r).toFixed(2)}).join(' ');
+ const points=Array.from({length:145},(_,i)=>{const t=i/144*Math.PI*2,r=44+4*Math.cos(12*t);return (60+Math.cos(t)*r).toFixed(2)+','+(60+Math.sin(t)*r).toFixed(2)}).join(' ');
  return `<svg class="flower-stamp" viewBox="0 0 120 120" aria-hidden="true"><polygon points="${points}"/><circle cx="60" cy="60" r="33"/><text x="60" y="67" text-anchor="middle">${label === '満点' ? '満点' : '合格'}</text><path d="M44 82q16 8 32-1"/></svg>`;
 }
 function achievementHTML(score,total,animate=false,exam=false,fullSet=true){
  const a=achievementFor(score,total,fullSet),passed=['pass','excellent','perfect'].includes(a.kind),motion=animate&&!state.reduceMotion&&!matchMedia('(prefers-reduced-motion:reduce)').matches;
  const pieces=passed&&motion?`<span class="result-confetti" aria-hidden="true">${Array.from({length:a.kind==='perfect'?32:20},(_,i)=>`<i style="--x:${(i*37+7)%100}%;--delay:${(i%5)*35}ms;--spin:${i%2?'-':'+'}${150+i*13}deg;--color:${['#dc6577','#e2b751','#5c9dd6','#82b39d'][i%4]}"></i>`).join('')}</span>`:'';
  const caption=total===50&&fullSet?(exam?'このアプリ内の判定：50問中45問以上で合格':'解説付き50問練習：45問以上正解で合格の目安'):'';
- return `<section class="result-achievement ${a.kind} ${motion&&passed?'celebrate':''}" aria-label="${a.title}">${pieces}${passed?flowerStamp(a.kind==='perfect'?'満点':'合格'):`<span class="achievement-symbol" aria-hidden="true">${icon(a.kind==='complete'?'check':a.kind==='retry'?'flag':'book')}</span>`}<div class="achievement-copy"><h3>${a.title}</h3><p>${a.message}</p>${caption?`<small>${caption}</small>`:''}</div></section>`;
+ return `<section class="result-achievement ${a.kind} ${motion&&passed?'celebrate':''}" aria-label="${a.title}">${pieces}${passed?flowerStamp(a.kind==='perfect'?'満点':'合格'):`<span class="achievement-symbol" aria-hidden="true">${icon(a.kind==='complete'?'check':a.kind==='retry'?'flag':'book')}</span>`}<div class="achievement-copy"><h3>${a.title.split('！').map((part,i) => `<span>${esc(part)}${i === 0 && a.title.includes('！') ? '！' : ''}</span>`).join('')}</h3><p>${a.message}</p>${caption?`<small>${caption}</small>`:''}</div></section>`;
 }
 const NOTE_GROUPS={sign:['n-sign','n-close','n-zone','n-entry','n-aux-new'],signal:['n-time','n-sig','n-time2','n-ped','n-arrow','n-hand','n-police'],inter:['n-prio','n-right','n-emer','n-turn','n-yield','n-jam','n-round-new'],pass:['n-pass','n-left','n-meeting-new','n-cycle-new'],ped:['n-safe','n-tram','n-pedx'],speed:['n-dis','n-slow','n-speed','n-speed-new'],start:['n-at','n-at-new','n-start-new'],basic:['n-bus','n-veh','n-kari','n-lane','n-mind','n-waka','n-bus-new'],hazard:['n-hill','n-rail','n-rail2'],park:['n-dist','n-stop','n-road','n-fb']};
 function noteCategory(n){return CATS.find(c=>NOTE_GROUPS[c.k]?.includes(n.id))||{k:'other',label:'その他の基本',icon:'book'}}

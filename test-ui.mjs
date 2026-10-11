@@ -35,7 +35,7 @@ a.clock.now=deadline;a.run('updateTimer()');assert.equal(a.query('#result').hidd
 const saved=a.w.localStorage.getItem('karimen-study-v4');a.close();a=app({'karimen-study-v4':saved});assert.equal(a.run('state.attempts.length'),1);a.click('[data-action="detail"][data-set="3"]');a.click('[data-action="stored-result"]');assert.equal(a.query('#result').hidden,false);assert.match(a.query('#result').textContent,/30分模試の結果/);
 a.click('[data-action="result-filter"][data-filter="all"]');assert.equal(a.all('#result > details.review-item').length,50);assert.match(a.query('#result').textContent,/参考問題をもとに作成した代替問題/);assert.equal(a.run('state.attempts.length'),1);
 a.click('#tab-learn');assert.equal(a.query('#learn').hidden,false);assert.equal(a.run('CATS.flatMap(categorized).length'),500);assert.equal(a.run('new Set(CATS.flatMap(categorized).map(q=>q.id)).size'),500);a.click('#learn .recommend');assert.equal(a.run('state.session.ids.length'),10);assert.equal(a.run('state.session.mode'),'drill');
-a.click('[data-action="answer"][data-value="true"]');assert.equal(a.all('#play .feedback').length,1);assert.ok(a.query('#play #next'));assert.equal(a.run('state.stats[state.session.ids[0]].total'),1);
+a.click('[data-action="answer"][data-value="true"]');assert.equal(a.all('#play .feedback').length,1);assert.ok(a.query('#play #next'));assert.equal(a.w.document.activeElement,a.query('#play .feedback'));assert.equal(a.query('#tabs').hidden,true);assert.equal(a.run('state.stats[state.session.ids[0]].total'),1);
 const id=a.run('state.session.ids[0]');a.run('renderPlay();renderPlay()');assert.equal(a.run(`state.stats[${id}].total`),1);
 a.click('[data-action="pause"]');a.click('[data-action="notes"]');assert.equal(a.all('#notes details.note').length,47);
 for(const el of a.all('#notes details.note'))a.run(`populateNote(document.getElementById(${JSON.stringify(el.id)}))`);
@@ -58,6 +58,16 @@ assert.equal(a.errors.length,0);a.close();
 a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-guided"]');
 for(let i=0;i<50;i++){const answer=a.run('activeQuestion(state.session.ids[state.session.index]).a');a.click(`[data-action="answer"][data-value="${answer}"]`);a.click('[data-action="next"]');}
 a.click('#confirm-yes');assert.equal(a.run('state.guidedResults[1].best.scoreSnapshot'),50);assert.equal(a.run('Object.keys(state.mockResults).length'),0);assert.ok(a.query('#result .perfect'));a.click('#tab-mock');assert.match(a.query('#mock .achievement-progress').textContent,/0 \/ 10回/);
+// Visual restoration adds real weak-topic navigation while keeping old scores intact.
+assert.equal(a.query('#mock .achievement-progress b').textContent,'0');
+a.click('[data-action="detail"][data-set="1"]');assert.equal(a.query('.guided-record .flower-stamp text').textContent,'満点');a.click('[data-action="close-detail"]');
+a.run(`model.begin({ids:WORKSHEETS[2].orderedIds,kind:'mock',worksheet:3});state.session.answers=state.session.ids.map((id,i)=>i<45?activeQuestion(id).a:!activeQuestion(id).a);lastResult=model.finish();renderResult();show('result')`);
+assert.match(a.query('#result .accuracy').textContent,/90%/);
+assert.equal(a.run('resultWeakGroups(lastResult).reduce((n,g)=>n+g.ids.length,0)'),5);
+const topicIds=a.run('JSON.stringify(resultWeakGroups(lastResult)[0].ids)'),snapshot=a.run('JSON.stringify(state.mockResults[3])');
+a.click('#result [data-action="result-topic"]');assert.equal(a.run('JSON.stringify(state.session.ids)'),topicIds);assert.equal(a.run('state.session.kind'),'review');assert.equal(a.run('JSON.stringify(state.mockResults[3])'),snapshot);
+a.run(`state.session=null;lastResult={...state.mockResults[3].best,legacy:true,scoreSnapshot:7};renderResult();show('result')`);
+assert.match(a.query('#result .accuracy').textContent,/14%/);assert.equal(a.all('#result .weak-topic').length,0);assert.equal(a.run('state.mockResults[3].best.scoreSnapshot'),45);
 // Export includes the suspended session and old record archive.
 a.run('model.begin({ids:[301],kind:"study"});');a.click('[data-action="settings"]');a.click('[data-action="export"]');assert.equal(a.downloads.length,1);assert.equal(a.run('model.exportData().session.ids[0]'),301);
 assert.equal(a.errors.length,0);a.close();
