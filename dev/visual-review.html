@@ -40,7 +40,7 @@ function fixture(config){
     }else if(screen.startsWith('exam')){
       startSet(3,'mock');if(screen==='exam-image')jump(2);if(screen==='exam-map')openMap();
     }else if(screen==='explanation'){
-      startStudy([426],'代替問題の学習');model.answer(activeQuestion(426).a);renderPlay();show('play');
+      const q=Q.find(q=>q.isReplacement);startStudy([q.id],'代替問題の学習');model.answer(q.a);renderPlay();show('play');
     }else if(screen.startsWith('result')){
       finishSet(3,Number(screen.slice(6)));tab='mock';renderResult(true);show('result');
     }else if(screen==='notes'||screen==='note'){
@@ -53,7 +53,7 @@ function fixture(config){
 }
 async function load(){
   const config={width:Number(document.querySelector('#width').value),screen:document.querySelector('#screen').value,theme:document.querySelector('#theme').value,motion:document.querySelector('#motion').checked};
-  frame.width=config.width;frame.height=config.width===1200?780:780;
+  frame.width=config.width;frame.height=780;
   audit.textContent='読み込み中';
   const response=await fetch('../index.html?qa='+Date.now());if(!response.ok)throw new Error('HTML '+response.status);
   let html=await response.text();
