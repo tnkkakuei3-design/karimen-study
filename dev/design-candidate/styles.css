@@ -41,7 +41,7 @@ main:focus{outline:none}
 .btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;min-height:48px;border:1px solid transparent;border-radius:12px;padding:10px 16px;background:#066be9;color:#fff;font-size:16px;font-weight:700;line-height:1.6;text-align:center}
 .btn:hover{filter:brightness(.95)}
 .btn.secondary{color:var(--blue);background:var(--pale);border-color:var(--line)}
-.textbtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;background:transparent;border:0;color:var(--blue);padding:8px 4px;font-size:14px;font-weight:650}
+.textbtn{min-width:44px;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;background:transparent;border:0;color:var(--blue);padding:8px 4px;font-size:14px;font-weight:650}
 .textbtn.danger{color:var(--ng)}
 .wide{width:100%}
 .btnrow{display:flex;gap:10px;align-items:stretch;margin-top:16px}
@@ -367,7 +367,7 @@ body{-webkit-text-size-adjust:100%}
 .category-card>.icon{margin:0;color:var(--muted);width:25px;height:25px}
 .category-card:after{content:'›';position:absolute;right:14px;top:11px;font-size:24px;line-height:1;color:var(--muted)}
 .category-copy{display:flex;flex-direction:column;width:100%}
-.category-copy strong{font-size:15px;line-height:1.5;min-height:0;text-wrap:initial}
+.category-copy strong{font-size:15px;line-height:1.5;min-height:0;text-wrap:balance}
 .category-copy small{margin:7px 0 10px;line-height:1.6}
 .category-copy .progress{margin-top:auto;height:4px}
 .notes-entry{background:var(--soft);border:0;border-radius:12px}

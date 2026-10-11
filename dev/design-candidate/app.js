@@ -66,7 +66,7 @@ function renderMock() {
     <p class="legacy-label">50問・30分。解説は採点後に表示します。以前の解説付き練習の記録は、各回の詳細に残っています。</p>`;
 }
 function attemptRows(list, label) {
-  return list.slice(-10).reverse().map(a => `<div class="history-row"><div>${label}<small>${dateLabel(a.completedAt)}${a.legacy ? ' · 旧版の記録' : ''}</small></div><b>${a.scoreSnapshot}<small> / ${a.total}点</small></b><button class="textbtn" data-action="stored-result" data-id="${esc(a.attemptId)}">見る</button></div>`).join('');
+  return list.slice(-10).reverse().map(a => `<div class="history-row"><div>${label}<small>${dateLabel(a.completedAt)}${a.legacy ? ' · 旧版の記録' : ''}</small></div><b>${a.scoreSnapshot}<small> / ${a.total}点</small></b><button class="textbtn" data-action="stored-result" data-id="${esc(a.attemptId)}">回答を見る</button></div>`).join('');
 }
 function detail(n) {
   const w = model.worksheet(n); if (!w) return;
