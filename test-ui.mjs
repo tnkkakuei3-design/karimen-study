@@ -50,7 +50,7 @@ assert.equal(a.w.document.activeElement,a.query('#note-search'));assert.equal(a.
 for(const el of a.all('#notes details.note'))a.run(`populateNote(document.getElementById(${JSON.stringify(el.id)}))`);
 assert.equal(a.all('#notes .note-content').filter(el=>!el.innerHTML).length,0);assert.equal(a.run('NOTES.flatMap(noteIds).every(id=>id>=301&&id<=800)'),true);
 a.run("openNotes('n-hand')");assert.equal(a.query('#n-hand').open,true);a.click('[data-action="note-return"]');assert.equal(a.query('#learn').hidden,false);
-a.click('#tab-review');assert.equal(a.query('#review').hidden,false);assert.ok(a.query('#review').textContent.includes('いつでも練習できます'));
+a.click('#tab-review');assert.equal(a.query('#review').hidden,false);assert.ok(a.query('#review').textContent.includes('次は30分あけて'));
 // All 500 question texts and image bindings render through the common UI.
 a.run('state.session=null');let imageCount=0;
 for(let i=0;i<500;i++){
@@ -139,7 +139,7 @@ a.clock.now=a.run('state.session.endAt');a.run('updateTimer()');assert.equal(a.q
 assert.equal(a.query('#result').hidden,false);assert.equal(a.run('state.attempts.length'),1);assert.equal(a.run('modalAction'),null);a.close();
 // A review session can resume from its own tab, including after reload and after its last answer.
 a=app();a.run('for(const q of Q.slice(0,3)) model.record(q.id,!q.a); model.save()');a.clock.now+=86400000;
-a.click('#tab-review');a.click('#review [data-action="due"]');assert.equal(a.run('state.session.ids.length'),3);
+a.click('#tab-review');a.click('#review [data-action="review-ready"]');assert.equal(a.run('state.session.ids.length'),3);
 assert.match(a.query('#play [data-action="pause"]').textContent,/復習トップ/);
 a.click(`[data-action="answer"][data-value="${a.run('activeQuestion(state.session.ids[0]).a')}"]`);a.click('#next');
 const pausedReview=a.run('JSON.stringify(state.session)'),reviewTime=a.clock.now;
@@ -149,10 +149,10 @@ const reviewSave=a.w.localStorage.getItem('karimen-study-v4');a.close();a=app({'
 a.click('#tab-review');a.click('#review [data-action="resume"]');assert.equal(a.run('JSON.stringify(state.session)'),pausedReview);
 for(let i=1;i<3;i++){a.click(`[data-action="answer"][data-value="${a.run('activeQuestion(state.session.ids[state.session.index]).a')}"]`);if(i<2)a.click('#next');}
 a.click('[data-action="pause"]');assert.ok(a.query('#review [data-action="resume"]'));
-assert.match(a.query('#review').textContent,/途中の復習があります/);assert.doesNotMatch(a.query('#review').textContent,/今日の復習は完了です/);
+assert.match(a.query('#review').textContent,/途中の復習があります/);assert.doesNotMatch(a.query('#review').textContent,/今すぐの復習は完了です/);
 a.click('#review [data-action="resume"]');a.click('#next');a.click('#confirm-yes');assert.equal(a.run('state.attempts.length'),1);
 assert.equal(a.run('state.attempts[0].scoreSnapshot'),3);assert.equal(a.run('state.stats[301].total'),2);
-a.click('#tab-review');assert.equal(a.query('#review [data-action="resume"]'),null);assert.match(a.query('#review').textContent,/今日の復習は完了です/);a.close();
+a.click('#tab-review');assert.equal(a.query('#review [data-action="resume"]'),null);assert.match(a.query('#review').textContent,/今すぐの復習は完了です/);a.close();
 // Keep the actual focused search field alive throughout Japanese composition; filter when committed.
 a=app();a.click('#tab-learn');a.click('[data-action="notes"]');const beforeSearch=a.run('JSON.stringify(state)');
 const composingInput=a.query('#note-search');composingInput.focus();
@@ -281,35 +281,23 @@ console.log(`PASS: all ten randomized mock entry points, original-number/result 
 
 
 
-// Immediate review remains available before any scheduled question is due.
-a=app();a.run("model.begin({ids:[710,711],kind:'study'});model.answer(!activeQuestion(710).a);model.finish();model.record(710,activeQuestion(710).a);model.save();navigate('review')");
-assert.equal(a.run('model.schedule().due.length'),0);
-assert.ok(a.query('[data-action="review-all"]'));
-assert.equal(a.query('#review [data-action="review-one"]').closest('details'),null);
-a.click('[data-action="review-all"]');
-assert.equal(a.run('state.session.ids[0]'),710);
-const scheduledAt=a.run('state.stats[710].reviewAt');
-a.click(`[data-action="answer"][data-value="${a.run('activeQuestion(710).a')}"]`);
-assert.equal(a.run('state.stats[710].reviewPass'),1);
-assert.equal(a.run('state.stats[710].reviewAt'),scheduledAt);
-const preserved=a.run('JSON.stringify(state)');
-a.click('[data-action="practice-again"]');
-assert.ok(a.query('#practice-dialog').open);
-a.click(`[data-action="practice-answer"][data-value="${a.run('activeQuestion(710).a')}"]`);
-assert.match(a.query('#practice-feedback').textContent,/正解です/);
-assert.equal(a.run('JSON.stringify(state)'),preserved);
-a.click('[data-action="practice-close"]');
-assert.equal(a.query('#practice-dialog').open,false);
-assert.equal(a.run('JSON.stringify(state)'),preserved);
-assert.equal(a.errors.length,0);a.close();
 
-// Due stock refreshes at the deadline without losing the focused start control.
-a=app();a.run("model.record(301,!activeQuestion(301).a);model.record(301,activeQuestion(301).a);model.save();navigate('review')");
-assert.equal(a.query('#review [data-action="due"]'),null);
-a.query('#review [data-action="review-all"]').focus();
+// Future reviews are locked; expiry makes them available automatically.
+a=app();a.run("model.record(710,!activeQuestion(710).a);model.record(710,activeQuestion(710).a);model.save();navigate('review')");
+assert.equal(a.query('[data-action="review-all"]'),null);
+assert.equal(a.query('[data-action="practice-again"]'),null);
+assert.ok(a.query('#review [data-action="review-one"]').disabled);
+assert.equal(a.query('#review [data-action="review-ready"]'),null);
+const lockedState=a.run('JSON.stringify(state)');
+a.run("startStudy([710],'復習','review')");
+assert.equal(a.run('JSON.stringify(state)'),lockedState);
 a.clock.now+=30*60*1000;
 Object.defineProperty(a.w.document,'hidden',{value:false,configurable:true});
 a.intervals.forEach(fn=>fn());
-assert.ok(a.query('#review [data-action="due"]'));
-assert.equal(a.w.document.activeElement,a.query('#review [data-action="review-all"]'));
-a.close();
+assert.ok(a.query('#review [data-action="review-ready"]'));
+assert.equal(a.query('#review [data-action="review-one"]').disabled,false);
+a.click('#review [data-action="review-ready"]');
+a.click(`[data-action="answer"][data-value="${a.run('activeQuestion(710).a')}"]`);
+assert.equal(a.run('model.weak(710)'),false);
+assert.equal(a.query('[data-action="practice-again"]'),null);
+assert.equal(a.errors.length,0);a.close();

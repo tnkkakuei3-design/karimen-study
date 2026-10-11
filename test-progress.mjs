@@ -189,3 +189,11 @@ for(const w of WORKSHEETS){
  assert.throws(()=>app().model.begin({ids:[...original.slice(1),original[1]],kind:'mock',worksheet:w.worksheet}),/問題が見つかりません/);
 }
 console.log('PASS: all ten shuffled mocks, stable resume/import, source-order migration, ID-bound grading/review, scoring, unanswered exclusion, historical repair, timer, stale-tab protection.');
+
+// Waiting review IDs cannot start or answer even through an old restored session.
+a=app();a.model.record(301,!Q.find(q=>q.id===301).a);a.model.record(301,Q.find(q=>q.id===301).a);
+assert.throws(()=>a.model.begin({ids:[301],kind:'review'}),/次の復習時刻/);
+a.model.state.session={attemptId:'old-review',kind:'review',mode:'drill',ids:[301],index:0,answers:[null],uncertain:[false],flags:[false],answeredAt:[null]};
+const locked=JSON.stringify(a.model.state);
+assert.equal(a.model.answer(Q.find(q=>q.id===301).a),false);assert.equal(JSON.stringify(a.model.state),locked);
+a.clock.now+=30*60*1000;assert.equal(a.model.answer(Q.find(q=>q.id===301).a),true);assert.equal(a.model.weak(301),false);

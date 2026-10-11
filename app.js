@@ -120,7 +120,7 @@ function studySelection(list, count = 10) {
   return [...selected, ...deferred].slice(0, count).map(q => q.id);
 }
 function startStudy(ids, label, kind = 'study') {
-  const clean = [...new Set(ids)].filter(id => activeQuestion(id)); if (!clean.length) { toast('対象の問題はありません。'); return; }
+  const clean = [...new Set(ids)].filter(id => activeQuestion(id) && (kind !== 'review' || !model.weak(id) || model.due(id))); if (!clean.length) { toast(kind === 'review' ? '次の復習時刻までお待ちください。' : '対象の問題はありません。'); return; }
   replaceStudy(() => { model.begin({ ids:clean, kind, label }); state = model.state; tab = kind === 'review' ? 'review' : 'learn'; lastResult = null; renderPlay(); show('play'); focusQuestion(); });
 }
 function renderLearn() {
@@ -141,19 +141,17 @@ function reviewWaitHTML(at) {
 }
 function reviewRow(q, early = false) {
   const s = state.stats[q.id], left = Math.max(1, 2 - (s?.reviewPass || 0));
-  return `<button class="review-row" data-action="review-one" data-id="${q.id}">${icon('book')}<span class="row-copy"><strong>${esc(q.topic)}${q.isSupplemental ? '・補足' : ''}</strong><small>第${q.worksheet}回・問${q.number}</small>${early ? `<small>次の復習まで ${reviewWaitHTML(s.reviewAt)}</small>` : ''}</span><span class="badge ${early ? '' : 'blue'}">あと${left}回</span>${icon('chevron')}</button>`;
+  return `<button class="review-row" data-action="review-one" data-id="${q.id}" ${early ? 'disabled' : ''}>${icon('book')}<span class="row-copy"><strong>${esc(q.topic)}${q.isSupplemental ? '・補足' : ''}</strong><small>第${q.worksheet}回・問${q.number}</small>${early ? `<small>次の復習まで ${reviewWaitHTML(s.reviewAt)}</small>` : ''}</span><span class="badge ${early ? '' : 'blue'}">あと${left}回</span>${icon('chevron')}</button>`;
 }
 function renderReview() {
   const { all, due, later } = model.schedule();
   const session = state.session, unfinished = session?.kind === 'review';
-  const completed = !unfinished && !due.length && completedReviewToday();
-  $('review').innerHTML = `<div class="page-heading character-heading"><div><h2>復習</h2><p class="muted">待たずに、いつでも練習できます。</p></div>${characterArt('D051','review-guide')}</div>
+  $('review').innerHTML = `<div class="page-heading character-heading"><div><h2>復習</h2><p class="muted">初回はすぐに。次は30分あけて。</p></div>${characterArt('D051','review-guide')}</div>
     ${unfinished ? `<button class="resume-card" data-action="resume"><span><strong>途中の復習を続ける</strong><small>途中の復習があります · ${session.answers.filter(a => a !== null).length} / ${session.ids.length}問 回答済み</small></span>${icon('arrow')}</button>` : ''}
-    ${completed ? '<p class="hintline">今日の復習は完了です。続けて練習することもできます。</p>' : ''}
-    ${all.length ? `<section class="review-now-card" aria-labelledby="review-now-title"><h3 id="review-now-title">復習する問題</h3><p class="review-now-count">${all.length}<small>問</small></p><button class="btn wide" data-action="review-all">今すぐ${all.length}問を復習 ${icon('arrow')}</button></section>
-    <section class="review-timing"><h3>${icon('clock')}復習のタイミング</h3><div class="review-stats"><div><span>今すぐ復習</span><strong>${due.length}<small>問</small></strong></div><div><span>次の復習待ち</span><strong>${later.length}<small>問</small></strong></div></div>${due.length ? `<button class="textbtn wide" data-action="due">対象の${Math.min(10,due.length)}問を復習 ${icon('arrow')}</button>` : ''}<p class="hintline">予定前でも、上のボタンから練習できます。</p></section>
-    <div class="section-heading"><h3>問題を選んで練習</h3><small>${all.length}問</small></div>${all.slice(0,reviewMore ? all.length : 10).map(q => reviewRow(q,!model.due(q.id))).join('')}${all.length > 10 && !reviewMore ? '<button class="textbtn wide" data-action="review-more">すべての問題を見る</button>' : ''}` : `<div class="empty review-empty"><div class="empty-message"><h3>復習する問題はまだありません</h3><p>間違い・自信なしの問題がここに集まります。</p><button class="textbtn" data-action="tab" data-tab="learn">学習へ進む ${icon('arrow')}</button></div>${characterArt(completed ? 'D011' : 'D012','empty-guide')}</div>`}
-    <details class="review-graduation"><summary>復習リストから卒業するには？</summary><p>初回の間違いはすぐ復習できます。1回正解したら30分後にもう一度。自信をもって2回正解すると卒業します。間違い・自信なしは回数をリセットし、30分後に再挑戦です。練習はいつでもできますが、待ち時間中の正解は卒業回数に含めません。</p></details>`;
+    <section class="review-now-card" aria-labelledby="review-now-title"><h3 id="review-now-title">今すぐ復習</h3><p class="review-now-count">${due.length}<small>問</small></p>${due.length ? `<button class="btn wide" data-action="review-ready">${due.length}問を復習する ${icon('arrow')}</button>` : `<p class="muted">${unfinished ? '未回答の問題は「途中の復習を続ける」から確認できます。' : all.length ? '今すぐの復習は完了です。' : '今すぐ復習する問題はありません。'}${later.length ? ` 次は${reviewWaitHTML(state.stats[later[0].id]?.reviewAt)}です。` : ''}</p>`}</section>
+    <section class="review-timing"><h3>${icon('clock')}次の復習待ち</h3><p class="review-now-count">${later.length}<small>問</small></p>${later.length ? `<p>最短 ${reviewWaitHTML(state.stats[later[0].id]?.reviewAt)}</p><p class="hintline">30分たつと「今すぐ復習」に移ります。待機中の問題は解けません。</p>` : '<p class="hintline">待機中の問題はありません。</p>'}</section>
+    ${all.length ? `<div class="section-heading"><h3>復習する問題</h3><small>${all.length}問</small></div>${[...due,...later].slice(0,reviewMore ? all.length : 10).map(q => reviewRow(q,!model.due(q.id))).join('')}${all.length > 10 && !reviewMore ? '<button class="textbtn wide" data-action="review-more">すべての問題を見る</button>' : ''}` : '<div class="empty"><p>間違い・自信なしの問題がここに集まります。</p><button class="textbtn" data-action="tab" data-tab="learn">学習へ進む →</button></div>'}
+    <details class="review-graduation"><summary>復習リストから卒業するには？</summary><p>初回の間違いはすぐ復習できます。1回正解したら30分後にもう一度。自信をもって2回正解すると卒業します。間違い・自信なしは回数をリセットし、30分後に再挑戦です。</p></details>`;
 }
 function questionArt(q, revealed = false, compact = false) {
   const assets = ADDED_ART[q.id]; if (!assets) return originalQuestionArt(q, revealed, compact);
@@ -170,7 +168,7 @@ function explanationExtras(q, withNote = true) {
 function reviewSchedule(q) {
   if (!weak(q)) return '';
   const stat = state.stats[q.id];
-  return `<section class="review-schedule-note review-again-card"><h3>この問題は、今すぐ復習できます</h3><button class="btn secondary wide" data-action="practice-again" data-id="${q.id}">もう一度練習する ${icon('repeat')}</button><p>${icon('clock')}次の復習：${reviewWaitHTML(stat?.reviewAt)}</p><small>卒業まであと${Math.max(1,2-(stat?.reviewPass||0))}回 · 初回はすぐ、復習後は30分あけた正解が対象です。</small></section>`;
+  return `<section class="review-schedule-note review-again-card"><h3>次の復習：${reviewWaitHTML(stat?.reviewAt)}</h3><small>卒業まであと${Math.max(1,2-(stat?.reviewPass||0))}回。復習後は30分あけて、もう一度取り組みましょう。</small></section>`;
 
 }
 function explanation(q, answer, withNote = true) {
@@ -200,11 +198,12 @@ function renderPlay() {
   if (model.expired()) { finish(true); return; }
   const q = activeQuestion(s.ids[s.index]), value = s.answers[s.index], exam = s.mode === 'exam', answered = value !== null, done = s.answers.filter(a => a !== null).length;
   const revealed = !exam && answered;
+  const waiting = s.kind === 'review' && !answered && model.weak(q.id) && !model.due(q.id);
   const nextText = s.index === s.ids.length - 1 ? (exam ? '採点する' : '結果を見る') : '次の問題へ';
   const prompt = `<h2 class="question" id="question" tabindex="-1">${esc(q.q)}</h2>${questionArt(q)}${!exam ? `<label class="confidence-control"><input type="checkbox" id="uncertain" ${s.uncertain[s.index] ? 'checked' : ''}>自信なし・迷っている</label>` : ''}<p class="choose-label">正しければ ○、誤りなら ×</p><div class="choices">${[true,false].map(v => `<button class="answer-btn ${value === v ? 'selected' : ''}" data-action="answer" data-value="${v}" aria-label="${v ? '正しい（○）' : '誤り（×）'}" ${exam ? `aria-pressed="${value === v}"` : ''}><span>${v ? '○' : '×'}</span><small>${v ? '正しい' : '誤り'}</small></button>`).join('')}</div>${exam ? `<div class="exam-tools"><button class="flag-btn" data-action="flag" aria-pressed="${s.flags[s.index]}">${icon('flag')}自信なし・見直す</button><button class="textbtn" data-action="unanswered">未回答へ →</button></div>` : ''}`;
   $('play').innerHTML = `<div class="playhead"><button class="textbtn" data-action="pause">${icon('back')}${exam ? '中断' : s.kind === 'review' ? '復習トップ' : '学習トップ'}</button><h2>${esc(s.label)}</h2></div><div class="play-meta"><span>問題 <strong>${s.index + 1}</strong> / ${s.ids.length}</span>${exam ? '<span class="timer" id="timer" role="timer"></span>' : `<span class="muted">正解 ${s.ids.filter((id,i) => s.answers[i] === activeQuestion(id).a).length}問</span>`}</div><div class="progress play-progress" role="progressbar" aria-label="回答済み" aria-valuemin="0" aria-valuemax="${s.ids.length}" aria-valuenow="${done}"><i style="width:${pct(done,s.ids.length)}%"></i></div>
     <article class="card question-card ${revealed ? 'answer-layout' : ''}"><div class="tags"><span class="badge">${exam ? '元の問題：' : ''}第${q.worksheet}回・問${q.number}</span>${!exam ? `<span class="badge">${esc(q.topic)}</span>` : ''}${q.isReplacement ? '<span class="badge">代替問題</span>' : ''}${q.isSupplemental ? '<span class="badge">補足</span>' : ''}</div>
-    ${revealed ? learningAnswer(q, value, s.uncertain[s.index]) : prompt}
+    ${waiting ? `<h2 id="question" tabindex="-1">次の復習待ち</h2><p>${reviewWaitHTML(state.stats[q.id]?.reviewAt)}で復習できます。</p><button class="btn secondary" data-action="pause">復習トップへ</button>` : revealed ? learningAnswer(q, value, s.uncertain[s.index]) : prompt}
     <div class="btnrow ${revealed ? 'learning-next-bar' : ''}"><button class="btn secondary" data-action="prev" ${s.index === 0 ? 'disabled' : ''}>前へ</button>${exam || answered ? `<button class="btn" id="next" data-action="next">${nextText} ${icon('arrow')}</button>` : `<button class="btn secondary" data-action="skip">${s.index === s.ids.length - 1 ? '回答一覧へ' : 'あとで解く'}</button>`}</div></article>
     <details class="exam-map" id="answer-map"><summary>回答一覧を開く <span class="muted">未回答 ${s.ids.length - done}問</span></summary><div class="number-grid">${s.ids.map((id,i) => { const a = s.answers[i], cls = a === null ? '' : exam ? 'done' : a === activeQuestion(id).a ? 'ok' : 'ng'; return `<button class="${cls} ${i === s.index ? 'current' : ''} ${s.flags[i] ? 'flagged' : ''}" data-action="jump" data-index="${i}" aria-label="問${i + 1} ${a === null ? '未回答' : exam ? '回答済み' : cls === 'ok' ? '正解' : '不正解'}${s.flags[i] ? '・見直し' : ''}">${i + 1}</button>`; }).join('')}</div><p class="hintline">${exam ? '番号は今回の出題順です。青＝回答済み · 点＝自信なし・見直し' : '緑＝正解 · 赤＝不正解'}</p></details><button class="textbtn wide" data-action="submit">${exam ? '模試を終了して採点する' : 'ここで学習を終了する'}</button><p class="muted">${exam ? '途中の回答は自動保存。画面を閉じても時間は進みます。' : '途中で戻っても、続きから再開できます。'}</p>`;
   updateTimer(); updateChrome();
@@ -316,14 +315,6 @@ function preview(score) {
   $('achievement-preview').querySelectorAll('[data-action="preview"]').forEach(b => b.setAttribute('aria-pressed',String(Number(b.dataset.score) === n)));
   if (!$('achievement-preview').open) $('achievement-preview').showModal();
 }
-// Confirmation practice is isolated from the saved session and scores.
-function practiceAgain(id) {
-  if (state.session?.mode === 'exam') return;
-  const q = activeQuestion(id); if (!q) return;
-  const d = $('practice-dialog'); d.dataset.id = q.id; d.dataset.answered = '';
-  $('practice-body').innerHTML = `<p class="question">${esc(q.q)}</p>${questionArt(q)}<div class="btnrow"><button class="btn secondary" data-action="practice-answer" data-value="true">○ 正しい</button><button class="btn secondary" data-action="practice-answer" data-value="false">× 誤り</button></div><div id="practice-feedback" role="status" tabindex="-1"></div>`;
-  d.showModal();
-}
 function openQuestionArt(id, revealed) {
   const q = byId.get(id); if (!q) return;
   if (state.session?.mode === 'exam') revealed = false;
@@ -341,21 +332,10 @@ document.addEventListener('click', e => {
   else if (a === 'start-mock' || a === 'start-guided') startSet(Number(b.dataset.set),a === 'start-mock' ? 'mock' : 'guided');
   else if (a === 'resume') resume();
   else if (a === 'quick-study') startStudy(studySelection(Q), '10問の学習');
-  else if (a === 'category') { const c = CATS.find(c => c.k === b.dataset.cat); if (c) { let list = categorized(c); if (categoryFilter === 'new') list = list.filter(q => !state.stats[q.id]?.total); if (categoryFilter === 'weak') list = list.filter(weak); startStudy(studySelection(list), c.extra ? '補足の学習' : c.label); } }
+  else if (a === 'category') { const c = CATS.find(c => c.k === b.dataset.cat); if (c) { let list = categorized(c); if (categoryFilter === 'new') list = list.filter(q => !state.stats[q.id]?.total); if (categoryFilter === 'weak') list = list.filter(weak); startStudy(studySelection(list), c.extra ? '補足の学習' : c.label, categoryFilter === 'weak' ? 'review' : 'study'); } }
   else if (a === 'due') startStudy(model.schedule().due.slice(0,10).map(q => q.id),'今日の復習','review');
-  else if (a === 'review-all') startStudy(model.schedule().all.map(q => q.id),'いつでも復習','review');
-  else if (a === 'practice-again') practiceAgain(b.dataset.id);
-  else if (a === 'practice-close') $('practice-dialog').close();
-  else if (a === 'practice-answer') {
-    const d = $('practice-dialog'), q = activeQuestion(d.dataset.id);
-    if (q && d.open && !d.dataset.answered && s?.mode !== 'exam') {
-      d.dataset.answered = 'true';
-      d.querySelectorAll('[data-action="practice-answer"]').forEach(button => button.disabled = true);
-      $('practice-feedback').innerHTML = `<h3>${(b.dataset.value === 'true') === q.a ? '正解です' : 'もう一度確認しましょう'} · 答えは ${q.a ? '○' : '×'}</h3><p>${esc(q.ex)}</p><p class="muted">確認できたら、閉じて次の問題へ進めます。</p>`;
-      $('practice-feedback').focus();
-    }
-  }
-  else if (a === 'review-one') { const q = activeQuestion(b.dataset.id); if (q) startStudy([q.id],model.due(q.id) ? '今日の復習' : '予定前の練習','review'); }
+  else if (a === 'review-ready') startStudy(model.schedule().due.map(q => q.id),'今すぐ復習','review');
+  else if (a === 'review-one') { const q = activeQuestion(b.dataset.id); if (q && model.due(q.id)) startStudy([q.id],'今すぐ復習','review'); }
   else if (a === 'review-more') { reviewMore = true; renderReview(); }
   else if (a === 'answer') { const exam = s?.mode === 'exam', ok = model.answer(b.dataset.value === 'true',Boolean($('uncertain')?.checked)); if (!model.state.session) { lastResult = model.state.lastResult; renderResult(true); show('result'); } else { if (ok && !exam) sfx(activeQuestion(s.ids[s.index]).a === (b.dataset.value === 'true')); renderPlay(); if (!exam && ok) requestAnimationFrame(() => { const feedback = $('play').querySelector('.feedback'); feedback?.focus({preventScroll:true}); ($('play').querySelector('.answer-layout') || feedback)?.scrollIntoView({block:'start',behavior:'instant'}); }); } }
   else if (a === 'next' && s) { if (s.index === s.ids.length - 1) submit(); else jump(s.index + 1); }
@@ -432,6 +412,7 @@ setInterval(() => {
     const label = reviewWait(Number(el.dataset.reviewAt));
     if (el.textContent !== label) el.textContent = label;
   });
+  if (view === 'play' && state.session?.kind === 'review' && $('play').querySelector('[data-review-at]') && !$('play').querySelector('[data-action="answer"]') && state.session.answers[state.session.index] === null && model.due(state.session.ids[state.session.index])) renderPlay();
   if (view !== 'review') return;
   const signature = model.schedule().due.map(q => q.id).join(',');
   if (signature !== displayedReviewDue) {

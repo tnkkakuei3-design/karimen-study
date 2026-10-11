@@ -272,6 +272,7 @@ const KarimenModel = (() => {
     function begin({ ids, kind = 'study', worksheet: n = null, label = '10問の学習' }) {
       if (state.session?.mode === 'exam') throw new Error('進行中の模試があります。');
       if (!ids.length || !ids.every(id => active.has(id)) || new Set(ids).size !== ids.length) throw new Error('出題する問題が見つかりません。');
+      if (kind === 'review' && ids.some(id => weak(id) && !due(id))) throw new Error('次の復習時刻までお待ちください。');
       const w = worksheet(n), fullSet = fullWorksheet(w, ids);
       if (['mock', 'guided'].includes(kind) && !fullSet) throw new Error('この回の50問がそろっていません。');
       // Shuffle only a new mock or review. Persist the chosen order with its answers so
@@ -300,6 +301,7 @@ const KarimenModel = (() => {
       const s = state.session; if (!s || typeof value !== 'boolean') return false;
       if (expired()) { finish(true); return false; }
       if (s.mode === 'drill' && s.answers[s.index] !== null) return false;
+      if (s.kind === 'review' && weak(s.ids[s.index]) && !due(s.ids[s.index])) return false;
       s.answers[s.index] = value; s.uncertain[s.index] = uncertain;
       s.answeredAt ||= s.ids.map(() => null); s.answeredAt[s.index] = now();
       if (s.mode === 'drill') record(s.ids[s.index], value, uncertain);
