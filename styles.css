@@ -1,6 +1,6 @@
-:root{color-scheme:light;--bg:#fcfcfa;--surface:#fff;--soft:#f2f5f8;--fg:#122d47;--muted:#627389;--line:#e4e9ed;--blue:#066be9;--pale:#eef6ff;--navy:#122d47;--stamp:#c94e61;--stampbg:#fff3f1;--stampline:#f4ded8;--ok:#167349;--okbg:#e8f5ed;--ng:#b73539;--ngbg:#fff0ee;--gold:#956b00;--goldbg:#fff7dc;--shadow:none}
+:root{color-scheme:light;--bg:#fcfcfa;--surface:#fff;--soft:#f2f5f8;--fg:#122d47;--muted:#627389;--line:#e4e9ed;--blue:#066be9;--pale:#eef6ff;--navy:#122d47;--stamp:#c7443c;--stampbg:#fff3f0;--stampline:#efc9c2;--ok:#167349;--okbg:#e8f5ed;--ng:#b73539;--ngbg:#fff0ee;--gold:#956b00;--goldbg:#fff7dc;--shadow:none}
 
-:root[data-theme=dark]{color-scheme:dark;--bg:#122131;--surface:#1b2d40;--soft:#213447;--stamp:#ffb0bb;--stampbg:#35272e;--stampline:#60404a;--fg:#edf4ff;--muted:#b6c7d7;--line:#354d65;--blue:#93b9ff;--pale:#233e61;--navy:#d2e3ff;--ok:#83d7b0;--okbg:#183e33;--ng:#ffb1aa;--ngbg:#472e36;--gold:#ebc95d;--goldbg:#433c28;--shadow:none}
+:root[data-theme=dark]{color-scheme:dark;--bg:#122131;--surface:#1b2d40;--soft:#213447;--stamp:#ff9b90;--stampbg:#392b2a;--stampline:#704641;--fg:#edf4ff;--muted:#b6c7d7;--line:#354d65;--blue:#93b9ff;--pale:#233e61;--navy:#d2e3ff;--ok:#83d7b0;--okbg:#183e33;--ng:#ffb1aa;--ngbg:#472e36;--gold:#ebc95d;--goldbg:#433c28;--shadow:none}
 
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.7;overflow-wrap:anywhere}
@@ -62,8 +62,7 @@ main:focus{outline:none}
 .set-card b{font-size:17px;display:block;line-height:1.5}
 .set-card small{display:block;color:var(--muted);font-size:13px}
 .set-card .badge{margin-top:7px}
-.set-card .flower-stamp{width:48px;height:48px;color:var(--ok)}
-.set-card.perfect .flower-stamp{color:var(--gold)}
+.set-card .flower-stamp{width:48px;height:48px}
 .set-card .chevron{color:var(--muted);width:17px}
 .set-card.in-progress{background:var(--pale);border-color:var(--blue)}
 .resume-card{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;padding:16px 18px;background:var(--pale);color:var(--blue);border:1px solid var(--line);border-radius:14px;text-align:left;margin-bottom:18px}
@@ -169,12 +168,12 @@ summary::marker{color:var(--muted)}
 .score{font-size:64px;font-weight:800;line-height:1.25;letter-spacing:-.05em;color:var(--navy);margin:12px 0}
 .score small{font-size:17px;letter-spacing:0;color:var(--muted);font-weight:500;margin-left:7px}
 .result-achievement{position:relative;display:flex;align-items:center;gap:15px;margin:18px 0;padding:18px;background:var(--okbg);border:1px solid var(--line);border-radius:15px;overflow:hidden;color:var(--ok)}
-.result-achievement.perfect{background:var(--goldbg);color:var(--gold)}
+.result-achievement.perfect{background:var(--stampbg);color:var(--stamp)}
 .result-achievement.retry,.result-achievement.practice{background:var(--bg);color:var(--fg)}
 .achievement-copy h3{font-size:19px}
 .achievement-copy p{font-size:13px;margin-top:3px}
 .achievement-copy small{display:block;font-size:13px;margin-top:6px;color:var(--muted)}
-.flower-stamp{width:74px;height:74px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2.5}
+.flower-stamp{width:74px;height:74px;flex-shrink:0;color:var(--stamp);fill:none;stroke:currentColor;stroke-width:2.5}
 .flower-stamp text{fill:currentColor;stroke:none;font-size:23px;font-weight:800}
 .achievement-symbol{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--surface);flex-shrink:0}
 .achievement-symbol .icon{width:28px;height:28px}
@@ -359,9 +358,8 @@ body{-webkit-text-size-adjust:100%}
 .set-card{background:var(--soft);border-color:transparent;border-radius:12px;min-height:92px;padding:12px}
 .set-card .badge{border:0;background:transparent;padding:0;font-weight:500}
 .set-card:has(.flower-stamp){border-color:var(--stampline)}
-.set-card.perfect{border-color:var(--gold)}
-.set-card .flower-stamp{width:52px;height:52px;color:var(--stamp);transform:rotate(-9deg)}
-.set-card.perfect .flower-stamp{color:var(--gold)}
+.set-card.perfect{border-color:var(--stamp)}
+.set-card .flower-stamp{width:52px;height:52px;transform:rotate(-9deg)}
 .resume-card{border:0;border-radius:12px}
 .recommend{border-radius:10px;padding:18px;margin:20px 0 24px}
 .category-card{position:relative;display:flex;flex-direction:column;gap:10px;padding:15px 14px;background:var(--soft);border:1px solid transparent;border-radius:10px}
@@ -409,7 +407,7 @@ body{-webkit-text-size-adjust:100%}
 .accuracy strong{font-size:21px;line-height:1.5}
 .accuracy small{font-size:13px}
 .result-achievement{background:var(--stampbg);color:var(--stamp);border:1px solid var(--stampline);border-radius:12px;padding:14px;gap:12px;margin:20px 0 16px}
-.result-achievement.perfect{border-color:var(--gold)}
+.result-achievement.perfect{border-color:var(--stamp)}
 .result-achievement.retry,.result-achievement.practice,.result-achievement.complete{background:var(--soft);border-color:transparent;color:var(--fg)}
 .result-achievement .flower-stamp{width:96px;height:96px;transform:rotate(-9deg)}
 .achievement-copy h3{font-size:19px;line-height:1.55;color:var(--fg)}
@@ -430,8 +428,7 @@ body{-webkit-text-size-adjust:100%}
 .weak-topic small{font-size:13px;font-weight:500;margin-left:3px}
 .weak-topic>.icon:last-child{width:17px;color:var(--muted)}
 .guided-record{display:flex;gap:12px;align-items:center;margin:12px 0}
-.guided-record .flower-stamp{width:56px;height:56px;color:var(--stamp)}
-.guided-record.perfect .flower-stamp{color:var(--gold)}
+.guided-record .flower-stamp{width:56px;height:56px}
 .note-group{margin-top:26px}
 .note-group-title{display:flex;align-items:center;gap:8px;font-size:17px;margin-bottom:12px}
 .note-group-title small{margin-left:auto;color:var(--muted);font-size:13px;font-weight:400}
