@@ -1,0 +1,163 @@
+[
+  {
+    "type": "qa-measure",
+    "version": 3,
+    "screen": "notes",
+    "theme": "light",
+    "reducedMotion": false,
+    "width": 360,
+    "documentWidth": 345,
+    "smallTargets": [],
+    "unloadedImages": [],
+    "tabHeight": 65,
+    "bottomPadding": "106px",
+    "questionFont": null,
+    "columns": null,
+    "confettiAnimations": [],
+    "noteLayout": {
+      "cardRadius": "12px",
+      "columns": "317px",
+      "openSymbol": "\"＋\""
+    }
+  },
+  {
+    "type": "qa-measure",
+    "version": 4,
+    "screen": "notes",
+    "theme": "light",
+    "reducedMotion": false,
+    "width": 430,
+    "documentWidth": 415,
+    "smallTargets": [],
+    "unloadedImages": [],
+    "tabHeight": 65,
+    "bottomPadding": "106px",
+    "questionFont": null,
+    "columns": null,
+    "confettiAnimations": []
+  },
+  {
+    "type": "qa-measure",
+    "version": 6,
+    "screen": "result45",
+    "theme": "light",
+    "reducedMotion": false,
+    "width": 360,
+    "documentWidth": 345,
+    "smallTargets": [],
+    "unloadedImages": [],
+    "tabHeight": 65,
+    "bottomPadding": "106px",
+    "questionFont": null,
+    "columns": null,
+    "confettiAnimations": [
+      "confetti"
+    ],
+    "flower": {
+      "transform": "matrix(0.987688, -0.156434, 0.156434, 0.987688, 0, 0)",
+      "width": "76px"
+    }
+  },
+  {
+    "type": "qa-measure",
+    "version": 10,
+    "screen": "result50",
+    "theme": "dark",
+    "reducedMotion": true,
+    "width": 390,
+    "documentWidth": 375,
+    "smallTargets": [],
+    "unloadedImages": [],
+    "tabHeight": 65,
+    "bottomPadding": "106px",
+    "questionFont": null,
+    "columns": null,
+    "confettiAnimations": [],
+    "flower": {
+      "animation": "none",
+      "label": "満点",
+      "transform": "matrix(0.987688, -0.156434, 0.156434, 0.987688, 0, 0)",
+      "width": "76px"
+    }
+  },
+  {
+    "type": "qa-measure",
+    "version": 13,
+    "screen": "learn-review",
+    "theme": "light",
+    "reducedMotion": false,
+    "width": 390,
+    "documentWidth": 375,
+    "smallTargets": [
+      {
+        "label": "DON!DON!ドライブ",
+        "width": 323.2,
+        "height": 37.4
+      }
+    ],
+    "unloadedImages": [],
+    "tabHeight": 65,
+    "bottomPadding": "106px",
+    "questionFont": null,
+    "columns": null,
+    "confettiAnimations": [],
+    "badges": [
+      {
+        "background": "rgb(255, 240, 238)",
+        "color": "rgb(183, 53, 57)",
+        "text": "復習 1問"
+      },
+      {
+        "background": "rgb(255, 240, 238)",
+        "color": "rgb(183, 53, 57)",
+        "text": "復習 1問"
+      },
+      {
+        "background": "rgb(255, 240, 238)",
+        "color": "rgb(183, 53, 57)",
+        "text": "復習 2問"
+      }
+    ]
+  },
+  {
+    "type": "qa-measure",
+    "version": 15,
+    "screen": "result45",
+    "theme": "light",
+    "reducedMotion": false,
+    "width": 1200,
+    "documentWidth": 1185,
+    "smallTargets": [],
+    "unloadedImages": [],
+    "tabHeight": 65,
+    "bottomPadding": "106px",
+    "questionFont": null,
+    "columns": null,
+    "confettiAnimations": [
+      "confetti"
+    ],
+    "flower": {
+      "transform": "matrix(0.987688, -0.156434, 0.156434, 0.987688, 0, 0)",
+      "width": "96px"
+    }
+  },
+  {
+    "type": "qa-measure",
+    "version": 17,
+    "screen": "notes",
+    "theme": "light",
+    "reducedMotion": false,
+    "width": 390,
+    "documentWidth": 375,
+    "smallTargets": [],
+    "unloadedImages": [],
+    "tabHeight": 65,
+    "bottomPadding": "106px",
+    "questionFont": null,
+    "columns": null,
+    "confettiAnimations": [],
+    "noteLayout": {
+      "columns": "335px"
+    }
+  }
+]

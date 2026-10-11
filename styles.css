@@ -455,7 +455,7 @@ body{-webkit-text-size-adjust:100%}
 .note-caution{border-left:3px solid var(--blue);background:var(--pale);padding:15px 17px;border-radius:8px}
 .note-empty .textbtn{display:flex;margin:10px auto 0}
 .character-credit{margin-top:8px}
-.character-credit a{color:var(--blue)}
+.character-credit a{display:inline-flex;align-items:center;min-height:44px;color:var(--blue)}
 .character-credit p{overflow-wrap:anywhere}
 .bottom-tabs{box-shadow:none;border-radius:0;padding-top:5px;padding-bottom:calc(5px + env(safe-area-inset-bottom))}
 .bottom-tabs button{border-radius:0;background:transparent;min-height:54px}
