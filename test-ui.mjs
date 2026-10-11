@@ -63,6 +63,28 @@ assert.equal(imageCount,a.run('Q.filter(q=>ADDED_ART[q.id]||IMGQ[q.id]||VISUALS[
 a.run('state.session=null');a.click('[data-action="settings"]');const before=a.run('JSON.stringify(state)');a.click('[data-action="preview"][data-score="45"]');assert.match(a.query('#achievement-preview').textContent,/合格/);a.click('[data-action="preview"][data-score="50"]');assert.ok(a.query('#achievement-preview .perfect'));assert.equal(a.query('#achievement-preview .flower-stamp text').textContent,'満点');assert.equal(a.run('JSON.stringify(state)'),before);a.click('[data-action="close-preview"]');
 a.click('[data-action="theme"][data-value="dark"]');assert.equal(a.w.document.documentElement.dataset.theme,'dark');a.click('[data-action="sound"][data-value="false"]');assert.equal(a.run('state.sound'),false);
 assert.equal(a.errors.length,0);a.close();
+// The last mock question must lead directly to grading confirmation, including resumed answers.
+a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
+for(let i=0;i<50;i++){
+ const answer=a.run('activeQuestion(state.session.ids[state.session.index]).a');
+ a.click(`[data-action="answer"][data-value="${answer}"]`);
+ assert.equal(a.query('#next').textContent.trim(),i===49?'採点する':'次の問題へ');
+ if(i<49)a.click('#next');
+}
+const completedAnswers=a.w.localStorage.getItem('karimen-study-v4');a.close();
+a=app({'karimen-study-v4':completedAnswers});a.click('#mock [data-action="resume"]');
+assert.equal(a.run('state.session.index'),49);assert.equal(a.query('#next').textContent.trim(),'採点する');
+a.click('#next');assert.equal(a.query('#confirm').open,true);assert.equal(a.query('#answer-map').open,false);
+assert.equal(a.run('state.attempts.length'),0);assert.match(a.query('#confirm-message').textContent,/すべての回答を保存/);
+a.click('#confirm-no');assert.equal(a.run('state.session.answers.filter(v=>v!==null).length'),50);
+a.click('#next');a.click('#confirm-yes');assert.equal(a.query('#result').hidden,false);
+assert.equal(a.run('state.mockResults[1].best.scoreSnapshot'),50);assert.equal(a.run('state.attempts.length'),1);a.close();
+// Missing answers still require the existing warning and do not prevent the final button from working.
+a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
+a.click('[data-action="jump"][data-index="49"]');a.click('#next');
+assert.equal(a.query('#confirm').open,true);assert.match(a.query('#confirm-message').textContent,/未回答が50問/);
+a.click('#confirm-no');assert.equal(a.run('state.session.index'),49);assert.equal(a.run('state.attempts.length'),0);
+a.click('#next');a.click('#confirm-yes');assert.equal(a.run('state.mockResults[1].best.scoreSnapshot'),0);a.close();
 // Complete a genuine guided set through clicks; compare mock and guided achievements.
 a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-guided"]');
 for(let i=0;i<50;i++){const answer=a.run('activeQuestion(state.session.ids[state.session.index]).a');a.click(`[data-action="answer"][data-value="${answer}"]`);a.click('[data-action="next"]');}
