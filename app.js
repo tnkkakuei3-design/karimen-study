@@ -8,7 +8,7 @@ const byId = new Map(BANK.map(q => [q.id, q]));
 const model = KarimenModel.create({ storage: { getItem: k => window.localStorage.getItem(k), setItem: (k, v) => window.localStorage.setItem(k, v) } });
 let state = model.state, tab = 'mock', view = 'mock', mockFilter = 'all', categoryFilter = 'all';
 let lastResult = null, reviewFilter = 'wrong', noteReturn = null, toastTimer = null, modalAction = null;
-let noteSearch = '', noteFilter = '', reviewMore = false, externalChange = false;
+let noteSearch = '', noteFilter = '', noteComposing = false, reviewMore = false, externalChange = false;
 const shuffle = arr => { const out = [...arr]; for (let i = out.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [out[i], out[j]] = [out[j], out[i]]; } return out; };
 const activeQuestion = id => model.active.get(Number(id));
 const dateLabel = at => at ? new Date(at).toLocaleString('ja-JP', { month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' }) : '今すぐ';
@@ -47,17 +47,19 @@ function show(name, top = true) {
   view = name; for (const k of ['mock','learn','review','play','result','notes','archive']) $(k).hidden = k !== name;
   updateChrome(); if (top) { window.scrollTo({ top: 0, behavior:'instant' }); $('main').focus({ preventScroll: true }); }
 }
+function gradeBeforeLeaving(label, action) {
+  const s = state.session;
+  if (s?.mode !== 'exam') { action(); return; }
+  if (model.expired()) { finish(true); if (!state.session && !externalChange) action(); return; }
+  const left = s.answers.filter(a => a === null).length;
+  ask(`模試を採点して${label}へ進みますか？`, `第${s.worksheet}回の回答を採点・保存して、${label}を開きます。${left ? `未回答${left}問は不正解になります。` : '50問すべて回答済みです。'}続きから解く場合はキャンセルしてください。`, `採点して${label}へ`, () => {
+    if (state.session?.attemptId !== s.attemptId) return;
+    finish(false); if (!state.session && !externalChange) action();
+  });
+}
 function navigate(k) {
   if (!['mock','learn','review'].includes(k)) return;
-  if (state.session?.mode === 'exam' && k !== 'mock') {
-    if (model.expired()) { finish(true); if (!state.session && !externalChange) navigate(k); return; }
-    const s = state.session, label = k === 'learn' ? '学習' : '復習', left = s.answers.filter(a => a === null).length;
-    ask(`模試を採点して${label}へ進みますか？`, `第${s.worksheet}回の回答を採点・保存して、${label}を開きます。${left ? `未回答${left}問は不正解になります。` : '50問すべて回答済みです。'}続きから解く場合はキャンセルしてください。`, `採点して${label}へ`, () => {
-      if (state.session?.attemptId !== s.attemptId) return;
-      finish(false); if (!state.session && !externalChange) navigate(k);
-    });
-    return;
-  }
+  if (state.session?.mode === 'exam' && k !== 'mock') { gradeBeforeLeaving(k === 'learn' ? '学習' : '復習', () => navigate(k)); return; }
   tab = k; if (k === 'mock') renderMock(); if (k === 'learn') renderLearn(); if (k === 'review') renderReview(); show(k);
 }
 function resultsFor(n, kind, currentOnly = true) {
@@ -85,7 +87,11 @@ function attemptRows(list, label) {
 }
 function detail(n) {
   const w = model.worksheet(n); if (!w) return;
-  if (state.session?.mode === 'exam') { resume(); return; }
+  if (state.session?.mode === 'exam') {
+    if (state.session.worksheet === w.worksheet) resume();
+    else gradeBeforeLeaving(`第${w.worksheet}回`, () => detail(w.worksheet));
+    return;
+  }
   const mock = resultsFor(w.worksheet, 'mock'), guided = resultsFor(w.worksheet, 'guided', false);
   const olderMocks = resultsFor(w.worksheet, 'mock', false).list.filter(a => a.contentVersion !== w.contentVersion);
   $('detail-content').innerHTML = `<span class="badge">教習問題ベース</span><h2 id="detail-title">第${w.worksheet}回</h2><div class="details-list"><div><b>50問</b><span>教材の順番で出題</span></div><div><b>30分</b><span>採点後に解説</span></div></div><p>45点以上で、このアプリ内の合格です。</p><p class="muted">代替問題 ${w.replacementCount}問・補足問題 ${w.supplementalCount}問を含む50問です。</p><p class="muted">模試は画面を閉じても時間が進みます。未回答は不正解として採点します。</p><div class="stack"><button class="btn wide" data-action="start-mock" data-set="${w.worksheet}">30分模試を始める ${icon('arrow')}</button><button class="btn secondary wide" data-action="start-guided" data-set="${w.worksheet}">この回を解説付きで練習</button></div><h3>30分模試の記録</h3>${mock.best ? `<p class="inline"><span class="badge ${mock.best.scoreSnapshot >= 45 ? 'success' : ''}">最高 ${mock.best.scoreSnapshot}点</span></p>${attemptRows(mock.list, '30分模試')}` : '<p class="muted">まだ受験していません。</p>'}${olderMocks.length ? `<h3>以前の内容版の模試記録</h3><p class="muted">当時の得点を保持しています。現在の内容版の合格数・最高点とは分けて表示します。</p>${attemptRows(olderMocks, '30分模試・以前の内容版')}` : ''}${guided.best ? `<h3>解説付き練習の記録</h3><div class="guided-record ${guided.best.scoreSnapshot === 50 ? 'perfect' : ''}">${guided.best.scoreSnapshot >= 45 ? flowerStamp(guided.best.scoreSnapshot === 50 ? '満点' : '合格') : ''}<div><strong>最高 ${guided.best.scoreSnapshot}点</strong><p class="muted">${guided.best.scoreSnapshot >= 45 ? '解説付き練習で合格の目安を達成' : '解説付き練習の成績'}</p></div></div>${attemptRows(guided.list, '解説付き練習')}<p class="muted">この成績は30分模試の合格数には含めません。</p>` : ''}`;
@@ -126,8 +132,9 @@ function reviewRow(q, early = false) {
 }
 function renderReview() {
   const { all, due, later } = model.schedule();
-  const completed = !due.length && completedReviewToday();
-  $('review').innerHTML = `<div class="page-heading ${due.length ? 'character-heading' : ''}"><div><h2><span class="heading-phrase">くり返して、</span><span class="heading-phrase">覚える。</span></h2><p class="muted">時間をあけて、確かな力に。</p></div>${due.length ? characterArt('D051','review-guide') : ''}</div><div class="review-stats"><div><span>今日の復習</span><strong>${due.length}<small>問</small></strong></div><div><span>次回の予定</span><strong>${later.length}<small>問</small></strong></div></div>${due.length ? `<button class="btn wide" data-action="due">今日の${Math.min(10,due.length)}問を復習 ${icon('arrow')}</button>` : `<div class="empty review-empty"><div class="empty-message"><h3>${completed ? '今日の復習は完了です' : all.length ? '次回の復習待ちです' : '復習する問題はまだありません'}</h3><p>${later.length ? `次は ${dateLabel(state.stats[later[0].id].reviewAt)} から。` : completed ? 'おつかれさまでした。今日の復習対象はありません。' : '間違い・自信なしの問題がここに集まります。'}</p><button class="textbtn" data-action="tab" data-tab="learn">学習へ進む ${icon('arrow')}</button></div>${characterArt(completed ? 'D011' : 'D012','empty-guide')}</div>`}${due.length ? `<div class="section-heading"><h3>今日の問題</h3><small>${due.length}問</small></div>${due.slice(0, reviewMore ? due.length : 10).map(q => reviewRow(q)).join('')}${due.length > 10 && !reviewMore ? '<button class="textbtn wide" data-action="review-more">すべての復習予定を見る</button>' : ''}` : ''}<div class="info-strip">${icon('clock')}<span>24時間以上あけた「自信のある正解」2回で卒業。予定より前の正解は回数に含めません。</span></div>${later.length ? `<details><summary>次回の予定 · ${later.length}問</summary>${later.map(q => reviewRow(q, true)).join('')}<p class="hintline">予定前にも練習できます。卒業までの回数は進みません。</p></details>` : ''}`;
+  const s = state.session, unfinished = s?.kind === 'review';
+  const completed = !unfinished && !due.length && completedReviewToday();
+  $('review').innerHTML = `<div class="page-heading ${due.length ? 'character-heading' : ''}"><div><h2><span class="heading-phrase">くり返して、</span><span class="heading-phrase">覚える。</span></h2><p class="muted">時間をあけて、確かな力に。</p></div>${due.length ? characterArt('D051','review-guide') : ''}</div>${unfinished ? `<button class="resume-card" data-action="resume"><span><strong>途中の復習を続ける</strong><small>${esc(s.label)} · ${s.answers.filter(a => a !== null).length} / ${s.ids.length}問 回答済み</small></span>${icon('arrow')}</button>` : ''}<div class="review-stats"><div><span>今日の復習</span><strong>${due.length}<small>問</small></strong></div><div><span>次回の予定</span><strong>${later.length}<small>問</small></strong></div></div>${due.length ? `<button class="btn wide" data-action="due">今日の${Math.min(10,due.length)}問を復習 ${icon('arrow')}</button>` : `<div class="empty review-empty"><div class="empty-message"><h3>${unfinished ? '途中の復習があります' : completed ? '今日の復習は完了です' : all.length ? '次回の復習待ちです' : '復習する問題はまだありません'}</h3><p>${unfinished ? '上の「途中の復習を続ける」から、残りの回答や結果を確認できます。' : later.length ? `次は ${dateLabel(state.stats[later[0].id].reviewAt)} から。` : completed ? 'おつかれさまでした。今日の復習対象はありません。' : '間違い・自信なしの問題がここに集まります。'}</p><button class="textbtn" data-action="tab" data-tab="learn">学習へ進む ${icon('arrow')}</button></div>${characterArt(completed ? 'D011' : 'D012','empty-guide')}</div>`}${due.length ? `<div class="section-heading"><h3>今日の問題</h3><small>${due.length}問</small></div>${due.slice(0, reviewMore ? due.length : 10).map(q => reviewRow(q)).join('')}${due.length > 10 && !reviewMore ? '<button class="textbtn wide" data-action="review-more">すべての復習予定を見る</button>' : ''}` : ''}<div class="info-strip">${icon('clock')}<span>24時間以上あけた「自信のある正解」2回で卒業。予定より前の正解は回数に含めません。</span></div>${later.length ? `<details><summary>次回の予定 · ${later.length}問</summary>${later.map(q => reviewRow(q, true)).join('')}<p class="hintline">予定前にも練習できます。卒業までの回数は進みません。</p></details>` : ''}`;
 }
 function questionArt(q, revealed = false, compact = false) {
   const assets = ADDED_ART[q.id]; if (!assets) return originalQuestionArt(q, revealed, compact);
@@ -147,7 +154,7 @@ function renderPlay() {
   if (model.expired()) { finish(true); return; }
   const q = activeQuestion(s.ids[s.index]), value = s.answers[s.index], exam = s.mode === 'exam', answered = value !== null, done = s.answers.filter(a => a !== null).length;
   const nextText = s.index === s.ids.length - 1 ? (exam ? '採点する' : '結果を見る') : '次の問題へ';
-  $('play').innerHTML = `<div class="playhead"><button class="textbtn" data-action="pause">${icon('back')}${exam ? '中断' : '学習トップ'}</button><h2>${esc(s.label)}</h2></div><div class="play-meta"><span>問題 <strong>${s.index + 1}</strong> / ${s.ids.length}</span>${exam ? '<span class="timer" id="timer" role="timer"></span>' : `<span class="muted">正解 ${s.ids.filter((id,i) => s.answers[i] === activeQuestion(id).a).length}問</span>`}</div><div class="progress play-progress" role="progressbar" aria-label="回答済み" aria-valuemin="0" aria-valuemax="${s.ids.length}" aria-valuenow="${done}"><i style="width:${pct(done,s.ids.length)}%"></i></div><article class="card question-card"><div class="tags"><span class="badge">第${q.worksheet}回・問${q.number}</span>${!exam ? `<span class="badge">${esc(q.topic)}</span>` : ''}${q.isReplacement ? '<span class="badge">代替問題</span>' : ''}${q.isSupplemental ? '<span class="badge">補足</span>' : ''}</div><h2 class="question" id="question" tabindex="-1">${esc(q.q)}</h2>${questionArt(q, !exam && answered)}${!exam && !answered ? `<label class="confidence-control"><input type="checkbox" id="uncertain" ${s.uncertain[s.index] ? 'checked' : ''}>自信なし・迷っている</label>` : ''}<p class="choose-label">正しければ ○、誤りなら ×</p><div class="choices">${[true,false].map(v => `<button class="answer-btn ${exam ? value === v ? 'selected' : '' : answered ? v === q.a ? 'right' : v === value ? 'wrong' : '' : ''}" data-action="answer" data-value="${v}" aria-label="${v ? '正しい（○）' : '誤り（×）'}" ${exam ? `aria-pressed="${value === v}"` : answered ? 'disabled' : ''}><span>${v ? '○' : '×'}</span><small>${v ? '正しい' : '誤り'}</small></button>`).join('')}</div>${exam ? `<div class="exam-tools"><button class="flag-btn" data-action="flag" aria-pressed="${s.flags[s.index]}">${icon('flag')}自信なし・見直す</button><button class="textbtn" data-action="unanswered">未回答へ →</button></div>` : answered ? `${s.uncertain[s.index] ? '<p class="hintline">自信なし：正解でも復習に残しました。</p>' : ''}${explanation(q, value)}` : ''}<div class="btnrow ${!exam && answered ? 'learning-next-bar' : ''}"><button class="btn secondary" data-action="prev" ${s.index === 0 ? 'disabled' : ''}>前へ</button>${exam || answered ? `<button class="btn" id="next" data-action="next">${nextText} ${icon('arrow')}</button>` : `<button class="btn secondary" data-action="skip">${s.index === s.ids.length - 1 ? '回答一覧へ' : 'あとで解く'}</button>`}</div></article><details class="exam-map" id="answer-map"><summary>回答一覧を開く <span class="muted">未回答 ${s.ids.length - done}問</span></summary><div class="number-grid">${s.ids.map((id,i) => { const a = s.answers[i], cls = a === null ? '' : exam ? 'done' : a === activeQuestion(id).a ? 'ok' : 'ng'; return `<button class="${cls} ${i === s.index ? 'current' : ''} ${s.flags[i] ? 'flagged' : ''}" data-action="jump" data-index="${i}" aria-label="問${i + 1} ${a === null ? '未回答' : exam ? '回答済み' : cls === 'ok' ? '正解' : '不正解'}${s.flags[i] ? '・見直し' : ''}">${i + 1}</button>`; }).join('')}</div><p class="hintline">${exam ? '青＝回答済み · 点＝自信なし・見直し' : '緑＝正解 · 赤＝不正解'}</p></details><button class="textbtn wide" data-action="submit">${exam ? '模試を終了して採点する' : 'ここで学習を終了する'}</button><p class="muted">${exam ? '途中の回答は自動保存。画面を閉じても時間は進みます。' : '途中で戻っても、続きから再開できます。'}</p>`;
+  $('play').innerHTML = `<div class="playhead"><button class="textbtn" data-action="pause">${icon('back')}${exam ? '中断' : s.kind === 'review' ? '復習トップ' : '学習トップ'}</button><h2>${esc(s.label)}</h2></div><div class="play-meta"><span>問題 <strong>${s.index + 1}</strong> / ${s.ids.length}</span>${exam ? '<span class="timer" id="timer" role="timer"></span>' : `<span class="muted">正解 ${s.ids.filter((id,i) => s.answers[i] === activeQuestion(id).a).length}問</span>`}</div><div class="progress play-progress" role="progressbar" aria-label="回答済み" aria-valuemin="0" aria-valuemax="${s.ids.length}" aria-valuenow="${done}"><i style="width:${pct(done,s.ids.length)}%"></i></div><article class="card question-card"><div class="tags"><span class="badge">第${q.worksheet}回・問${q.number}</span>${!exam ? `<span class="badge">${esc(q.topic)}</span>` : ''}${q.isReplacement ? '<span class="badge">代替問題</span>' : ''}${q.isSupplemental ? '<span class="badge">補足</span>' : ''}</div><h2 class="question" id="question" tabindex="-1">${esc(q.q)}</h2>${questionArt(q, !exam && answered)}${!exam && !answered ? `<label class="confidence-control"><input type="checkbox" id="uncertain" ${s.uncertain[s.index] ? 'checked' : ''}>自信なし・迷っている</label>` : ''}<p class="choose-label">正しければ ○、誤りなら ×</p><div class="choices">${[true,false].map(v => `<button class="answer-btn ${exam ? value === v ? 'selected' : '' : answered ? v === q.a ? 'right' : v === value ? 'wrong' : '' : ''}" data-action="answer" data-value="${v}" aria-label="${v ? '正しい（○）' : '誤り（×）'}" ${exam ? `aria-pressed="${value === v}"` : answered ? 'disabled' : ''}><span>${v ? '○' : '×'}</span><small>${v ? '正しい' : '誤り'}</small></button>`).join('')}</div>${exam ? `<div class="exam-tools"><button class="flag-btn" data-action="flag" aria-pressed="${s.flags[s.index]}">${icon('flag')}自信なし・見直す</button><button class="textbtn" data-action="unanswered">未回答へ →</button></div>` : answered ? `${s.uncertain[s.index] ? '<p class="hintline">自信なし：正解でも復習に残しました。</p>' : ''}${explanation(q, value)}` : ''}<div class="btnrow ${!exam && answered ? 'learning-next-bar' : ''}"><button class="btn secondary" data-action="prev" ${s.index === 0 ? 'disabled' : ''}>前へ</button>${exam || answered ? `<button class="btn" id="next" data-action="next">${nextText} ${icon('arrow')}</button>` : `<button class="btn secondary" data-action="skip">${s.index === s.ids.length - 1 ? '回答一覧へ' : 'あとで解く'}</button>`}</div></article><details class="exam-map" id="answer-map"><summary>回答一覧を開く <span class="muted">未回答 ${s.ids.length - done}問</span></summary><div class="number-grid">${s.ids.map((id,i) => { const a = s.answers[i], cls = a === null ? '' : exam ? 'done' : a === activeQuestion(id).a ? 'ok' : 'ng'; return `<button class="${cls} ${i === s.index ? 'current' : ''} ${s.flags[i] ? 'flagged' : ''}" data-action="jump" data-index="${i}" aria-label="問${i + 1} ${a === null ? '未回答' : exam ? '回答済み' : cls === 'ok' ? '正解' : '不正解'}${s.flags[i] ? '・見直し' : ''}">${i + 1}</button>`; }).join('')}</div><p class="hintline">${exam ? '青＝回答済み · 点＝自信なし・見直し' : '緑＝正解 · 赤＝不正解'}</p></details><button class="textbtn wide" data-action="submit">${exam ? '模試を終了して採点する' : 'ここで学習を終了する'}</button><p class="muted">${exam ? '途中の回答は自動保存。画面を閉じても時間は進みます。' : '途中で戻っても、続きから再開できます。'}</p>`;
   updateTimer(); updateChrome();
 }
 function jump(i) {
@@ -218,7 +225,7 @@ function populateNote(el) {
 function openNotes(id = null) {
   if (state.session?.mode === 'exam') { toast('模試を採点してから開けます。'); return; }
   if (view !== 'notes') noteReturn = { view, tab, scroll: window.scrollY };
-  noteSearch = ''; noteFilter = ''; tab = 'learn'; renderNotes(); show('notes');
+  noteSearch = ''; noteFilter = ''; noteComposing = false; tab = 'learn'; renderNotes(); show('notes');
   if (id && $(id)) { populateNote($(id)); $(id).open = true; $(id).scrollIntoView({block:'start',behavior:'instant'}); }
 }
 function settings() {
@@ -310,9 +317,18 @@ document.addEventListener('change', e => {
   if (e.target.id === 'note-filter') { noteFilter = e.target.value; renderNotes(); }
   if (e.target.id === 'import-file') { importRecord(e.target.files[0]); e.target.value = ''; }
 });
+function searchNotes(input) {
+  const start = input.selectionStart, end = input.selectionEnd;
+  noteSearch = input.value; renderNotes(); $('note-search').focus({preventScroll:true});
+  try { $('note-search').setSelectionRange(start,end); } catch {}
+}
+document.addEventListener('compositionstart', e => { if (e.target.id === 'note-search') noteComposing = true; });
+document.addEventListener('compositionend', e => {
+  if (e.target.id === 'note-search') { noteComposing = false; searchNotes(e.target); }
+});
 document.addEventListener('input', e => {
   if (e.target.id === 'figure-zoom') $('figure-content').style.width = e.target.value + '%';
-  if (e.target.id === 'note-search') { const start = e.target.selectionStart; noteSearch = e.target.value; renderNotes(); $('note-search').focus(); try { $('note-search').setSelectionRange(start,start); } catch {} }
+  if (e.target.id === 'note-search' && !noteComposing && !e.isComposing) searchNotes(e.target);
 });
 $('confirm-yes').addEventListener('click', () => { const action = modalAction; modalAction = null; $('confirm').close(); if (!externalChange) action?.(); });
 $('confirm-no').addEventListener('click', () => { $('confirm').close(); modalAction = null; });

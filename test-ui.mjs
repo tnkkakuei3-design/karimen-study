@@ -109,6 +109,55 @@ a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="s
 a.click('[data-action="pause"]');a.click('#confirm-yes');a.clock.now=a.run('state.session.endAt');
 a.click('#tab-learn');assert.equal(a.query('#learn').hidden,false);assert.equal(a.run('state.session'),null);
 assert.equal(a.run('state.attempts.length'),1);assert.equal(a.run('state.attempts[0].timeout'),true);a.close();
+// Selecting a different mock round must honor the selected round and keep the current answers until confirmation.
+a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
+a.click('[data-action="answer"][data-value="true"]');a.click('[data-action="pause"]');a.click('#confirm-yes');
+const pausedMock=a.run('JSON.stringify(state.session)');
+a.click('[data-action="detail"][data-set="2"]');assert.equal(a.query('#confirm').open,true);
+assert.match(a.query('#confirm-title').textContent,/第2回/);assert.match(a.query('#confirm-message').textContent,/未回答49問/);
+a.click('#confirm-no');assert.equal(a.run('JSON.stringify(state.session)'),pausedMock);assert.equal(a.run('state.attempts.length'),0);
+a.click('[data-action="detail"][data-set="1"]');assert.equal(a.query('#play').hidden,false);assert.equal(a.query('#confirm').open,false);
+a.click('[data-action="pause"]');a.click('#confirm-yes');a.click('[data-action="detail"][data-set="2"]');a.click('#confirm-yes');
+assert.equal(a.query('#detail').open,true);assert.equal(a.query('#detail-title').textContent,'第2回');
+assert.equal(a.run('state.session'),null);assert.equal(a.run('state.attempts.length'),1);assert.equal(a.run('state.attempts[0].answers[0]'),true);
+a.click('#detail [data-action="start-mock"]');assert.equal(a.run('state.session.worksheet'),2);assert.equal(a.run('state.session.ids[0]'),351);a.close();
+// Expiry while choosing a new round or while a confirmation is open must finish the old round only once.
+a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
+a.click('[data-action="pause"]');a.click('#confirm-yes');a.clock.now=a.run('state.session.endAt');
+a.click('[data-action="detail"][data-set="3"]');assert.equal(a.query('#detail-title').textContent,'第3回');
+assert.equal(a.run('state.attempts.length'),1);assert.equal(a.run('state.attempts[0].timeout'),true);a.close();
+a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');a.click('[data-action="submit"]');
+a.clock.now=a.run('state.session.endAt');a.run('updateTimer()');assert.equal(a.query('#confirm').open,false);
+assert.equal(a.query('#result').hidden,false);assert.equal(a.run('state.attempts.length'),1);assert.equal(a.run('modalAction'),null);a.close();
+// A review session can resume from its own tab, including after reload and after its last answer.
+a=app();a.run('for(const q of Q.slice(0,3)) model.record(q.id,!q.a); model.save()');a.clock.now+=86400000;
+a.click('#tab-review');a.click('#review [data-action="due"]');assert.equal(a.run('state.session.ids.length'),3);
+assert.match(a.query('#play [data-action="pause"]').textContent,/復習トップ/);
+a.click(`[data-action="answer"][data-value="${a.run('activeQuestion(state.session.ids[0]).a')}"]`);a.click('#next');
+const pausedReview=a.run('JSON.stringify(state.session)'),reviewTime=a.clock.now;
+a.click('[data-action="pause"]');assert.equal(a.query('#review').hidden,false);
+assert.match(a.query('#review [data-action="resume"]').textContent,/1 \/ 3問/);
+const reviewSave=a.w.localStorage.getItem('karimen-study-v4');a.close();a=app({'karimen-study-v4':reviewSave});a.clock.now=reviewTime;
+a.click('#tab-review');a.click('#review [data-action="resume"]');assert.equal(a.run('JSON.stringify(state.session)'),pausedReview);
+for(let i=1;i<3;i++){a.click(`[data-action="answer"][data-value="${a.run('activeQuestion(state.session.ids[state.session.index]).a')}"]`);if(i<2)a.click('#next');}
+a.click('[data-action="pause"]');assert.ok(a.query('#review [data-action="resume"]'));
+assert.match(a.query('#review').textContent,/途中の復習があります/);assert.doesNotMatch(a.query('#review').textContent,/今日の復習は完了です/);
+a.click('#review [data-action="resume"]');a.click('#next');a.click('#confirm-yes');assert.equal(a.run('state.attempts.length'),1);
+assert.equal(a.run('state.attempts[0].scoreSnapshot'),3);assert.equal(a.run('state.stats[301].total'),2);
+a.click('#tab-review');assert.equal(a.query('#review [data-action="resume"]'),null);assert.match(a.query('#review').textContent,/今日の復習は完了です/);a.close();
+// Keep the actual focused search field alive throughout Japanese composition; filter when committed.
+a=app();a.click('#tab-learn');a.click('[data-action="notes"]');const beforeSearch=a.run('JSON.stringify(state)');
+const composingInput=a.query('#note-search');composingInput.focus();
+composingInput.dispatchEvent(new a.w.CompositionEvent('compositionstart',{bubbles:true}));
+for(const isComposing of [true,false]){
+ composingInput.value='おうだん';composingInput.dispatchEvent(new a.w.InputEvent('input',{bubbles:true,isComposing,inputType:'insertCompositionText',data:'おうだん'}));
+ assert.equal(a.query('#note-search'),composingInput);assert.equal(a.w.document.activeElement,composingInput);assert.equal(a.all('#notes details.note').length,47);
+}
+composingInput.value='横断歩道';composingInput.dispatchEvent(new a.w.CompositionEvent('compositionend',{bubbles:true,data:'横断歩道'}));
+assert.equal(a.query('#note-search').value,'横断歩道');assert.ok(a.all('#notes details.note').length>0);assert.ok(a.all('#notes details.note').length<47);
+assert.equal(a.w.document.activeElement,a.query('#note-search'));assert.equal(a.run('JSON.stringify(state)'),beforeSearch);
+a.query('#note-search').value='検索結果なし__';a.query('#note-search').dispatchEvent(new a.w.InputEvent('input',{bubbles:true,inputType:'insertFromPaste'}));
+assert.equal(a.all('#notes details.note').length,0);a.click('[data-action="note-reset"]');assert.equal(a.all('#notes details.note').length,47);a.close();
 // Complete a genuine guided set through clicks; compare mock and guided achievements.
 a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-guided"]');
 for(let i=0;i<50;i++){const answer=a.run('activeQuestion(state.session.ids[state.session.index]).a');a.click(`[data-action="answer"][data-value="${answer}"]`);a.click('[data-action="next"]');}
@@ -137,4 +186,4 @@ assert.equal(a.run('externalChange'),true);assert.match(a.query('#storage-warnin
 a.click('#tab-learn');assert.equal(a.query('#mock').hidden,false);a.close();
 a=app({'karimen-study-v4':{kind:'karimen-progress',version:4,legacyArchive:{history:[null,{score:42}],stats:{1:null},sessions:[{answers:{bad:true},label:'壊れた途中記録'}],checks:null}}});
 a.run('renderArchive();show("archive")');assert.match(a.query('#archive').textContent,/42点/);assert.match(a.query('#archive').textContent,/壊れた途中記録/);assert.equal(a.errors.length,0);a.close();
-console.log(`PASS: DOM navigation; all 500 prompts and ${imageCount} question-image bindings; 47 note bodies; old-version mock access; malformed archive display; storage-clear lock; answer secrecy; timer; guided completion; preview isolation; export.`);
+console.log(`PASS: DOM navigation; round switching; review resume/reload; Japanese search composition; confirmation timeout; all 500 prompts and ${imageCount} question-image bindings; 47 note bodies; old-version mock access; malformed archive display; storage-clear lock; answer secrecy; timer; guided completion; preview isolation; export.`);
