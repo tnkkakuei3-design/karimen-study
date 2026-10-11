@@ -23,7 +23,7 @@ const KarimenModel = (() => {
     if (damaged) archive.unreadableArchive = copy(raw);
     return archive;
   }
-  const fresh = () => ({ kind: 'karimen-progress', version: 4, answerRevision: 3,
+  const fresh = () => ({ kind: 'karimen-progress', version: 4, answerRevision: 3, statsPolicy: 1,
     stats: {}, misses: {}, guidedResults: {}, mockResults: {}, attempts: [], completed: {},
     session: null, lastResult: null, legacyArchive: emptyArchive(), notices: [],
     theme: 'auto', sound: true, reduceMotion: false, limit: 10 });
@@ -54,15 +54,85 @@ const KarimenModel = (() => {
       Number.isInteger(a.scoreSnapshot) && a.scoreSnapshot >= 0 && a.scoreSnapshot <= a.ids.length &&
       a.total === a.ids.length && typeof a.contentVersion === 'string';
   }
-  function sanitizeResults(results) {
+  const answeredCount = a => a.answers.filter(v => typeof v === 'boolean').length;
+  const partialAttempt = a => !!a && !a.legacy && !a.timeout && answeredCount(a) < a.total;
+  function attemptHistory(raw) {
+    const rows = [...Object.values(raw.mockResults || {}), ...Object.values(raw.guidedResults || {})];
+    const items = [...(Array.isArray(raw.attempts) ? raw.attempts : []), ...rows.flatMap(r => [...(Array.isArray(r?.recent) ? r.recent : []), r?.best]), raw.lastResult];
+    return [...new Map(items.filter(validAttempt).map(a => [a.attemptId, a])).values()];
+  }
+  function sanitizeResults(results, history = [], kind) {
     const out = {};
     for (const w of WORKSHEETS) {
-      const row = results?.[w.worksheet]; if (!row) continue;
+      const row = results?.[w.worksheet] || {};
       const recent = (Array.isArray(row.recent) ? row.recent : []).filter(validAttempt).slice(-10).map(copy);
-      const best = [row.best, ...recent].filter(validAttempt).sort((a, b) => b.scoreSnapshot - a.scoreSnapshot)[0];
-      if (best) out[w.worksheet] = { best: copy(best), recent };
+      const best = [row.best, ...recent, ...history.filter(a => a.mode === kind && a.worksheet === w.worksheet)].filter(a => validAttempt(a) && !partialAttempt(a)).sort((a, b) => b.scoreSnapshot - a.scoreSnapshot)[0];
+      if (best || recent.length) out[w.worksheet] = { best: best ? copy(best) : null, recent };
     }
     return out;
+  }
+  function recordOutcome(state, id, ok, uncertain, at) {
+    const weak = (state.misses[id] || 0) > 0 || !!state.stats[id]?.reviewAt;
+    const s = state.stats[id] || { total: 0, correct: 0, last: null, reviewAt: 0, reviewPass: 0, uncertain: false };
+    s.total++; s.correct += ok ? 1 : 0; s.last = ok; s.lastAt = at;
+    if (!ok || uncertain) {
+      state.misses[id] = Math.max(1, (state.misses[id] || 0) + (ok ? 0 : 1));
+      s.reviewPass = 0; s.reviewAt = at + DAY; s.uncertain = uncertain;
+    } else if (weak && (!s.reviewAt || at >= s.reviewAt)) {
+      s.reviewPass = (s.reviewPass || 0) + 1; s.reviewAt = at + DAY; s.uncertain = false;
+      if (s.reviewPass >= 2) { delete state.misses[id]; s.reviewAt = 0; }
+    }
+    state.stats[id] = s;
+  }
+  function repairUnansweredStats(state) {
+    const events = new Map(), skipped = new Map();
+    for (const a of state.attempts) {
+      a.ids.forEach((id, i) => {
+        if (!active.has(id)) return;
+        const answer = a.answers[i];
+        if (answer === null && !a.legacy && a.statsPolicy !== 1) {
+          if (!skipped.has(id)) skipped.set(id, []);
+          skipped.get(id).push(a.completedAt);
+        } else if (typeof answer === 'boolean') {
+          const current = a.contentVersion === (a.worksheet ? worksheet(a.worksheet)?.contentVersion : CONTENT_VERSION);
+          if (!events.has(id)) events.set(id, []);
+          events.get(id).push({ at: a.mode === 'mock' ? number(a.completedAt) : number(a.answeredAt?.[i]),
+            ok: !a.legacy && current ? answer === active.get(id).a : null,
+            uncertain: !!a.uncertain?.[i] || !!a.flags?.[i] });
+        }
+      });
+    }
+    const original = { stats: copy(state.stats), misses: copy(state.misses) };
+    let removed = 0;
+    for (const [id, times] of skipped) {
+      const stat = state.stats[id]; if (!stat) continue;
+      const count = times.length;
+      if (count > stat.total - stat.correct) continue; // Inconsistent history is not enough evidence to remove real answers.
+      stat.total -= count; removed += count;
+      if (!stat.total) { delete state.stats[id]; delete state.misses[id]; continue; }
+      const actual = events.get(id) || [];
+      const legacy = state.legacyArchive.originalState;
+      // Restore the review schedule only when the complete actual-answer timeline
+      // is known. An abandoned old drill may not have retained answer timestamps.
+      const complete = count === times.length && actual.length === stat.total && actual.every(e => e.at && typeof e.ok === 'boolean') &&
+        actual.filter(e => e.ok).length === stat.correct && !legacy?.misses?.[id] && !state.legacyArchive.oldestRaw;
+      if (complete) {
+        delete state.stats[id]; delete state.misses[id];
+        for (const e of actual.sort((a, b) => a.at - b.at)) recordOutcome(state, id, e.ok, e.uncertain, e.at);
+      } else if (times.includes(stat.lastAt)) {
+        // Never label a skipped question as the user's latest actual mistake.
+        stat.last = stat.correct === stat.total ? true : stat.correct === 0 ? false : null;
+        stat.lastAt = 0;
+      }
+    }
+    for (const a of [...state.attempts, ...Object.values(state.mockResults).flatMap(r => [...r.recent, r.best]), ...Object.values(state.guidedResults).flatMap(r => [...r.recent, r.best]), state.lastResult]) {
+      if (a && !a.legacy) a.statsPolicy = 1;
+    }
+    if (removed) {
+      const earlier = Array.isArray(state.legacyArchive.unansweredStatsCorrections) ? state.legacyArchive.unansweredStatsCorrections : [];
+      state.legacyArchive.unansweredStatsCorrections = [...earlier, { ...original, excludedCount: removed }];
+      state.notices.push(`保存された回答履歴から未回答${removed}件を学習の正答率から除外しました。補正前の集計も保管しています。`);
+    }
   }
   function normalizeSession(s, legacy = false) {
     if (!object(s) || !['drill', 'exam'].includes(s.mode) || !Array.isArray(s.ids) || !s.ids.length ||
@@ -79,6 +149,7 @@ const KarimenModel = (() => {
       worksheet: fullSet ? w.worksheet : null, contentVersion: fullSet ? w.contentVersion : CONTENT_VERSION,
       ids: [...s.ids], answers: s.ids.map((_, i) => typeof s.answers?.[i] === 'boolean' ? s.answers[i] : null),
       flags: s.ids.map((_, i) => !!s.flags?.[i]), uncertain: s.ids.map((_, i) => !!s.uncertain?.[i]),
+      answeredAt: s.ids.map((_, i) => number(s.answeredAt?.[i]) || null),
       index: number(s.index, s.ids.length - 1), startedAt, endAt: s.mode === 'exam' ? endAt : null,
       label: typeof s.label === 'string' ? s.label.slice(0, 120) : fullSet ? `第${w.worksheet}回・解説付き練習` : '引き継いだ学習' };
   }
@@ -88,8 +159,8 @@ const KarimenModel = (() => {
     Object.assign(s, settings(raw), { stats: r.stats, misses: r.misses });
     if (raw.version === 4) {
       s.legacyArchive = normalizeArchive(raw.legacyArchive);
-      s.guidedResults = sanitizeResults(raw.guidedResults); s.mockResults = sanitizeResults(raw.mockResults);
-      s.attempts = (Array.isArray(raw.attempts) ? raw.attempts : []).filter(validAttempt).map(copy);
+      s.attempts = attemptHistory(raw).map(copy);
+      s.guidedResults = sanitizeResults(raw.guidedResults,s.attempts,'guided'); s.mockResults = sanitizeResults(raw.mockResults,s.attempts,'mock');
       s.completed = Object.fromEntries(Object.entries(object(raw.completed) ? raw.completed : {}).filter(([k, v]) => typeof k === 'string' && v === true));
       s.notices = (Array.isArray(raw.notices) ? raw.notices : []).filter(v => typeof v === 'string');
       s.lastResult = validAttempt(raw.lastResult) ? copy(raw.lastResult) : null;
@@ -131,6 +202,7 @@ const KarimenModel = (() => {
       s.legacyArchive.unrecognizedImport = copy(raw);
     }
     s.legacyArchive = normalizeArchive(s.legacyArchive);
+    if (raw.version === 4 && raw.statsPolicy !== 1) repairUnansweredStats(s);
     return s;
   }
   function create({ storage, now = () => Date.now(), makeId = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}` }) {
@@ -183,18 +255,9 @@ const KarimenModel = (() => {
       return { all, due: all.filter(q => due(q.id, at)), later: all.filter(q => !due(q.id, at)) };
     }
     function record(id, answer, uncertain = false) {
-      const q = active.get(id); if (!q) return false;
+      const q = active.get(id); if (!q || typeof answer !== 'boolean') return false;
       const ok = answer === q.a, at = now();
-      const s = state.stats[id] || { total: 0, correct: 0, last: null, reviewAt: 0, reviewPass: 0, uncertain: false };
-      s.total++; s.correct += ok ? 1 : 0; s.last = ok; s.lastAt = at;
-      if (!ok || uncertain) {
-        state.misses[id] = Math.max(1, (state.misses[id] || 0) + (ok ? 0 : 1));
-        s.reviewPass = 0; s.reviewAt = at + DAY; s.uncertain = uncertain;
-      } else if (weak(id) && (!s.reviewAt || at >= s.reviewAt)) {
-        s.reviewPass = (s.reviewPass || 0) + 1; s.reviewAt = at + DAY; s.uncertain = false;
-        if (s.reviewPass >= 2) { delete state.misses[id]; s.reviewAt = 0; }
-      }
-      state.stats[id] = s; return ok;
+      recordOutcome(state, id, ok, uncertain, at); return ok;
     }
     function begin({ ids, kind = 'study', worksheet: n = null, label = '10問の学習' }) {
       if (state.session?.mode === 'exam') throw new Error('進行中の模試があります。');
@@ -204,7 +267,7 @@ const KarimenModel = (() => {
       const at = now();
       state.session = { attemptId: makeId(), mode: kind === 'mock' ? 'exam' : 'drill', kind, worksheet: fullSet ? w.worksheet : null,
         contentVersion: fullSet ? w.contentVersion : CONTENT_VERSION, ids: [...ids], answers: ids.map(() => null),
-        uncertain: ids.map(() => false), flags: ids.map(() => false), index: 0, label,
+        uncertain: ids.map(() => false), flags: ids.map(() => false), answeredAt: ids.map(() => null), index: 0, label,
         startedAt: at, endAt: kind === 'mock' ? at + 1800000 : null };
       state.lastResult = null; save(); return state.session;
     }
@@ -214,25 +277,27 @@ const KarimenModel = (() => {
       if (expired()) { finish(true); return false; }
       if (s.mode === 'drill' && s.answers[s.index] !== null) return false;
       s.answers[s.index] = value; s.uncertain[s.index] = uncertain;
+      s.answeredAt ||= s.ids.map(() => null); s.answeredAt[s.index] = now();
       if (s.mode === 'drill') record(s.ids[s.index], value, uncertain);
       save(); return true;
     }
     function finish(timeout = false) {
       const s = state.session; if (!s || state.completed[s.attemptId]) return state.lastResult;
-      const a = { ...copy(s), mode: s.kind, total: s.ids.length, completedAt: now(),
+      const a = { ...copy(s), mode: s.kind, total: s.ids.length, completedAt: now(), statsPolicy: 1,
         timeout: s.mode === 'exam' && (timeout || expired()), scoreSnapshot: s.ids.filter((id, i) => s.answers[i] === active.get(id).a).length };
       // Set the completion guard before any presentation, and persist all mutations together.
       state.completed[s.attemptId] = true;
-      s.ids.forEach((id, i) => { if (s.mode === 'exam' || s.answers[i] === null) record(id, s.answers[i], !!s.uncertain[i] || !!s.flags[i]); });
+      if (s.mode === 'exam') s.ids.forEach((id, i) => record(id, s.answers[i], !!s.uncertain[i] || !!s.flags[i]));
       if (['mock', 'guided'].includes(s.kind)) {
         const target = s.kind === 'mock' ? state.mockResults : state.guidedResults;
         const previous = target[s.worksheet] || { best: null, recent: [] };
-        const comparable = [...state.attempts, ...previous.recent, previous.best].filter(x => x && x.mode === a.mode && x.worksheet === a.worksheet && x.contentVersion === a.contentVersion);
+        const comparable = [...state.attempts, ...previous.recent, previous.best].filter(x => x && !partialAttempt(x) && x.mode === a.mode && x.worksheet === a.worksheet && x.contentVersion === a.contentVersion);
         const last = comparable.sort((x, y) => y.completedAt - x.completedAt)[0];
         const highest = comparable.length ? Math.max(...comparable.map(x => x.scoreSnapshot)) : null;
-        a.previousScore = last?.scoreSnapshot ?? null; a.newBest = highest !== null && a.scoreSnapshot > highest;
-        a.bestScore = Math.max(a.scoreSnapshot, highest ?? 0);
-        target[s.worksheet] = { best: !previous.best || a.scoreSnapshot > previous.best.scoreSnapshot ? a : previous.best, recent: [...previous.recent, a].slice(-10) };
+        a.previousScore = partialAttempt(a) ? null : last?.scoreSnapshot ?? null;
+        a.newBest = !partialAttempt(a) && highest !== null && a.scoreSnapshot > highest;
+        a.bestScore = partialAttempt(a) ? highest : Math.max(a.scoreSnapshot, highest ?? 0);
+        target[s.worksheet] = { best: !partialAttempt(a) && (!previous.best || partialAttempt(previous.best) || a.scoreSnapshot > previous.best.scoreSnapshot) ? a : previous.best, recent: [...previous.recent, a].slice(-10) };
       }
       state.attempts.push(a); state.lastResult = a; state.session = null; save(); return a;
     }
@@ -252,5 +317,5 @@ const KarimenModel = (() => {
       importData, reset, exportData: () => ({ ...copy(state), exportedAt: new Date(now()).toISOString() }),
       validateImport: normalize, worksheet, active };
   }
-  return { create, normalize, validAttempt, STORE, OLD, DAY };
+  return { create, normalize, validAttempt, answeredCount, partialAttempt, STORE, OLD, DAY };
 })();

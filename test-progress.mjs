@@ -46,8 +46,8 @@ a=app({version:2,answerRevision:2,stats:{366:{total:3,correct:3}},misses:{366:1}
 // Timer keeps its deadline, late answers cannot change it, and timeout scores once.
 a=app();a.model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});const end=a.model.state.session.endAt;a.model.answer(Q[0].a);a.clock.now+=1000;a.model=a.create();assert.equal(a.model.state.session.endAt,end);a.clock.now=end;assert.equal(a.model.expired(),true);assert.equal(a.model.answer(Q[0].a),false);assert.equal(a.model.state.session,null);assert.equal(a.model.state.attempts.length,1);assert.equal(a.model.state.lastResult.scoreSnapshot,1);assert.equal(a.model.state.lastResult.timeout,true);a.model.finish(true);assert.equal(a.model.state.attempts.length,1);
 // All-null completion and premature guided completion do not invent answered items.
-a=app();a.model.begin({ids:WORKSHEETS[2].orderedIds,kind:'mock',worksheet:3});assert.equal(a.model.finish().scoreSnapshot,0);assert.equal(Object.keys(a.model.state.misses).length,50);
-a=app();a.model.begin({ids:[301,302],kind:'study'});a.model.answer(Q[0].a);assert.equal(a.model.state.stats[301].total,1);a.model.finish();assert.equal(a.model.state.stats[301].total,1);assert.equal(a.model.state.stats[302].total,1);
+a=app();a.model.begin({ids:WORKSHEETS[2].orderedIds,kind:'mock',worksheet:3});assert.equal(a.model.finish().scoreSnapshot,0);assert.equal(Object.keys(a.model.state.misses).length,0);
+a=app();a.model.begin({ids:[301,302],kind:'study'});a.model.answer(Q[0].a);assert.equal(a.model.state.stats[301].total,1);a.model.finish();assert.equal(a.model.state.stats[301].total,1);assert.equal(a.model.state.stats[302],undefined);
 // 24-hour boundary, early practice, uncertainty and wrong answers, including supplemental IDs.
 a=app();const id=311,q=Q.find(q=>q.id===id);a.model.record(id,!q.a);const dueAt=a.model.state.stats[id].reviewAt;assert.equal(dueAt,initialTime+day);assert.equal(a.model.schedule().later[0].id,id);
 a.clock.now=dueAt-1;assert.equal(a.model.due(id),false);a.model.record(id,q.a);assert.equal(a.model.state.stats[id].reviewPass,0);assert.equal(a.model.state.stats[id].reviewAt,dueAt);
@@ -55,7 +55,7 @@ a.clock.now=dueAt;assert.equal(a.model.due(id),true);a.model.record(id,q.a);asse
 a.clock.now+=day;a.model.record(id,q.a,true);assert.equal(a.model.state.stats[id].reviewPass,0);a.clock.now+=day;a.model.record(id,q.a);a.clock.now+=day;a.model.record(id,q.a);assert.equal(a.model.weak(id),false);
 a.model.record(id,!q.a);a.model.record(343,Q.find(q=>q.id===343).a);assert.equal(a.model.weak(id),true);
 // Changed content archives unfinished work; historical points are not recalculated.
-a=app();r=score(a,48);const raw=a.model.exportData();raw.mockResults[1].best.scoreSnapshot=42;raw.mockResults[1].best.contentVersion='older';raw.attempts=[];raw.mockResults[1].recent=[];const b=app();b.model.importData(raw);assert.equal(b.model.state.mockResults[1].best.scoreSnapshot,42);assert.equal(score(b,45).previousScore,null);
+a=app();r=score(a,48);const raw=a.model.exportData();raw.mockResults[1].best.scoreSnapshot=42;raw.mockResults[1].best.contentVersion='older';raw.attempts=[];raw.lastResult=null;raw.mockResults[1].recent=[];const b=app();b.model.importData(raw);assert.equal(b.model.state.mockResults[1].best.scoreSnapshot,42);assert.equal(score(b,45).previousScore,null);
 a.model.begin({ids:[301],kind:'study'});const changed=a.model.exportData();changed.session.contentVersion='old-content';b.model.importData(changed);assert.equal(b.model.state.session,null);assert.ok(b.model.state.legacyArchive.sessions.length);
 // Storage failures are surfaced without deleting old or corrupt raw data.
 a=app({version:3,stats:{301:{total:1,correct:1}},misses:{}});const old=a.storage.get(M.OLD);a.quota();assert.equal(a.model.save(),false);assert.match(a.model.error,/保存できません/);assert.equal(a.storage.get(M.OLD),old);
@@ -84,4 +84,54 @@ a=app();score(a,50);a.model.reset();assert.equal(a.model.state.attempts.length,0
  assert.equal(restored.legacyArchive.history[0].score,42);assert.equal(restored.legacyArchive.stats[2].total,3);
  assert.deepEqual(toPlain(restored.legacyArchive.sessions),[]);assert.equal(restored.legacyArchive.unreadableArchive.sessions,'broken');
 }
-console.log('PASS: scoring, migration, timer, review, repeated-import recovery, stale-tab write protection, malformed archive preservation.');
+// Skipping is never an answer: it cannot reduce accuracy or create a review item.
+for(const kind of ['mock','guided','study','review']){
+ a=app();const ids=['mock','guided'].includes(kind)?WORKSHEETS[0].orderedIds:[301,302,303];
+ a.model.begin({ids,kind,worksheet:['mock','guided'].includes(kind)?1:null});
+ a.model.answer(Q[0].a);a.model.state.session.index=1;a.model.answer(!Q[1].a);
+ const result=a.model.finish();assert.equal(M.partialAttempt(result),true);assert.equal(M.answeredCount(result),2);
+ assert.equal(result.scoreSnapshot,1);assert.equal(Object.keys(a.model.state.stats).length,2);
+ assert.equal(a.model.state.stats[303],undefined);assert.equal(a.model.schedule().all.length,1);
+ assert.equal(a.model.schedule().all[0].id,302);
+ const unchanged=JSON.stringify(a.model.state);a.model.record(303,null,true);assert.equal(JSON.stringify(a.model.state),unchanged);
+ if(['mock','guided'].includes(kind))assert.equal(a.model.state[kind==='mock'?'mockResults':'guidedResults'][1].best,null);
+ a.model=a.create();assert.equal(a.model.state.stats[303],undefined);
+}
+// Partial attempts stay in history but cannot change a complete score, comparison, or best score.
+a=app();score(a,45);a.model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});a.model.answer(Q[0].a);
+r=a.model.finish();assert.equal(r.previousScore,null);assert.equal(r.newBest,false);assert.equal(a.model.state.mockResults[1].best.scoreSnapshot,45);
+r=score(a,48);assert.equal(r.previousScore,45);assert.equal(r.newBest,true);assert.equal(a.model.state.attempts.length,3);
+a=app();a.model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});
+for(let i=0;i<49;i++){a.model.state.session.index=i;a.model.answer(Q[i].a)}
+r=a.model.finish();assert.equal(r.scoreSnapshot,49);assert.equal(M.partialAttempt(r),true);assert.equal(a.model.state.mockResults[1].best,null);
+r=score(a,48);assert.equal(r.previousScore,null);assert.equal(r.bestScore,48);assert.equal(a.model.state.mockResults[1].best.scoreSnapshot,48);
+// Timeouts keep the 50-question mock score while only actual answers affect learning statistics.
+a=app();a.model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});a.model.answer(Q[0].a);
+a.clock.now=a.model.state.session.endAt;r=a.model.finish();assert.equal(M.partialAttempt(r),false);assert.equal(r.timeout,true);
+assert.equal(r.total,50);assert.equal(r.scoreSnapshot,1);assert.equal(a.model.state.mockResults[1].best.scoreSnapshot,1);
+assert.equal(Object.keys(a.model.state.stats).length,1);assert.equal(a.model.schedule().all.length,0);
+// These synthetic records were produced by the actual pre-fix model, not by the migration being tested.
+const fixtures=JSON.parse(fs.readFileSync(path.join(root,'dev/fixtures/unanswered-stats-v4.json'),'utf8')).cases;
+const expected={partialTen:[10,8,2],correctBeforeSkip:[51,51,0],wrongBeforeSkip:[51,50,1],abandonedDrill:[2,1,1],realWrongAfterGraduation:[150,149,1],timeout:[1,1,0]};
+for(const [name,raw] of Object.entries(fixtures)){
+ a=app(null,new Map([[M.STORE,JSON.stringify(raw)]]));
+ const totals=Object.values(a.model.state.stats).reduce((r,s)=>[r[0]+s.total,r[1]+s.correct],[0,0]);
+ assert.deepEqual([...totals,a.model.schedule().all.length],expected[name],name);
+ assert.deepEqual(toPlain(a.model.state.attempts.map(v=>[v.attemptId,v.scoreSnapshot])),raw.attempts.map(v=>[v.attemptId,v.scoreSnapshot]),name+' saved scores');
+ assert.equal(a.model.state.legacyArchive.unansweredStatsCorrections.length,1);
+ assert.deepEqual(toPlain(a.model.state.legacyArchive.unansweredStatsCorrections[0].stats),raw.stats);
+ const repaired=toPlain(a.model.state);a.model=a.create();assert.deepEqual(toPlain(a.model.state),repaired,name+' idempotent reload');
+ const exported=a.model.exportData(),restored=app();restored.model.importData(exported);
+ assert.deepEqual(toPlain(restored.model.state.stats),toPlain(a.model.state.stats),name+' export/import');
+ if(name==='partialTen'){assert.equal(a.model.state.mockResults[1].best,null);assert.equal(a.model.state.stats[311],undefined);}
+ if(name==='correctBeforeSkip'){assert.equal(a.model.state.stats[302].last,true);assert.equal(a.model.state.mockResults[1].best.scoreSnapshot,50);}
+ if(name==='wrongBeforeSkip'||name==='realWrongAfterGraduation'){assert.equal(a.model.state.stats[302].last,false);assert.equal(a.model.state.misses[302],1);}
+ if(name==='abandonedDrill')assert.equal(a.model.weak(303),true);
+}
+// Loading the same older backup twice must not subtract the skipped questions twice.
+a=app();a.model.importData(fixtures.partialTen);const once=JSON.stringify(a.model.state.stats);a.model.importData(fixtures.partialTen);
+assert.equal(JSON.stringify(a.model.state.stats),once);
+// An incomplete/corrupt aggregate cannot justify removing known real mistakes.
+const inconsistent=toPlain(fixtures.partialTen);inconsistent.stats[311]={total:0,correct:0,last:null,lastAt:0,reviewAt:0,reviewPass:0,uncertain:false};
+const safe=M.normalize(inconsistent);assert.equal(safe.stats[311].total,0);assert.equal(safe.misses[311],1);
+console.log('PASS: scoring, unanswered exclusion, partial-vs-timeout results, six historical repair fixtures, idempotent reload/import, migration, timer, review, stale-tab protection.');

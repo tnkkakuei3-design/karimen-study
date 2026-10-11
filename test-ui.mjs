@@ -94,7 +94,7 @@ a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="s
 a.click('[data-action="jump"][data-index="49"]');a.click('#next');
 assert.equal(a.query('#confirm').open,true);assert.match(a.query('#confirm-message').textContent,/未回答が50問/);
 a.click('#confirm-no');assert.equal(a.run('state.session.index'),49);assert.equal(a.run('state.attempts.length'),0);
-a.click('#next');a.click('#confirm-yes');assert.equal(a.run('state.mockResults[1].best.scoreSnapshot'),0);a.close();
+a.click('#next');a.click('#confirm-yes');assert.equal(a.run('state.mockResults[1].best'),null);assert.equal(a.query('#result .accuracy strong').textContent,'—');assert.equal(a.all('#result .result-achievement').length,0);a.close();
 // Visible tabs during a suspended mock offer grading before leaving; cancellation preserves the attempt.
 for(const target of ['learn','review']){
  a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
@@ -103,7 +103,7 @@ for(const target of ['learn','review']){
  a.click('[data-action="pause"]');a.click('#confirm-yes');
  assert.equal(a.query('#tab-learn').disabled,false);assert.equal(a.query('#tab-review').disabled,false);
  a.click('#tab-'+target);assert.equal(a.query('#confirm').open,true);
- assert.match(a.query('#confirm-title').textContent,/模試を採点して/);assert.match(a.query('#confirm-message').textContent,/未回答49問/);
+ assert.match(a.query('#confirm-title').textContent,/模試を途中終了して/);assert.match(a.query('#confirm-message').textContent,/未回答49問/);
  assert.equal(a.query('#'+target).hidden,true);assert.equal(a.run('state.attempts.length'),0);
  a.click('#confirm-no');assert.equal(a.run('JSON.stringify(state.session)'),pending);assert.equal(a.query('#mock').hidden,false);
  a.click('#tab-'+target);a.click('#confirm-yes');assert.equal(a.query('#'+target).hidden,false);
@@ -184,7 +184,7 @@ assert.match(a.query('#result .accuracy').textContent,/14%/);assert.equal(a.all(
 a.run('model.begin({ids:[301],kind:"study"});');a.click('[data-action="settings"]');a.click('[data-action="export"]');assert.equal(a.downloads.length,1);assert.equal(a.run('model.exportData().session.ids[0]'),301);
 assert.equal(a.errors.length,0);a.close();
 // Previous mock scores remain accessible after the content version changes.
-a=app();a.run(`model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});model.finish();state.mockResults[1].best.contentVersion='older';state.mockResults[1].best.scoreSnapshot=41;detail(1)`);
+a=app();a.run(`model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});state.session.answers=state.session.ids.map(id=>activeQuestion(id).a);model.finish();state.mockResults[1].best.contentVersion='older';state.mockResults[1].best.scoreSnapshot=41;detail(1)`);
 assert.match(a.query('#detail').textContent,/以前の内容版の模試記録/);a.click('#detail [data-action="stored-result"]');
 assert.equal(a.run('lastResult.scoreSnapshot'),41);assert.match(a.query('#result').textContent,/得点は当時の保存値/);
 a.click('#tab-mock');assert.equal(a.query('#mock .achievement-progress b').textContent,'0');
@@ -214,5 +214,37 @@ a.run("state.session=null;startStudy([710,711],'自信なし')");a.query('#uncer
 a.click('[data-action="answer"][data-value="false"]');assert.equal(a.all('.answer-result.incorrect').length,0);
 assert.match(a.query('.answer-uncertain').textContent,/復習に残しました/);assert.ok(a.query('.review-schedule-note'));
 assert.equal(a.run('model.weak(710)'),true);assert.equal(a.errors.length,0);a.close();
-console.log(`PASS: DOM navigation; result-first answers and original content for all 500 questions; ${imageCount} preserved image bindings; answer resume/back without duplicate scoring; confidence review; round switching; Japanese search; answer secrecy; timer; guided completion; export.`);
+// Ten actual answers (8 correct) must show 80%, leave 40 questions unlearned, and create only 2 review items.
+a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
+for(let i=0;i<10;i++){
+ const value=a.run('activeQuestion(state.session.ids[state.session.index]).a');
+ a.click(`[data-action="answer"][data-value="${i<8?value:!value}"]`);if(i<9)a.click('#next');
+}
+a.click('[data-action="submit"]');assert.match(a.query('#confirm-message').textContent,/回答した問題だけ/);
+const beforeEarlyFinish=a.run('JSON.stringify(state.session)');a.click('#confirm-no');assert.equal(a.run('JSON.stringify(state.session)'),beforeEarlyFinish);
+a.click('[data-action="submit"]');a.click('#confirm-yes');
+assert.match(a.query('#result .accuracy').textContent,/80%/);assert.match(a.query('#result .score').textContent,/8\/ 10問/);
+assert.match(a.query('#result .partial-result').textContent,/未回答40問/);assert.equal(a.query('#result .result-achievement'),null);assert.equal(a.query('#result .comparison'),null);
+assert.equal(a.run('state.mockResults[1].best'),null);assert.equal(a.run('model.schedule().all.length'),2);
+assert.equal(a.all('#result > details.review-item').length,2);
+a.click('[data-action="result-filter"][data-filter="unanswered"]');assert.equal(a.all('#result > details.review-item').length,40);
+a.click('#tab-learn');assert.match(a.query('.learning-overview').textContent,/回答済み10 \/ 500問累積正答率80%要復習2問/);
+assert.equal(a.run('Q.filter(q=>!state.stats[q.id]?.total).length'),490);
+a.click('#tab-mock');assert.match(a.query('#mock .achievement-progress').textContent,/0 \/ 10回/);
+a.click('[data-action="detail"][data-set="1"]');assert.match(a.query('#detail').textContent,/模試の途中終了/);assert.doesNotMatch(a.query('#detail').textContent,/最高 8点/);
+a.click('[data-action="stored-result"]');assert.match(a.query('#result .accuracy').textContent,/80%/);
+a.click('[data-action="result-unanswered"]');assert.equal(a.run('state.session.ids.length'),40);assert.equal(a.run('state.session.kind'),'study');
+assert.equal(a.run('state.session.ids[0]'),311);assert.equal(a.run('state.stats[311]'),undefined);a.close();
+// Existing browser records are corrected automatically and keep their partial history accessible.
+const oldPartial=JSON.parse(fs.readFileSync(path.join(root,'dev/fixtures/unanswered-stats-v4.json'),'utf8')).cases.partialTen;
+a=app({'karimen-study-v4':oldPartial});assert.match(a.query('#migration-notice').textContent,/未回答40件/);
+a.click('#tab-learn');assert.match(a.query('.learning-overview').textContent,/累積正答率80%/);assert.equal(a.run('model.schedule().all.length'),2);
+a.click('#tab-mock');a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="stored-result"]');
+assert.match(a.query('#result .accuracy').textContent,/80%/);assert.equal(a.query('#result .result-achievement'),null);a.close();
+// Historical complete attempts compare with other complete attempts, even if an early exit came first.
+const oldComparison=JSON.parse(fs.readFileSync(path.join(root,'dev/fixtures/unanswered-stats-v4.json'),'utf8')).cases.realWrongAfterGraduation;
+a=app({'karimen-study-v4':oldComparison});a.run("lastResult=state.attempts.find(a=>a.attemptId==='fixture-2');renderResult();show('result')");
+assert.equal(a.run('lastResult.scoreSnapshot'),50);assert.equal(a.run('lastResult.previousScore'),0);
+assert.match(a.query('#result .comparison').textContent,/はじめての記録/);assert.doesNotMatch(a.query('#result .comparison').textContent,/前回 0点/);a.close();
+console.log(`PASS: DOM navigation; early-finish accuracy and separate unanswered list; historical correction; result-first answers for all 500 questions; ${imageCount} image bindings; confidence review; round switching; Japanese search; timer; guided completion; export.`);
 
