@@ -38,6 +38,15 @@ a.click('#tab-learn');assert.equal(a.query('#learn').hidden,false);assert.equal(
 a.click('[data-action="answer"][data-value="true"]');assert.equal(a.all('#play .feedback').length,1);assert.ok(a.query('#play #next'));assert.equal(a.w.document.activeElement,a.query('#play .feedback'));assert.equal(a.query('#tabs').hidden,true);assert.equal(a.run('state.stats[state.session.ids[0]].total'),1);
 const id=a.run('state.session.ids[0]');a.run('renderPlay();renderPlay()');assert.equal(a.run(`state.stats[${id}].total`),1);
 a.click('[data-action="pause"]');a.click('[data-action="notes"]');assert.equal(a.all('#notes details.note').length,47);
+assert.equal(a.query('#notes .section-character').getAttribute('src'),'./image-a5b30a44fd43.png');
+assert.match(a.query('#notes .section-character').alt,/ロボット教官/);
+// Reset must clear both search controls and restore the complete notebook without changing records.
+const beforeNoteFilter=a.run('JSON.stringify(state)');
+a.query('#note-filter').value=a.query('#note-filter option:nth-child(2)').value;a.query('#note-filter').dispatchEvent(new a.w.Event('change',{bubbles:true}));
+a.query('#note-search').value='該当しない検索語__';a.query('#note-search').dispatchEvent(new a.w.Event('input',{bubbles:true}));
+assert.equal(a.all('#notes details.note').length,0);a.click('[data-action="note-reset"]');
+assert.equal(a.query('#note-search').value,'');assert.equal(a.query('#note-filter').value,'');assert.equal(a.all('#notes details.note').length,47);
+assert.equal(a.w.document.activeElement,a.query('#note-search'));assert.equal(a.run('JSON.stringify(state)'),beforeNoteFilter);
 for(const el of a.all('#notes details.note'))a.run(`populateNote(document.getElementById(${JSON.stringify(el.id)}))`);
 assert.equal(a.all('#notes .note-content').filter(el=>!el.innerHTML).length,0);assert.equal(a.run('NOTES.flatMap(noteIds).every(id=>id>=301&&id<=800)'),true);
 a.run("openNotes('n-hand')");assert.equal(a.query('#n-hand').open,true);a.click('[data-action="note-return"]');assert.equal(a.query('#learn').hidden,false);
