@@ -619,3 +619,13 @@ body{-webkit-text-size-adjust:100%}
 @media(max-width:374px){.review-now-card,.review-timing,.review-again-card{padding:16px}.review-again-card h3{font-size:16px}}
 
 .review-row:disabled{opacity:1;cursor:default;color:var(--muted);background:var(--soft)}
+
+/* Learning methods share one prominent entry point. */
+.learn-switch{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:14px;background:var(--soft);margin:24px 0 16px}
+.learn-switch button{min-height:48px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-size:16px;font-weight:700;padding:10px 6px}
+.learn-switch button[aria-selected=true]{background:var(--blue);color:#fff}
+.learn-count{font-size:13px;margin:0 0 12px;text-align:right}
+#learn-categories>.seg{border:0;gap:8px;margin-bottom:16px}
+#learn-categories>.seg button{flex:0 1 auto;min-height:44px;padding:8px 16px;border:1px solid var(--line);border-radius:24px;background:var(--surface);color:var(--muted)}
+#learn-categories>.seg button[aria-pressed=true]{background:var(--pale);border-color:var(--blue);color:var(--blue)}
+.learn-notes-intro{font-size:14px;margin:0 0 16px}
