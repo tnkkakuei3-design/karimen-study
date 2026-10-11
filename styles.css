@@ -515,3 +515,38 @@ body{-webkit-text-size-adjust:100%}
 @media(max-width:380px){.character-heading{gap:8px}.character-heading h2{font-size:23px}.empty-guide{width:66px;height:80px}.review-empty{gap:8px}}
 
 .heading-phrase{display:inline-block}
+
+/* Final layout polish: quiet surfaces, shared card rhythm and focused actions. */
+#learn .character-heading{margin-bottom:16px}
+.recommend{position:relative;background:var(--soft);color:var(--fg);border-radius:12px;padding:15px 16px 15px 20px;gap:12px;margin:0 0 18px;overflow:hidden}
+.recommend:before{content:'';position:absolute;inset:0 auto 0 0;width:4px;background:var(--blue)}
+.recommend strong{font-size:18px;line-height:1.5}
+.recommend small{color:var(--muted);font-size:12px;line-height:1.6;margin-top:3px}
+.recommend>.icon:first-child{width:26px;height:26px;color:var(--blue)}
+.recommend>.icon:last-child{width:18px;height:18px;color:var(--muted)}
+.learning-overview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0;padding:12px 0;border-block:1px solid var(--line)}
+.learning-overview>div{min-width:0;text-align:center;padding:0 6px}
+.learning-overview>div+div{border-left:1px solid var(--line)}
+.learning-overview dt{font-size:11px;color:var(--muted)}
+.learning-overview dd{margin:3px 0 0;font-size:24px;font-weight:750;line-height:1.3;font-variant-numeric:tabular-nums}
+.learning-overview small{font-size:11px;font-weight:500;margin-left:2px;white-space:nowrap;color:var(--muted)}
+.category-card{border-radius:12px;gap:12px}
+.category-copy{flex:1}
+.category-copy>strong{min-height:3em;display:flex;align-items:center;text-wrap:pretty}
+.category-status{justify-content:space-between;gap:4px;margin:6px 0 10px;min-height:24px}
+.category-status small{font-size:12px;white-space:nowrap}
+.category-review-badge{font-size:11px;padding:2px 5px}
+.category-copy .progress{height:4px}
+.weak-topics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+.weak-topic{position:relative;display:grid;grid-template-columns:1fr auto;gap:8px;align-content:start;min-height:138px;border:1px solid transparent;border-radius:12px;background:var(--soft);padding:14px;text-align:left}
+.weak-topic>.icon:first-child{grid-column:1;grid-row:1;color:var(--muted);width:25px;height:25px}
+.weak-topic>.icon:last-child{position:absolute;right:12px;top:16px}
+.weak-topic>span{grid-column:1/-1;min-height:3em;display:flex;align-items:center;font-size:15px;line-height:1.5;text-wrap:pretty}
+.weak-topic>strong{grid-column:1/-1;font-size:21px;line-height:1.3;color:var(--blue)}
+.weak-topic small{font-size:12px}
+.weak-topic:hover{box-shadow:0 0 0 2px var(--pale)}
+.learning-next-bar{position:sticky;bottom:0;z-index:5;background:var(--bg);border-top:1px solid var(--line);padding:12px 0 calc(12px + env(safe-area-inset-bottom));margin-top:20px}
+.learning-next-bar>.secondary{flex:0 0 28%}
+#play .feedback,#play .explanation{scroll-margin-bottom:100px}
+@media(min-width:650px){.recommend strong{font-size:20px}.learning-overview{padding:16px 0}.learning-overview dt{font-size:13px}.learning-overview dd{font-size:28px}.learning-overview small{font-size:13px}.category-copy>strong{min-height:1.5em}.weak-topics{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:374px){.recommend{padding:13px 12px 13px 16px;gap:10px}.recommend strong{font-size:16px}.category-status small{font-size:11px}.category-review-badge{font-size:10px;padding:2px 4px}.weak-topic{padding:12px}.weak-topic>span{font-size:14px}}

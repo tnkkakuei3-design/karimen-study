@@ -35,4 +35,8 @@ for(const [score,total,expected] of [[44,50,'image-155cadc1029a'],[45,50,'D004']
  assert.ok(a.query('#result .result-character').getAttribute('src').includes(expected));
 }
 a.run("openNotes('n-hand')");assert.equal(a.query('#n-hand .caution-guide').getAttribute('src'),'./assets/characters/D042.png');
+a.run("state.misses={};state.stats={301:{total:2,correct:1,last:true},999:{total:100,correct:100,last:true}};renderLearn()");
+assert.deepEqual(a.all('.learning-overview dd').map(e=>e.textContent.trim()),['1 / 500問','50%','0問']);
+a.run("startStudy([301],'表示確認');model.answer(activeQuestion(301).a);renderPlay()");
+assert.equal(a.all('.learning-next-bar #next').length,1);
 a.close();console.log('PASS: selected assets, completion vs waiting vs unregistered, next-day reset, 44/45/49/50 and 9/10 results, note caution.');
