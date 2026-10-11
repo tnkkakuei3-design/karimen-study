@@ -74,5 +74,10 @@ const manifest=JSON.parse(fs.readFileSync(path.join(root,'manifest.webmanifest')
 assert.equal(manifest.short_name,'仮免ドリル');assert.equal(manifest.start_url,'./');assert.equal(manifest.scope,'./');
 for(const item of manifest.icons){const data=fs.readFileSync(path.join(root,item.src));assert.equal(`${data.readUInt32BE(16)}x${data.readUInt32BE(20)}`,item.sizes)}
 const apple=fs.readFileSync(path.join(root,'apple-touch-icon.png'));assert.equal(apple.readUInt32BE(16),180);assert.equal(apple.readUInt32BE(20),180);assert.equal(apple[25],2,'iOS icon is opaque truecolor PNG');
-assert.match(html,/<title>仮免ドリル<\/title>/);assert.match(html,/rel="apple-touch-icon"[^>]+\/karimen-study\/apple-touch-icon\.png\?v=/);
+assert.match(html,/<title>仮免ドリル<\/title>/);
+for(const base of ['https://tnkkakuei3-design.github.io/karimen-study/','https://migration-check.example/']){
+ const page=new JSDOM(html,{url:base});
+ assert.equal(page.window.document.querySelector('[rel="apple-touch-icon"]').href,new URL('./apple-touch-icon.png?v=20261012-icon-v2',base).href,'icon stays on the current host and base path');
+ page.window.close();
+}
 console.log('Home-screen checks passed: first visit, dismissal/reload, settings return, standalone/desktop suppression, active/resumed learning, record export, Android manual/native paths and icon metadata.');
