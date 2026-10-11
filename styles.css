@@ -513,3 +513,5 @@ body{-webkit-text-size-adjust:100%}
 .result-character.placement-character{aspect-ratio:175/99}
 @media(min-width:650px){.learn-guide{width:70px;height:96px}.review-guide{width:85px;height:92px}}
 @media(max-width:380px){.character-heading{gap:8px}.character-heading h2{font-size:23px}.empty-guide{width:66px;height:80px}.review-empty{gap:8px}}
+
+.heading-phrase{display:inline-block}

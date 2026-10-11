@@ -20,3 +20,5 @@ Review completion is derived from existing completed review attempts and local c
 No additional images in question/answer controls, per-question explanations, category cards, settings, or record operations. Other design changes previously discussed are outside this character-only patch.
 
 Checks before release: JS syntax; existing npm test; focused state test covering unregistered/due/completed/waiting/next-day, 44/45/49/50 and 9/10 results, and note caution. The checkout contains previously retrieved question assets; final public visual checks use the deployed repository's latest content.
+
+Public checks on commit 6e0326f: learn 360px; completed review 360px; due and waiting review 390px; pass 45 at 390px; perfect 50 in dark mode 390px; open note caution. Images loaded; measured learn/completed/due/pass/perfect states had no horizontal overflow or targets below 44px. Refined review heading into phrase-preserving wraps and shortened waiting message after visual inspection. Cloud Chrome only, not physical iPhone/Safari.
