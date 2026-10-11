@@ -693,8 +693,10 @@ body{-webkit-text-size-adjust:100%}
 .install-prompt-actions{display:flex;align-items:center;gap:12px;margin-top:12px}
 .install-prompt-actions .btn{flex:1;font-size:15px;min-height:46px}
 .install-prompt-actions .textbtn{min-width:64px;min-height:46px;color:var(--muted)}
-.install-guide{padding:22px;max-width:440px}
-.install-guide-heading{margin-bottom:16px}
+.install-guide{padding:22px;max-width:440px;overflow:hidden}
+.install-guide[open]{display:flex;flex-direction:column}
+.install-guide-heading{margin-bottom:16px;flex-shrink:0}
+#home-install-guide-body{overflow-y:auto;min-height:0}
 .install-guide .install-app-name{font-size:12px;color:var(--muted);margin:0 0 2px}
 .install-guide h2{margin:0;font-size:21px}
 .install-guide h2:focus{outline:none}
@@ -717,7 +719,7 @@ body{-webkit-text-size-adjust:100%}
 .install-records strong{font-size:14px}
 .install-records p{font-size:12px}
 .install-native{margin:10px 0 0}
-#home-install-close{margin-top:14px}
+#home-install-close{margin-top:14px;flex-shrink:0}
 body.play-active .install-prompt,body.focused-view .install-prompt{display:none!important}
 @media(max-width:374px){.install-prompt{padding:14px}.install-prompt-heading{gap:10px}.install-prompt h2{font-size:15px}.install-prompt .install-icon{width:48px;height:48px}.install-guide{padding:18px}.install-guide h2{font-size:20px}}
 @media(display-mode:standalone),(display-mode:fullscreen),(display-mode:minimal-ui){.install-prompt{display:none!important}}
