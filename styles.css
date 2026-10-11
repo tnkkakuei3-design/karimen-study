@@ -548,5 +548,50 @@ body{-webkit-text-size-adjust:100%}
 .learning-next-bar{position:sticky;bottom:0;z-index:5;background:var(--bg);border-top:1px solid var(--line);padding:12px 0 calc(12px + env(safe-area-inset-bottom));margin-top:20px}
 .learning-next-bar>.secondary{flex:0 0 28%}
 #play .feedback,#play .explanation{scroll-margin-bottom:100px}
+/* Answered learning/review: outcome, key point, then the original question. */
+.answer-layout .tags{margin-bottom:14px}
+.feedback.answer-result{border:0;border-radius:0;background:transparent;padding:0;margin:0 0 22px;scroll-margin-top:18px}
+.answer-result .answer-state{display:inline-flex;align-items:center;gap:7px;padding:5px 10px;border-radius:7px;background:var(--okbg);color:var(--ok);font-size:14px;font-weight:700;line-height:1.6}
+.answer-state .icon{width:18px;height:18px}
+.answer-result.incorrect .answer-state{background:var(--ngbg);color:var(--ng)}
+.answer-result-title{display:flex;align-items:baseline;gap:12px;margin:12px 0 8px;font-size:30px;line-height:1.25;letter-spacing:0;font-weight:750}
+.answer-result-title strong{font-size:44px;font-weight:700}
+.answer-result .answer-choice{display:inline-flex;align-items:center;gap:14px;padding:4px 11px;border-radius:6px;color:var(--muted);background:var(--soft);font-size:13px;line-height:1.5}
+.answer-choice strong{font-size:23px;line-height:1.35;color:var(--ok)}
+.answer-result.incorrect .answer-choice{background:var(--ngbg)}
+.answer-result.incorrect .answer-choice strong{color:var(--ng)}
+.answer-result .answer-uncertain{color:var(--muted);font-size:13px;line-height:1.7;margin-top:10px}
+.learning-points,.answered-question{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;margin:0 0 16px}
+.learning-points>h3{display:flex;align-items:center;gap:9px;font-size:17px;color:var(--blue);margin:0 0 14px;letter-spacing:0}
+.learning-points>h3 .icon{width:21px;height:21px}
+.point-main{font-size:18px;font-weight:650;line-height:1.8}
+.point-rules{display:grid;gap:10px;margin:0}
+.point-rules>div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;padding:13px 12px;background:var(--soft);border-radius:8px}
+.point-rules dt{font-size:12px;line-height:1.6;font-weight:650;color:var(--muted);padding-top:3px;white-space:nowrap}
+.point-rules dd{font-size:16px;font-weight:650;line-height:1.75;margin:0}
+.point-rules>.point-exception{background:var(--pale)}
+.point-exception dt,.point-exception dd{color:var(--blue)}
+.point-detail{border-top:1px solid var(--line);padding-top:14px;margin-top:16px}
+.point-detail h4{color:var(--muted);font-size:13px;margin-bottom:6px;font-weight:600}
+.point-detail p{font-size:15px;line-height:1.85}
+.point-detail p+p{margin-top:8px}
+.answered-question{padding:0;overflow:hidden}
+.answered-question>summary{list-style:none;display:flex;align-items:center;gap:9px;min-height:52px;padding:13px 18px;font-size:15px}
+.answered-question>summary::-webkit-details-marker{display:none}
+.answered-question>summary>.icon{width:19px;height:19px;color:var(--blue)}
+.question-chevron{margin-left:auto;font-size:22px;line-height:1;color:var(--muted);transform:rotate(-90deg)}
+.answered-question[open] .question-chevron{transform:none}
+.answered-question-body{padding:0 18px 18px}
+.answered-question .question{font-size:15px;font-weight:450;line-height:1.85;letter-spacing:0;margin:0}
+.answered-question .question-visual{margin:16px 0 0}
+.answer-layout>.explanation{margin-top:0}
+.answer-layout .question-links{gap:4px 12px}
+.review-schedule-note{display:flex;align-items:flex-start;gap:7px;line-height:1.8}
+.review-schedule-note>.icon{height:16px;width:16px;margin-top:4px;color:var(--muted)}
+.review-remaining{display:inline-block;margin-left:10px}
+.answer-layout>.learning-next-bar{margin-top:12px;gap:10px}
+.answer-layout>.learning-next-bar>.btn{min-height:50px}
+@media(max-width:374px){.learning-points{padding:15px}.answered-question>summary{padding:12px 15px}.answered-question-body{padding:0 15px 15px}.point-rules>div{gap:8px;padding:11px 10px}.point-rules dd{font-size:15px}.review-remaining{display:block;margin-left:0}}
+@media(min-width:650px){.answer-layout .learning-points,.answer-layout .answered-question{max-width:100%}.answer-result-title{font-size:34px}.answer-result-title strong{font-size:48px}.point-rules dd{font-size:18px}.answered-question .question{font-size:17px}}
 @media(min-width:650px){.recommend strong{font-size:20px}.learning-overview{padding:16px 0}.learning-overview dt{font-size:13px}.learning-overview dd{font-size:28px}.learning-overview small{font-size:13px}.category-copy>strong{min-height:1.5em}.weak-topics{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:374px){.recommend{padding:13px 12px 13px 16px;gap:10px}.recommend strong{font-size:16px}.category-status small{font-size:11px}.category-review-badge{font-size:10px;padding:2px 4px}.weak-topic{padding:12px}.weak-topic>span{font-size:14px}}

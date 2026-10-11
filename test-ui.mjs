@@ -58,6 +58,14 @@ for(let i=0;i<500;i++){
  assert.equal(a.query('#question').textContent,a.run(`Q[${i}].q`));
  if(a.query('#play [data-question-visual]'))imageCount++;
  assert.equal(a.all('#play .visual-answer').length,0);
+ const hadImage=Boolean(a.query('#play [data-question-visual]'));
+ a.run('state.session.answers[0]=activeQuestion(state.session.ids[0]).a;renderPlay()');
+ assert.equal(a.query('.answered-question .question').textContent,a.run(`Q[${i}].q`));
+ assert.ok(a.query('.answered-question').open);
+ assert.equal(a.all('#play [data-action="answer"]').length,0);
+ assert.equal(Boolean(a.query('#play [data-question-visual]')),hadImage);
+ assert.ok(a.query('.learning-points').textContent.includes('覚えるポイント'));
+ assert.ok(a.query('#play .source-link'));
 }
 assert.equal(imageCount,a.run('Q.filter(q=>ADDED_ART[q.id]||IMGQ[q.id]||VISUALS[q.id]).length'));
 a.run('state.session=null');a.click('[data-action="settings"]');const before=a.run('JSON.stringify(state)');a.click('[data-action="preview"][data-score="45"]');assert.match(a.query('#achievement-preview').textContent,/合格/);a.click('[data-action="preview"][data-score="50"]');assert.ok(a.query('#achievement-preview .perfect'));assert.equal(a.query('#achievement-preview .flower-stamp text').textContent,'満点');assert.equal(a.run('JSON.stringify(state)'),before);a.click('[data-action="close-preview"]');
@@ -186,4 +194,25 @@ assert.equal(a.run('externalChange'),true);assert.match(a.query('#storage-warnin
 a.click('#tab-learn');assert.equal(a.query('#mock').hidden,false);a.close();
 a=app({'karimen-study-v4':{kind:'karimen-progress',version:4,legacyArchive:{history:[null,{score:42}],stats:{1:null},sessions:[{answers:{bad:true},label:'壊れた途中記録'}],checks:null}}});
 a.run('renderArchive();show("archive")');assert.match(a.query('#archive').textContent,/42点/);assert.match(a.query('#archive').textContent,/壊れた途中記録/);assert.equal(a.errors.length,0);a.close();
-console.log(`PASS: DOM navigation; round switching; review resume/reload; Japanese search composition; confirmation timeout; all 500 prompts and ${imageCount} question-image bindings; 47 note bodies; old-version mock access; malformed archive display; storage-clear lock; answer secrecy; timer; guided completion; preview isolation; export.`);
+// The chosen result-first design is a display change: answer, resume, and back
+// navigation must not record a second attempt or lose the original question.
+a=app();a.run("startStudy([710,711,302],'回答デザイン')");a.click('[data-action="answer"][data-value="true"]');
+assert.match(a.query('.answer-result-title').textContent,/正解は ×/);
+assert.match(a.query('.answer-choice').textContent,/あなたの回答 ○/);
+assert.equal(a.query('.point-rules dt').textContent,'原則');
+assert.equal(a.query('.point-rules dd').textContent,'軌道敷内は原則通行できない。');
+assert.equal(a.query('.point-exception dd').textContent,'右折のための通行などは例外。');
+assert.match(a.query('.point-detail').textContent,/路面電車の進行を妨げないようにする。/);
+assert.equal(a.w.document.activeElement,a.query('.answer-result'));
+const savedAnswer=a.w.localStorage.getItem('karimen-study-v4');a.close();
+a=app({'karimen-study-v4':savedAnswer});a.click('#tab-learn');a.click('#learn [data-action="resume"]');
+assert.ok(a.query('.answer-result.incorrect'));assert.equal(a.run('state.stats[710].total'),1);
+a.click('#next');assert.equal(a.all('.answer-result').length,0);assert.equal(a.all('#play [data-action="answer"]').length,2);
+a.click('[data-action="prev"]');assert.ok(a.query('.answer-result.incorrect'));assert.equal(a.run('state.stats[710].total'),1);
+assert.equal(a.w.document.activeElement,a.query('.answer-result'));
+a.run("state.session=null;startStudy([710,711],'自信なし')");a.query('#uncertain').checked=true;
+a.click('[data-action="answer"][data-value="false"]');assert.equal(a.all('.answer-result.incorrect').length,0);
+assert.match(a.query('.answer-uncertain').textContent,/復習に残しました/);assert.ok(a.query('.review-schedule-note'));
+assert.equal(a.run('model.weak(710)'),true);assert.equal(a.errors.length,0);a.close();
+console.log(`PASS: DOM navigation; result-first answers and original content for all 500 questions; ${imageCount} preserved image bindings; answer resume/back without duplicate scoring; confidence review; round switching; Japanese search; answer secrecy; timer; guided completion; export.`);
+
