@@ -12,14 +12,15 @@ let fixture=0;
 function app(old=null,existing=null){
  const fixtureId=++fixture;
  const storage=existing||new Map();if(old)storage.set(M.OLD,JSON.stringify(old));
- const clock={now:initialTime};let count=0,quota=false;
+ const clock={now:initialTime};let count=0,quota=false,seed=fixtureId;
+ const random=()=>((seed=(Math.imul(seed,1664525)+1013904223)>>>0)/4294967296);
  const store={getItem:k=>storage.get(k)??null,setItem:(k,v)=>{if(quota)throw Error('quota');storage.set(k,v)}};
- const create=()=>M.create({storage:store,now:()=>clock.now,makeId:()=>`test-${fixtureId}-${clock.now}-${++count}`});
+ const create=()=>M.create({storage:store,random,now:()=>clock.now,makeId:()=>`test-${fixtureId}-${clock.now}-${++count}`});
  return {model:create(),storage,clock,create,quota:()=>quota=true};
 }
 function score(a,n,kind='mock',set=1){
  const w=WORKSHEETS[set-1];a.model.begin({ids:w.orderedIds,kind,worksheet:set,label:`第${set}回`});
- for(let i=0;i<50;i++){a.model.state.session.index=i;a.model.answer(i<n?Q.find(q=>q.id===w.orderedIds[i]).a:!Q.find(q=>q.id===w.orderedIds[i]).a)}
+ for(let i=0;i<50;i++){a.model.state.session.index=i;a.model.answer(i<n?Q.find(q=>q.id===a.model.state.session.ids[i]).a:!Q.find(q=>q.id===a.model.state.session.ids[i]).a)}
  const result=a.model.finish();a.clock.now+=1000;return result;
 }
 let a=app();
@@ -44,7 +45,7 @@ for(const version of [2,3]){
 a=app({version:3,answerRevision:3,session:{mode:'drill',ids:[301,1],answers:[true,null]}});assert.equal(a.model.state.session,null);assert.equal(a.model.state.legacyArchive.sessions.length,1);
 a=app({version:2,answerRevision:2,stats:{366:{total:3,correct:3}},misses:{366:1},session:{mode:'drill',ids:[366],answers:[true],pool:'all'}});assert.equal(a.model.state.stats[366],undefined);assert.equal(a.model.state.legacyArchive.originalState.stats[366].total,3);assert.equal(a.model.state.session.answers[0],null);
 // Timer keeps its deadline, late answers cannot change it, and timeout scores once.
-a=app();a.model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});const end=a.model.state.session.endAt;a.model.answer(Q[0].a);a.clock.now+=1000;a.model=a.create();assert.equal(a.model.state.session.endAt,end);a.clock.now=end;assert.equal(a.model.expired(),true);assert.equal(a.model.answer(Q[0].a),false);assert.equal(a.model.state.session,null);assert.equal(a.model.state.attempts.length,1);assert.equal(a.model.state.lastResult.scoreSnapshot,1);assert.equal(a.model.state.lastResult.timeout,true);a.model.finish(true);assert.equal(a.model.state.attempts.length,1);
+a=app();a.model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});const end=a.model.state.session.endAt;a.model.answer(Q.find(q=>q.id===a.model.state.session.ids[0]).a);a.clock.now+=1000;a.model=a.create();assert.equal(a.model.state.session.endAt,end);a.clock.now=end;assert.equal(a.model.expired(),true);assert.equal(a.model.answer(Q[0].a),false);assert.equal(a.model.state.session,null);assert.equal(a.model.state.attempts.length,1);assert.equal(a.model.state.lastResult.scoreSnapshot,1);assert.equal(a.model.state.lastResult.timeout,true);a.model.finish(true);assert.equal(a.model.state.attempts.length,1);
 // All-null completion and premature guided completion do not invent answered items.
 a=app();a.model.begin({ids:WORKSHEETS[2].orderedIds,kind:'mock',worksheet:3});assert.equal(a.model.finish().scoreSnapshot,0);assert.equal(Object.keys(a.model.state.misses).length,0);
 a=app();a.model.begin({ids:[301,302],kind:'study'});a.model.answer(Q[0].a);assert.equal(a.model.state.stats[301].total,1);a.model.finish();assert.equal(a.model.state.stats[301].total,1);assert.equal(a.model.state.stats[302],undefined);
@@ -88,25 +89,26 @@ a=app();score(a,50);a.model.reset();assert.equal(a.model.state.attempts.length,0
 for(const kind of ['mock','guided','study','review']){
  a=app();const ids=['mock','guided'].includes(kind)?WORKSHEETS[0].orderedIds:[301,302,303];
  a.model.begin({ids,kind,worksheet:['mock','guided'].includes(kind)?1:null});
- a.model.answer(Q[0].a);a.model.state.session.index=1;a.model.answer(!Q[1].a);
+ const [firstId,wrongId,skippedId]=a.model.state.session.ids;
+ a.model.answer(Q.find(q=>q.id===firstId).a);a.model.state.session.index=1;a.model.answer(!Q.find(q=>q.id===wrongId).a);
  const result=a.model.finish();assert.equal(M.partialAttempt(result),true);assert.equal(M.answeredCount(result),2);
  assert.equal(result.scoreSnapshot,1);assert.equal(Object.keys(a.model.state.stats).length,2);
- assert.equal(a.model.state.stats[303],undefined);assert.equal(a.model.schedule().all.length,1);
- assert.equal(a.model.schedule().all[0].id,302);
- const unchanged=JSON.stringify(a.model.state);a.model.record(303,null,true);assert.equal(JSON.stringify(a.model.state),unchanged);
+ assert.equal(a.model.state.stats[skippedId],undefined);assert.equal(a.model.schedule().all.length,1);
+ assert.equal(a.model.schedule().all[0].id,wrongId);
+ const unchanged=JSON.stringify(a.model.state);a.model.record(skippedId,null,true);assert.equal(JSON.stringify(a.model.state),unchanged);
  if(['mock','guided'].includes(kind))assert.equal(a.model.state[kind==='mock'?'mockResults':'guidedResults'][1].best,null);
- a.model=a.create();assert.equal(a.model.state.stats[303],undefined);
+ a.model=a.create();assert.equal(a.model.state.stats[skippedId],undefined);
 }
 // Partial attempts stay in history but cannot change a complete score, comparison, or best score.
-a=app();score(a,45);a.model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});a.model.answer(Q[0].a);
+a=app();score(a,45);a.model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});a.model.answer(Q.find(q=>q.id===a.model.state.session.ids[0]).a);
 r=a.model.finish();assert.equal(r.previousScore,null);assert.equal(r.newBest,false);assert.equal(a.model.state.mockResults[1].best.scoreSnapshot,45);
 r=score(a,48);assert.equal(r.previousScore,45);assert.equal(r.newBest,true);assert.equal(a.model.state.attempts.length,3);
 a=app();a.model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});
-for(let i=0;i<49;i++){a.model.state.session.index=i;a.model.answer(Q[i].a)}
+for(let i=0;i<49;i++){a.model.state.session.index=i;a.model.answer(Q.find(q=>q.id===a.model.state.session.ids[i]).a)}
 r=a.model.finish();assert.equal(r.scoreSnapshot,49);assert.equal(M.partialAttempt(r),true);assert.equal(a.model.state.mockResults[1].best,null);
 r=score(a,48);assert.equal(r.previousScore,null);assert.equal(r.bestScore,48);assert.equal(a.model.state.mockResults[1].best.scoreSnapshot,48);
 // Timeouts keep the 50-question mock score while only actual answers affect learning statistics.
-a=app();a.model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});a.model.answer(Q[0].a);
+a=app();a.model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});a.model.answer(Q.find(q=>q.id===a.model.state.session.ids[0]).a);
 a.clock.now=a.model.state.session.endAt;r=a.model.finish();assert.equal(M.partialAttempt(r),false);assert.equal(r.timeout,true);
 assert.equal(r.total,50);assert.equal(r.scoreSnapshot,1);assert.equal(a.model.state.mockResults[1].best.scoreSnapshot,1);
 assert.equal(Object.keys(a.model.state.stats).length,1);assert.equal(a.model.schedule().all.length,0);
@@ -134,4 +136,40 @@ assert.equal(JSON.stringify(a.model.state.stats),once);
 // An incomplete/corrupt aggregate cannot justify removing known real mistakes.
 const inconsistent=toPlain(fixtures.partialTen);inconsistent.stats[311]={total:0,correct:0,last:null,lastAt:0,reviewAt:0,reviewPass:0,uncertain:false};
 const safe=M.normalize(inconsistent);assert.equal(safe.stats[311].total,0);assert.equal(safe.misses[311],1);
-console.log('PASS: scoring, unanswered exclusion, partial-vs-timeout results, six historical repair fixtures, idempotent reload/import, migration, timer, review, stale-tab protection.');
+// Each round keeps exactly its own 50 IDs; a fresh mock changes order, while
+// reload/import keep the chosen order and all position-bound answers together.
+for(const w of WORKSHEETS){
+ a=app();const original=toPlain(w.orderedIds);
+ const session=a.model.begin({ids:w.orderedIds,kind:'mock',worksheet:w.worksheet});
+ const order=toPlain(session.ids),wrongId=order[17];
+ assert.deepEqual([...order].sort((a,b)=>a-b),[...original].sort((a,b)=>a-b));
+ assert.notDeepEqual(order,original);assert.deepEqual(toPlain(w.orderedIds),original);
+ a.model.answer(Q.find(q=>q.id===order[0]).a);session.index=17;session.flags[17]=true;
+ a.model.answer(!Q.find(q=>q.id===wrongId).a);
+ const suspended=toPlain(session),backup=a.model.exportData();a.model=a.create();
+ assert.deepEqual(toPlain(a.model.state.session),suspended,`round ${w.worksheet} reload`);
+ const imported=app();imported.model.importData(backup);
+ assert.deepEqual(toPlain(imported.model.state.session),suspended,`round ${w.worksheet} import`);
+ for(let i=0;i<50;i++){
+  a.model.state.session.index=i;const value=Q.find(q=>q.id===order[i]).a;
+  a.model.answer(i===17?!value:value);
+ }
+ const result=a.model.finish();assert.equal(result.scoreSnapshot,49);assert.equal(result.worksheet,w.worksheet);
+ assert.deepEqual(toPlain(result.ids),order);assert.equal(result.flags[17],true);
+ assert.equal(a.model.schedule().all.length,1);assert.equal(a.model.schedule().all[0].id,wrongId);
+ const again=a.model.begin({ids:w.orderedIds,kind:'mock',worksheet:w.worksheet});
+ assert.notDeepEqual(toPlain(again.ids),order,`round ${w.worksheet} new attempt`);
+ assert.deepEqual(toPlain(again.ids).sort((a,b)=>a-b),[...original].sort((a,b)=>a-b));
+ // Existing source-order mocks continue without being shuffled retroactively.
+ const old=toPlain(a.model.exportData());old.session.ids=[...original];old.session.index=4;
+ old.session.answers[4]=Q.find(q=>q.id===original[4]).a;
+ const resumed=app(null,new Map([[M.STORE,JSON.stringify(old)]]));
+ assert.deepEqual(toPlain(resumed.model.state.session),old.session);
+ const invalid=toPlain(old);invalid.session.ids[0]=WORKSHEETS[w.worksheet%10].orderedIds[0];
+ assert.equal(M.normalize(invalid).session,null);
+ const practice=app();practice.model.begin({ids:w.orderedIds,kind:'guided',worksheet:w.worksheet});
+ assert.deepEqual(toPlain(practice.model.state.session.ids),original);
+ assert.throws(()=>app().model.begin({ids:invalid.session.ids,kind:'mock',worksheet:w.worksheet}),/50問/);
+ assert.throws(()=>app().model.begin({ids:[...original.slice(1),original[1]],kind:'mock',worksheet:w.worksheet}),/問題が見つかりません/);
+}
+console.log('PASS: all ten shuffled mocks, stable resume/import, source-order migration, ID-bound grading/review, scoring, unanswered exclusion, historical repair, timer, stale-tab protection.');

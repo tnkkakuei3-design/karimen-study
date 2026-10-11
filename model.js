@@ -6,6 +6,7 @@ const KarimenModel = (() => {
   const copy = value => JSON.parse(JSON.stringify(value));
   const object = v => v && typeof v === 'object' && !Array.isArray(v);
   const worksheet = n => WORKSHEETS.find(w => w.worksheet === Number(n));
+  const fullWorksheet = (w, ids) => !!w && ids.length === 50 && new Set(ids).size === 50 && ids.every(id => w.orderedIds.includes(id));
   const emptyArchive = () => ({ stats: {}, misses: {}, history: [], checks: {}, sessions: [], importSnapshots: [] });
   function normalizeArchive(raw) {
     const archive = { ...emptyArchive(), ...(object(raw) ? copy(raw) : {}) };
@@ -139,7 +140,7 @@ const KarimenModel = (() => {
         s.ids.length > 500 || !s.ids.every(id => active.has(id)) || new Set(s.ids).size !== s.ids.length) return null;
     const legacyWorksheet = ({ s10: 1, s11: 2 })[s.pool];
     const w = worksheet(legacy ? legacyWorksheet : s.worksheet);
-    const fullSet = w && s.ids.length === 50 && w.orderedIds.every((id, i) => id === s.ids[i]);
+    const fullSet = fullWorksheet(w, s.ids);
     if (legacy && s.mode === 'exam') return null; // Old random / assessment tests keep their original rules in the archive.
     if (!legacy && s.contentVersion !== (fullSet ? w.contentVersion : CONTENT_VERSION)) return null;
     const startedAt = number(s.startedAt ?? s.started), endAt = number(s.endAt ?? s.end);
@@ -205,7 +206,7 @@ const KarimenModel = (() => {
     if (raw.version === 4 && raw.statsPolicy !== 1) repairUnansweredStats(s);
     return s;
   }
-  function create({ storage, now = () => Date.now(), makeId = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}` }) {
+  function create({ storage, now = () => Date.now(), random = Math.random, makeId = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}` }) {
     let state, error = '', blocked = false, conflicted = false;
     const read = k => { try { return storage.getItem(k); } catch { error = 'この環境では記録を読み書きできません。設定から書き出して保管してください。'; blocked = true; return null; } };
     const rawV4 = read(STORE);
@@ -262,11 +263,18 @@ const KarimenModel = (() => {
     function begin({ ids, kind = 'study', worksheet: n = null, label = '10問の学習' }) {
       if (state.session?.mode === 'exam') throw new Error('進行中の模試があります。');
       if (!ids.length || !ids.every(id => active.has(id)) || new Set(ids).size !== ids.length) throw new Error('出題する問題が見つかりません。');
-      const w = worksheet(n), fullSet = w && ids.length === 50 && w.orderedIds.every((id, i) => id === ids[i]);
+      const w = worksheet(n), fullSet = fullWorksheet(w, ids);
       if (['mock', 'guided'].includes(kind) && !fullSet) throw new Error('この回の50問がそろっていません。');
+      // Shuffle only a new mock. Persist the chosen order with its answers so
+      // resume, import, grading and review all keep the same question mapping.
+      const orderedIds = [...ids];
+      if (kind === 'mock') for (let i = orderedIds.length - 1; i > 0; i--) {
+        const j = Math.floor(random() * (i + 1));
+        [orderedIds[i], orderedIds[j]] = [orderedIds[j], orderedIds[i]];
+      }
       const at = now();
       state.session = { attemptId: makeId(), mode: kind === 'mock' ? 'exam' : 'drill', kind, worksheet: fullSet ? w.worksheet : null,
-        contentVersion: fullSet ? w.contentVersion : CONTENT_VERSION, ids: [...ids], answers: ids.map(() => null),
+        contentVersion: fullSet ? w.contentVersion : CONTENT_VERSION, ids: orderedIds, answers: ids.map(() => null),
         uncertain: ids.map(() => false), flags: ids.map(() => false), answeredAt: ids.map(() => null), index: 0, label,
         startedAt: at, endAt: kind === 'mock' ? at + 1800000 : null };
       state.lastResult = null; save(); return state.session;

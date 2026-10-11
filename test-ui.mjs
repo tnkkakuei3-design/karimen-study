@@ -13,7 +13,7 @@ function app(seed={}){
  const errors=[],downloads=[],clock={now:Date.parse('2026-10-11T12:00:00Z')};
  const console=new VirtualConsole();console.on('jsdomError',e=>errors.push(e));
  const dom=new JSDOM(html,{url:'https://tnkkakuei3-design.github.io/karimen-study/',runScripts:'outside-only',virtualConsole:console});
- const w=dom.window;for(const [k,v] of Object.entries(seed))w.localStorage.setItem(k,typeof v==='string'?v:JSON.stringify(v));
+ const w=dom.window;let randomSeed=123456;w.Math.random=()=>((randomSeed=(Math.imul(randomSeed,1664525)+1013904223)>>>0)/4294967296);for(const [k,v] of Object.entries(seed))w.localStorage.setItem(k,typeof v==='string'?v:JSON.stringify(v));
  w.matchMedia=()=>({matches:false,addEventListener(){}});w.scrollTo=()=>{};w.requestAnimationFrame=fn=>fn();w.setInterval=()=>0;
  w.HTMLElement.prototype.scrollIntoView=function(){};w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
  class ClockDate extends Date{constructor(...a){super(...(a.length?a:[clock.now]))}static now(){return clock.now}}
@@ -25,11 +25,11 @@ function app(seed={}){
 }
 let a=app();assert.equal(a.run('achievementFor(50,50,false).kind'),'complete');assert.equal(a.run('achievementFor(10,10).kind'),'complete');assert.equal(a.run('achievementFor(44,50).kind'),'retry');assert.equal(a.run('achievementFor(45,50).kind'),'pass');assert.equal(a.run('achievementFor(48,50).kind'),'excellent');assert.equal(a.run('achievementFor(50,50).kind'),'perfect');assert.equal(a.all('#mock .set-card').length,10);assert.equal(a.query('#mock').hidden,false);assert.ok(a.query('#mock .home-character'));assert.equal(a.query('#tabs').hidden,false);assert.equal(a.query('#tab-mock').getAttribute('aria-selected'),'true');
 a.click('[data-action="detail"][data-set="3"]');assert.match(a.query('#detail').textContent,/代替問題 1問・補足問題 1問/);a.click('[data-action="start-mock"]');
-assert.equal(a.run('state.session.ids.length'),50);assert.equal(a.run('state.session.ids[0]'),401);assert.equal(a.query('#tab-learn').disabled,true);assert.equal(a.query('#tab-review').disabled,true);assert.equal(a.query('#tabs').hidden,true);assert.ok(a.w.document.body.classList.contains('exam-active'));assert.equal(a.all('#play .home-character,#play .result-character').length,0);assert.equal(a.all('#play .feedback').length,0);assert.equal(a.all('#play .source-link').length,0);
+assert.equal(a.run('state.session.ids.length'),50);assert.equal(a.run('state.session.ids.every(id=>WORKSHEETS[2].orderedIds.includes(id))'),true);assert.equal(a.query('#tab-learn').disabled,true);assert.equal(a.query('#tab-review').disabled,true);assert.equal(a.query('#tabs').hidden,true);assert.ok(a.w.document.body.classList.contains('exam-active'));assert.equal(a.all('#play .home-character,#play .result-character').length,0);assert.equal(a.all('#play .feedback').length,0);assert.equal(a.all('#play .source-link').length,0);
 a.run("openNotes(); openFigure('dist');");assert.equal(a.query('#notes').hidden,true);assert.equal(a.query('#figure-dialog').open,false);
 a.click('[data-action="answer"][data-value="true"]');a.click('[data-action="answer"][data-value="false"]');assert.equal(a.run('state.session.answers[0]'),false);assert.equal(a.all('#play .feedback').length,0);
 a.click('[data-action="flag"]');assert.equal(a.run('state.session.flags[0]'),true);a.click('[data-action="next"]');assert.equal(a.run('state.session.index'),1);a.click('[data-action="unanswered"]');assert.equal(a.run('state.session.index'),2);
-assert.ok(a.query('#play [data-question-visual="403"] img'));a.click('[data-action="question-zoom"]');assert.equal(a.query('#figure-dialog').open,true);assert.equal(a.all('#figure-dialog .visual-answer').length,0);a.click('[data-action="close-figure"]');assert.equal(a.run('state.session.index'),2);
+const imageIndex=a.run('state.session.ids.indexOf(403)');a.click(`[data-action="jump"][data-index="${imageIndex}"]`);assert.ok(a.query('#play [data-question-visual="403"] img'));a.click('[data-action="question-zoom"]');assert.equal(a.query('#figure-dialog').open,true);assert.equal(a.all('#figure-dialog .visual-answer').length,0);a.click('[data-action="close-figure"]');assert.equal(a.run('state.session.index'),imageIndex);
 const deadline=a.run('state.session.endAt');a.click('[data-action="pause"]');a.click('#confirm-yes');assert.equal(a.query('#mock').hidden,false);a.click('#mock [data-action="resume"]');assert.equal(a.run('state.session.endAt'),deadline);
 a.clock.now=deadline;a.run('updateTimer()');assert.equal(a.query('#result').hidden,false);assert.equal(a.run('state.session'),null);assert.equal(a.run('state.attempts.length'),1);assert.equal(a.query('#tab-learn').disabled,false);assert.equal(a.query('#tabs').hidden,false);assert.equal(a.w.document.body.classList.contains('exam-active'),false);a.run('updateTimer();renderResult();');assert.equal(a.run('state.attempts.length'),1);
 const saved=a.w.localStorage.getItem('karimen-study-v4');a.close();a=app({'karimen-study-v4':saved});assert.equal(a.run('state.attempts.length'),1);a.click('[data-action="detail"][data-set="3"]');a.click('[data-action="stored-result"]');assert.equal(a.query('#result').hidden,false);assert.match(a.query('#result').textContent,/30分模試の結果/);
@@ -128,7 +128,7 @@ a.click('[data-action="detail"][data-set="1"]');assert.equal(a.query('#play').hi
 a.click('[data-action="pause"]');a.click('#confirm-yes');a.click('[data-action="detail"][data-set="2"]');a.click('#confirm-yes');
 assert.equal(a.query('#detail').open,true);assert.equal(a.query('#detail-title').textContent,'第2回');
 assert.equal(a.run('state.session'),null);assert.equal(a.run('state.attempts.length'),1);assert.equal(a.run('state.attempts[0].answers[0]'),true);
-a.click('#detail [data-action="start-mock"]');assert.equal(a.run('state.session.worksheet'),2);assert.equal(a.run('state.session.ids[0]'),351);a.close();
+a.click('#detail [data-action="start-mock"]');assert.equal(a.run('state.session.worksheet'),2);assert.equal(a.run('state.session.ids.every(id=>WORKSHEETS[1].orderedIds.includes(id))'),true);a.close();
 // Expiry while choosing a new round or while a confirmation is open must finish the old round only once.
 a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
 a.click('[data-action="pause"]');a.click('#confirm-yes');a.clock.now=a.run('state.session.endAt');
@@ -234,7 +234,7 @@ a.click('#tab-mock');assert.match(a.query('#mock .achievement-progress').textCon
 a.click('[data-action="detail"][data-set="1"]');assert.match(a.query('#detail').textContent,/模試の途中終了/);assert.doesNotMatch(a.query('#detail').textContent,/最高 8点/);
 a.click('[data-action="stored-result"]');assert.match(a.query('#result .accuracy').textContent,/80%/);
 a.click('[data-action="result-unanswered"]');assert.equal(a.run('state.session.ids.length'),40);assert.equal(a.run('state.session.kind'),'study');
-assert.equal(a.run('state.session.ids[0]'),311);assert.equal(a.run('state.stats[311]'),undefined);a.close();
+assert.equal(a.run('state.session.ids.every(id=>!state.stats[id])'),true);a.close();
 // Existing browser records are corrected automatically and keep their partial history accessible.
 const oldPartial=JSON.parse(fs.readFileSync(path.join(root,'dev/fixtures/unanswered-stats-v4.json'),'utf8')).cases.partialTen;
 a=app({'karimen-study-v4':oldPartial});assert.match(a.query('#migration-notice').textContent,/未回答40件/);
@@ -246,7 +246,37 @@ const oldComparison=JSON.parse(fs.readFileSync(path.join(root,'dev/fixtures/unan
 a=app({'karimen-study-v4':oldComparison});a.run("lastResult=state.attempts.find(a=>a.attemptId==='fixture-2');renderResult();show('result')");
 assert.equal(a.run('lastResult.scoreSnapshot'),50);assert.equal(a.run('lastResult.previousScore'),0);
 assert.match(a.query('#result .comparison').textContent,/はじめての記録/);assert.doesNotMatch(a.query('#result .comparison').textContent,/前回 0点/);a.close();
-console.log(`PASS: DOM navigation; early-finish accuracy and separate unanswered list; historical correction; result-first answers for all 500 questions; ${imageCount} image bindings; confidence review; round switching; Japanese search; timer; guided completion; export.`);
+// All ten mock entry points randomize within the selected round. The visible
+// question, image, original number and result rows follow the stored ID order.
+for(let set=1;set<=10;set++){
+ a=app();a.click(`[data-action="detail"][data-set="${set}"]`);
+ assert.match(a.query('#detail').textContent,/毎回ランダム/);
+ a.click('#detail [data-action="start-mock"]');
+ const order=JSON.parse(a.run('JSON.stringify(state.session.ids)'));
+ const original=JSON.parse(a.run(`JSON.stringify(WORKSHEETS[${set-1}].orderedIds)`));
+ assert.notDeepEqual(order,original);assert.deepEqual([...order].sort((a,b)=>a-b),original);
+ assert.equal(a.query('#question').textContent,a.run('activeQuestion(state.session.ids[0]).q'));
+ assert.equal(a.query('#play .tags .badge').textContent,`元の問題：第${set}回・問${a.run('activeQuestion(state.session.ids[0]).number')}`);
+ for(const figure of a.all('#play [data-question-visual]'))assert.equal(Number(figure.dataset.questionVisual),order[0]);
+ const answer=a.run('activeQuestion(state.session.ids[0]).a');a.click(`[data-action="answer"][data-value="${answer}"]`);
+ a.click('[data-action="flag"]');a.click('#next');const session=a.run('JSON.stringify(state.session)');
+ a.click('[data-action="pause"]');a.click('#confirm-yes');a.click('#mock [data-action="resume"]');
+ assert.equal(a.run('JSON.stringify(state.session)'),session);
+ a.click('[data-action="submit"]');a.click('#confirm-yes');assert.equal(a.run('lastResult.scoreSnapshot'),1);
+ a.click('[data-action="result-filter"][data-filter="all"]');
+ const rows=a.all('#result > details.review-item');assert.equal(rows.length,50);
+ for(let i=0;i<50;i++){
+  const q=JSON.parse(a.run(`JSON.stringify(activeQuestion(${order[i]}))`));
+  assert.ok(rows[i].querySelector('summary').textContent.includes(`出題${i+1} ·`));
+  assert.ok(rows[i].querySelector('summary').textContent.includes(`元の問題：第${set}回・問${q.number}`));
+  assert.ok(rows[i].querySelector('summary').textContent.includes(q.q));
+  for(const figure of rows[i].querySelectorAll('[data-question-visual]'))assert.equal(Number(figure.dataset.questionVisual),q.id);
+ }
+ a.click('#tab-mock');a.click(`[data-action="detail"][data-set="${set}"]`);a.click('#detail [data-action="start-mock"]');
+ assert.notDeepEqual(JSON.parse(a.run('JSON.stringify(state.session.ids)')),order);
+ assert.equal(a.errors.length,0);a.close();
+}
+console.log(`PASS: all ten randomized mock entry points, original-number/result mapping, stable resume; DOM navigation; early-finish accuracy; historical correction; answers for all 500 questions; ${imageCount} image bindings; timer; guided completion; export.`);
 
 
 
