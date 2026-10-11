@@ -10,7 +10,7 @@
 <header><h1>表示検証専用</h1><p>記録はすべて見本・実際の学習記録から隔離</p>
 <label>幅 <select id="width"><option>360</option><option selected>390</option><option>430</option><option>1200</option></select></label>
 <label>画面 <select id="screen">
-<option value="mock">模試・未受験</option><option value="mock-records">模試・得点あり</option><option value="learn">学習</option><option value="review">復習・0件</option><option value="review-due">復習・予定あり</option><option value="exam">受験中</option><option value="exam-image">受験中・図</option><option value="exam-map">回答一覧</option><option value="explanation">学習・解説</option><option value="result44">結果44点</option><option value="result45">結果45点</option><option value="result48">結果48点</option><option value="result50">結果50点</option><option value="notes">図解一覧</option><option value="note">図解本文</option><option value="settings">設定</option><option value="preview">花丸見本</option>
+<option value="mock">模試・未受験</option><option value="mock-records">模試・得点あり</option><option value="learn">学習</option><option value="review">復習・0件</option><option value="review-due">復習・予定あり</option><option value="exam">受験中</option><option value="exam-image">受験中・図</option><option value="exam-map">回答一覧</option><option value="explanation">学習・解説</option><option value="result44">結果44点</option><option value="result45">結果45点</option><option value="result48">結果48点</option><option value="result50">結果50点</option><option value="guided-result">50問練習の結果</option><option value="guided-detail">練習記録の花丸</option><option value="notes">図解一覧</option><option value="note">図解本文</option><option value="settings">設定</option><option value="preview">花丸見本</option>
 </select></label><label>表示 <select id="theme"><option value="light">ライト</option><option value="dark">ダーク</option></select></label><label><input id="motion" type="checkbox">動きを抑える</label><button id="reload">読み直す</button><button id="measure">寸法を確認</button></header>
 <main><iframe id="app-frame" title="学科ドリルの検証画面" sandbox="allow-scripts" width="390" height="780"></iframe></main><div id="audit" role="status">読み込み中</div>
 <script>
@@ -21,18 +21,18 @@ let loadVersion=0;
 function fixture(config){
   const memory=new Map();
   Object.defineProperty(window,'localStorage',{value:{getItem:k=>memory.get(k)??null,setItem:(k,v)=>memory.set(k,String(v)),removeItem:k=>memory.delete(k)}});
-  addEventListener('error',e=>parent.postMessage({type:'qa-error',message:e.message},'*'));
+  addEventListener('error',e=>parent.postMessage({type:'qa-error',version:config.version,message:e.message},'*'));
   function measure(){
     const visible=e=>e.getBoundingClientRect().width&&e.getBoundingClientRect().height&&getComputedStyle(e).visibility!=='hidden';
     const buttons=[...document.querySelectorAll('button,input,select,summary,a')].filter(visible).map(e=>e.matches('input[type=checkbox]')&&e.closest('label')?e.closest('label'):e);
     const bounds=e=>{const r=e.getBoundingClientRect();return {label:(e.getAttribute('aria-label')||e.textContent||e.id).trim().slice(0,36),width:Math.round(r.width*10)/10,height:Math.round(r.height*10)/10}};
     const tabs=document.querySelector('#tabs'),shell=document.querySelector('.shell');
-    parent.postMessage({type:'qa-measure',screen:config.screen,theme:config.theme,reducedMotion:config.motion,width:innerWidth,documentWidth:document.documentElement.scrollWidth,smallTargets:buttons.filter(e=>{const r=e.getBoundingClientRect();return r.width<44||r.height<44}).map(bounds),unloadedImages:[...document.images].filter(e=>visible(e)&&(!e.complete||!e.naturalWidth)).map(e=>e.getAttribute('src')),tabHeight:Math.round(tabs.getBoundingClientRect().height),bottomPadding:getComputedStyle(shell).paddingBottom,questionFont:document.querySelector('#question')?getComputedStyle(document.querySelector('#question')).fontSize:null,columns:document.querySelector('.number-grid')?getComputedStyle(document.querySelector('.number-grid')).gridTemplateColumns:null,confettiAnimations:[...document.querySelectorAll('.result-confetti i')].slice(0,1).map(e=>getComputedStyle(e).animationName)},'*');
+    parent.postMessage({type:'qa-measure',version:config.version,screen:config.screen,theme:config.theme,reducedMotion:config.motion,width:innerWidth,documentWidth:document.documentElement.scrollWidth,smallTargets:buttons.filter(e=>{const r=e.getBoundingClientRect();return r.width<44||r.height<44}).map(bounds),unloadedImages:[...document.images].filter(e=>visible(e)&&(!e.complete||!e.naturalWidth)).map(e=>e.getAttribute('src')),tabHeight:Math.round(tabs.getBoundingClientRect().height),bottomPadding:getComputedStyle(shell).paddingBottom,questionFont:document.querySelector('#question')?getComputedStyle(document.querySelector('#question')).fontSize:null,columns:document.querySelector('.number-grid')?getComputedStyle(document.querySelector('.number-grid')).gridTemplateColumns:null,confettiAnimations:[...document.querySelectorAll('.result-confetti i')].slice(0,1).map(e=>getComputedStyle(e).animationName)},'*');
   }
   addEventListener('message',e=>{if(e.source===parent&&e.data==='qa-measure')measure()});
   document.addEventListener('DOMContentLoaded',()=>{
     state.sound=false;state.theme=config.theme;state.reduceMotion=config.motion;state.notices=[];theme();
-    const finishSet=(n,score)=>{const w=model.worksheet(n);model.begin({ids:w.orderedIds,kind:'mock',worksheet:n,label:'第'+n+'回'});state.session.answers=state.session.ids.map((id,i)=>i<score?activeQuestion(id).a:!activeQuestion(id).a);lastResult=model.finish();};
+    const finishSet=(n,score,kind='mock')=>{const w=model.worksheet(n);model.begin({ids:w.orderedIds,kind,worksheet:n,label:'第'+n+'回'});state.session.answers=state.session.ids.map((id,i)=>i<score?activeQuestion(id).a:!activeQuestion(id).a);lastResult=model.finish();};
     const screen=config.screen;
     if(screen==='mock-records'){
       [45,50,48,44].forEach((score,i)=>finishSet(i+1,score));navigate('mock');
@@ -44,6 +44,8 @@ function fixture(config){
       const q=Q.find(q=>q.isReplacement);startStudy([q.id],'代替問題の学習');model.answer(q.a);renderPlay();show('play');
     }else if(screen.startsWith('result')){
       finishSet(3,Number(screen.slice(6)));tab='mock';renderResult(true);show('result');
+    }else if(screen.startsWith('guided-')){
+      finishSet(1,50,'guided');if(screen==='guided-result'){tab='learn';renderResult();show('result')}else{navigate('mock');detail(1)};
     }else if(screen==='notes'||screen==='note'){
       openNotes(screen==='note'?'n-hand':null);
     }else if(screen==='settings'){settings();}
@@ -54,7 +56,7 @@ function fixture(config){
 }
 async function load(){
   const version=++loadVersion;
-  const config={width:Number(document.querySelector('#width').value),screen:document.querySelector('#screen').value,theme:document.querySelector('#theme').value,motion:document.querySelector('#motion').checked};
+  const config={version,width:Number(document.querySelector('#width').value),screen:document.querySelector('#screen').value,theme:document.querySelector('#theme').value,motion:document.querySelector('#motion').checked};
   frame.width=config.width;frame.height=780;
   audit.textContent='読み込み中';
   const candidate=new URLSearchParams(location.search).get('candidate')==='design3';
@@ -69,7 +71,7 @@ async function load(){
 document.querySelectorAll('select,input').forEach(e=>e.addEventListener('change',()=>load().catch(e=>audit.textContent=e.message)));
 document.querySelector('#reload').onclick=()=>load().catch(e=>audit.textContent=e.message);
 document.querySelector('#measure').onclick=()=>frame.contentWindow.postMessage('qa-measure','*');
-addEventListener('message',e=>{if(e.source!==frame.contentWindow)return;if(e.data?.type?.startsWith('qa-'))audit.textContent=JSON.stringify(e.data,null,2)});
+addEventListener('message',e=>{if(e.source!==frame.contentWindow)return;if(e.data?.version===loadVersion&&e.data?.type?.startsWith('qa-'))audit.textContent=JSON.stringify(e.data,null,2)});
 load().catch(e=>audit.textContent=e.message);
 </script>
 </html>

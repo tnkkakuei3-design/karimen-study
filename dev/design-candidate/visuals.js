@@ -126,7 +126,7 @@ function achievementFor(score,total,fullSet=true){
  return {kind:'retry',title:'合格まであと'+(45-score)+'点！',message:'間違えた問題を、次の得点に。'};
 }
 function flowerStamp(label = '合格'){
- const points=Array.from({length:145},(_,i)=>{const t=i/144*Math.PI*2,r=43+6*Math.cos(8*t);return (60+Math.cos(t)*r).toFixed(2)+','+(60+Math.sin(t)*r).toFixed(2)}).join(' ');
+ const points=Array.from({length:145},(_,i)=>{const t=i/144*Math.PI*2,r=44+4*Math.cos(12*t);return (60+Math.cos(t)*r).toFixed(2)+','+(60+Math.sin(t)*r).toFixed(2)}).join(' ');
  return `<svg class="flower-stamp" viewBox="0 0 120 120" aria-hidden="true"><polygon points="${points}"/><circle cx="60" cy="60" r="33"/><text x="60" y="67" text-anchor="middle">${label === '満点' ? '満点' : '合格'}</text><path d="M44 82q16 8 32-1"/></svg>`;
 }
 function achievementHTML(score,total,animate=false,exam=false,fullSet=true){
