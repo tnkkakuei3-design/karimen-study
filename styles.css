@@ -84,3 +84,58 @@ body{line-height:1.65}.shell{max-width:960px;padding:28px 28px 40px}.header{marg
 :root[data-theme=dark] .result-achievement.pass,:root[data-theme=dark] .result-achievement.excellent{background:#35272e;border-color:#60404a}:root[data-theme=dark] .flower-stamp{color:#ffb0bb}:root[data-theme=dark] .result-achievement.perfect{background:#342f22;border-color:#615333}:root[data-theme=dark] .result-achievement.perfect .flower-stamp{color:#e9c178}
 @media(max-width:650px){.result-achievement{gap:12px;padding:17px 13px}.flower-stamp{width:76px;height:76px}.achievement-copy h3{font-size:18px}.achievement-copy p{font-size:12px}.achievement-copy small{font-size:10px}.practice-switch button{font-size:12px}.achievement-preview-modal{padding:22px 16px}.achievement-preview-modal .flower-stamp{width:70px;height:70px}}
 @media(prefers-reduced-motion:reduce){.celebrate .flower-stamp{animation:none}.result-confetti{display:none}}
+
+/* Completed practice records and a clear review schedule. */
+.practice-card{min-width:0;overflow:hidden;background:var(--soft);border:1px solid transparent;border-radius:var(--radius)}
+.practice-card.passed{border-color:#edcdd4}.practice-card.perfect{border-color:#e6d199}
+.practice-card .practice-row{background:transparent;border-radius:0;min-height:100px}
+.practice-card .practice-row:hover{background:var(--pale)}
+.practice-card .practice-name{min-width:0}.practice-card .practice-name small{font-size:12px;line-height:1.7}
+.practice-card .badge{font-size:12px;white-space:nowrap}.practice-card .needs-practice{background:var(--surface);color:var(--muted)}
+.practice-achievement{display:flex;align-items:center;flex:none}.practice-achievement .flower-stamp{width:52px;height:52px}
+.practice-card.perfect .flower-stamp{color:#aa7125}
+.practice-record{border-top:1px solid var(--line);margin:0 16px;padding:12px 0 4px}
+.practice-scores{display:flex;align-items:baseline;gap:26px;font-size:12px;color:var(--muted)}
+.practice-scores b{margin-left:7px;color:var(--fg);font-size:22px;font-variant-numeric:tabular-nums;font-weight:700}
+.practice-scores small{margin-left:3px;font-size:12px;font-weight:400}
+.practice-record .textbtn{font-size:13px;min-height:44px}.practice-record-empty{margin:0 16px;padding:0 0 14px;font-size:12px;color:var(--muted);line-height:1.7}
+.review-schedule{border:1px solid var(--line);border-radius:var(--radius);padding:20px;background:var(--surface)}
+.review-schedule .section-heading{margin-bottom:18px}.review-schedule .section-heading h3{font-size:19px}
+.review-schedule .section-heading>.muted{font-size:12px}
+.review-schedule-counts{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:16px}
+.review-schedule-counts>div+div{border-left:1px solid var(--line);padding-left:20px}
+.review-schedule-counts span{font-size:13px;font-weight:650;color:var(--muted)}
+.review-schedule-counts strong{display:block;font-size:31px;line-height:1.5;font-variant-numeric:tabular-nums}
+.review-schedule-counts .is-due span,.review-schedule-counts .is-due strong{color:var(--blue)}
+.review-schedule-counts strong small{font-size:13px;margin-left:5px;font-weight:400}
+.review-schedule-counts p{font-size:12px;color:var(--muted);line-height:1.7}
+.review-schedule-limit{font-size:12px;color:var(--muted);margin-top:8px}
+.review-schedule-help{border-top:1px solid var(--line);margin-top:16px;padding-top:4px;font-size:13px}
+.review-schedule-help summary{min-height:44px;display:flex;align-items:center;gap:9px;cursor:pointer;font-weight:650}
+.review-schedule-help summary:before{content:'＋';color:var(--blue)}.review-schedule-help[open] summary:before{content:'−'}
+.review-schedule-help p{font-size:13px;color:var(--muted);line-height:1.85}.review-schedule-help .textbtn{margin-top:6px}
+.review-progress-note{display:flex;align-items:flex-start;gap:10px;margin-top:15px;padding:14px;background:var(--soft);border-radius:10px;text-align:left}
+.review-progress-note>span{display:flex;padding-top:2px;color:var(--blue)}.review-progress-note .icon{width:19px;height:19px}
+.review-progress-note strong{font-size:13px;font-weight:650}.review-progress-note p{font-size:13px;margin-top:5px;line-height:1.8}
+.review-progress-note small{display:block;font-size:12px;margin-top:7px;color:var(--muted);line-height:1.7}
+:root[data-theme=dark] .practice-card.passed{border-color:#60404a}:root[data-theme=dark] .practice-card.perfect{border-color:#615333}:root[data-theme=dark] .practice-card.perfect .flower-stamp{color:#e9c178}
+@media(min-width:760px){.menu .review-schedule{grid-column:1/-1!important}}
+
+/* Readable secondary labels and generous controls on small screens. */
+.textbtn,.back,.flag-btn,.seg button,.footer summary{min-height:44px}
+.learning-detail small,.note-summary-copy small,.achievement-copy small,.quick-options small{font-size:12px}
+.category-status,.category-review-badge,.tags .badge,.qnumber,.result-count{font-size:12px}
+.learning-detail,.practice-origin,.confidence-control,.hintline,.question-links .textbtn,.question-links .source-link{font-size:13px}
+.number-grid button{min-height:44px;font-size:14px}
+@media(max-width:650px){
+ .number-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+ .tabs button{font-size:12px}.category-card>strong{font-size:14px}
+ .category-status{gap:6px}.category-review-badge{padding:2px 6px}
+ .learning-summary{grid-template-columns:1fr 1fr;gap:14px}.learning-detail{padding-left:14px}
+ .practice-card .practice-row{padding:15px 13px;gap:9px}.practice-card .practice-name{font-size:15px}
+ .practice-card .practice-no{font-size:12px}.practice-record{margin-inline:13px}
+ .review-schedule{padding:17px 14px}.review-schedule-counts{gap:12px}.review-schedule-counts>div+div{padding-left:12px}
+ .review-schedule .section-heading{align-items:baseline;flex-wrap:wrap;gap:5px}
+ .quick-options strong{font-size:13px}.playhead strong{font-size:13px}
+ body[data-view=play] .shell,body[data-view=result] .shell{padding-bottom:calc(32px + env(safe-area-inset-bottom))}
+}
