@@ -1,491 +1,286 @@
-const ANSWER_REVISION=3;
-const VERSION=3, STORE='karimen-study-v2', LEGACY='karimen-drill-miss';
-const $=id=>document.getElementById(id);
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const ICONS={road:'M5 3L3 21M19 3l2 18M12 3v4m0 4v3m0 4v3',play:'M8 5l11 7-11 7Z',book:'M12 5c-3-2-7-2-9-1v15c3-1 6-1 9 1 3-2 6-2 9-1V4c-2-1-6-1-9 1Zm0 0v15',check:'M5 12l4 4L19 6',arrow:'M4 12h15m-6-6 6 6-6 6',back:'M20 12H5m6-6-6 6 6 6',clock:'M12 7v5l3 2M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0',repeat:'M4 9a8 8 0 0 1 14-3l2 3M20 3v6h-6M20 15A8 8 0 0 1 6 18l-2-3m0 6v-6h6',search:'M21 21l-6-6M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0',settings:'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8M9 3l-1 3-3 1-2 3 2 2v3l3 3 1 3h6l1-3 3-1 2-3-2-2V9l-3-3-1-3Z',flag:'M5 21V4c6-4 8 4 14 0v10c-6 4-8-4-14 0',info:'M12 11v6m0-11v1M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0',park:'M6 21V3h7a6 6 0 0 1 0 12H6',turn:'M5 21V11a4 4 0 0 1 4-4h11m-5-5 5 5-5 5',sign:'M12 2l10 10-10 10L2 12ZM12 7v6m0 3v1',signal:'M7 2h10v20H7Zm5 3v2m0 4v2m0 4v2',person:'M12 9v7m-6-4 6-3 6 3m-6 4-5 6m5-6 5 6M15 4a3 3 0 1 1-6 0 3 3 0 0 1 6 0',speed:'M3 19a10 10 0 1 1 18 0M12 13l5-5M5 16h2m10 0h2M12 4v2'};
-Object.assign(ICONS,{chevron:'M9 5l7 7-7 7',passing:'M7 21V3m-4 4 4-4 4 4M17 3v18m-4-4 4 4 4-4',gear:'M7 3v18M7 7h10V3m0 4v10M7 13h10',license:'M3 4h18v16H3ZM8 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4M5 17c0-4 6-4 6 0m3-8h4m-4 4h4',crossing:'M5 3l14 12M19 3 5 15M12 11v11M4 18h16'});
-function icon(k){return `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="${ICONS[k]||ICONS.book}"/></svg>`}
-const CATS=[{"k":"sign","label":"標識・補助標識","icon":"sign","topics":["標識","標識・標示","補助標識"]},{"k":"signal","label":"信号・合図","icon":"signal","topics":["信号","手信号","合図","進路変更","警音器"]},{"k":"inter","label":"交差点・緊急車","icon":"turn","topics":["交差点","環状交差点","緊急自動車"]},{"k":"pass","label":"追い越し・行き違い","icon":"passing","topics":["追い越し","行き違い"]},{"k":"ped","label":"歩行者・路面電車","icon":"person","topics":["歩行者保護","路面電車","安全地帯"]},{"k":"speed","label":"速度・徐行・距離","icon":"speed","topics":["速度","停止距離","徐行"]},{"k":"start","label":"発進・AT車","icon":"gear","topics":["発進","AT車","運転支援"]},{"k":"basic","label":"通行・免許・心得","icon":"license","topics":["通行の基本","運転者の心得","携帯電話","免許制度","車種","道路の心得"]},{"k":"hazard","label":"踏切・坂道","icon":"crossing","topics":["踏切","坂道・カーブ"]},{"k":"park","label":"駐停車・路側帯（補足）","icon":"park","topics":["駐停車","路側帯"],"extra":true}];
-const SOURCES=[...new Set(Q.map(q=>q.practiceSet).filter(Number.isInteger))].sort((a,b)=>a-b).map(n=>({k:'s'+(n+9),number:n,label:'練習問題'+n,ordered:true,test:q=>q.practiceSet===n}));
-const byId=new Map(BANK.map(q=>[q.id,q])), catFor=q=>CATS.find(c=>c.topics.includes(q.topic));
-const DUP=[[1,92],[13,70],[80,188],[24,194],[27,120],[40,113],[17,132],[42,167],[87,89],[54,56],[61,64],[62,65],[45,160],[26,72],[22,31],[4,7],[30,47],[79,116],[35,166]];
-const related=id=>DUP.flatMap(([a,b])=>a===id?[b]:b===id?[a]:[]);
-const uniq=a=>[...new Set(a)];
-const shuffle=arr=>{const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
-function dedupe(a){const seen=new Set();return a.filter(q=>{const key=q.concept||String(q.id);if(seen.has(key))return false;seen.add(key);return true})}
-let storageOK=true, storageProblem=false;
-function readKey(key){try{return localStorage.getItem(key)}catch{storageOK=false;return null}}
-function readJSON(key,fallback){const raw=readKey(key);if(raw===null)return fallback;try{return JSON.parse(raw)}catch{storageProblem=true;return fallback}}
-const bounded=(x,max=1000000)=>typeof x==='number'&&Number.isFinite(x)?Math.min(max,Math.max(0,Math.floor(x))):0;
-function cleanRecords(raw){
- const misses={},stats={};
- for(const {id} of BANK){
-  if(id===366&&(raw?.answerRevision??0)<3)continue;
-  const m=bounded(raw?.misses?.[id],9999);if(m)misses[id]=m;
-  const x=raw?.stats?.[id];if(x&&typeof x==='object'){
-   const total=bounded(x.total);if(total)stats[id]={total,correct:Math.min(total,bounded(x.correct)),last:typeof x.last==='boolean'?x.last:null,lastAt:bounded(x.lastAt,1e15),reviewAt:bounded(x.reviewAt,1e15),reviewPass:bounded(x.reviewPass,2),uncertain:Boolean(x.uncertain)};
-  }
- }
- return {misses,stats};
-}
-function cleanSession(s,answerRevision=ANSWER_REVISION){
- if(!s||!['drill','exam'].includes(s.mode)||!Array.isArray(s.ids)||!s.ids.length||s.ids.length>BANK.length)return null;
- if(!s.ids.every(id=>Number.isInteger(id)&&byId.has(id))||new Set(s.ids).size!==s.ids.length)return null;
- if(s.mode==='exam'&&(s.ids.length!==50||!Number.isFinite(s.end)||!Number.isFinite(s.started)||s.end-s.started!==1800000))return null;
- const answers=s.ids.map((id,i)=>id===366&&answerRevision<3?null:typeof s.answers?.[i]==='boolean'?s.answers[i]:null),index=Math.min(s.ids.length-1,bounded(s.index));
- const kind=examKind(s);if(kind==='assessment'&&!formMatches(s.ids,s.form))return null;
- return {mode:s.mode,ids:[...s.ids],answers,index,uncertain:s.ids.map((_,i)=>Boolean(s.uncertain?.[i])),flags:s.ids.map((_,i)=>Boolean(s.flags?.[i])),label:s.mode==='drill'?(SOURCES.find(x=>x.k===s.pool)?.label||(String(s.pool||'').startsWith('s')?'分野別の練習':typeof s.label==='string'?s.label.slice(0,80):'練習')):typeof s.label==='string'?s.label.slice(0,80):'実力テスト',pool:typeof s.pool==='string'?s.pool.slice(0,30):'all',started:Number.isFinite(s.started)?s.started:Date.now(),end:s.mode==='exam'?s.end:null,examKind:kind,form:kind==='assessment'?s.form:null,firstAttempt:kind==='assessment'&&Boolean(s.firstAttempt),blueprint:s.blueprint===BLUEPRINT_VERSION?BLUEPRINT_VERSION:null};
-}
-// Only complete, matching 50-question sets create a scored practice record.
-function cleanPracticeEntry(raw,source){
- if(!raw||!source||!Number.isFinite(raw.at)||raw.at<=0||raw.at>1e15||raw.total!==50)return null;
- const ids=Q.filter(source.test).map(q=>q.id);
- if(ids.length!==50||!Array.isArray(raw.ids)||raw.ids.length!==50||new Set(raw.ids).size!==50||!raw.ids.every(id=>ids.includes(id)))return null;
- if(!Array.isArray(raw.answers)||raw.answers.length!==50||!raw.answers.every(a=>a===null||typeof a==='boolean'))return null;
- return {at:raw.at,started:bounded(raw.started,1e15),total:50,score:raw.ids.filter((id,i)=>raw.answers[i]===byId.get(id).a).length,ids:[...raw.ids],answers:[...raw.answers],answerRevision:ANSWER_REVISION};
-}
-function cleanPracticeResults(raw){
- const result={};
- for(const source of SOURCES){
-  const saved=raw?.[source.number];if(!saved)continue;
-  const recent=(Array.isArray(saved.recent)?saved.recent:[]).slice(-10).map(r=>cleanPracticeEntry(r,source)).filter(Boolean).sort((a,b)=>a.at-b.at);
-  const best=[cleanPracticeEntry(saved.best,source),...recent].filter(Boolean).sort((a,b)=>b.score-a.score||b.at-a.at)[0];
-  if(best)result[source.number]={best,recent};
- }
- return result;
-}
-function savePracticeAttempt(session){
- const source=SOURCES.find(s=>s.k===session.pool);
- const entry=cleanPracticeEntry({...session,at:Date.now(),total:session.ids.length},source);
- if(!entry)return false;
- state.practiceResults??={};
- const saved=state.practiceResults[source.number]||{best:null,recent:[]};
- state.practiceResults[source.number]={best:!saved.best||entry.score>=saved.best.score?entry:saved.best,recent:[...saved.recent,entry].slice(-10)};
- return true;
-}
-function loadState(){
- const raw=readJSON(STORE,null);
- if(raw&&[2,VERSION].includes(raw.version)){
-  const r=cleanRecords(raw),checks=cleanChecks(raw,r),session=cleanSession(raw.session,raw.answerRevision??0);
-  if(session?.examKind==='assessment'&&!checks[session.form])checks[session.form]={startedAt:session.started,first:null};
-  return {version:VERSION,answerRevision:ANSWER_REVISION,...r,checks,practiceResults:cleanPracticeResults(raw.practiceResults),limit:[0,10,20].includes(raw.limit)?raw.limit:10,theme:['auto','light','dark'].includes(raw.theme)?raw.theme:'auto',sound:raw.sound!==false,history:cleanHistory(raw.history),session};
- }
- const misses=readJSON(LEGACY,{}),limitRaw=readKey('karimen-limit');
- return {version:VERSION,answerRevision:ANSWER_REVISION,...cleanRecords({misses}),checks:{},practiceResults:{},limit:limitRaw!==null&&[0,10,20].includes(Number(limitRaw))?Number(limitRaw):10,theme:'auto',sound:true,history:[],session:null};
-}
-let state=loadState(), timer=null, tab='drill', currentView='menu', lastResult=null, noteReturn=false, figureNumber=0, toastTimer=null, modalAction=null;
-function storageWarning(){const show=!storageOK||storageProblem;$('storage-warning').hidden=!show;$('storage-warning').textContent=!storageOK?'この表示環境では記録を保存できません。設定から記録を書き出しておくと引き継げます。':'保存データの一部を読み込めなかったため、安全な初期値で開きました。問題は引き続き解けます。'}
 let actx=null;
 function sfx(ok){if(state.sound===false)return;try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;actx=actx||new C();if(actx.state==='suspended')actx.resume();const t=actx.currentTime,g=actx.createGain();g.connect(actx.destination);
  const tone=(f,st,d,type,vol)=>{const o=actx.createOscillator(),v=actx.createGain();o.type=type;o.frequency.setValueAtTime(f,t+st);v.gain.setValueAtTime(0.0001,t+st);v.gain.exponentialRampToValueAtTime(vol,t+st+0.015);v.gain.exponentialRampToValueAtTime(0.0001,t+st+d);o.connect(v);v.connect(g);o.start(t+st);o.stop(t+st+d+0.02)};
  if(ok){tone(988,0,0.16,'sine',0.25);tone(1319,0.13,0.32,'sine',0.25)}else{tone(196,0,0.32,'square',0.09);tone(185,0.02,0.32,'sawtooth',0.06);try{navigator.vibrate&&navigator.vibrate(120)}catch{}}}catch{}}
-function persist(){try{localStorage.setItem(STORE,JSON.stringify(state));storageOK=true}catch{storageOK=false}storageWarning()}
-function theme(){const dark=state.theme==='dark'||(state.theme==='auto'&&matchMedia('(prefers-color-scheme:dark)').matches);document.documentElement.dataset.theme=dark?'dark':'light'}
-function toast(s){$('toast').textContent=s;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,3500)}
-function scrollTopPage(){window.scrollTo({top:0,behavior:'instant'})}
-function setTab(k){
- if(state.session?.mode==='exam'&&k!=='drill'){toast('模擬テスト中は解答に集中しましょう。終了後に図解を開けます。');return}
- tab=k;document.body.dataset.view=k==='drill'?(lastResult&&currentView==='play'?'result':currentView):'menu';['drill','notes','tests'].forEach(t=>{$(t).hidden=t!==k;const b=$('tab-'+t);b.setAttribute('aria-selected',String(t===k));b.tabIndex=t===k?0:-1});
- if(k==='notes')renderNotes();if(k==='tests')renderTests();scrollTopPage();
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const byId = new Map(BANK.map(q => [q.id, q]));
+const model = KarimenModel.create({ storage: { getItem: k => window.localStorage.getItem(k), setItem: (k, v) => window.localStorage.setItem(k, v) } });
+let state = model.state, tab = 'mock', view = 'mock', mockFilter = 'all', categoryFilter = 'all';
+let lastResult = null, reviewFilter = 'wrong', noteReturn = null, toastTimer = null, modalAction = null;
+let noteSearch = '', noteFilter = '', reviewMore = false, externalChange = false;
+const shuffle = arr => { const out = [...arr]; for (let i = out.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [out[i], out[j]] = [out[j], out[i]]; } return out; };
+const activeQuestion = id => model.active.get(Number(id));
+const dateLabel = at => at ? new Date(at).toLocaleString('ja-JP', { month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' }) : '今すぐ';
+const pct = (n, total) => total ? Math.round(n / total * 100) : 0;
+const weak = q => model.weak(q.id);
+const bankCount = '500問';
+function toast(text) { $('toast').textContent = text; $('toast').hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => $('toast').hidden = true, 4500); }
+function save() { const ok = model.save(); updateChrome(); return ok; }
+function theme() { document.documentElement.dataset.theme = state.theme === 'dark' || (state.theme === 'auto' && matchMedia('(prefers-color-scheme:dark)').matches) ? 'dark' : 'light'; document.documentElement.dataset.reduceMotion = String(state.reduceMotion); }
+function ask(title, message, yes, action) { modalAction = action; $('confirm-title').textContent = title; $('confirm-message').textContent = message; $('confirm-yes').textContent = yes; $('confirm').showModal(); }
+function closeDialogs() { for (const el of document.querySelectorAll('dialog[open]')) el.close(); modalAction = null; }
+function updateChrome() {
+  state = model.state;
+  $('storage-warning').hidden = !model.error && !externalChange;
+  $('storage-warning').textContent = externalChange ? '別のタブで記録が更新されました。重複を防ぐため操作を止めています。再読み込みして続けてください。' : model.error;
+  const locked = state.session?.mode === 'exam';
+  for (const k of ['mock', 'learn', 'review']) { const b = $('tab-' + k); b.disabled = locked && k !== 'mock'; b.setAttribute('aria-selected', String(k === tab)); b.tabIndex = k === tab ? 0 : -1; }
+  $('review-dot').hidden = model.schedule().due.length === 0;
+  $('footer').hidden = locked || ['play','result','notes'].includes(view);
+  $('migration-notice').hidden = locked || !state.notices.length || !['mock','learn','review'].includes(view);
+  $('migration-notice').innerHTML = state.notices.map(t => `<p>${esc(t)}</p>`).join('') + '<button class="textbtn" data-action="dismiss-notice">確認しました</button>';
 }
-function setExamLock(){const on=state.session?.mode==='exam';['notes','tests'].forEach(k=>$('tab-'+k).disabled=on);$('footer').hidden=on}
-function showMenu(){document.body.dataset.view='menu';currentView='menu';$('menu').hidden=false;$('play').hidden=true;renderMenu();setTab('drill');setExamLock()}
-function showPlay(){document.body.dataset.view='play';currentView='play';$('menu').hidden=true;$('play').hidden=false;setTab('drill');setExamLock()}
-function ask(title,message,yes,action){modalAction=action;$('confirm-title').textContent=title;$('confirm-message').textContent=message;$('confirm-yes').textContent=yes;$('confirm').showModal()}
-function weak(q){return (state.misses[q.id]||0)>0||Boolean(state.stats[q.id]?.reviewAt)}
-function reviewDue(q,now=Date.now()){return weak(q)&&(state.stats[q.id]?.reviewAt||0)<=now}
-function reviewSchedule(now=Date.now()){
- const all=availablePractice().filter(q=>q.chapter&&weak(q));
- const due=all.filter(q=>reviewDue(q,now)),later=all.filter(q=>!reviewDue(q,now));
- return {all,due,later,nextAt:later.length?Math.min(...later.map(q=>state.stats[q.id].reviewAt)):0};
+function show(name, top = true) {
+  view = name; for (const k of ['mock','learn','review','play','result','notes','archive']) $(k).hidden = k !== name;
+  updateChrome(); if (top) { window.scrollTo({ top: 0, behavior:'instant' }); $('main').focus({ preventScroll: true }); }
 }
-function reviewTimeLabel(at,now=Date.now()){
- const date=new Date(at),today=new Date(now),tomorrow=new Date(now);tomorrow.setDate(tomorrow.getDate()+1);
- const day=date.toDateString()===today.toDateString()?'今日':date.toDateString()===tomorrow.toDateString()?'明日':date.toLocaleDateString('ja-JP',{month:'numeric',day:'numeric'});
- return day+' '+date.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',hour12:false});
+function navigate(k) {
+  if (!['mock','learn','review'].includes(k)) return;
+  if (state.session?.mode === 'exam' && k !== 'mock') { toast('模試を採点してから、学習・復習を開けます。'); return; }
+  tab = k; if (k === 'mock') renderMock(); if (k === 'learn') renderLearn(); if (k === 'review') renderReview(); show(k);
 }
-function reviewProgressHTML(q){
- if(!weak(q))return '';
- const stat=state.stats[q.id]||{},left=Math.max(1,2-(stat.reviewPass||0));
- return `<aside class="review-progress-note"><span>${icon('repeat')}</span><div><strong>復習を卒業するまで、あと${left}回</strong><p>${reviewDue(q)?'時間をあけた復習ができます。自信を持って正解できたら、1回分進みます。':'次は'+reviewTimeLabel(stat.reviewAt)+'から。自信を持って正解すると、卒業に近づきます。'}</p><small>予定前の正解は、卒業までの回数に含みません。</small></div></aside>`;
+function resultsFor(n, kind, currentOnly = true) {
+  const target = kind === 'mock' ? state.mockResults : state.guidedResults;
+  const row = target[n], w = model.worksheet(n);
+  const candidates = [...state.attempts, ...(row?.recent || []), row?.best].filter(a => a && a.mode === kind && a.worksheet === n && (!currentOnly || a.contentVersion === w.contentVersion));
+  const list = [...new Map(candidates.map(a => [a.attemptId, a])).values()].sort((a, b) => a.completedAt - b.completedAt);
+  return { list, last: list.at(-1), best: [...list].sort((a, b) => b.scoreSnapshot - a.scoreSnapshot)[0] };
 }
-function reviewScheduleHTML(){
- const schedule=reviewSchedule();if(!schedule.all.length)return '';
- return `<section class="review-schedule" aria-labelledby="review-schedule-title"><div class="section-heading"><h3 id="review-schedule-title">復習の予定</h3><span class="muted">あとで、もう一度。</span></div><div class="review-schedule-counts"><div class="${schedule.due.length?'is-due':''}"><span>今日の復習</span><strong>${schedule.due.length}<small>問</small></strong><p>${schedule.due.length?'時間をあけて確認できます':'いま取り組む問題はありません'}</p></div><div><span>次回の復習</span><strong>${schedule.later.length}<small>問</small></strong><p>${schedule.nextAt?'次は'+reviewTimeLabel(schedule.nextAt)+'から':'予定はありません'}</p></div></div>${schedule.due.length?`<button class="btn wide" data-action="start" data-pool="due">今日の復習を始める ${icon('arrow')}</button><p class="review-schedule-limit">${state.limit?'1回'+state.limit+'問ずつ練習できます。':'対象の問題をすべて出題します。'}</p>`:''}<details class="review-schedule-help"><summary>復習を卒業するには？</summary><p>24時間以上あけて、自信のある正解を2回重ねると卒業します。予定前の正解は回数に含みません。間違えた場合や自信がない場合は、次の復習から数え直します。</p><button class="textbtn" data-action="start" data-pool="weak">予定を待たずに確認する ${icon('chevron')}</button></details></section>`;
+function filters(action, value, choices) { return `<div class="seg" role="group" aria-label="表示を絞り込む">${choices.map(([k, label]) => `<button data-action="${action}" data-filter="${k}" aria-pressed="${value === k}">${label}</button>`).join('')}</div>`; }
+function renderMock() {
+  const passed = WORKSHEETS.filter(w => (resultsFor(w.worksheet, 'mock').best?.scoreSnapshot ?? -1) >= 45).length;
+  const s = state.session, list = WORKSHEETS.filter(w => { const r = resultsFor(w.worksheet, 'mock'); return mockFilter === 'all' || (mockFilter === 'new' ? !r.last : (r.best?.scoreSnapshot ?? -1) < 45); });
+  $('mock').innerHTML = `<div class="page-heading"><h2>教習問題ベースの模試</h2><p class="inline muted">10回・各50問 <span class="badge">一部代替あり</span></p></div>
+    <div class="achievement-progress"><div class="inline"><span><b>${passed}</b><small> / 10回 合格</small></span><small class="muted">達成率 ${passed * 10}%</small></div><div class="progress" role="progressbar" aria-label="模試の合格回数" aria-valuenow="${passed}" aria-valuemin="0" aria-valuemax="10"><i style="width:${passed * 10}%"></i></div></div>
+    ${s?.mode === 'exam' ? `<button class="resume-card" data-action="resume"><span><strong>第${s.worksheet}回の続きへ</strong><small>${s.answers.filter(a => a !== null).length} / 50問 回答済み · 中断中も時間は進みます</small></span>${icon('arrow')}</button>` : ''}
+    ${filters('mock-filter', mockFilter, [['all','すべて'],['new','未受験'],['unpassed','未合格']])}
+    <div class="mock-grid">${list.map(w => { const r = resultsFor(w.worksheet, 'mock'), on = s?.mode === 'exam' && s.worksheet === w.worksheet, score = r.best?.scoreSnapshot;
+      return `<button class="set-card ${on ? 'in-progress' : ''} ${score === 50 ? 'perfect' : ''}" data-action="detail" data-set="${w.worksheet}" aria-label="第${w.worksheet}回 ${on ? '受験中' : r.last ? `前回${r.last.scoreSnapshot}点 最高${score}点` : '未受験'}"><span><b>第${w.worksheet}回</b>${r.last ? `<small>前回 ${r.last.scoreSnapshot}点</small><small>最高 ${score}点</small>` : `<span class="badge ${on ? 'blue' : ''}">${on ? '受験中' : '未受験'}</span>`}${on && r.last ? '<small>受験中</small>' : ''}</span>${score >= 45 ? flowerStamp().replace('>合格<', score === 50 ? '>満点<' : '>合格<') : `<span class="chevron">${icon('chevron')}</span>`}</button>`; }).join('')}</div>
+    ${!list.length ? '<div class="empty"><h3>この条件の回はありません</h3><p>「すべて」から各回の記録を確認できます。</p></div>' : ''}
+    <p class="legacy-label">50問・30分。解説は採点後に表示します。以前の解説付き練習の記録は、各回の詳細に残っています。</p>`;
 }
-function pool(k){
- if(k==='weak')return availablePractice().filter(q=>q.chapter&&weak(q));
- if(k==='due')return availablePractice().filter(q=>q.chapter&&reviewDue(q));
- if(k==='mix'||k==='all')return Q.filter(q=>q.chapter);
- if(k==='extra')return Q.filter(q=>!q.chapter);
- if(k.startsWith('c-')){const c=CATS.find(x=>'c-'+x.k===k);return c?Q.filter(q=>q.chapter&&c.topics.includes(q.topic)):[]}
- const s=SOURCES.find(x=>x.k===k);return s?Q.filter(s.test):[];
+function attemptRows(list, label) {
+  return list.slice(-10).reverse().map(a => `<div class="history-row"><div>${label}<small>${dateLabel(a.completedAt)}${a.legacy ? ' · 旧版の記録' : ''}</small></div><b>${a.scoreSnapshot}<small> / ${a.total}点</small></b><button class="textbtn" data-action="stored-result" data-id="${esc(a.attemptId)}">見る</button></div>`).join('');
 }
-function label(k){return k==='mix'?'仮免のおまかせ練習':k==='due'?'今日の復習':k==='weak'?'仮免の苦手復習':k==='all'?'仮免範囲の全問題':k==='extra'?'補足問題の復習':CATS.find(x=>'c-'+x.k===k)?.label||SOURCES.find(x=>x.k===k)?.label||'復習ドリル'}
-const DESIGN_MASCOTS="./image-155cadc1029a.png";
-let categoryFilter='all';
-function categoryItems(){return CATS.filter(c=>!c.extra).map(c=>{const list=pool('c-'+c.k);return {...c,total:list.length,attempted:list.filter(q=>state.stats[q.id]?.total).length,review:list.filter(weak).length,correct:list.filter(q=>state.stats[q.id]?.last===true).length}})}
-function renderCategories(){
- const all=categoryItems(),items=all.filter(c=>categoryFilter==='weak'?c.review>0:categoryFilter==='new'?c.attempted===0&&c.review===0:true);
- $('category-count').textContent=items.length+'分野';
- $('category-grid').innerHTML=items.map(c=>{const fresh=!c.attempted&&!c.review;return `<button class="category-card" data-action="start" data-pool="c-${c.k}"><span class="category-card-top">${icon(c.icon)}${icon('chevron')}</span><strong>${c.label}</strong><span class="category-status"><span>${fresh?'全'+c.total+'問 · 未学習':'正解 '+c.correct+'/'+c.total+'問'}</span>${c.review?`<span class="category-review-badge">復習 ${c.review}問</span>`:''}</span><span class="category-progress ${fresh?'untouched':''}" aria-hidden="true"><i style="width:${c.total?c.correct/c.total*100:0}%"></i></span></button>`}).join('')||`<p class="category-empty">${categoryFilter==='weak'?'要復習の分野はありません。':'未学習の分野はありません。'}「すべて」から引き続き練習できます。</p>`;
+function detail(n) {
+  const w = model.worksheet(n); if (!w) return;
+  if (state.session?.mode === 'exam') { resume(); return; }
+  const mock = resultsFor(w.worksheet, 'mock'), guided = resultsFor(w.worksheet, 'guided', false);
+  $('detail-content').innerHTML = `<span class="badge">教習問題ベース</span><h2 id="detail-title">第${w.worksheet}回</h2><div class="details-list"><div><b>50問</b><span>教材の順番で出題</span></div><div><b>30分</b><span>採点後に解説</span></div></div><p>45点以上で、このアプリ内の合格です。</p><p class="muted">代替問題 ${w.replacementCount}問・補足問題 ${w.supplementalCount}問を含む50問です。</p><p class="muted">模試は画面を閉じても時間が進みます。未回答は不正解として採点します。</p><div class="stack"><button class="btn wide" data-action="start-mock" data-set="${w.worksheet}">30分模試を始める ${icon('arrow')}</button><button class="btn secondary wide" data-action="start-guided" data-set="${w.worksheet}">この回を解説付きで練習</button></div><h3>30分模試の記録</h3>${mock.best ? `<p class="inline"><span class="badge ${mock.best.scoreSnapshot >= 45 ? 'success' : ''}">最高 ${mock.best.scoreSnapshot}点</span></p>${attemptRows(mock.list, '30分模試')}` : '<p class="muted">まだ受験していません。</p>'}${guided.best ? `<h3>解説付き練習の記録</h3><p class="inline"><span class="badge ${guided.best.scoreSnapshot >= 45 ? 'success' : ''}">最高 ${guided.best.scoreSnapshot}点${guided.best.scoreSnapshot >= 45 ? ' · 合格の目安を達成' : ''}</span></p>${attemptRows(guided.list, '解説付き練習')}<p class="muted">この成績は30分模試の合格数には含めません。</p>` : ''}`;
+  $('detail').showModal();
 }
-let practiceView='sets';
-function switchPractice(view){
- practiceView=view==='categories'?'categories':'sets';
- $('practice-sets').hidden=practiceView!=='sets';$('practice-categories').hidden=practiceView!=='categories';
- document.querySelectorAll('[data-action="practice-view"]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.view===practiceView)));
+function replaceStudy(action) {
+  if (state.session?.mode === 'exam') { resume(); return; }
+  if (state.session) ask('新しい学習を始めますか？', '途中の学習を終了して始めます。答えた問題の記録は残ります。', '新しく始める', action);
+  else action();
 }
-function practiceCardHTML(source){
- const qs=pool(source.k),done=qs.filter(q=>state.stats[q.id]?.total).length,saved=state.practiceResults?.[source.number],previous=saved?.recent.at(-1),best=saved?.best;
- const passed=best?.score>=45,perfect=best?.score===50,inProgress=state.session?.mode==='drill'&&state.session.pool===source.k;
- const status=best?'あと'+Math.max(0,45-best.score)+'点':done===qs.length?'全問に回答':done?'学習中':'未学習';
- return `<article class="practice-card ${passed?'passed':''} ${perfect?'perfect':''}"><button class="practice-row ${inProgress?'in-progress':''}" data-action="${inProgress?'resume':'start'}" data-pool="${source.k}"><span class="practice-no">${String(source.number).padStart(2,'0')}</span><span class="practice-name">${esc(source.label)}<small>${inProgress?'途中から再開できます':'解いた問題 '+done+' / '+qs.length+'問'}</small><span class="practice-progress" aria-hidden="true"><i style="width:${qs.length?done/qs.length*100:0}%"></i></span></span>${passed?`<span class="practice-achievement">${flowerStamp()}<span class="sr-only">${perfect?'満点合格済み':'合格済み'}</span></span>`:`<span class="badge ${previous?'needs-practice':''}">${inProgress?'学習中':status}</span>`}${icon('chevron')}</button>${best?`<div class="practice-record"><div class="practice-scores"><span>最高 <b>${best.score}<small>点</small></b></span><span>前回 <b>${previous?previous.score+'<small>点</small>':'—'}</b></span></div>${previous?`<button class="textbtn" data-action="practice-result" data-set="${source.number}">前回の回答を見る ${icon('chevron')}</button>`:''}</div>`:done?'<p class="practice-record-empty">得点・合格の記録は、50問を終えると残ります。</p>':''}</article>`;
+function startSet(n, kind) {
+  const w = model.worksheet(n); if (!w) return; $('detail').close();
+  replaceStudy(() => { model.begin({ ids:w.orderedIds, kind, worksheet:w.worksheet, label:`第${w.worksheet}回${kind === 'guided' ? '・解説付き練習' : ''}` }); state = model.state; tab = kind === 'mock' ? 'mock' : 'learn'; lastResult = null; renderPlay(); show('play'); focusQuestion(); });
 }
-function showPracticeResult(number){
- if(state.session?.mode==='exam'){toast('テストの終了後に確認できます。');return}
- const source=SOURCES.find(s=>s.number===Number(number)),saved=state.practiceResults?.[source?.number]?.recent.at(-1);if(!source||!saved)return;
- lastResult={...saved,mode:'drill',pool:source.k,label:source.label,timeout:false};reviewFilter='wrong';showPlay();renderResult();scrollTopPage();
+function categorized(c) { return Q.filter(q => c.extra ? q.isSupplemental : !q.isSupplemental && c.topics.includes(q.topic)); }
+function studySelection(list, count = 10) {
+  const pending = shuffle(list.filter(q => !state.stats[q.id]?.total)), other = shuffle(list.filter(q => state.stats[q.id]?.total));
+  const ordered = [...pending, ...other], concepts = new Set(), selected = [], deferred = [];
+  for (const q of ordered) { const concept = q.concept || q.id; if (concepts.has(concept)) deferred.push(q); else { selected.push(q); concepts.add(concept); } }
+  return [...selected, ...deferred].slice(0, count).map(q => q.id);
 }
-function renderMenu(){
- const main=Q.filter(q=>q.chapter),answered=main.filter(q=>state.stats[q.id]?.total).length,weakCount=pool('weak').length;
- const totals=main.reduce((r,q)=>{const s=state.stats[q.id];return [r[0]+(s?.total||0),r[1]+(s?.correct||0)]},[0,0]);
- const session=state.session,visualCount=main.filter(q=>VISUALS[q.id]||IMGQ[q.id]).length;
- $('menu').innerHTML=`<div class="intro intro-illustrated"><div class="intro-copy"><h2>今日も、一歩ずつ。</h2><p class="muted">${session?'前回の続きから、始めよう。':'まずは10問、解いてみよう。'}</p></div><img class="intro-character" src="${DESIGN_MASCOTS}" alt="DON!DON!ドライブのプーリーくんとよりともさん" decoding="async"></div>
- <div class="resume"><div><span class="overline">${session?'CONTINUE':'START'}</span><strong>${session?esc(session.label):'はじめの10問'}</strong><p>${session?session.answers.filter(a=>a!==null).length+' / '+session.ids.length+'問 回答済み':'仮免の基本から、少しずつ。'}</p></div>${session?`<div class="resume-track" aria-hidden="true"><i style="width:${session.answers.filter(a=>a!==null).length/session.ids.length*100}%"></i></div>`:''}<button class="btn wide" data-action="${session?'resume':'quick-start'}">${session?'続きから解く':'10問から始める'} ${icon('arrow')}</button></div>
- <section class="learning-summary" aria-label="学習記録"><div class="learning-main"><span>解いた問題</span><strong>${answered}<small> / ${main.length}問</small></strong><div class="resume-track" aria-hidden="true"><i style="width:${answered/main.length*100}%"></i></div></div><div class="learning-detail"><span>累計正答率 <b>${totals[0]?Math.round(totals[1]/totals[0]*100)+'%':'—'}</b></span><small>${totals[0]?'延べ'+totals[0]+'回答から算出':'回答すると記録されます'}</small><span class="${weakCount?'has-review':''}">要復習 <b>${weakCount}問</b></span></div></section>
- ${reviewScheduleHTML()}
- <section class="practice-browser"><div class="practice-switch" role="group" aria-label="練習の選び方"><button data-action="practice-view" data-view="sets" aria-pressed="${practiceView==='sets'}" aria-controls="practice-sets">問題集から（教習問題）</button><button data-action="practice-view" data-view="categories" aria-pressed="${practiceView==='categories'}" aria-controls="practice-categories">分野から</button></div>
- <div id="practice-sets" ${practiceView!=='sets'?'hidden':''}><div class="section-heading"><h3>教習問題</h3><span class="muted">${SOURCES.length}セット</span></div><p class="practice-origin">各50問。45点以上で、合格の花丸が残ります。</p><div class="practice-rows">${SOURCES.map(practiceCardHTML).join('')}</div></div>
- <div id="practice-categories" class="category-section" ${practiceView!=='categories'?'hidden':''} aria-labelledby="category-title"><div class="category-heading"><h3 id="category-title">分野別に練習</h3><p>気になる分野から、少しずつ。</p></div><div class="category-toolbar"><div class="category-filters" role="group" aria-label="分野の絞り込み">${[['all','すべて'],['new','未学習'],['weak','要復習']].map(([k,t])=>`<button data-action="category-filter" data-filter="${k}" aria-pressed="${categoryFilter===k}" aria-controls="category-grid">${t}</button>`).join('')}</div><span id="category-count" class="category-count" role="status" aria-live="polite"></span></div><div class="category-grid" id="category-grid"></div></div></section>
- <section class="other-practice"><h3>いろいろな練習</h3><div class="quick-options"><button data-action="start" data-pool="mix">${icon('play')}<span><strong>おまかせ練習</strong><small>苦手を優先して ${state.limit||'全'}問</small></span>${icon('chevron')}</button><button data-action="visual-drill">${icon('sign')}<span><strong>標識・手信号</strong><small>イラスト付き ${visualCount}問</small></span>${icon('chevron')}</button></div><details class="practice-options"><summary>出題数・復習のしくみ</summary><div class="mode-options"><span>1回の出題数</span><div class="seg" role="group" aria-label="1回の出題数">${[10,20,0].map(v=>`<button data-action="limit" data-value="${v}" aria-pressed="${state.limit===v}">${v||'全部'}${v?'問':''}</button>`).join('')}</div></div><p>問題集は全問を出題します。苦手・自信なしは、24時間以上あけた自信のある正解を2回重ねると卒業します。</p></details></section>
- <details class="extra-panel"><summary>補足の学習</summary><p class="hintline">仮免の模試・実力テストに含めないテーマです。</p><button class="source-row" data-action="start" data-pool="extra">駐停車・交通公害など<span>${pool('extra').length}問 →</span></button></details>
- <div class="info-strip">${icon('info')}<span>記録はこのブラウザに保存されます。端末を変える前に、設定から書き出せます。</span></div>`;
- renderCategories();
+function startStudy(ids, label, kind = 'study') {
+  const clean = [...new Set(ids)].filter(id => activeQuestion(id)); if (!clean.length) { toast('対象の問題はありません。'); return; }
+  replaceStudy(() => { model.begin({ ids:clean, kind, label }); state = model.state; tab = kind === 'review' ? 'review' : 'learn'; lastResult = null; renderPlay(); show('play'); focusQuestion(); });
 }
-
-function record(id,answer,uncertain=false){const q=byId.get(id),ok=q.a===answer,now=Date.now();const s=state.stats[id]||{total:0,correct:0,last:null};s.total++;s.correct+=ok?1:0;s.last=ok;s.lastAt=now;
- if(!ok||uncertain){state.misses[id]=Math.max(1,(state.misses[id]||0)+(!ok?1:0));s.reviewPass=0;s.reviewAt=now+86400000;s.uncertain=uncertain}
- else if(weak(q)){if(!s.reviewAt||now>=s.reviewAt){s.reviewPass=(s.reviewPass||0)+1;s.reviewAt=now+86400000;if(s.reviewPass>=2){delete state.misses[id];s.reviewAt=0;s.uncertain=false}}}
- state.stats[id]=s;return ok}
-function replaceSession(action){if(!state.session){action();return}if(state.session.mode==='exam'){toast('進行中の模擬テストを再開します。');resume();return}ask('新しい練習を始めますか？','途中の出題は終了します。これまで答えた問題の学習記録は残ります。','新しく始める',action)}
-document.addEventListener('click',e=>{if(e.target.closest('[data-action="quick-start"]')){beginDrill('mix',shuffle(pool('mix')).slice(0,10).map(q=>q.id),'10問の練習',true)}});
-function beginDrill(k,custom=null,customLabel=null,all=false){
- replaceSession(()=>{let list=custom?custom.map(id=>byId.get(id)).filter(Boolean):pool(k);if(k==='mix')list=[...shuffle(list.filter(weak)),...shuffle(list.filter(q=>!weak(q)))];else if(k==='weak'||k==='due')list=[...list].sort((a,b)=>(state.stats[a.id]?.lastAt||0)-(state.stats[b.id]?.lastAt||0));else if(SOURCES.some(s=>s.k===k&&s.ordered)){list=[...list].sort((a,b)=>a.id-b.id);all=true}else list=shuffle(list);
- // All means literally all; finite sessions avoid known same-concept pairs.
- if(!all&&state.limit>0)list=(k==='weak'||k==='due'||custom?list:dedupe(list)).slice(0,state.limit);
- if(!list.length){showMenu();toast(k==='due'?'今日の復習はありません。次回の予定を確認できます。':'対象の問題はまだありません。おまかせ練習をどうぞ。');return}
- state.session={mode:'drill',ids:list.map(q=>q.id),answers:list.map(()=>null),uncertain:list.map(()=>false),flags:[],index:0,label:customLabel||label(k),pool:k,started:Date.now(),end:null};lastResult=null;persist();showPlay();renderDrill();scrollTopPage();focusQuestion();});
+function renderLearn() {
+  const schedule = model.schedule(), unfinished = state.session?.mode === 'drill', freshCount = Q.filter(q => !state.stats[q.id]?.total).length;
+  const action = unfinished ? 'resume' : schedule.due.length ? 'due' : 'quick-study';
+  const title = unfinished ? '途中の学習を続ける' : schedule.due.length ? `今日の${Math.min(10, schedule.due.length)}問を復習` : `${Math.min(10, freshCount || Q.length)}問学ぶ`;
+  const sub = unfinished ? `${state.session.label} · ${state.session.answers.filter(a => a !== null).length} / ${state.session.ids.length}問 回答済み` : schedule.due.length ? '復習の時刻になった問題から' : freshCount ? 'まだ学んでいない問題を優先' : '模試と同じ500問から出題';
+  const cats = CATS.map(c => ({...c, list:categorized(c)})).filter(c => c.list.length).filter(c => categoryFilter === 'all' || (categoryFilter === 'new' ? c.list.some(q => !state.stats[q.id]?.total) : c.list.some(weak)));
+  $('learn').innerHTML = `<div class="page-heading"><h2>同じ問題を、分野から。</h2><p class="muted">答えるたびに、解説で確認。</p></div><button class="recommend" data-action="${action}">${icon(unfinished ? 'play' : schedule.due.length ? 'repeat' : 'book')}<span class="recommend-copy"><strong>${title}</strong><small>${esc(sub)}</small></span>${icon('chevron')}</button><div class="section-heading"><h3>分野から学ぶ</h3><small>共通の${bankCount}</small></div>${filters('category-filter', categoryFilter, [['all','すべて'],['new','未学習'],['weak','要復習']])}<div class="category-grid">${cats.map(c => { const correct = c.list.filter(q => state.stats[q.id]?.last === true).length, weakCount = c.list.filter(weak).length, learned = c.list.filter(q => state.stats[q.id]?.total).length; return `<button class="category-card" data-action="category" data-cat="${c.k}">${icon(c.icon)}<span class="category-copy"><strong>${esc(c.extra ? '補足の学習' : c.label)}</strong><small>${learned ? `正解 ${correct} / ${c.list.length}問` : `未学習 · ${c.list.length}問`}${weakCount ? `<br>復習 ${weakCount}問` : ''}</small><span class="progress"><i style="width:${pct(correct,c.list.length)}%"></i></span></span></button>`; }).join('')}</div>${!cats.length ? '<div class="empty">この条件の分野はありません。</div>' : ''}<button class="notes-entry" data-action="notes"><span class="inline"><strong>図解ノート</strong>${icon('chevron')}</span><p>重要なポイントを、図で整理</p><span class="notes-samples">${['n-hand','n-prio','n-at'].map(id => NOTES.find(n => n.id === id)).filter(Boolean).map(noteThumbnail).join('')}</span></button><div class="info-strip">${icon('info')}<span>補足問題も500問に含まれます。各回を50問通して練習するときは、模試の詳細から始められます。</span></div>`;
 }
-// Exact shapes and meanings checked against NPA traffic rules, pp. 51–52, 95–108.
-const VISUALS={};
-function registerVisual(ids,v){ids.forEach(id=>VISUALS[id]={...v})}
-registerVisual([13,38,70,71,93],{type:'sign',key:'entry',name:'車両進入禁止',tip:'この標識のある側から、車両は進入できません。自転車も対象です。',alt:'赤い円形で、中央に白い横棒がある標識。'});
-registerVisual([14],{type:'sign',key:'stopslow',name:'左：一時停止 ／ 右：徐行',tip:'「止まれ」は一時停止。「徐行」は直ちに停止できる速度で進むことです。',alt:'2つの逆三角形の標識。左は赤地に白い「止まれ」、右は白地に赤い枠と青い「徐行」。'});
-registerVisual([15,170],{type:'sign',key:'horn',name:'警笛鳴らせ',tip:'この標識がある場所では警音器を鳴らします。',alt:'青い円形に白い音を表す記号が描かれた標識。'});
-registerVisual([26,121],{type:'sign',key:'parking',name:'駐車禁止',tip:'赤い斜線が1本。駐車を禁止する標識です。',alt:'青い円形に赤い枠と赤い斜線が1本ある標識。'});
-registerVisual([27,120],{type:'sign',key:'warning',name:'警戒標識の例：十形道路交差点あり',tip:'黄色いひし形は、道路上の危険や注意すべき状況を予告します。',alt:'黄色いひし形に黒い十字の記号がある標識。'});
-registerVisual([28],{type:'sign',key:'minimum',name:'最低速度',tip:'数字の下に青い横線があります。数字は最低速度を示します。',alt:'白地に赤い枠の円形。中央に青い数字50、その下に青い横線がある標識。'});
-registerVisual([49,118],{type:'sign',key:'maximum',name:'最高速度',tip:'数字は指定された最高速度です。車種ごとの上限にも従います。',alt:'白地に赤い枠の円形。中央に青い数字40がある標識。'});
-registerVisual([50],{type:'sign',key:'closed',name:'通行止め',tip:'歩行者も車両も通行できません。「車両通行止め」と区別します。',alt:'白い円形に赤い枠と交差した赤い帯があり、下部に「通行止」の文字がある標識。'});
-registerVisual([63],{type:'sign',key:'beginner',name:'初心運転者標識',tip:'対象となる初心運転者は、車の前と後ろの両方の定められた位置に表示します。',alt:'左側が黄色、右側が緑色の、下端がとがったマーク。'});
-registerVisual([89],{type:'sign',key:'bus',name:'路線バス等優先通行帯',tip:'路線バス等が近づいたら、速やかに他の通行帯へ移ります。',alt:'青い四角形に、白いバスの記号と「優先」の文字、下向きの矢印がある標識。'});
-registerVisual([90],{type:'mark',key:'noarea',name:'立入り禁止部分',tip:'黄色い枠と白い斜線で示される部分には、車は入れません。',alt:'道路上に、黄色い枠と白い斜線で囲まれた部分がある。'});
-registerVisual([157],{type:'mark',key:'nostoparea',name:'停止禁止部分',tip:'この中で停止するおそれがあるときは、入ってはいけません。',alt:'道路上に、白い枠の中に白い大きなバツ印がある。'});
-registerVisual([66,67],{type:'sign',key:'truck',name:'大型貨物自動車等通行止め',tip:'大型貨物・特定中型貨物・大型特殊自動車が対象です。普通貨物・普通乗用車は対象外です。',alt:'白地に赤い枠の円形。青いトラックの記号に赤い斜線がある標識。'});
-registerVisual([68],{type:'sign',key:'car',name:'二輪の自動車以外の自動車通行止め',tip:'二輪以外の自動車が対象です。自動二輪や原付は、この標識では禁止されません。',alt:'白地に赤い枠の円形。青い乗用車の記号に赤い斜線がある標識。'});
-registerVisual([69],{type:'sign',key:'motorcycle',name:'二輪の自動車・一般原動機付自転車通行止め',tip:'二輪の自動車と一般原付が対象です。普通乗用車は対象外です。',alt:'白地に赤い枠の円形。青いオートバイの記号に赤い斜線がある標識。'});
-registerVisual([72,122],{type:'sign',key:'stopping',name:'駐停車禁止',tip:'赤い斜線が2本で×形。駐車も停車も禁止します。',alt:'青い円形に赤い枠と、交差した2本の赤い斜線がある標識。'});
-registerVisual([73],{type:'sign',key:'uturn',name:'転回禁止',tip:'Uターンを禁止する標識です。',alt:'白地に赤い枠の円形。折り返す青い矢印に赤い斜線がある標識。'});
-registerVisual([76],{type:'sign',key:'stopline',name:'停止線',tip:'停止が必要な場合の位置を示す指示標識です。この標識だけで一時停止の義務は生じません。',alt:'青い四角形に、上部に白い横線、下部に白い「停止線」の文字がある標識。'});
-registerVisual([119],{type:'sign',key:'stop',name:'一時停止',tip:'停止線がないときは、交差点の直前で一時停止します。',alt:'赤い逆三角形に白い「止まれ」の文字がある標識。'});
-registerVisual([123],{type:'sign',key:'vehicles',name:'車両通行止め',tip:'車両の通行を禁止します。歩行者はこの標識の対象外です。',alt:'白い円形に赤い枠と、赤い斜線が1本ある標識。'});
-registerVisual([124],{type:'sign',key:'oneway',name:'一方通行',tip:'矢印の方向に通行します。一方通行では、道路の右側部分も通行できます。',alt:'青い横長の長方形に、右向きの白い矢印がある標識。'});
-registerVisual([177],{type:'sign',key:'learner',name:'仮免許練習標識',tip:'仮免許で練習するときは、車の前後の定められた位置に表示します。',alt:'白い長方形に黒文字で、上段「仮免許」、下段「練習中」と書かれている。'});
-registerVisual([78],{type:'police',key:'vertical',approach:'side',name:'側面に向かう交通：黄色と同じ',tip:'この車は警察官の身体の正面に平行する方向。腕を垂直に上げているので黄色と同じ意味です。',alt:'警察官は右腕を真上に上げて正面を向いている。あなたの車は、警察官の左側から右へ、身体の正面に平行する方向に接近する。'});
-registerVisual([79,116],{type:'police',key:'horizontal',approach:'front',name:'正面に向かう交通：赤色と同じ',tip:'水平の腕と平行する交通は青。身体の正面・背面に対面する交通は赤です。',alt:'警察官は両腕を左右に水平に伸ばしている。あなたの車は下側から、警察官の正面に向かって接近する。'});
-registerVisual([117],{type:'police',key:'vertical',approach:'front',name:'正面に向かう交通：赤色と同じ',tip:'腕を上げても、正面・背面に対面する交通は赤。側面に向かう交通が黄です。',alt:'警察官は右腕を真上に上げている。あなたの車は下側から、警察官の正面に向かって接近する。'});
-registerVisual([80,188],{type:'police',key:'lamp',approach:'side',name:'灯火を振る方向に進む交通：青色と同じ',tip:'灯火を振っている方向を基準に判断します。警察官の身体の向きだけでは決まりません。',alt:'警察官が灯火を左右に振っている。あなたの車は、灯火を振る方向と平行に、左から右へ接近する。'});
-registerVisual([189],{type:'police',key:'lampup',approach:'side',name:'直前に灯火を振っていた方向：黄色と同じ',tip:'頭上へ上げる直前の灯火の振り方向が基準です。それと交差する交通は赤です。',alt:'直前は灯火を左右に振り、今は灯火を頭上へ上げている。あなたの車は、直前に振っていた方向と平行に、左から右へ接近する。'});
-registerVisual([115],{type:'police',key:'horizontal',approach:'front',signal:true,name:'信号機より警察官の手信号が優先',tip:'信号機が青でも、この車に対する手信号は赤と同じ。警察官の手信号に従います。',alt:'青信号が表示されているが、正面の警察官は両腕を水平に上げている。あなたの車は警察官の正面に向かって接近する。'});
-registerVisual([184],{type:'driver',key:'bend',name:'左折・左への進路変更',tip:'後ろから見た図です。右腕を出して、ひじを垂直に上へ曲げています。',alt:'後方から見た自動車。運転者は右腕を右側の窓から出し、ひじを直角に曲げて手を真上へ伸ばしている。'});
-registerVisual([185],{type:'driver',key:'straight',name:'右折・転回・右への進路変更',tip:'右腕を車の右側の外に出して、水平に伸ばす合図です。',alt:'後方から見た自動車。運転者は右腕を右側の窓から出し、水平に伸ばしている。'});
-registerVisual([186],{type:'driver',key:'down',name:'徐行・停止',tip:'斜め下に伸ばす合図は徐行・停止。後退では、さらに手のひらを後ろへ向け、腕を前後に動かします。',alt:'後方から見た自動車。運転者は右腕を右側の窓から出し、斜め下に伸ばして静止させている。'});
-registerVisual([187],{type:'driver',key:'bikeleft',name:'左折・左への進路変更',tip:'二輪車で左腕を水平に伸ばす方法も、左折の合図になります。',alt:'後方から見た二輪車。運転者は左腕を左側へ水平に伸ばしている。'});
-
-
-const EXTRA_VISUALS={
- 'aux-time':{type:'aux',key:'entry',extra:'8–20',name:'車両進入禁止 · 8時〜20時',tip:'補助標識は、本標識の規制が適用される時間を補足します。',alt:'赤い円に白い横棒の標識。その下に、白い長方形で「8–20」と表示されている。'},
- 'aux-except':{type:'aux',key:'entry',extra:'自転車を除く',name:'車両進入禁止 · 自転車を除く',tip:'自転車は対象外。普通自転車を対象外とする表示は特定小型原付にも適用されます。一般原付は除外されません。',alt:'赤い円に白い横棒の標識。その下に「自転車を除く」と表示されている。'},
- 'direction':{type:'sign',key:'direction',name:'指定方向外進行禁止',tip:'図で指定された直進と左折の方向に進めます。右折はできません。',alt:'青い円に、上向きと左向きに分かれる白い矢印が描かれている。'}
-};
-for(const q of BANK){if(q.visual){const v=EXTRA_VISUALS[q.visual]||VISUALS[Number(q.visual)];if(v)registerVisual([q.id],v)}}
-
-const SVGC={red:'#d82132',blue:'#174896',ink:'#243b53',skin:'#efbb91'};
-function svgText(x,y,t,size=16,fill=SVGC.ink,anchor='middle'){return `<text x="${x}" y="${y}" font-size="${size}" fill="${fill}" text-anchor="${anchor}" font-weight="700">${esc(t)}</text>`}
-function signSymbol(k){const {red:r,blue:b}=SVGC;const ring=(bg='#fff')=>`<circle cx="100" cy="100" r="83" fill="${bg}" stroke="${r}" stroke-width="18"/>`;const slash='<path d="M44 43L157 157" stroke="'+r+'" stroke-width="17"/>';const square=`<rect x="14" y="14" width="172" height="172" rx="5" fill="${b}" stroke="#fff" stroke-width="5"/>`;
- if(k==='direction')return `<circle cx="100" cy="100" r="89" fill="${b}"/><path d="M102 162V45M102 107H42" fill="none" stroke="#fff" stroke-width="19" stroke-linejoin="round"/><path d="M74 65L102 31L130 65ZM62 79L28 107L62 135Z" fill="#fff"/>`;
- if(k==='entry')return `<circle cx="100" cy="100" r="89" fill="${r}"/><path d="M36 100H164" stroke="#fff" stroke-width="25"/>`;
- if(k==='parking'||k==='stopping')return ring(b)+slash+(k==='stopping'?`<path d="M43 157L157 43" stroke="${r}" stroke-width="17"/>`:'');
- if(k==='maximum'||k==='minimum')return ring()+svgText(100,k==='minimum'?119:131,k==='minimum'?'50':'40',76,b)+(k==='minimum'?`<path d="M61 140H139" stroke="${b}" stroke-width="10"/>`:'');
- if(k==='warning')return '<path d="M100 7L193 100L100 193L7 100Z" fill="#ffd640" stroke="#242424" stroke-width="5"/>'+ '<path d="M100 49V151M49 100H151" stroke="#242424" stroke-width="21"/>';
- if(k==='stop'||k==='slow')return `<path d="M10 26H190L100 184Z" fill="${k==='stop'?r:'#fff'}" stroke="${r}" stroke-width="9" stroke-linejoin="round"/>`+svgText(100,94,k==='stop'?'止まれ':'徐行',k==='stop'?35:42,k==='stop'?'#fff':b);
- if(k==='closed')return ring()+`<path d="M38 59L161 119M38 119L161 59" stroke="${r}" stroke-width="13"/>`+svgText(100,148,'通行止',24,b);
- if(k==='vehicles')return ring()+slash;
- if(k==='car')return ring()+`<path d="M49 99L61 66H136L151 99V140H49Z" fill="${b}"/><path d="M69 73H128L136 96H61Z" fill="#fff"/><path d="M98 73V96" stroke="${b}" stroke-width="5"/><circle cx="65" cy="115" r="7" fill="#fff"/><circle cx="135" cy="115" r="7" fill="#fff"/><path d="M58 133V147M143 133V147" stroke="${b}" stroke-width="12"/>`+slash;
- if(k==='truck')return ring()+`<path d="M39 71H113V118H39ZM116 84H143L163 103V124H116Z" fill="${b}"/><path d="M125 89H140L150 102H125Z" fill="#fff"/><circle cx="64" cy="125" r="15" fill="${b}"/><circle cx="142" cy="125" r="15" fill="${b}"/>`+slash;
- if(k==='motorcycle')return ring()+`<g fill="none" stroke="${b}" stroke-width="10"><circle cx="55" cy="122" r="20"/><circle cx="147" cy="122" r="20"/><path d="M55 122L81 89H124L147 122M83 90L103 120H148M127 91L119 69H104"/></g><path d="M72 83H104" stroke="${b}" stroke-width="12"/><circle cx="101" cy="48" r="10" fill="${b}"/><path d="M93 60L82 78L103 91L96 113M94 66L117 77" fill="none" stroke="${b}" stroke-width="12"/>`+slash;
- if(k==='uturn')return ring()+`<path d="M133 146V77C133 39 74 39 74 77V109" fill="none" stroke="${b}" stroke-width="13"/><path d="M49 99L74 132L98 99Z" fill="${b}"/>`+slash;
- if(k==='stopline')return square+`<path d="M41 62H159" stroke="#fff" stroke-width="26"/>`+svgText(100,135,'停止線',34,'#fff');
- if(k==='oneway')return `<rect x="4" y="48" width="192" height="104" rx="4" fill="${b}"/><path d="M26 84H119V67L172 100L119 133V116H26Z" fill="#fff"/>`;
- if(k==='horn')return `<circle cx="100" cy="100" r="89" fill="${b}"/><path d="M38 94Q25 100 38 107L49 114V88Z" fill="#fff"/><path d="M58 82L82 59L78 76L111 50L110 67L149 35V60L110 83L115 67L79 93L83 77Z M58 120L82 142L78 126L111 151L110 134L149 167V142L110 118L115 135L79 108L83 125Z" fill="#fff"/>`;
- if(k==='bus')return square+`<rect x="25" y="23" width="150" height="154" rx="4" fill="none" stroke="#fff" stroke-width="2"/><path d="M40 38V151M160 38V151" stroke="#fff" stroke-width="6" stroke-dasharray="18 12"/><path d="M62 54Q64 41 76 41H130Q140 41 141 54V75H59Z" fill="#fff"/><path d="M67 49H133V58H65Z" fill="${b}"/><path d="M77 48V59M93 48V59M109 48V59M123 48V59" stroke="#fff" stroke-width="4"/><circle cx="73" cy="76" r="9" fill="#fff" stroke="${b}" stroke-width="2"/><circle cx="127" cy="76" r="9" fill="#fff" stroke="${b}" stroke-width="2"/>`+svgText(100,110,'優先',26,'#fff')+'<path d="M91 121H109V140H127L100 167L73 140H91Z" fill="#fff"/>';
- if(k==='beginner')return '<path d="M100 48L45 10Q30 3 30 25V126Q30 140 43 150L100 192L157 150Q170 140 170 126V25Q170 3 155 10Z" fill="#16905b" stroke="#fff" stroke-width="5"/><path d="M100 48L45 10Q30 3 30 25V126Q30 140 43 150L100 192Z" fill="#ffdb38"/>';
- if(k==='learner')return '<rect x="5" y="28" width="190" height="144" fill="#fff" stroke="#222" stroke-width="3"/>'+svgText(100,90,'仮免許',38,'#111')+svgText(100,140,'練習中',38,'#111');
- return '';
+function reviewRow(q, early = false) {
+  const s = state.stats[q.id], left = Math.max(1, 2 - (s?.reviewPass || 0));
+  return `<button class="review-row" data-action="review-one" data-id="${q.id}">${icon('book')}<span class="row-copy"><strong>${esc(q.topic)}${q.isSupplemental ? '・補足' : ''}</strong><small>第${q.worksheet}回・問${q.number}</small>${early ? `<small>${dateLabel(s.reviewAt)}から</small>` : ''}</span><span class="badge ${early ? '' : 'blue'}">あと${left}回</span>${icon('chevron')}</button>`;
 }
-function drawCar(x,y,rotation=0){return `<g transform="translate(${x} ${y}) rotate(${rotation})"><rect x="-15" y="-24" width="30" height="48" rx="8" fill="#496b8e" stroke="#fff" stroke-width="2"/><path d="M-11 -13H11L9 -5H-9Z" fill="#c9e5f4"/><path d="M-9 13H9L11 18H-11Z" fill="#a1c0d6"/><path d="M-12 -20H-7M7 -20H12" stroke="#fff0be" stroke-width="3"/></g>`}
-function policeman(pose){const vertical=pose==='vertical'||pose==='lampup',lamp=pose==='lamp'||pose==='lampup';const right=vertical?'M157 103L139 103V24':'M157 103H93';const left='M201 103H267';return `<g><path d="M161 155L155 198M197 155L203 198" stroke="#263d57" stroke-width="16" stroke-linecap="round"/><path d="M153 197H164M199 197H210" stroke="#172a3d" stroke-width="10" stroke-linecap="round"/><path d="M156 91Q180 80 202 91L201 158H157Z" fill="#a6c9e3" stroke="#365975" stroke-width="2"/><path d="${right}" fill="none" stroke="#a6c9e3" stroke-width="14" stroke-linejoin="round" stroke-linecap="round"/>${!vertical?`<path d="${left}" stroke="#a6c9e3" stroke-width="14" stroke-linecap="round"/>`:'<path d="M201 101L212 148" stroke="#a6c9e3" stroke-width="14" stroke-linecap="round"/>'}<path d="M157 147H202" stroke="#263d57" stroke-width="7"/><path d="M181 91V146" stroke="#fff" stroke-width="5"/><path d="M177 90L181 111L185 90" fill="#263d57"/><circle cx="179" cy="63" r="22" fill="#efbb91"/><path d="M157 57Q179 33 202 57V64H157Z" fill="#263d57"/><path d="M153 58H205" stroke="#263d57" stroke-width="6"/><circle cx="179" cy="49" r="4" fill="#f4d06e"/><circle cx="172" cy="68" r="2" fill="#263d57"/><circle cx="186" cy="68" r="2" fill="#263d57"/><path d="M174 77Q179 81 184 77" fill="none" stroke="#9c6445" stroke-width="2"/>${vertical?'<rect x="132" y="12" width="14" height="19" rx="5" fill="#fff" stroke="#526b80"/>':'<rect x="80" y="96" width="18" height="14" rx="5" fill="#fff" stroke="#526b80"/>'}${!vertical?'<rect x="262" y="96" width="18" height="14" rx="5" fill="#fff" stroke="#526b80"/>':''}${lamp?`<path d="${vertical?'M139 20V0':'M90 100L78 78'}" stroke="#374151" stroke-width="6"/><circle cx="${vertical?139:77}" cy="${vertical?0:74}" r="9" fill="#f5b942" stroke="#8b691d" stroke-width="2"/>`:''}</g>`}
-function sceneSVG(v){let body='',height=240;
- if(v.type==='aux'){height=285;body=`<g transform="translate(90 6) scale(.9)">${signSymbol(v.key)}</g><rect x="65" y="201" width="230" height="58" rx="3" fill="#fff" stroke="#263d57" stroke-width="2"/>`+svgText(180,239,v.extra,v.extra.length>6?25:32,'#172a3d')}
- else if(v.type==='sign'){if(v.key==='stopslow'){body=`<g transform="translate(7 18) scale(.82)">${signSymbol('stop')}</g><g transform="translate(188 18) scale(.82)">${signSymbol('slow')}</g>`;height=205}else{body=`<g transform="translate(90 10) scale(.9)">${signSymbol(v.key)}</g>`;height=200}}
- else if(v.type==='mark'){body='<rect x="16" y="15" width="328" height="200" rx="10" fill="#526273"/><path d="M41 22V208M319 22V208" stroke="#fff" stroke-width="3"/>';if(v.key==='noarea'){body+='<path d="M125 47H235V184H125Z" fill="#526273" stroke="#f5ce47" stroke-width="6"/>';for(let y=66;y<180;y+=26)body+=`<path d="M134 ${y}L226 ${y-12}" stroke="#fff" stroke-width="6"/>`}else body+='<path d="M112 46H248V184H112ZM112 46L248 184M248 46L112 184" fill="none" stroke="#fff" stroke-width="6"/>';height=230}
- else if(v.type==='police'){height=330;body='<rect x="12" y="115" width="336" height="100" fill="#e8edf3"/><rect x="124" y="15" width="112" height="292" fill="#e8edf3"/><path d="M19 165H87M273 165H341M180 240V295" stroke="#fff" stroke-width="3" stroke-dasharray="12 9"/>'+`<g transform="translate(0 26)">${policeman(v.key)}</g>`+svgText(180,251,'警察官の正面',16);
- if(v.approach==='side')body+=drawCar(52,181,90)+'<path d="M79 181H116M108 174L117 181L108 188" stroke="#496b8e" stroke-width="3" fill="none"/>'+svgText(53,234,'あなたの車',16);else body+=drawCar(180,294)+'<path d="M180 266V257M174 263L180 256L186 263" stroke="#496b8e" stroke-width="3" fill="none"/>'+svgText(260,297,'あなたの車',16);
- if(v.key==='lamp'||v.key==='lampup')body+='<path d="M20 64H113M20 64L28 58M20 64L28 70M113 64L105 58M113 64L105 70" stroke="#8b691d" stroke-width="2.5" fill="none"/>'+svgText(68,44,v.key==='lampup'?'直前の振り方向':'灯火を振る方向',14,'#715417');
- if(v.key==='lampup')body+=svgText(258,28,'今：頭上へ',13);
- if(v.signal)body+='<rect x="262" y="23" width="84" height="30" rx="12" fill="#263d57"/><circle cx="278" cy="38" r="9" fill="#22c997"/><circle cx="305" cy="38" r="9" fill="#5b6e79"/><circle cx="331" cy="38" r="9" fill="#5b6e79"/>';
- }
- else if(v.type==='driver'){height=256;body=svgText(180,22,'後ろから見た図',14)+`<path d="M180 43V64M173 51L180 42L187 51" stroke="#7c8e9f" stroke-width="2" fill="none"/>`+svgText(221,55,'進行方向',11,'#637b90');
- if(v.key==='bikeleft'){body+='<ellipse cx="180" cy="223" rx="11" ry="22" fill="#283f55"/><path d="M162 199V226M198 199V226" stroke="#283f55" stroke-width="10"/><rect x="158" y="183" width="44" height="31" rx="8" fill="#7192aa"/><circle cx="180" cy="95" r="23" fill="#d8e5ef" stroke="#526c85" stroke-width="3"/><path d="M164 116H196L202 173H157Z" fill="#4b789e"/><path d="M162 127H73" stroke="#efbb91" stroke-width="14" stroke-linecap="round"/><path d="M196 127L219 151" stroke="#4b789e" stroke-width="14" stroke-linecap="round"/>'+svgText(71,109,'左腕',16)}
- else{body+='<path d="M74 152L86 91H202L219 152V221H69Z" fill="#8aacc5" stroke="#3c607e" stroke-width="3"/><path d="M94 103H194L204 151H85Z" fill="#e4eef5"/><path d="M102 111H188L194 141H95Z" fill="#c0d5e5"/><circle cx="184" cy="118" r="13" fill="#efbb91"/><path d="M171 134H194V156H171Z" fill="#365f80"/><path d="M73 181H98M190 181H215" stroke="#b45358" stroke-width="9"/><rect x="124" y="190" width="42" height="18" rx="3" fill="#f8fafc"/><path d="M83 219V231M207 219V231" stroke="#263d57" stroke-width="14"/>';
- const arm=v.key==='bend'?'M195 140H265V78':v.key==='straight'?'M195 140H307':'M195 140L274 204';body+=`<path d="${arm}" fill="none" stroke="#365f80" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/><path d="${v.key==='bend'?'M239 140H265V80':v.key==='straight'?'M235 140H307':'M222 162L274 204'}" fill="none" stroke="#efbb91" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>`+svgText(292,v.key==='down'?165:120,'右腕',16);if(v.key==='down')body+=svgText(288,235,'腕は静止',12,'#637b90');}
- }
- return `<svg class="question-svg" viewBox="0 0 360 ${height}" role="img" aria-label="${esc(v.alt)}" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,'Noto Sans CJK JP',sans-serif">${body}</svg>`;
+function renderReview() {
+  const { all, due, later } = model.schedule();
+  $('review').innerHTML = `<div class="page-heading"><h2>あと一度で、覚える。</h2><p class="muted">時間をあけて、確かな力に。</p></div><div class="review-stats"><div><span>今日の復習</span><strong>${due.length}<small>問</small></strong></div><div><span>次回の予定</span><strong>${later.length}<small>問</small></strong></div></div>${due.length ? `<button class="btn wide" data-action="due">今日の${Math.min(10,due.length)}問を復習 ${icon('arrow')}</button>` : `<div class="empty"><h3>${all.length ? '今の復習は終わっています' : '復習する問題はまだありません'}</h3><p>${later.length ? `次は ${dateLabel(state.stats[later[0].id].reviewAt)} から。` : '間違い・自信なしの問題がここに集まります。'}</p><button class="textbtn" data-action="tab" data-tab="learn">学習へ進む ${icon('arrow')}</button></div>`}${due.length ? `<div class="section-heading"><h3>今日の問題</h3><small>${due.length}問</small></div>${due.slice(0, reviewMore ? due.length : 10).map(q => reviewRow(q)).join('')}${due.length > 10 && !reviewMore ? '<button class="textbtn wide" data-action="review-more">すべての復習予定を見る</button>' : ''}` : ''}<div class="info-strip">${icon('clock')}<span>24時間以上あけた「自信のある正解」2回で卒業。予定より前の正解は回数に含めません。</span></div>${later.length ? `<details><summary>次回の予定 · ${later.length}問</summary>${later.map(q => reviewRow(q, true)).join('')}<p class="hintline">予定前にも練習できます。卒業までの回数は進みません。</p></details>` : ''}`;
 }
-const IMGQ={"305":"./image-e983ea806e4f.png","307":"./image-b0038f725f5c.png","309":"./image-709a3dd25201.png","313":"./image-c81ee7a28599.png","314":"./image-31d37e41c233.png","315":"./image-d98fd5846ec9.png","316":["./image-ab0667b46af0.png","./image-d1683db0556c.png"],"317":"./image-b6fc65013940.png","318":"./image-37291fd5ab79.png","330":"./image-af0a81668f39.png","339":"./image-6054b170c2b6.png","352":"./image-6028d71c3937.png","353":"./image-f66bd89db03f.png","359":"./image-d7aa6047b402.png","360":"./image-d98fd5846ec9.png","362":"./image-0099ceae1ac5.png","363":"./image-8950862ac005.png","364":"./image-d98fd5846ec9.png","365":"./image-ab0667b46af0.png","366":"./image-d04e022894be.png","367":"./image-24946ef9f8d0.png","368":"./image-7562b75403f5.png","370":"./image-1b2964732c7d.png","371":"./image-60e66a4754ae.png","379":"./image-979349c747a6.png","390":["./image-ab0667b46af0.png","./image-b0038f725f5c.png"]};
-
-const OWNART={};
-const IMAGE_SOURCES={"mlit":{"publisher":"国土交通省","title":"道路標識一覧","url":"https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf","note":"図部分を抜粋"},"npa":{"publisher":"警察庁","title":"交通規制基準（令和8年3月16日改正）","url":"https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf","note":"図版を抽出"},"hyogo":{"publisher":"兵庫県警察・加古川警察署","title":"加古川交通安全ニュース 令和5年第6号","url":"https://www.police.pref.hyogo.lg.jp/ps/30kakogawa/data/koutsunews202306.pdf","note":"信号機の図部分を抜粋"},"jaf":{"publisher":"JAF Mate Online","title":"交差点で正面を向いた警察官が腕を水平に上げていたらどうする?","url":"https://jafmate.jp/safety/licensetest_20260408.html","note":"腕を水平に上げた警察官の図を抜粋し、試験の図に合わせて矢印を追加"},"unten-lanes":{"publisher":"水原自動車学校","title":"項目１０ 対策問題（問4）","url":"https://www.unten.co.jp/gakka/item1-10/q1-10/","note":"教材に掲載された図を使用"},"unten-signal":{"publisher":"水原自動車学校","title":"項目９ 対策問題（問7）","url":"https://www.unten.co.jp/gakka/item1-9/q1-9/","note":"教材に掲載された図を使用"}};
-const IMAGE_META={"366":{"source":"mlit","name":"車両（組合せ）通行止め：自動車と原付","alt":"赤い円と斜線の内側に、上に自動車、下に原付に乗った人の絵。","layout":"single"},"305":{"source":"mlit","name":"車両（組合せ）通行止め","alt":"赤い円の内側に、上に自動車、下に二輪車の絵。","layout":"single"},"307":{"source":"mlit","name":"車両横断禁止","alt":"赤い円と斜線の中に、右へ曲がる青い矢印。","layout":"single"},"313":{"source":"mlit","name":"その他の危険","alt":"黄色のひし形に黒い感嘆符。","layout":"single"},"314":{"source":"mlit","name":"優先道路","alt":"青い四角の中に、縦の道が太い白い交差の記号。","layout":"single"},"315":{"source":"mlit","name":"二輪の自動車以外の自動車通行止め","alt":"赤い円と斜線の中に、自動車を正面から見た青い絵。","layout":"single"},"316":{"source":"mlit","name":"転回禁止・区間内","alt":"赤い円と斜線の中にU字の青い矢印。その下に左右両向きの赤い矢印。","layout":"stacked"},"317":{"source":"mlit","name":"重量制限","alt":"赤い円の中に青色で5.5tと表示されている。","layout":"single"},"318":{"source":"mlit","name":"幅員減少","alt":"黄色いひし形に、左右から道幅が狭くなる黒い線。","layout":"single"},"330":{"source":"mlit","name":"通行止め","alt":"赤い円と交差した赤い帯、下部に通行止の文字。","layout":"single"},"353":{"source":"mlit","name":"横断歩道","alt":"上がとがった青い五角形に、歩行者と白いしまの絵。","layout":"single"},"360":{"source":"mlit","name":"二輪の自動車以外の自動車通行止め","alt":"赤い円と斜線の中に、自動車を正面から見た青い絵。","layout":"single"},"363":{"source":"mlit","name":"歩行者等専用","alt":"青い円の中に、大人と子どもの白い絵。","layout":"single"},"364":{"source":"mlit","name":"二輪の自動車以外の自動車通行止め","alt":"赤い円と斜線の中に、自動車を正面から見た青い絵。","layout":"single"},"365":{"source":"mlit","name":"転回禁止","alt":"赤い円と斜線の中に、U字に曲がる青い矢印。","layout":"single"},"367":{"source":"mlit","name":"横断歩道・自転車横断帯","alt":"上がとがった青い標識に、歩行者・自転車と白いしまの絵。","layout":"single"},"371":{"source":"mlit","name":"中央線","alt":"青い四角に、中央線の文字と白い下向き矢印。","layout":"single"},"390":{"source":"mlit","name":"左：転回禁止 ／ 右：車両横断禁止","alt":"赤い円と斜線の標識が2つ。左はU字の矢印、右は右へ曲がる矢印。","layout":"paired"},"359":{"source":"npa","name":"進行方向別通行区分","alt":"4つの車両通行帯に白い矢印。左から左折、直進、直進、右折。","page":"本文110ページ","layout":"single"},"362":{"source":"hyogo","name":"赤色の灯火の点滅","alt":"信号機の赤い灯火が点滅している。","page":"","layout":"single"},"368":{"source":"npa","name":"立入り禁止部分","alt":"灰色の路面に、黄色い縁線と白い斜線で囲まれた細長い部分。","page":"本文117ページ","layout":"single"},"379":{"source":"npa","name":"安全地帯","alt":"灰色の路面に、黄色い外枠と白い内枠の長方形。右側に軌道がある。","page":"本文120ページ","layout":"single"},"309":{"source":"mlit","name":"横断歩道","alt":"上がとがった青い五角形に、子ども2人と横断歩道の白いしまの絵。","layout":"single"},"370":{"source":"jaf","name":"腕を横に水平に上げた手信号（矢印の方向＝青、正面・背中側＝赤）","alt":"正面を向いた警察官が両腕を左右に水平に伸ばし、左右から警察官に向かう矢印がある。","layout":"single"},"339":{"source":"unten-lanes","name":"黄色の線で区画された車両通行帯","alt":"交差点の手前の3つの車両通行帯。左側の通行帯同士が黄色い実線で区切られ、その右側には白い中央線がある。","layout":"single"},"352":{"source":"unten-signal","name":"右腕を水平に伸ばす合図","alt":"車を後方から見た図。右側の運転席に座る人が、右腕を車外へ水平に伸ばしている。","layout":"single"}};
-function questionArt(q,revealed=false,compact=false){
- const v=VISUALS[q.id];
- if(!v){
-  const im=IMGQ[q.id];if(!im)return '';
-  const m=IMAGE_META[q.id],src=m?IMAGE_SOURCES[m.source]:null,images=Array.isArray(im)?im:[im];
-  const alt=m?.alt||`${q.src||'設問'}の図`;
-  const caption=revealed?`<figcaption class="visual-answer">${m?`<b>${esc(m.name)}</b><p class="image-credit">出典：<a href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.publisher)}「${esc(src.title)}」 ↗</a><br>${esc(m.page||'')}${m.page?'・':''}${esc(src.note)}。</p>`:(OWNART[q.id]?`<b>${esc(OWNART[q.id])}</b><p class="image-credit">実際の試験の図（公的資料に同じ組合せの図がないため）。</p>`:'<p class="image-credit">提供された練習問題の図。</p>')}</figcaption>`:'';
-  return `<figure class="question-visual ${compact?'compact':''}" data-question-visual="${q.id}" data-revealed="${revealed}" data-image-origin="${m?'public-source':'provided'}"><div class="question-visual-head"><span>問題の図</span>${compact?'':`<button class="textbtn" data-action="question-zoom" data-id="${q.id}" data-revealed="${revealed}" aria-label="設問の図を拡大">拡大 ↗</button>`}</div><div class="sourced-pictures ${m?.layout||'single'}">${images.map((url,i)=>`<img src="${url}" alt="${esc(images.length===1?alt:i===0?alt:'組み合わせた図の2枚目')}" decoding="async">`).join('')}</div>${caption}</figure>`;
- }
- return `<figure class="question-visual ${compact?'compact':''}" data-question-visual="${q.id}" data-revealed="${revealed}"><div class="question-visual-head"><span>${['sign','aux'].includes(v.type)?'標識・マーク':v.type==='mark'?'路面の図':'手信号の図'}</span>${compact?'':`<button class="textbtn" data-action="question-zoom" data-id="${q.id}" data-revealed="${revealed}" aria-label="設問のイラストを拡大">拡大 ↗</button>`}</div>${sceneSVG(v)}${revealed?`<figcaption class="visual-answer"><b>${esc(v.name)}</b><p>${esc(v.tip)}</p></figcaption>`:''}</figure>`}
-function openQuestionArt(id,revealed=false){const q=byId.get(id);if(!q||(!VISUALS[id]&&!IMGQ[id]))return;if(state.session?.mode==='exam')revealed=false;$('figure-content').innerHTML=questionArt(q,revealed,false);$('figure-zoom').value='100';$('figure-content').style.width='100%';$('figure-dialog').showModal()}
-
-function focusQuestion(){requestAnimationFrame(()=>$('question')?.focus({preventScroll:true}))}
-function progress(s){const done=s.answers.filter(a=>a!==null).length;$('count').textContent=`${s.index+1} / ${s.ids.length}問`;$('bar').style.width=done/s.ids.length*100+'%';$('progress').setAttribute('aria-valuenow',String(done));$('progress').setAttribute('aria-valuemax',String(s.ids.length));$('play-title').textContent=s.label;if(s.mode==='drill')$('score').textContent=`正解 ${s.answers.filter((a,i)=>a!==null&&a===byId.get(s.ids[i]).a).length}問`}
-function noteFor(q){return NOTES.find(n=>n.figs[0]===q.fig)||NOTES.find(n=>n.figs.includes(q.fig))}
-function sourceFor(q){
- if(q.visual==='aux-except')return REFS.special;
- if(q.fig==='speed-2026'||q.id===57)return REFS.speed;
- if(q.fig==='cycle-gap')return REFS.bicycle;
- if(q.topic==='車種'||q.id===373)return REFS.moped;
- const v=VISUALS[q.id];if(v)return {url:REFS.rules.url+'#page='+(v.type==='driver'?51:v.type==='police'?95:v.type==='aux'?109:97)};
- return REFS.rules;
+function questionArt(q, revealed = false, compact = false) {
+  const assets = ADDED_ART[q.id]; if (!assets) return originalQuestionArt(q, revealed, compact);
+  return `<figure class="question-visual" data-question-visual="${q.id}" data-revealed="${revealed}"><div class="question-visual-head"><span>問題の図</span>${!compact ? `<button class="textbtn" data-action="question-zoom" data-id="${q.id}" data-revealed="${revealed}" aria-label="設問の図を拡大">拡大 ↗</button>` : ''}</div><div class="sourced-pictures ${assets.length > 1 ? 'paired' : 'single'}">${assets.map(a => `<img src="./${esc(a.file)}" alt="${esc(a.alt)}" decoding="async">`).join('')}</div>${revealed ? `<figcaption class="visual-answer">${assets.map(a => `<p class="image-credit">${a.url ? `<a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.credit)} ↗</a>` : esc(a.credit)}</p>`).join('')}</figcaption>` : ''}</figure>`;
 }
-function figHTML(k){const f=FIG[k];if(!f)return '';const id='arw-'+(++figureNumber);const b=carify(f.b).replaceAll('url(#arrow)',`url(#${id})`);return `<figure class="fig"><figcaption class="fig-top">${esc(f.t)} <button class="textbtn" data-action="figure-open" data-fig="${k}">拡大 ↗</button></figcaption><svg viewBox="0 0 380 ${f.h}" role="img" aria-label="${esc(f.t)}"><defs><marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#475b70" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>${b}</svg>${FIGK[k]?`<div class="figk"><b>覚えるポイント</b>${esc(FIGK[k])}</div>`:''}</figure>`}
-function explain(q,chosen,withNote=true,nextControl=''){const n=noteFor(q),correct=chosen===q.a;return `<div class="feedback ${correct?'':'incorrect'}" role="status"><h3>${chosen===null?'未回答':correct?'正解です':'ここを覚え直そう'} · 答えは ${q.a?'○':'×'}</h3><p>${esc(q.ex)}</p></div>${withNote?reviewProgressHTML(q):''}<div class="explanation">${FIG[q.fig]?`<details class="inline-figure" open><summary>図で確認する</summary>${figHTML(q.fig)}</details>`:''}${n&&n.figs[0]===q.fig?`<p class="hintline">${esc(n.trap)}</p>`:''}<div class="question-links">${n&&withNote?`<button class="textbtn" data-action="note" data-id="${n.id}">図解ノートで確認 →</button>`:'<span></span>'}<a class="source-link" href="${sourceFor(q).url}" target="_blank" rel="noopener">公式資料 ↗</a></div></div>${nextControl}`}
-function renderDrill(){const s=state.session;if(s?.mode!=='drill')return;progress(s);const q=byId.get(s.ids[s.index]),v=s.answers[s.index],answered=v!==null;const nextLabel=s.index===s.ids.length-1?'結果を見る':'次の問題へ';const nextControl=`<div class="answer-next"><button class="btn wide" id="next" data-action="next">${nextLabel} ${icon('arrow')}</button></div>`;
- $('app').innerHTML=`<article class="card question-card"><div class="tags"><span class="badge">${q.topic}</span>${!q.chapter?'<span class="badge">補足・仮免模試対象外</span>':''}${weak(q)?`<span class="badge error">要復習</span>`:''}${q.revised?'<span class="badge">内容を更新</span>':''}</div><h2 class="question" id="question" tabindex="-1">${esc(q.q)}</h2>${questionArt(q,answered)}${!answered?`<label class="confidence-control"><input type="checkbox" id="uncertain" ${s.uncertain?.[s.index]?'checked':''}> 自信なし・迷っている</label>`:s.uncertain?.[s.index]?'<p class="hintline">自信なし：正解でも復習に残しました。</p>':''}<p class="choose-label">正しければ ○、誤りなら ×</p><div class="choices">${[true,false].map(a=>`<button id="b-${a?'o':'x'}" class="answer-btn ${answered?(a===q.a?'right':a===v?'wrong':''):''}" data-action="answer" data-value="${a}" ${answered?'disabled':''} aria-label="${a?'正しい（○）':'誤り（×）'}"><span>${a?'○':'×'}</span><small>${a?'正しい':'誤り'}</small></button>`).join('')}</div>${answered?explain(q,v,true,nextControl):''}<div class="btnrow exam-nav"><button class="btn secondary" data-action="drill-prev" ${s.index===0?'disabled':''}>前の問題</button>${!answered?`<button class="btn secondary" data-action="drill-skip" ${s.index===s.ids.length-1?'disabled':''}>あとで解く ${icon('arrow')}</button>`:''}</div></article><details class="exam-map drill-map"><summary>問題一覧 <span class="muted">番号をタップで移動</span></summary><div class="number-grid">${s.ids.map((id,i)=>{const a=s.answers[i],cls=a===null?'':(a===byId.get(id).a?'ok':'ng');return `<button class="${cls} ${i===s.index?'current':''}" data-action="drill-jump" data-index="${i}" aria-label="問${i+1} ${a===null?'未回答':(cls==='ok'?'正解':'不正解')}">${i+1}</button>`}).join('')}</div><p class="hintline">緑＝正解　赤＝不正解　白＝未回答</p></details>`;
+function replacementNote(q) {
+  const r = q.replacementSource; if (!q.isReplacement || !r) return '';
+  return `<div class="replacement-note"><strong>参考問題をもとに作成した代替問題</strong><p>${esc(r.relationship || '')}</p><a class="source-link" href="${esc(r.url)}" target="_blank" rel="noopener">参考問題：${esc(r.name)} ↗</a></div>`;
 }
-function drillJump(i){const s=state.session;if(s?.mode!=='drill'||i<0||i>=s.ids.length)return;s.index=i;persist();renderDrill();scrollTopPage();focusQuestion()}
-function answer(v){const s=state.session;if(s?.mode!=='drill'||s.answers[s.index]!==null)return;s.answers[s.index]=v;s.uncertain??=s.ids.map(()=>false);s.uncertain[s.index]=Boolean($('uncertain')?.checked);sfx(record(s.ids[s.index],v,s.uncertain[s.index]));persist();renderDrill();$('next')?.focus({preventScroll:true})}
-function nextDrill(){const s=state.session;if(s?.mode!=='drill'||s.answers[s.index]===null)return;if(s.index===s.ids.length-1){completeDrill();return}s.index++;persist();renderDrill();scrollTopPage();focusQuestion()}
-function completeDrill(){
- const s=state.session;if(s?.mode!=='drill')return;
- const unanswered=s.answers.filter(a=>a===null).length;
- const finish=()=>{if(state.session!==s)return;for(let i=0;i<s.ids.length;i++){if(s.answers[i]===null)record(s.ids[i],null,true)}savePracticeAttempt(s);reviewFilter='wrong';lastResult={...s,timeout:false};state.session=null;persist();setExamLock();renderResult(true);scrollTopPage()};
- if(unanswered)ask('未回答が'+unanswered+'問あります','練習を終えると、未回答も不正解として復習に追加します。続ける場合はキャンセルしてください。','結果を見る',finish);else finish();
+function explanation(q, answer, withNote = true) {
+  const n = noteFor(q), ok = answer === q.a, stat = state.stats[q.id], text = q.ex || '', split = text.indexOf('。'), brief = split >= 0 ? text.slice(0, split + 1) : text, rest = split >= 0 ? text.slice(split + 1) : '';
+  return `<div class="feedback ${ok ? '' : 'incorrect'}" role="status"><h3>${answer === null ? '未回答' : ok ? '正解です' : 'ここを覚え直そう'} · 答えは ${q.a ? '○' : '×'}</h3><p>${esc(brief)}</p>${rest ? `<details open><summary>詳しい解説</summary><p>${esc(rest)}</p></details>` : ''}</div>${withNote && weak(q) ? `<p class="review-schedule-note">次の復習：${dateLabel(stat?.reviewAt)} · 卒業まであと${Math.max(1, 2 - (stat?.reviewPass || 0))}回</p>` : ''}<div class="explanation">${q.fig && FIG[q.fig] ? `<details class="inline-figure" open><summary>図で確認する</summary>${figHTML(q.fig)}</details>` : ''}${replacementNote(q)}<div class="question-links">${n && withNote ? `<button class="textbtn" data-action="note" data-id="${n.id}">図解ノートで確認 →</button>` : ''}<a class="source-link" href="${esc(sourceFor(q).url)}" target="_blank" rel="noopener">公式の根拠資料 ↗</a></div></div>`;
 }
-
-function pickExam(){
- const result=[],seen=new Set();
- for(const {chapter,count} of EXAM_BLUEPRINT){
-  const candidates=shuffle(Q.filter(q=>q.chapter===chapter)),chosen=[];
-  const add=q=>{if(chosen.length<count&&!seen.has(q.concept)){chosen.push(q.id);seen.add(q.concept)}};
-  // Cover each available section, then fill the remaining chapter quota.
-  for(const section of shuffle([...new Set(candidates.map(q=>q.section))])){const q=candidates.find(q=>q.section===section&&!seen.has(q.concept));if(q)add(q)}
-  for(const q of candidates)add(q);
-  if(chosen.length!==count)throw new Error('章別の出題数を確保できません');
-  result.push(...chosen);
- }
- return shuffle(result);
+function focusQuestion() { requestAnimationFrame(() => $('question')?.focus({ preventScroll: true })); }
+function renderPlay() {
+  const s = state.session; if (!s) return;
+  if (model.expired()) { finish(true); return; }
+  const q = activeQuestion(s.ids[s.index]), value = s.answers[s.index], exam = s.mode === 'exam', answered = value !== null, done = s.answers.filter(a => a !== null).length;
+  const nextText = s.index === s.ids.length - 1 ? (exam ? '回答一覧を確認' : '結果を見る') : '次の問題へ';
+  $('play').innerHTML = `<div class="playhead"><button class="textbtn" data-action="pause">${icon('back')}${exam ? '中断' : '学習トップ'}</button><h2>${esc(s.label)}</h2></div><div class="play-meta"><span>問題 <strong>${s.index + 1}</strong> / ${s.ids.length}</span>${exam ? '<span class="timer" id="timer" role="timer"></span>' : `<span class="muted">正解 ${s.ids.filter((id,i) => s.answers[i] === activeQuestion(id).a).length}問</span>`}</div><div class="progress play-progress" role="progressbar" aria-label="回答済み" aria-valuemin="0" aria-valuemax="${s.ids.length}" aria-valuenow="${done}"><i style="width:${pct(done,s.ids.length)}%"></i></div><article class="card question-card"><div class="tags"><span class="badge">第${q.worksheet}回・問${q.number}</span>${!exam ? `<span class="badge">${esc(q.topic)}</span>` : ''}${q.isReplacement ? '<span class="badge">代替問題</span>' : ''}${q.isSupplemental ? '<span class="badge">補足</span>' : ''}</div><h2 class="question" id="question" tabindex="-1">${esc(q.q)}</h2>${questionArt(q, !exam && answered)}${!exam && !answered ? `<label class="confidence-control"><input type="checkbox" id="uncertain" ${s.uncertain[s.index] ? 'checked' : ''}>自信なし・迷っている</label>` : ''}<p class="choose-label">正しければ ○、誤りなら ×</p><div class="choices">${[true,false].map(v => `<button class="answer-btn ${exam ? value === v ? 'selected' : '' : answered ? v === q.a ? 'right' : v === value ? 'wrong' : '' : ''}" data-action="answer" data-value="${v}" aria-label="${v ? '正しい（○）' : '誤り（×）'}" ${exam ? `aria-pressed="${value === v}"` : answered ? 'disabled' : ''}><span>${v ? '○' : '×'}</span><small>${v ? '正しい' : '誤り'}</small></button>`).join('')}</div>${exam ? `<div class="exam-tools"><button class="flag-btn" data-action="flag" aria-pressed="${s.flags[s.index]}">${icon('flag')}自信なし・見直す</button><button class="textbtn" data-action="unanswered">未回答へ →</button></div>` : answered ? `${s.uncertain[s.index] ? '<p class="hintline">自信なし：正解でも復習に残しました。</p>' : ''}${explanation(q, value)}` : ''}<div class="btnrow"><button class="btn secondary" data-action="prev" ${s.index === 0 ? 'disabled' : ''}>前へ</button>${exam || answered ? `<button class="btn" id="next" data-action="next">${nextText} ${icon('arrow')}</button>` : `<button class="btn secondary" data-action="skip">${s.index === s.ids.length - 1 ? '回答一覧へ' : 'あとで解く'}</button>`}</div></article><details class="exam-map" id="answer-map"><summary>回答一覧を開く <span class="muted">未回答 ${s.ids.length - done}問</span></summary><div class="number-grid">${s.ids.map((id,i) => { const a = s.answers[i], cls = a === null ? '' : exam ? 'done' : a === activeQuestion(id).a ? 'ok' : 'ng'; return `<button class="${cls} ${i === s.index ? 'current' : ''} ${s.flags[i] ? 'flagged' : ''}" data-action="jump" data-index="${i}" aria-label="問${i + 1} ${a === null ? '未回答' : exam ? '回答済み' : cls === 'ok' ? '正解' : '不正解'}${s.flags[i] ? '・見直し' : ''}">${i + 1}</button>`; }).join('')}</div><p class="hintline">${exam ? '青＝回答済み · 点＝自信なし・見直し' : '緑＝正解 · 赤＝不正解'}</p></details><button class="textbtn wide" data-action="submit">${exam ? '模試を終了して採点する' : 'ここで学習を終了する'}</button><p class="muted">${exam ? '途中の回答は自動保存。画面を閉じても時間は進みます。' : '途中で戻っても、続きから再開できます。'}</p>`;
+  updateTimer(); updateChrome();
 }
-function startExam(form=null){
- if(form&&!ASSESSMENT_FORMS[form])return;
- replaceSession(()=>{
-  const initial=Boolean(form&&!state.checks[form]),title=form?`判定テスト ${form} · ${initial?'初回':'再挑戦'}`:'50問の練習模試';
-  const message=form?`50問・30分。${initial?'通常の練習と別の設問です。この最初の結果を判定に使います。':'再挑戦の記録です。初回の結果は上書きしません。'}解説は採点後。途中で終了すると未回答は不正解になり、画面を閉じても時間は進みます。`:'仮免の練習問題から、公式の章別配分で50問出題します。30分・45点が基準です。見たことのある問題を含むため、初回判定とは別の練習記録になります。';
-  ask(title,message,'テストを開始',()=>{
-   const ids=form?shuffle(ASSESSMENT_FORMS[form].map(q=>q.id)):pickExam(),now=Date.now();
-   clearInterval(timer);
-   if(form&&!state.checks[form])state.checks[form]={startedAt:now,first:null};
-   state.session={mode:'exam',ids,answers:ids.map(()=>null),uncertain:ids.map(()=>false),flags:ids.map(()=>false),index:0,label:title,pool:'exam',started:now,end:now+1800000,examKind:form?'assessment':'practice',form,firstAttempt:initial,blueprint:BLUEPRINT_VERSION};
-   lastResult=null;persist();showPlay();renderExam();startTimer();scrollTopPage();focusQuestion();
-  });
- });
+function jump(i) {
+  const s = state.session; if (!s) return; if (model.expired()) return finish(true);
+  s.index = Math.max(0, Math.min(s.ids.length - 1, i)); save(); renderPlay(); window.scrollTo({top:0,behavior:'instant'}); focusQuestion();
 }
-function startTimer(){clearInterval(timer);if(state.session?.mode==='exam'){timer=setInterval(tick,500);tick()}}
-function tick(){const s=state.session;if(s?.mode!=='exam'){clearInterval(timer);return}const seconds=Math.ceil(Math.max(0,s.end-Date.now())/1000);$('score').innerHTML=`<span class="timer ${seconds<=300?'low':''}">残り ${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}</span>`;if(seconds<=0)finishExam(true)}
-function examExpired(){if(state.session?.mode==='exam'&&Date.now()>=state.session.end){finishExam(true);return true}return false}
-function renderExam(){const s=state.session;if(s?.mode!=='exam'||examExpired())return;progress(s);const q=byId.get(s.ids[s.index]),v=s.answers[s.index],done=s.answers.filter(a=>a!==null).length;
- $('app').innerHTML=`<article class="card question-card"><div class="tags"><span class="badge">${esc(examName(s))}</span><span class="qnumber">${done}問 回答済み</span></div><h2 class="question" id="question" tabindex="-1">${esc(q.q)}</h2>${questionArt(q,false)}<p class="choose-label">回答を選択して、次へ進んでください</p><div class="choices">${[true,false].map(a=>`<button class="answer-btn ${v===a?'selected':''}" id="b-${a?'o':'x'}" data-action="exam-answer" data-value="${a}" aria-pressed="${v===a}" aria-label="${a?'正しい（○）':'誤り（×）'}"><span>${a?'○':'×'}</span><small>${a?'正しい':'誤り'}</small></button>`).join('')}</div><div class="exam-tools"><button class="flag-btn" data-action="flag" aria-pressed="${Boolean(s.flags[s.index])}">${icon('flag')}あとで見直す</button><button class="textbtn" data-action="next-unanswered">未回答へ →</button></div><div class="btnrow exam-nav"><button class="btn secondary" data-action="exam-prev" ${s.index===0?'disabled':''}>前の問題</button><button class="btn" data-action="exam-next">${s.index===49?'回答を確認':'次の問題'} ${icon('arrow')}</button></div></article><details class="exam-map" id="exam-map"><summary>回答一覧 · 未回答 ${50-done}問 / 見直し ${s.flags.filter(Boolean).length}問</summary><div class="number-grid">${s.ids.map((_,i)=>`<button class="${s.answers[i]!==null?'done ':''}${i===s.index?'current ':''}${s.flags[i]?'flagged':''}" data-action="exam-jump" data-index="${i}" aria-label="問${i+1} ${s.answers[i]===null?'未回答':'回答済み'}${s.flags[i]?' 見直しあり':''}">${i+1}</button>`).join('')}</div><p class="hintline">青い背景＝回答済み　点＝あとで見直す</p></details><button class="textbtn" data-action="exam-submit">テストを終了して採点する</button><p class="muted">途中の回答は自動保存。解説は採点後に表示します。</p>`;tick();
+function openMap() { $('answer-map').open = true; $('answer-map').scrollIntoView({block:'center',behavior:'instant'}); }
+function submit() {
+  const s = state.session; if (!s) return; if (model.expired()) return finish(true);
+  const left = s.answers.filter(a => a === null).length;
+  ask(s.mode === 'exam' ? '模試を採点しますか？' : '学習を終了しますか？', left ? `未回答が${left}問あります。未回答は不正解として復習に追加します。` : 'すべての回答を保存し、結果と解説を表示します。', '結果を見る', () => { if (state.session?.attemptId === s.attemptId) finish(false); });
 }
-function setExamAnswer(v){const s=state.session;if(s?.mode!=='exam'||examExpired())return;s.answers[s.index]=v;persist();renderExam();$('b-'+(v?'o':'x'))?.focus({preventScroll:true})}
-function examJump(index){const s=state.session;if(s?.mode!=='exam'||examExpired())return;s.index=Math.max(0,Math.min(49,index));persist();renderExam();scrollTopPage();focusQuestion()}
-function submitExam(){const s=state.session;if(s?.mode!=='exam'||examExpired())return;const left=s.answers.filter(a=>a===null).length;ask('テストを採点しますか？',left?`未回答が${left}問あります。未回答は不正解として採点し、復習にも追加します。`:'50問すべて回答済みです。採点すると回答は変更できません。','採点する',()=>finishExam(false))}
-function finishExam(timeout){
- const s=state.session;if(s?.mode!=='exam')return;
- clearInterval(timer);timer=null;
- for(const id of ['confirm','settings','figure-dialog','achievement-preview'])if($(id).open)$(id).close();modalAction=null;
- s.ids.forEach((id,i)=>record(id,s.answers[i]));
- const score=s.ids.filter((id,i)=>s.answers[i]===byId.get(id).a).length;
- const entry={at:Date.now(),score,total:50,ids:[...s.ids],answers:[...s.answers],timeout:Boolean(timeout),examKind:examKind(s),form:s.form,firstAttempt:s.firstAttempt,blueprint:s.blueprint};
- if(examKind(s)==='assessment'){
-  const c=state.checks[s.form]||{startedAt:s.started,first:null};
-  if(s.firstAttempt&&!c.first)c.first={...entry};c.completed=true;
-  state.checks[s.form]=c;
- }
- state.history.push(entry);state.history=state.history.slice(-10);
- reviewFilter='wrong';lastResult={...s,...entry,timeout};state.session=null;persist();setExamLock();showPlay();renderResult(true);scrollTopPage();$('result-title')?.focus({preventScroll:true});
+function finish(timeout = false) {
+  if (!state.session || externalChange) return;
+  closeDialogs(); lastResult = model.finish(timeout); state = model.state; reviewFilter = 'wrong';
+  tab = lastResult.mode === 'mock' ? 'mock' : lastResult.mode === 'review' ? 'review' : 'learn';
+  renderResult(true); show('result'); $('result-title')?.focus({preventScroll:true});
 }
-function renderReviewItem(id,v,index,exam=false){const q=byId.get(id),ok=v===q.a;return `<details class="review-item"><summary><span class="answer-status ${ok?'ok':''}">${v===null?'—':ok?'✓':'×'}</span><span><span class="muted">${exam?'問'+(index+1)+' · ':''}${q.topic}</span><br>${esc(q.q)}</span></summary><div class="review-body"><p class="answer-label">${v===null?'未回答':'あなたの回答：'+(v?'○':'×')} ／ 正解：${q.a?'○':'×'}</p><p>${esc(q.ex)}</p>${questionArt(q,true)}<div class="lazy-figure" data-fig="${q.fig}"></div><a class="source-link muted" href="${sourceFor(q).url}" target="_blank" rel="noopener">公式資料で確認 ↗</a></div></details>`}
-function achievementFor(score,total){
- if(total!==50)return {kind:score===total?'complete':'practice',title:score===total?'全問正解！':'おつかれさまでした',message:score===total?'その調子で、次の練習へ。':'間違えた問題から、少しずつ。'};
- if(score===50)return {kind:'perfect',title:'満点合格！',message:'50問すべて正解。よくできました！'};
- if(score>=48)return {kind:'excellent',title:'合格！目標も達成',message:'学習目標の48点に到達しました。'};
- if(score>=45)return {kind:'pass',title:'合格！よくできました',message:'45点の合格ラインに到達しました。'};
- return {kind:'retry',title:'合格まであと'+(45-score)+'点！',message:'間違えた問題を、次の得点に。'};
+function updateTimer() {
+  const s = state.session; if (s?.mode !== 'exam' || externalChange) return;
+  if (model.expired()) { finish(true); return; }
+  const sec = Math.ceil((s.endAt - Date.now()) / 1000), el = $('timer');
+  if (el) { el.textContent = `残り ${Math.floor(sec / 60)}:${String(sec % 60).padStart(2,'0')}`; el.classList.toggle('low', sec <= 300); }
 }
-function flowerStamp(){
- const points=Array.from({length:145},(_,i)=>{const t=i/144*Math.PI*2,r=44+4*Math.cos(12*t);return (60+Math.cos(t)*r).toFixed(2)+','+(60+Math.sin(t)*r).toFixed(2)}).join(' ');
- return `<svg class="flower-stamp" viewBox="0 0 120 120" aria-hidden="true"><polygon points="${points}"/><circle cx="60" cy="60" r="33"/><text x="60" y="67" text-anchor="middle">合格</text><path d="M44 82q16 8 32-1"/></svg>`;
+function resume() { if (!state.session) return navigate(tab); tab = state.session.mode === 'exam' ? 'mock' : state.session.kind === 'review' ? 'review' : 'learn'; lastResult = null; renderPlay(); if (state.session) show('play'); }
+function reviewItem(id, value, i, uncertain = false) {
+  const q = byId.get(id); if (!q) return `<p class="muted">問題ID ${esc(id)}の旧記録は書き出しに含まれています。</p>`;
+  const ok = value === q.a;
+  return `<details class="review-item"><summary><span class="answer-status ${ok ? 'ok' : ''}">${value === null ? '—' : ok ? '✓' : '×'}</span><span><span class="muted">問${i + 1} · ${esc(q.topic)}${uncertain ? ' · 自信なし・見直し' : ''}</span><br>${esc(q.q)}</span></summary><div class="review-body"><p>あなたの回答：${value === null ? '未回答' : value ? '○' : '×'}</p>${questionArt(q, true)}${explanation(q, value, false)}</div></details>`;
 }
-function achievementHTML(score,total,animate=false,exam=false){
- const a=achievementFor(score,total),passed=['pass','excellent','perfect'].includes(a.kind),motion=animate&&!matchMedia('(prefers-reduced-motion:reduce)').matches;
- const pieces=passed&&motion?`<span class="result-confetti" aria-hidden="true">${Array.from({length:a.kind==='perfect'?32:20},(_,i)=>`<i style="--x:${(i*37+7)%100}%;--delay:${(i%5)*35}ms;--spin:${i%2?'-':'+'}${150+i*13}deg;--color:${['#dc6577','#e2b751','#5c9dd6','#82b39d'][i%4]}"></i>`).join('')}</span>`:'';
- const caption=total===50?(exam?'このアプリ内の判定：50問中45問以上で合格':'教習問題などの50問練習：45問以上正解で合格の目安'):'';
- return `<section class="result-achievement ${a.kind} ${motion&&passed?'celebrate':''}" aria-label="${a.title}">${pieces}${passed?flowerStamp():`<span class="achievement-symbol" aria-hidden="true">${icon(a.kind==='complete'?'check':a.kind==='retry'?'flag':'book')}</span>`}<div class="achievement-copy"><h3>${a.title}</h3><p>${a.message}</p>${caption?`<small>${caption}</small>`:''}</div></section>`;
+function renderResult(animate = false) {
+  const r = lastResult; if (!r) return;
+  const wrong = r.ids.filter((id,i) => byId.has(id) && r.answers[i] !== byId.get(id).a), uncertain = r.ids.filter((id,i) => activeQuestion(id) && (r.flags?.[i] || r.uncertain?.[i]));
+  const outdated = r.legacy || (r.worksheet ? r.contentVersion !== model.worksheet(r.worksheet)?.contentVersion : r.contentVersion !== CONTENT_VERSION);
+  const canRetry = r.ids.every(id => activeQuestion(id));
+  const practice50 = r.mode === 'guided', label = r.mode === 'mock' ? `第${r.worksheet}回・30分模試` : practice50 ? `第${r.worksheet}回・解説付き練習` : r.label || '学習';
+  const diff = r.previousScore === null || r.previousScore === undefined ? null : r.scoreSnapshot - r.previousScore;
+  $('result').innerHTML = `<div class="playhead"><button class="textbtn" data-action="tab" data-tab="${tab}">${icon('back')}一覧へ</button><span class="muted">${dateLabel(r.completedAt)}</span></div><article class="card"><div class="result-hero"><div><h2 class="result-label" id="result-title" tabindex="-1">${esc(label)}の結果</h2><div class="score">${r.scoreSnapshot}<small>/ ${r.total}問</small></div></div><img class="result-character" src="./image-155cadc1029a.png" alt="プーリーくんとよりともさん"></div>${r.timeout ? '<p class="muted">制限時間になったため採点しました。</p>' : ''}${achievementHTML(r.scoreSnapshot, r.total, animate, r.mode === 'mock', ['mock','guided'].includes(r.mode))}${practice50 ? '<p class="muted">解説付き練習の成績です。30分模試とは別の記録になります。</p>' : ''}${['mock','guided'].includes(r.mode) && !outdated ? `<div class="comparison"><div><span>${diff === null ? '前回との比較' : '前回 ' + r.previousScore + '点から'}</span><b>${diff === null ? '<small>はじめての記録</small>' : diff === 0 ? '±0点' : (diff > 0 ? '+' : '') + diff + '点'}</b></div><div><span>${r.newBest ? '最高点を更新' : '今回までの最高点'}</span><b>${r.bestScore ?? r.scoreSnapshot}<small> / 50点</small></b></div></div>` : ''}${outdated ? '<div class="notice">得点は当時の保存値です。下の解説は現在の内容で、当時の採点と異なる場合があります。</div>' : ''}<div class="result-actions">${canRetry && (wrong.length || uncertain.length) ? `<button class="btn" data-action="result-retry">${wrong.length ? `間違い・未回答の${wrong.length}問を復習` : `自信なし・見直しの${uncertain.length}問を復習`} ${icon('repeat')}</button>` : `<button class="btn" data-action="tab" data-tab="${tab}">${tab === 'mock' ? '模試一覧へ' : '学習を続ける'} ${icon('arrow')}</button>`}${r.worksheet && canRetry ? `<button class="btn secondary" data-action="start-guided" data-set="${r.worksheet}">この回を解説付きで練習</button>` : ''}${canRetry && (wrong.length || uncertain.length) ? `<button class="textbtn" data-action="tab" data-tab="${tab}">一覧へ戻る</button>` : ''}</div></article><div class="section-heading"><h3>回答を振り返る</h3></div>${filters('result-filter', reviewFilter, [['wrong','間違い・未回答'],['uncertain','自信なし'],['all','すべて']])}${r.ids.map((id,i) => ({id,i})).filter(({id,i}) => reviewFilter === 'all' || (reviewFilter === 'uncertain' ? r.flags?.[i] || r.uncertain?.[i] : byId.has(id) && r.answers[i] !== byId.get(id).a)).map(({id,i}) => reviewItem(id,r.answers[i],i,r.flags?.[i] || r.uncertain?.[i])).join('') || '<div class="empty">該当する問題はありません。「すべて」で全回答を確認できます。</div>'}`;
 }
-function showAchievementPreview(score=45){
- const value=[44,45,48,50].includes(Number(score))?Number(score):45;
- $('achievement-preview-body').innerHTML=`<p class="preview-score">${value}<small> / 50問 正解の表示例</small></p>${achievementHTML(value,50,true,true)}`;
- document.querySelectorAll('[data-action="achievement-score"]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.score)===value)));
- if(!$('achievement-preview').open){$('settings').close();$('achievement-preview').showModal()}
+function findAttempt(id) { return [...state.attempts, ...Object.values(state.guidedResults).flatMap(r => [...r.recent,r.best]), ...Object.values(state.mockResults).flatMap(r => [...r.recent,r.best])].find(a => a?.attemptId === id); }
+function noteIds(n) { return Q.filter(q => n.figs.includes(q.fig)).map(q => q.id); }
+function renderNotes() {
+  const search = noteSearch.trim().toLowerCase(), visible = NOTES.filter(n => (!search || [n.t,...n.pts,n.trap].join(' ').toLowerCase().includes(search)) && (!noteFilter || noteCategory(n).k === noteFilter)).sort((a,b) => Number(noteIds(b).length > 0) - Number(noteIds(a).length > 0));
+  $('notes').innerHTML = `<button class="textbtn" data-action="note-return">${icon('back')}${noteReturn?.view === 'play' ? '解いていた問題に戻る' : noteReturn?.view === 'result' ? '結果に戻る' : '学習に戻る'}</button><div class="page-heading"><h2>図解ノート</h2><p class="muted">要点をつかんで、問題で確かめよう。</p></div><div class="toolbar"><label class="sr-only" for="note-search">図解ノートを検索</label><input id="note-search" type="search" placeholder="例：横断歩道、徐行" value="${esc(noteSearch)}"><label class="sr-only" for="note-filter">分野</label><select id="note-filter"><option value="">全分野</option>${CATS.map(c => `<option value="${c.k}" ${noteFilter === c.k ? 'selected' : ''}>${esc(c.extra ? '補足' : c.label)}</option>`).join('')}</select></div><p class="muted">${visible.length} / ${NOTES.length}テーマ</p><div class="note-grid">${visible.map(n => `<details class="note" id="${n.id}" data-note="${n.id}"><summary>${noteThumbnail(n)}<span class="note-summary-copy"><strong>${esc(n.t)}</strong><small>${esc(noteCategory(n).label)} · ${noteIds(n).length ? `対応 ${noteIds(n).length}問` : '参考ノート'}</small></span>${icon('chevron')}</summary><div class="note-content"></div></details>`).join('') || '<div class="empty">見つかりませんでした。別の言葉で探してください。</div>'}</div>`;
 }
-function renderResult(animate=false){
- const r=lastResult;if(!r)return;
- const score=r.ids.filter((id,i)=>r.answers[i]===byId.get(id).a).length,wrong=r.ids.filter((id,i)=>r.answers[i]!==byId.get(id).a),unanswered=r.answers.filter(a=>a===null).length,exam=r.mode==='exam';
- const byCat=CATS.map(c=>({label:c.label,n:wrong.filter(id=>c.topics.includes(byId.get(id).topic)).length})).filter(x=>x.n).sort((a,b)=>b.n-a.n);
- document.body.dataset.view='result';$('play-title').textContent=exam?examName(r):r.label;$('count').textContent='結果';$('score').textContent='';$('bar').style.width='100%';$('progress').setAttribute('aria-valuenow',String(r.ids.length));$('progress').setAttribute('aria-valuemax',String(r.ids.length));
- $('app').innerHTML=`<article class="card result-card"><p class="result-greeting"><span aria-hidden="true">✓</span>おつかれさまでした！</p><div class="result-hero"><div><h2 class="result-label" id="result-title" tabindex="-1">${r.timeout?'制限時間になりました':exam?examName(r)+'の結果':'今回の練習結果'}</h2><div class="score">${score}<small> / ${r.ids.length}問 正解</small></div><p class="result-rate">正答率 <b>${Math.round(score/r.ids.length*100)}%</b></p></div><img class="result-character" src="${DESIGN_MASCOTS}" alt="プーリーくんとよりともさん"></div>${achievementHTML(score,r.ids.length,animate,exam)}${exam?`<p class="result-feedback">${resultFeedback(r,score)}</p><div class="chapter-results">${EXAM_BLUEPRINT.map(c=>{const ids=r.ids.filter(id=>byId.get(id).chapter===c.chapter);return `<div><span>${c.short}</span><b>${ids.filter(id=>r.answers[r.ids.indexOf(id)]===byId.get(id).a).length} / ${ids.length}</b></div>`}).join('')}</div>`:''}${unanswered?`<p class="hintline">未回答 ${unanswered}問も不正解として復習に追加しました。</p>`:''}<div class="result-review-intro"><h3>${wrong.length?'あと'+wrong.length+'問を復習':'次の練習へ'}</h3><p>${wrong.length?'この分野を確認すると、次につながります。':'ほかの問題にも挑戦してみましょう。'}</p></div>${byCat.length?`<div class="result-categories">${byCat.map(c=>`<div><span>${c.label}</span><b>${c.n}<small>問</small></b></div>`).join('')}</div>`:''}<div class="result-actions">${wrong.length?`<button class="btn" data-action="retry">${unanswered?'間違い・未回答':'間違えた'}${wrong.length}問を復習 ${icon('repeat')}</button>`:''}<button class="btn secondary" data-action="again">${exam?(examKind(r)==='assessment'?'同じセットを復習する':'別の50問で練習'):'同じ分野をもう一度'}</button><button class="textbtn" data-action="menu">学習トップへ戻る</button></div></article><h3 class="review-heading">回答を振り返る <span class="muted">タップで解説を表示</span></h3><div class="seg review-filters">${[['wrong','間違い・未回答'],['all','すべて']].map(([k,t])=>`<button data-action="review-filter" data-filter="${k}" aria-pressed="${reviewFilter===k}">${t}</button>`).join('')}</div>${r.ids.map((id,i)=>({id,i})).filter(({id,i})=>reviewFilter==='all'||r.answers[i]!==byId.get(id).a).sort((a,b)=>Number(r.answers[a.i]===byId.get(a.id).a)-Number(r.answers[b.i]===byId.get(b.id).a)).map(({id,i})=>renderReviewItem(id,r.answers[i],i,exam)).join('')||'<p class="empty">間違い・未回答はありません。「すべて」で正解した問題も確認できます。</p>'}`;
+function populateNote(el) {
+  if (el.dataset.loaded) return; const n = NOTES.find(n => n.id === el.dataset.note); if (!n) return;
+  const ids = noteIds(n);
+  el.querySelector('.note-content').innerHTML = `<div class="note-keypoints"><h3>押さえるポイント</h3><ul>${n.pts.map(p => `<li>${esc(p)}</li>`).join('')}</ul></div>${n.figs.map(figHTML).join('')}<div class="note-caution"><h3>間違えやすいところ</h3><p>${esc(n.trap)}</p></div><div class="note-bottom">${ids.length ? `<button class="btn" data-action="note-drill" data-note="${n.id}">対応する${Math.min(10,ids.length)}問を学ぶ ${icon('arrow')}</button>` : '<p class="muted">参考用のノートです。現在の500問に対応する設問はありません。</p>'}<a class="source-link" href="${esc(['n-speed','n-speed-new'].includes(n.id) ? REFS.speed.url : n.id === 'n-cycle-new' ? REFS.bicycle.url : n.id === 'n-veh' ? REFS.moped.url : REFS.rules.url)}" target="_blank" rel="noopener">公式資料で確認 ↗</a></div>`;
+  el.dataset.loaded = 'true';
 }
-function resume(){if(!state.session)return showMenu();lastResult=null;showPlay();if(state.session.mode==='exam'){if(examExpired())return;renderExam();startTimer()}else renderDrill();scrollTopPage()}
-function leavePlay(){if(state.session?.mode==='exam'){submitExam();return}showMenu()}
-const NOTE_GROUPS={sign:['n-sign','n-close','n-zone','n-entry','n-aux-new'],signal:['n-time','n-sig','n-time2','n-ped','n-arrow','n-hand','n-police'],inter:['n-prio','n-right','n-emer','n-turn','n-yield','n-jam','n-round-new'],pass:['n-pass','n-left','n-meeting-new','n-cycle-new'],ped:['n-safe','n-tram','n-pedx'],speed:['n-dis','n-slow','n-speed','n-speed-new'],start:['n-at','n-at-new','n-start-new'],basic:['n-bus','n-veh','n-kari','n-lane','n-mind','n-waka','n-bus-new'],hazard:['n-hill','n-rail','n-rail2'],park:['n-dist','n-stop','n-road','n-fb']};
-function noteCategory(n){return CATS.find(c=>NOTE_GROUPS[c.k]?.includes(n.id))||{k:'other',label:'その他の基本',icon:'book'}}
-function noteThumbnail(n){const k=n.figs.find(k=>FIG[k]),f=FIG[k];if(!f)return `<span class="note-preview">${icon(noteCategory(n).icon)}</span>`;const id='thumb-'+n.id,b=carify(f.b).replaceAll('url(#arrow)',`url(#${id})`);return `<span class="note-preview" aria-hidden="true"><svg viewBox="0 0 380 ${f.h}" focusable="false"><defs><marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#475b70" stroke-width="1.5"/></marker></defs>${b}</svg></span>`}
-function renderNotes(){const search=$('note-search').value.trim().toLowerCase(),category=$('note-filter').value,chosen=CATS.find(c=>c.k===category);const visible=NOTES.filter(n=>(!search||[n.t,...n.pts,n.trap].join(' ').toLowerCase().includes(search))&&(!chosen||noteCategory(n).k===chosen.k));
- $('note-return').hidden=!noteReturn;$('note-count').textContent=`${visible.length} / ${NOTES.length}テーマ`;
- const groups=[...CATS,{k:'other',label:'その他の基本',icon:'book'}];
- $('note-list').innerHTML=visible.length?groups.map(c=>{const items=visible.filter(n=>noteCategory(n).k===c.k);return items.length?`<section class="note-category"><div class="note-category-heading"><h3>${icon(c.icon)}${c.label}</h3><span>${items.length}テーマ</span></div><div class="note-category-grid">${items.map(n=>`<details class="note" id="${n.id}" data-note="${n.id}"><summary>${noteThumbnail(n)}<span class="note-summary-copy"><strong>${esc(n.t)}</strong><small>図解 ${n.figs.length}点 · 要点 ${n.pts.length}つ</small></span></summary><div class="note-content"></div></details>`).join('')}</div></section>`:''}).join(''):'<div class="empty"><h3>見つかりませんでした</h3><p>別の言葉、または「全分野」で探してください。</p><button class="btn ghost" data-action="clear-search">検索をリセット</button></div>';
+function openNotes(id = null) {
+  if (state.session?.mode === 'exam') { toast('模試を採点してから開けます。'); return; }
+  if (view !== 'notes') noteReturn = { view, tab, scroll: window.scrollY };
+  noteSearch = ''; noteFilter = ''; tab = 'learn'; renderNotes(); show('notes');
+  if (id && $(id)) { populateNote($(id)); $(id).open = true; $(id).scrollIntoView({block:'start',behavior:'instant'}); }
 }
-function populateNote(el){if(el.dataset.loaded)return;const n=NOTES.find(n=>n.id===el.dataset.note);if(!n)return;el.querySelector('.note-content').innerHTML=`<div class="note-keypoints"><h4>押さえるポイント</h4><ul>${n.pts.map(p=>`<li>${esc(p)}</li>`).join('')}</ul></div><div class="note-figures">${n.figs.map(figHTML).join('')}</div><div class="note-caution"><h4>間違えやすいところ</h4><p>${esc(n.trap)}</p></div><div class="note-bottom"><button class="btn" data-action="note-drill" data-note="${n.id}">このテーマを練習する ${icon('arrow')}</button><a class="source-link" href="${['n-speed','n-speed-new'].includes(n.id)?REFS.speed.url:n.id==='n-cycle-new'?REFS.bicycle.url:n.id==='n-veh'?REFS.moped.url:REFS.rules.url}" target="_blank" rel="noopener">公式資料で確認 ↗</a></div>`;el.dataset.loaded='true'}
-
-function openNote(id){noteReturn=currentView==='play';$('note-search').value='';$('note-filter').value='';setTab('notes');const el=$(id);if(el){populateNote(el);el.open=true;requestAnimationFrame(()=>el.scrollIntoView({behavior:'instant',block:'start'}))}}
-function renderTests(){const ready=readiness(),nextForm=Object.keys(ASSESSMENT_FORMS).find(f=>!state.checks[f]);$('tests').innerHTML=`<div class="tests-heading"><span class="badge">50問・30分</span><h2>実力テスト</h2><p class="muted">練習の成果を、初めて見る問題で確かめよう。</p></div> <section class="assessment-panel" aria-labelledby="assessment-title"><div class="assessment-heading"><div><span class="over">はじめての問題で確認</span><h3 id="assessment-title">初回の実力チェック</h3></div><span class="badge">初回 ${ready.done} / 3</span></div><p class="assessment-message"><strong>${ready.title}</strong><span>${ready.body}</span></p><div class="assessment-grid">${Object.keys(ASSESSMENT_FORMS).map(f=>{const c=state.checks[f],h=c?.first;return `<div class="assessment-card ${f===nextForm?'recommended':''}"><div class="assessment-card-top"><b>SET ${f}</b><span class="badge ${h?(h.score>=48?'success':h.score<45?'error':''):''}">${h?'初回 '+h.score+'点':c?'初回記録なし':f===nextForm?'次はこちら':'未受験'}</span></div><p>${h?(h.score>=48?'初回の学習目標を達成':h.score>=45?'基準点に到達・目標は48点':'結果から弱点を確認'):c?'開始済み。次は再挑戦扱いです。':'50問 · 30分 · 解説は採点後'}</p><button class="btn wide ${f===nextForm?'':'secondary'}" data-action="assessment" data-form="${f}">${c?'もう一度解く':'初回に挑戦する'} ${icon('arrow')}</button>${h?`<button class="textbtn" data-action="first-result" data-form="${f}">初回の回答を見る</button>`:''}</div>`}).join('')}</div><details class="exam-guide"><summary>判定の見方と出題範囲</summary><p>3セットは通常の練習・練習模試に出ない設問です。採点後に、間違えた判定問題を苦手復習で解けます。再挑戦しても初回点数は変わりません。</p><p>各セットと練習模試は、共通の心得12問・運転前の心得4問・運転方法33問・危険な場所等1問。駐停車の距離や時間の問題は含めません。</p><p>45点が本番の合格基準。48点以上を初回で3セット、がこのアプリの学習目標です。公式問題の再現や合格保証ではありません。記録を消すと受験済みの判別もできなくなります。</p><a href="${REFS.blueprint.url}" target="_blank" rel="noopener">公式の出題基準を確認 ↗</a></details></section><section class="mock-panel"><h3>繰り返し練習したいときに</h3><p class="muted">通常の練習問題から50問を出題します。初回判定とは別の記録です。</p><button class="btn secondary wide" data-action="exam">50問の練習模試 ${icon('arrow')}</button></section> ${state.history.length?`<section><div class="section-heading"><h3>最近のテスト</h3><span class="muted">直近10回</span></div>${state.history.slice().reverse().map((h,i)=>`<div class="history"><div><span class="history-kind">${examName(h)}</span><small>${new Date(h.at).toLocaleDateString('ja-JP',{month:'numeric',day:'numeric'})}</small></div><span class="badge ${h.score>=45?'success':'error'}">${h.score>=48?'48点以上':h.score>=45?'45点以上':'要復習'}</span><b>${h.score}<span class="muted"> / 50</span></b>${validHistory(h)?`<button class="textbtn" data-action="history" data-index="${state.history.length-1-i}">回答を見る</button>`:'<small class="muted">点数のみ</small>'}</div>`).join('')}</section>`:''}`;}
-
-function settings(){const active=state.session?.mode==='exam';$('settings-theme').innerHTML=['auto','light','dark'].map((t,i)=>`<button data-action="theme" data-theme="${t}" aria-pressed="${state.theme===t}">${['自動','ライト','ダーク'][i]}</button>`).join('');$('settings-sound').innerHTML=[[true,'オン'],[false,'オフ']].map(([v,l])=>`<button data-action="sound" data-sound="${v}" aria-pressed="${(state.sound!==false)===v}">${l}</button>`).join('');$('import-button').disabled=active;$('reset-button').disabled=Boolean(state.session);$('settings').showModal()}
-function downloadRecord(){
- const data={kind:'karimen-progress',version:VERSION,answerRevision:ANSWER_REVISION,exportedAt:new Date().toISOString(),misses:state.misses,stats:state.stats,history:state.history,checks:state.checks,practiceResults:state.practiceResults,limit:state.limit,theme:state.theme,sound:state.sound!==false};
- const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='仮免_学習記録_'+new Date().toISOString().slice(0,10)+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('初回判定を含む学習記録を書き出しました。途中のテストの回答は含みません。');
+function settings() {
+  const exam = state.session?.mode === 'exam';
+  $('settings-content').innerHTML = `<div class="settings-group"><h3>画面の明るさ</h3><div class="seg">${[['auto','自動'],['light','ライト'],['dark','ダーク']].map(([k,t]) => `<button data-action="theme" data-value="${k}" aria-pressed="${state.theme === k}">${t}</button>`).join('')}</div></div><div class="settings-group"><h3>効果音</h3><div class="seg">${[[true,'オン'],[false,'オフ']].map(([v,t]) => `<button data-action="sound" data-value="${v}" aria-pressed="${state.sound === v}">${t}</button>`).join('')}</div><p class="muted">学習で答えたときに鳴ります。模試中は鳴りません。</p></div><div class="settings-group"><label class="confidence-control"><input id="reduce-motion" type="checkbox" ${state.reduceMotion ? 'checked' : ''}>動きを抑える</label><p class="muted">端末の「視差効果を減らす」設定にも対応します。</p><button class="textbtn" data-action="preview" data-score="45">花丸の見本を見る →</button></div><div class="settings-group"><h3>学習記録を引き継ぐ</h3><p class="muted">成績・復習予定・途中の回答・以前の記録をJSONで保管できます。</p><div class="btnrow"><button class="btn secondary" data-action="export">書き出す</button><button class="btn secondary" data-action="import" ${exam ? 'disabled' : ''}>読み込む</button></div></div><div class="settings-group"><button class="textbtn" data-action="archive" ${exam ? 'disabled' : ''}>以前の学習記録を見る →</button><p class="muted">旧50問練習、判定A〜C、以前の問題の回答を保管しています。</p></div><div class="settings-group"><button class="textbtn danger" data-action="reset" ${state.session ? 'disabled' : ''}>現在の学習記録を初期化する</button>${state.session ? '<p class="muted">途中の学習を終えると初期化できます。</p>' : ''}</div>`;
+  if (!$('settings').open) $('settings').showModal();
 }
-async function importRecord(file){
- if(!file)return;if(state.session?.mode==='exam'){toast('テストの終了後に読み込めます。');return}
- if(file.size>2000000){toast('ファイルが大きすぎます。学習記録のJSONを選んでください。');return}
- let raw;
- try{raw=JSON.parse(await file.text());if(raw.kind!=='karimen-progress'||![2,VERSION].includes(raw.version)||!raw.misses||!raw.stats||Array.isArray(raw.stats)||typeof raw.stats!=='object')throw new Error()}catch{toast('学習記録の形式が違います。このドリルから書き出したJSONを選んでください。');return}
- $('settings').close();ask('学習記録を読み込みますか？','現在の記録を選択したファイルの記録で置き換えます。旧版の記録も読み込めます。途中の練習は終了します。','読み込む',()=>{
-  const clean=cleanRecords(raw);
-  state={...state,version:VERSION,answerRevision:ANSWER_REVISION,...clean,checks:cleanChecks(raw,clean),practiceResults:cleanPracticeResults(raw.practiceResults),session:null,history:cleanHistory(raw.history),limit:[0,10,20].includes(raw.limit)?raw.limit:state.limit,theme:['auto','light','dark'].includes(raw.theme)?raw.theme:state.theme,sound:typeof raw.sound==='boolean'?raw.sound:state.sound};
-  lastResult=null;persist();theme();showMenu();toast('学習記録を読み込みました。');
- });
+function renderArchive() {
+  const a = state.legacyArchive, records = Object.entries(a.stats || {}), history = [...(a.history || []), ...Object.values(a.checks || {}).map(c => c?.first).filter(Boolean)];
+  $('archive').innerHTML = `<button class="textbtn" data-action="tab" data-tab="learn">${icon('back')}学習に戻る</button><div class="page-heading"><h2>以前の学習記録</h2><p class="muted">当時の記録を保管しています。新しい模試の合格数には含めません。</p></div><div class="card"><h3>解説付き50問練習</h3>${WORKSHEETS.map(w => { const r = resultsFor(w.worksheet,'guided',false); return r.best ? `<div class="history-row"><span>第${w.worksheet}回</span><b>最高 ${r.best.scoreSnapshot}点</b><button class="textbtn" data-action="detail" data-set="${w.worksheet}">記録を見る</button></div>` : ''; }).join('') || '<p class="muted">以前の50問練習の記録はありません。</p>'}</div><h3 class="section-heading">以前のテスト</h3>${history.length ? history.map(h => `<details class="review-item"><summary>${esc(h.form ? '判定テスト ' + h.form : '以前のランダム模試')} · ${esc(h.score ?? h.scoreSnapshot ?? '—')}点 <span class="muted">${dateLabel(h.at || h.completedAt)}</span></summary><div class="review-body"><p class="muted">得点は当時の保存値です。解説は現在保管されている内容です。</p>${Array.isArray(h.ids) ? h.ids.map((id,i) => reviewItem(id,h.answers?.[i] ?? null,i)).join('') : '<p>得点のみの記録です。</p>'}</div></details>`).join('') : '<p class="muted">以前のテスト記録はありません。</p>'}<h3 class="section-heading">以前の問題への回答</h3><p class="muted">${records.length}問の回答記録を保管しています。</p>${records.length ? `<details class="review-item"><summary>回答記録を開く</summary>${records.map(([id,s]) => `<div class="history-row"><span>${esc(byId.get(Number(id))?.q || '問題ID ' + id)}<small>回答 ${esc(s.total ?? 0)}回 · 正解 ${esc(s.correct ?? 0)}回</small></span></div>`).join('')}</details>` : ''}<h3 class="section-heading">保管した途中記録</h3>${(a.sessions || []).length ? a.sessions.map(s => `<div class="card"><p>${esc(s.label || '以前の出題')}</p><p class="muted">${(s.answers || []).filter(v => v !== null).length} / ${s.ids?.length || 0}問 回答済み</p><p class="muted">出題内容が変わったため、自動的に採点・差し替えはしていません。</p></div>`).join('') : '<p class="muted">保管した途中記録はありません。</p>'}<div class="stack"><button class="btn secondary" data-action="export">以前の記録も含めて書き出す</button></div>`;
 }
-document.addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(!b||b.disabled)return;const a=b.dataset.action;
- if(a==='practice-result')showPracticeResult(b.dataset.set);else if(a==='achievement-preview')showAchievementPreview();else if(a==='achievement-score')showAchievementPreview(b.dataset.score);else if(a==='achievement-close'){$('achievement-preview').close();settings()}else if(a==='practice-view')switchPractice(b.dataset.view);else if(a==='category-filter'){categoryFilter=['all','new','weak'].includes(b.dataset.filter)?b.dataset.filter:'all';document.querySelectorAll('[data-action="category-filter"]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.filter===categoryFilter)));renderCategories()}else if(a==='assessment')startExam(b.dataset.form);else if(a==='first-result')showStoredResult(state.checks[b.dataset.form]?.first);else if(a==='visual-drill')beginDrill('review',Q.filter(q=>q.chapter&&(VISUALS[q.id]||IMGQ[q.id])).map(q=>q.id),'標識・手信号のイラスト練習');else if(a==='start')beginDrill(b.dataset.pool);else if(a==='limit'){state.limit=Number(b.dataset.value);persist();renderMenu();document.querySelector('.practice-options').open=true}else if(a==='exam')startExam();else if(a==='resume')resume();else if(a==='answer')answer(b.dataset.value==='true');else if(a==='next')nextDrill();else if(a==='drill-prev')drillJump((state.session?.index||0)-1);else if(a==='drill-skip')drillJump((state.session?.index||0)+1);else if(a==='drill-jump')drillJump(Number(b.dataset.index));else if(a==='menu')showMenu();else if(a==='back')leavePlay();else if(a==='note')openNote(b.dataset.id);else if(a==='note-return'){setTab('drill');scrollTopPage()}else if(a==='exam-answer')setExamAnswer(b.dataset.value==='true');else if(a==='exam-next'){if(state.session?.index===49){$('exam-map').open=true;$('exam-map').scrollIntoView({block:'center',behavior:'instant'})}else examJump((state.session?.index||0)+1)}else if(a==='exam-prev')examJump((state.session?.index||0)-1);else if(a==='exam-jump')examJump(Number(b.dataset.index));else if(a==='next-unanswered'){const s=state.session;if(s?.mode!=='exam')return;const order=[...s.ids.keys()].map(i=>(s.index+1+i)%s.ids.length),i=order.find(i=>s.answers[i]===null);if(i===undefined)toast('全問回答済みです。回答一覧から見直せます。');else examJump(i)}else if(a==='flag'){const s=state.session;if(s?.mode!=='exam'||examExpired())return;s.flags[s.index]=!s.flags[s.index];persist();renderExam()}else if(a==='exam-submit')submitExam();
- else if(a==='retry'){const r=lastResult;if(!r)return;beginDrill('review',r.ids.filter((id,i)=>r.answers[i]!==byId.get(id).a),'間違い・未回答の復習')}else if(a==='again'){if(lastResult?.mode==='exam')startExam(examKind(lastResult)==='assessment'?lastResult.form:null);else if(lastResult){const r=lastResult;beginDrill(r.pool,r.pool==='review'?r.ids:null,r.pool==='review'?r.label:null)}}
- else if(a==='note-drill'){const n=NOTES.find(n=>n.id===b.dataset.note);if(n)beginDrill('review',Q.filter(q=>n.figs.includes(q.fig)).map(q=>q.id),n.t)}else if(a==='clear-search'){$('note-search').value='';$('note-filter').value='';renderNotes()}
- else if(a==='review-filter'){reviewFilter=b.dataset.filter;renderResult()}else if(a==='history'){const h=state.history[Number(b.dataset.index)];if(state.session?.mode==='exam'){toast('テスト終了後に確認できます。');return}showStoredResult(h)}else if(a==='question-zoom'){openQuestionArt(Number(b.dataset.id),b.dataset.revealed==='true')}else if(a==='figure-open'){openFigure(b.dataset.fig)}else if(a==='settings')settings();else if(a==='theme'){state.theme=b.dataset.theme;persist();theme();$('settings-theme').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.theme===state.theme)))}else if(a==='sound'){state.sound=b.dataset.sound==='true';persist();$('settings-sound').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String((x.dataset.sound==='true')===(state.sound!==false))));if(state.sound)sfx(true)}else if(a==='export')downloadRecord();else if(a==='import')$('import-file').click();else if(a==='reset'){$('settings').close();ask('学習記録を初期化しますか？','苦手・解答履歴・教習問題の得点と合格記録・初回判定・テスト履歴を消します。必要なら先に設定から記録を書き出してください。','初期化する',()=>{state.misses={};state.stats={};state.history=[];state.checks={};state.practiceResults={};state.session=null;lastResult=null;persist();showMenu();toast('学習記録を初期化しました。')})}
+function downloadRecord() {
+  const url = URL.createObjectURL(new Blob([JSON.stringify(model.exportData(),null,2)],{type:'application/json'}));
+  const a = document.createElement('a'); a.href = url; a.download = '仮免_学習記録_' + new Date().toISOString().slice(0,10) + '.json'; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url),1000);
+  toast('記録の書き出しを開始しました。ダウンロードを確認してください。');
+}
+async function importRecord(file) {
+  if (!file || state.session?.mode === 'exam') return;
+  if (file.size > 20000000) { toast('20MB以下の学習記録JSONを選んでください。'); return; }
+  let raw; try { raw = JSON.parse(await file.text()); if (raw.kind !== 'karimen-progress') throw new Error(); model.validateImport(raw); } catch { toast('このドリルから書き出した学習記録JSONを選んでください。'); return; }
+  $('settings').close(); ask('学習記録を読み込みますか？','表示する記録をこのファイルに切り替えます。現在の記録も保管され、書き出しに含まれます。途中の模試は元の終了時刻を引き継ぎます。','読み込む',() => { const ok = model.importData(raw); state = model.state; lastResult = null; theme(); navigate('mock'); updateTimer(); toast(ok ? '学習記録を読み込みました。' : '読み込みましたが保存できませんでした。書き出して保管してください。'); });
+}
+function preview(score) {
+  const n = [44,45,48,50].includes(Number(score)) ? Number(score) : 45;
+  $('settings').close(); $('achievement-preview-body').innerHTML = `<div class="score">${n}<small>/ 50問</small></div>${achievementHTML(n,50,true,true)}`;
+  $('achievement-preview').querySelectorAll('[data-action="preview"]').forEach(b => b.setAttribute('aria-pressed',String(Number(b.dataset.score) === n)));
+  if (!$('achievement-preview').open) $('achievement-preview').showModal();
+}
+function openQuestionArt(id, revealed) {
+  const q = byId.get(id); if (!q) return;
+  if (state.session?.mode === 'exam') revealed = false;
+  $('figure-content').innerHTML = questionArt(q,revealed,true); $('figure-zoom').value = '100'; $('figure-content').style.width = '100%'; $('figure-dialog').showModal();
+}
+function openFigure(k) { if (state.session?.mode === 'exam' || !FIG[k]) return; $('figure-content').innerHTML = figHTML(k); $('figure-content').style.width = '100%'; $('figure-zoom').value = '100'; $('figure-dialog').showModal(); }
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-action]'); if (!b || b.disabled || externalChange) return;
+  const a = b.dataset.action, s = state.session;
+  if (a === 'tab') navigate(b.dataset.tab);
+  else if (a === 'mock-filter') { mockFilter = b.dataset.filter; renderMock(); }
+  else if (a === 'category-filter') { categoryFilter = b.dataset.filter; renderLearn(); }
+  else if (a === 'detail') detail(Number(b.dataset.set));
+  else if (a === 'close-detail') $('detail').close();
+  else if (a === 'start-mock' || a === 'start-guided') startSet(Number(b.dataset.set),a === 'start-mock' ? 'mock' : 'guided');
+  else if (a === 'resume') resume();
+  else if (a === 'quick-study') startStudy(studySelection(Q), '10問の学習');
+  else if (a === 'category') { const c = CATS.find(c => c.k === b.dataset.cat); if (c) { let list = categorized(c); if (categoryFilter === 'new') list = list.filter(q => !state.stats[q.id]?.total); if (categoryFilter === 'weak') list = list.filter(weak); startStudy(studySelection(list), c.extra ? '補足の学習' : c.label); } }
+  else if (a === 'due') startStudy(model.schedule().due.slice(0,10).map(q => q.id),'今日の復習','review');
+  else if (a === 'review-one') { const q = activeQuestion(b.dataset.id); if (q) startStudy([q.id],model.due(q.id) ? '今日の復習' : '予定前の練習','review'); }
+  else if (a === 'review-more') { reviewMore = true; renderReview(); }
+  else if (a === 'answer') { const exam = s?.mode === 'exam', ok = model.answer(b.dataset.value === 'true',Boolean($('uncertain')?.checked)); if (!model.state.session) { lastResult = model.state.lastResult; renderResult(true); show('result'); } else { if (ok && !exam) sfx(activeQuestion(s.ids[s.index]).a === (b.dataset.value === 'true')); renderPlay(); if (!exam) $('next')?.focus({preventScroll:true}); } }
+  else if (a === 'next' && s) { if (s.index === s.ids.length - 1) s.mode === 'exam' ? openMap() : submit(); else jump(s.index + 1); }
+  else if (a === 'prev' && s) jump(s.index - 1);
+  else if (a === 'skip' && s) s.index === s.ids.length - 1 ? openMap() : jump(s.index + 1);
+  else if (a === 'jump') jump(Number(b.dataset.index));
+  else if (a === 'flag' && s?.mode === 'exam') { if (model.expired()) return finish(true); s.flags[s.index] = !s.flags[s.index]; save(); renderPlay(); }
+  else if (a === 'unanswered' && s) { const i = s.ids.map((_,i) => (s.index + i + 1) % s.ids.length).find(i => s.answers[i] === null); if (i === undefined) openMap(); else jump(i); }
+  else if (a === 'submit') submit();
+  else if (a === 'pause') { if (s?.mode === 'exam') ask('模試を中断しますか？','回答は保存されます。中断中も制限時間は進み、終了時刻に未回答も含めて採点します。','保存して一覧へ',() => navigate('mock')); else navigate(tab); }
+  else if (a === 'result-filter') { reviewFilter = b.dataset.filter; renderResult(); }
+  else if (a === 'result-retry' && lastResult) { const r = lastResult, wrong = r.ids.filter((id,i) => activeQuestion(id) && r.answers[i] !== activeQuestion(id).a), ids = wrong.length ? wrong : r.ids.filter((id,i) => activeQuestion(id) && (r.flags?.[i] || r.uncertain?.[i])); startStudy(ids,'今回の回答の復習','review'); }
+  else if (a === 'stored-result') { if (s?.mode === 'exam') return; const r = findAttempt(b.dataset.id); if (r) { $('detail').close(); lastResult = r; reviewFilter = 'wrong'; tab = r.mode === 'mock' ? 'mock' : 'learn'; renderResult(); show('result'); } }
+  else if (a === 'notes') openNotes();
+  else if (a === 'note') openNotes(b.dataset.id);
+  else if (a === 'note-return') { const ret = noteReturn; if (ret && ['play','result'].includes(ret.view)) { tab = ret.tab; show(ret.view,false); window.scrollTo({top:ret.scroll,behavior:'instant'}); } else navigate('learn'); }
+  else if (a === 'note-drill') { const n = NOTES.find(n => n.id === b.dataset.note); if (n) startStudy(studySelection(noteIds(n).map(id => activeQuestion(id))),n.t); }
+  else if (a === 'question-zoom') openQuestionArt(Number(b.dataset.id),b.dataset.revealed === 'true');
+  else if (a === 'figure-open') openFigure(b.dataset.fig);
+  else if (a === 'close-figure') $('figure-dialog').close();
+  else if (a === 'settings') settings();
+  else if (a === 'close-settings') $('settings').close();
+  else if (a === 'theme') { state.theme = b.dataset.value; save(); theme(); settings(); }
+  else if (a === 'sound') { state.sound = b.dataset.value === 'true'; save(); settings(); if (state.sound) sfx(true); }
+  else if (a === 'preview') preview(b.dataset.score);
+  else if (a === 'close-preview') { $('achievement-preview').close(); settings(); }
+  else if (a === 'export') downloadRecord();
+  else if (a === 'import') $('import-file').click();
+  else if (a === 'archive') { if (s?.mode === 'exam') return; $('settings').close(); tab = 'learn'; renderArchive(); show('archive'); }
+  else if (a === 'dismiss-notice') { state.notices = []; save(); }
+  else if (a === 'reset') { $('settings').close(); ask('現在の学習記録を初期化しますか？','新しい模試・練習の成績、復習予定、アプリ内に保管した以前の記録を初期化します。必要な記録は先に書き出してください。移行前の元データには触れません。','初期化する',() => { const ok = model.reset(); state = model.state; lastResult = null; theme(); navigate('mock'); toast(ok ? '現在の学習記録を初期化しました。' : '初期化を保存できませんでした。'); }); }
 });
-document.addEventListener('toggle',e=>{if(e.target.matches?.('details.note')&&e.target.open)populateNote(e.target);if(e.target.matches?.('details.review-item')&&e.target.open){const el=e.target.querySelector('.lazy-figure');if(el&&!el.dataset.loaded){el.innerHTML=figHTML(el.dataset.fig);el.dataset.loaded='true'}}},true);
-['drill','notes','tests'].forEach(k=>$('tab-'+k).addEventListener('click',()=>{if(k==='drill'&&currentView==='menu')renderMenu();setTab(k)}));
-$('tabs').addEventListener('keydown',e=>{if(!['ArrowRight','ArrowLeft','Home','End'].includes(e.key))return;const tabs=[...$('tabs').querySelectorAll('button:not(:disabled)')];let i=tabs.indexOf(document.activeElement);if(i<0)return;e.preventDefault();i=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[i].click();tabs[i].focus()});
-$('note-search').addEventListener('input',renderNotes);$('note-filter').addEventListener('change',renderNotes);
-$('confirm-yes').addEventListener('click',()=>{const action=modalAction;modalAction=null;$('confirm').close();action?.()});$('confirm-no').addEventListener('click',()=>{$('confirm').close();modalAction=null});$('confirm').addEventListener('cancel',()=>modalAction=null);$('settings-close').addEventListener('click',()=>$('settings').close());
-$('import-file').addEventListener('change',e=>{importRecord(e.target.files[0]);e.target.value=''});
-function refreshAfterReturn(){if(state.session?.mode==='exam')tick();else if(tab==='drill'&&currentView==='menu')renderMenu()}
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshAfterReturn()});window.addEventListener('pageshow',refreshAfterReturn);
-const media=matchMedia('(prefers-color-scheme:dark)');if(media.addEventListener)media.addEventListener('change',theme);
-
-let reviewFilter='wrong';
-function validHistory(h){return Boolean(h&&Array.isArray(h.ids)&&h.ids.length===50&&new Set(h.ids).size===50&&h.ids.every(id=>byId.has(id))&&Array.isArray(h.answers)&&h.answers.length===50&&h.answers.every(v=>v===null||typeof v==='boolean'))}
-function openFigure(k){if(!FIG[k])return;const d=$('figure-dialog');$('figure-content').innerHTML=figHTML(k);$('figure-content').querySelector('button')?.remove();$('figure-zoom').value='150';$('figure-content').style.width='150%';d.showModal();}
-document.addEventListener('change',e=>{if(e.target.id==='uncertain'&&state.session?.mode==='drill'){const s=state.session;s.uncertain??=s.ids.map(()=>false);s.uncertain[s.index]=e.target.checked;persist()}});
-$('figure-close').addEventListener('click',()=>$('figure-dialog').close());
-$('figure-zoom').addEventListener('input',e=>$('figure-content').style.width=e.target.value+'%');
-
-
-function examKind(s){return s?.examKind==='assessment'?'assessment':s?.examKind==='practice'&&s.blueprint===BLUEPRINT_VERSION?'practice':'legacy'}
-function formMatches(ids,form){const qs=ASSESSMENT_FORMS[form];return Boolean(qs&&ids?.length===50&&new Set(ids).size===50&&ids.every(id=>qs.some(q=>q.id===id)))}
-function cleanHistory(raw){
- if(!Array.isArray(raw))return [];
- return raw.filter(h=>h&&Number.isFinite(h.at)&&h.total===50&&Number.isInteger(h.score)&&h.score>=0&&h.score<=50).slice(-10).map(h=>{
-  if(!validHistory(h))return {at:h.at,score:h.score,total:50,examKind:'legacy'};
-  const kind=examKind(h),form=kind==='assessment'&&formMatches(h.ids,h.form)?h.form:null;
-  return {at:h.at,score:h.ids.filter((id,i)=>h.answers[i]===byId.get(id).a).length,total:50,ids:[...h.ids],answers:[...h.answers],timeout:Boolean(h.timeout),examKind:kind==='assessment'&&!form?'legacy':kind,form,firstAttempt:Boolean(form&&h.firstAttempt),blueprint:h.blueprint===BLUEPRINT_VERSION?BLUEPRINT_VERSION:null};
- });
-}
-function cleanChecks(raw,records){
- const checks={};
- for(const form of Object.keys(ASSESSMENT_FORMS)){
-  const x=raw?.checks?.[form],h=x?.first;
-  const startedAt=bounded(x?.startedAt,1e15);
-  const first=validHistory(h)&&formMatches(h.ids,form)?cleanHistory([{...h,total:50,examKind:'assessment',form,firstAttempt:true,blueprint:BLUEPRINT_VERSION}])[0]:null;
-  const exposed=ASSESSMENT_FORMS[form].some(q=>records.stats[q.id]?.total);
-  if(startedAt||first||exposed)checks[form]={startedAt:startedAt||first?.at||Date.now(),first:first||null,completed:Boolean(first||x?.completed||exposed)};
- }
- return checks;
-}
-function availablePractice(){return [...Q,...ASSESSMENT_Q.filter(q=>state.checks[q.form]?.completed||state.checks[q.form]?.first)]}
-function readiness(){
- const firsts=Object.keys(ASSESSMENT_FORMS).map(f=>state.checks[f]?.first).filter(Boolean),high=firsts.filter(h=>h.score>=48).length;
- if(firsts.length===3&&high===3)return {title:'初回の学習目標を3セット達成',body:'3セットとも48点以上。間違えた理由を確認し、別の未見問題でも理解を確かめましょう。',done:firsts.length,high};
- if(firsts.some(h=>h.score<45))return {title:'初回で45点未満のセットがあります',body:'結果から苦手を復習しましょう。再挑戦の点数と、初回の記録は分けて残ります。',done:firsts.length,high};
- if(firsts.length===3)return {title:'初回3セットの結果がそろいました',body:'48点以上は'+high+'セット。45点は本番の基準点、48点は余裕を持たせた学習目標です。',done:firsts.length,high};
- return {title:firsts.length?'初回判定はあと'+(3-firsts.length)+'セット':'練習のあと、初めて見る問題で確認',body:'各50問・30分。普段の練習とは別の設問で、最初の結果を残します。',done:firsts.length,high};
-}
-function examName(r){return examKind(r)==='assessment'?`判定テスト ${r.form} · ${r.firstAttempt?'初回':'再挑戦'}`:examKind(r)==='practice'?'配分準拠の練習模試':'旧版の模擬テスト'}
-function resultFeedback(r,score){
- if(examKind(r)==='legacy')return '旧版の出題配分による記録です。改善版の初回判定には含めません。';
- if(examKind(r)==='practice')return '通常の練習から出題した模試です。初見への対応は、未受験の判定テストで確認できます。';
- if(!r.firstAttempt)return '再挑戦の結果です。初回 '+(state.checks[r.form]?.first?.score??'記録なし')+(state.checks[r.form]?.first?'点':'')+' はそのまま残ります。';
- return score>=48?'初回の学習目標48点に到達しました。ほかの未受験セットでも確認しましょう。':score>=45?'基準点45点に到達。余裕を持つため、間違いを復習して別の未受験セットに挑戦しましょう。':'45点まであと'+(45-score)+'点。間違えた分野と、迷った理由を確認してから次のセットへ進みましょう。';
-}
-function showStoredResult(h){
- if(state.session?.mode==='exam'){toast('テスト終了後に確認できます。');return}
- if(!validHistory(h))return;
- lastResult={...h,mode:'exam',label:examName(h),pool:'exam'};reviewFilter='wrong';showPlay();renderResult();scrollTopPage();
-}
-theme();storageWarning();$('note-filter').innerHTML='<option value="">全分野</option>'+CATS.map(c=>`<option value="${c.k}">${c.label}</option>`).join('');
-$('brandmark').innerHTML=icon('road');$('settings-button').innerHTML=icon('settings');$('tab-drill').innerHTML=icon('play')+'練習';$('tab-notes').innerHTML=icon('book')+'図解ノート';$('tab-tests').innerHTML=icon('check')+'実力テスト';$('search-icon').innerHTML=icon('search');
-renderMenu();setTab('drill');setExamLock();if(state.session?.mode==='exam')resume();else if(location.hash==='#notes')setTab('notes');else if(location.hash==='#tests')setTab('tests');
-
-$('bank-count').textContent='練習 '+Q.filter(q=>q.chapter).length+'問 · 実力テスト '+ASSESSMENT_Q.length+'問 · 補足 '+Q.filter(q=>!q.chapter).length+'問';
+document.addEventListener('toggle', e => { if (e.target.matches?.('details.note') && e.target.open) populateNote(e.target); },true);
+document.addEventListener('change', e => {
+  if (externalChange) return;
+  if (e.target.id === 'uncertain' && state.session?.mode === 'drill') { state.session.uncertain[state.session.index] = e.target.checked; save(); }
+  if (e.target.id === 'reduce-motion') { state.reduceMotion = e.target.checked; save(); theme(); }
+  if (e.target.id === 'note-filter') { noteFilter = e.target.value; renderNotes(); }
+  if (e.target.id === 'import-file') { importRecord(e.target.files[0]); e.target.value = ''; }
+});
+document.addEventListener('input', e => {
+  if (e.target.id === 'figure-zoom') $('figure-content').style.width = e.target.value + '%';
+  if (e.target.id === 'note-search') { const start = e.target.selectionStart; noteSearch = e.target.value; renderNotes(); $('note-search').focus(); try { $('note-search').setSelectionRange(start,start); } catch {} }
+});
+$('confirm-yes').addEventListener('click', () => { const action = modalAction; modalAction = null; $('confirm').close(); if (!externalChange) action?.(); });
+$('confirm-no').addEventListener('click', () => { $('confirm').close(); modalAction = null; });
+$('confirm').addEventListener('cancel', () => modalAction = null);
+$('tabs').addEventListener('keydown', e => { if (!['ArrowLeft','ArrowRight','Home','End'].includes(e.key)) return; const buttons = [...$('tabs').querySelectorAll('button:not(:disabled)')]; let i = buttons.indexOf(document.activeElement); if (i < 0) return; e.preventDefault(); i = e.key === 'Home' ? 0 : e.key === 'End' ? buttons.length - 1 : (i + (e.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length; buttons[i].click(); buttons[i].focus(); });
+function refreshAfterReturn() { if (externalChange) return; updateTimer(); if (view === 'review') renderReview(); if (view === 'learn') renderLearn(); updateChrome(); }
+document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshAfterReturn(); });
+window.addEventListener('pageshow',refreshAfterReturn);
+window.addEventListener('storage', e => { if (e.key === KarimenModel.STORE && e.newValue !== JSON.stringify(state)) { externalChange = true; closeDialogs(); updateChrome(); } });
+matchMedia('(prefers-color-scheme:dark)').addEventListener?.('change',theme);
+$('brandmark').innerHTML = icon('road'); $('settings-button').innerHTML = icon('settings');
+$('nav-mock').innerHTML = icon('license'); $('nav-learn').innerHTML = icon('book'); $('nav-review').innerHTML = icon('repeat');
+theme(); navigate('mock'); updateTimer(); setInterval(updateTimer,500);
