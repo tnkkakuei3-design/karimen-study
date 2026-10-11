@@ -1,6 +1,6 @@
 /* State and scoring are independent of the UI. Old storage is never overwritten. */
 const KarimenModel = (() => {
-  const STORE = 'karimen-study-v4', OLD = 'karimen-study-v2', DAY = 86400000;
+  const STORE = 'karimen-study-v4', OLD = 'karimen-study-v2', DAY = 86400000, REVIEW_INTERVAL = 30 * 60 * 1000;
   const active = new Map(Q.map(q => [q.id, q]));
   const number = (v, max = 1e15) => Number.isFinite(v) ? Math.max(0, Math.min(max, Math.floor(v))) : 0;
   const copy = value => JSON.parse(JSON.stringify(value));
@@ -24,7 +24,7 @@ const KarimenModel = (() => {
     if (damaged) archive.unreadableArchive = copy(raw);
     return archive;
   }
-  const fresh = () => ({ kind: 'karimen-progress', version: 4, answerRevision: 3, statsPolicy: 1,
+  const fresh = () => ({ kind: 'karimen-progress', version: 4, answerRevision: 3, statsPolicy: 1, reviewPolicy: 1, lastReviewOrder: [],
     stats: {}, misses: {}, guidedResults: {}, mockResults: {}, attempts: [], completed: {},
     session: null, lastResult: null, legacyArchive: emptyArchive(), notices: [],
     theme: 'auto', sound: true, reduceMotion: false, limit: 10 });
@@ -72,15 +72,15 @@ const KarimenModel = (() => {
     }
     return out;
   }
-  function recordOutcome(state, id, ok, uncertain, at) {
+  function recordOutcome(state, id, ok, uncertain, at, interval = REVIEW_INTERVAL, immediateFirst = true) {
     const weak = (state.misses[id] || 0) > 0 || !!state.stats[id]?.reviewAt;
     const s = state.stats[id] || { total: 0, correct: 0, last: null, reviewAt: 0, reviewPass: 0, uncertain: false };
     s.total++; s.correct += ok ? 1 : 0; s.last = ok; s.lastAt = at;
     if (!ok || uncertain) {
       state.misses[id] = Math.max(1, (state.misses[id] || 0) + (ok ? 0 : 1));
-      s.reviewPass = 0; s.reviewAt = at + DAY; s.uncertain = uncertain;
+      s.reviewPass = 0; s.reviewAt = weak || !immediateFirst ? at + interval : at; s.uncertain = uncertain;
     } else if (weak && (!s.reviewAt || at >= s.reviewAt)) {
-      s.reviewPass = (s.reviewPass || 0) + 1; s.reviewAt = at + DAY; s.uncertain = false;
+      s.reviewPass = (s.reviewPass || 0) + 1; s.reviewAt = at + interval; s.uncertain = false;
       if (s.reviewPass >= 2) { delete state.misses[id]; s.reviewAt = 0; }
     }
     state.stats[id] = s;
@@ -119,7 +119,7 @@ const KarimenModel = (() => {
         actual.filter(e => e.ok).length === stat.correct && !legacy?.misses?.[id] && !state.legacyArchive.oldestRaw;
       if (complete) {
         delete state.stats[id]; delete state.misses[id];
-        for (const e of actual.sort((a, b) => a.at - b.at)) recordOutcome(state, id, e.ok, e.uncertain, e.at);
+        for (const e of actual.sort((a, b) => a.at - b.at)) recordOutcome(state, id, e.ok, e.uncertain, e.at, DAY, false);
       } else if (times.includes(stat.lastAt)) {
         // Never label a skipped question as the user's latest actual mistake.
         stat.last = stat.correct === stat.total ? true : stat.correct === 0 ? false : null;
@@ -204,6 +204,15 @@ const KarimenModel = (() => {
     }
     s.legacyArchive = normalizeArchive(s.legacyArchive);
     if (raw.version === 4 && raw.statsPolicy !== 1) repairUnansweredStats(s);
+    if (raw.reviewPolicy !== 1) {
+      for (const [id, stat] of Object.entries(s.stats)) {
+        if (!stat.reviewAt && !s.misses[id]) continue;
+        const lastReviewAt = Math.max(0, stat.reviewAt - DAY);
+        const first = !stat.reviewPass && (s.misses[id] || 0) <= 1;
+        stat.reviewAt = Math.min(stat.reviewAt || lastReviewAt, lastReviewAt + (first ? 0 : REVIEW_INTERVAL));
+      }
+    }
+    s.lastReviewOrder = Array.isArray(raw.lastReviewOrder) ? [...new Set(raw.lastReviewOrder.filter(id => active.has(id)))].slice(0,500) : [];
     return s;
   }
   function create({ storage, now = () => Date.now(), random = Math.random, makeId = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}` }) {
@@ -265,12 +274,19 @@ const KarimenModel = (() => {
       if (!ids.length || !ids.every(id => active.has(id)) || new Set(ids).size !== ids.length) throw new Error('出題する問題が見つかりません。');
       const w = worksheet(n), fullSet = fullWorksheet(w, ids);
       if (['mock', 'guided'].includes(kind) && !fullSet) throw new Error('この回の50問がそろっていません。');
-      // Shuffle only a new mock. Persist the chosen order with its answers so
+      // Shuffle only a new mock or review. Persist the chosen order with its answers so
       // resume, import, grading and review all keep the same question mapping.
       const orderedIds = [...ids];
-      if (kind === 'mock') for (let i = orderedIds.length - 1; i > 0; i--) {
+      if (kind === 'mock' || kind === 'review') for (let i = orderedIds.length - 1; i > 0; i--) {
         const j = Math.floor(random() * (i + 1));
         [orderedIds[i], orderedIds[j]] = [orderedIds[j], orderedIds[i]];
+      }
+      if (kind === 'review') {
+        const previous = state.lastReviewOrder.length ? state.lastReviewOrder : ids;
+        if (orderedIds.length > 1 && orderedIds.length === previous.length && orderedIds.every((id,i) => id === previous[i])) {
+          [orderedIds[0], orderedIds[1]] = [orderedIds[1], orderedIds[0]];
+        }
+        state.lastReviewOrder = [...orderedIds];
       }
       const at = now();
       state.session = { attemptId: makeId(), mode: kind === 'mock' ? 'exam' : 'drill', kind, worksheet: fullSet ? w.worksheet : null,
@@ -325,5 +341,5 @@ const KarimenModel = (() => {
       importData, reset, exportData: () => ({ ...copy(state), exportedAt: new Date(now()).toISOString() }),
       validateImport: normalize, worksheet, active };
   }
-  return { create, normalize, validAttempt, answeredCount, partialAttempt, STORE, OLD, DAY };
+  return { create, normalize, validAttempt, answeredCount, partialAttempt, STORE, OLD, DAY, REVIEW_INTERVAL };
 })();

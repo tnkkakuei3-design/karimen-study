@@ -177,7 +177,7 @@ a.run(`model.begin({ids:WORKSHEETS[2].orderedIds,kind:'mock',worksheet:3});state
 assert.match(a.query('#result .accuracy').textContent,/90%/);
 assert.equal(a.run('resultWeakGroups(lastResult).reduce((n,g)=>n+g.ids.length,0)'),5);
 const topicIds=a.run('JSON.stringify(resultWeakGroups(lastResult)[0].ids)'),snapshot=a.run('JSON.stringify(state.mockResults[3])');
-a.click('#result [data-action="result-topic"]');assert.equal(a.run('JSON.stringify(state.session.ids)'),topicIds);assert.equal(a.run('state.session.kind'),'review');assert.equal(a.run('JSON.stringify(state.mockResults[3])'),snapshot);
+a.click('#result [data-action="result-topic"]');assert.deepEqual(JSON.parse(a.run('JSON.stringify(state.session.ids)')).sort(),JSON.parse(topicIds).sort());assert.equal(a.run('state.session.kind'),'review');assert.equal(a.run('JSON.stringify(state.mockResults[3])'),snapshot);
 a.run(`state.session=null;lastResult={...state.mockResults[3].best,legacy:true,scoreSnapshot:7};renderResult();show('result')`);
 assert.match(a.query('#result .accuracy').textContent,/14%/);assert.equal(a.all('#result .weak-topic').length,0);assert.equal(a.run('state.mockResults[3].best.scoreSnapshot'),45);
 // Export includes the suspended session and old record archive.
@@ -282,7 +282,7 @@ console.log(`PASS: all ten randomized mock entry points, original-number/result 
 
 
 // Immediate review remains available before any scheduled question is due.
-a=app();a.run("model.begin({ids:[710,711],kind:'study'});model.answer(!activeQuestion(710).a);model.finish();navigate('review')");
+a=app();a.run("model.begin({ids:[710,711],kind:'study'});model.answer(!activeQuestion(710).a);model.finish();model.record(710,activeQuestion(710).a);model.save();navigate('review')");
 assert.equal(a.run('model.schedule().due.length'),0);
 assert.ok(a.query('[data-action="review-all"]'));
 assert.equal(a.query('#review [data-action="review-one"]').closest('details'),null);
@@ -290,7 +290,7 @@ a.click('[data-action="review-all"]');
 assert.equal(a.run('state.session.ids[0]'),710);
 const scheduledAt=a.run('state.stats[710].reviewAt');
 a.click(`[data-action="answer"][data-value="${a.run('activeQuestion(710).a')}"]`);
-assert.equal(a.run('state.stats[710].reviewPass'),0);
+assert.equal(a.run('state.stats[710].reviewPass'),1);
 assert.equal(a.run('state.stats[710].reviewAt'),scheduledAt);
 const preserved=a.run('JSON.stringify(state)');
 a.click('[data-action="practice-again"]');

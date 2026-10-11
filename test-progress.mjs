@@ -49,12 +49,28 @@ a=app();a.model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});co
 // All-null completion and premature guided completion do not invent answered items.
 a=app();a.model.begin({ids:WORKSHEETS[2].orderedIds,kind:'mock',worksheet:3});assert.equal(a.model.finish().scoreSnapshot,0);assert.equal(Object.keys(a.model.state.misses).length,0);
 a=app();a.model.begin({ids:[301,302],kind:'study'});a.model.answer(Q[0].a);assert.equal(a.model.state.stats[301].total,1);a.model.finish();assert.equal(a.model.state.stats[301].total,1);assert.equal(a.model.state.stats[302],undefined);
-// 24-hour boundary, early practice, uncertainty and wrong answers, including supplemental IDs.
-a=app();const id=311,q=Q.find(q=>q.id===id);a.model.record(id,!q.a);const dueAt=a.model.state.stats[id].reviewAt;assert.equal(dueAt,initialTime+day);assert.equal(a.model.schedule().later[0].id,id);
-a.clock.now=dueAt-1;assert.equal(a.model.due(id),false);a.model.record(id,q.a);assert.equal(a.model.state.stats[id].reviewPass,0);assert.equal(a.model.state.stats[id].reviewAt,dueAt);
-a.clock.now=dueAt;assert.equal(a.model.due(id),true);a.model.record(id,q.a);assert.equal(a.model.state.stats[id].reviewPass,1);assert.equal(a.model.state.stats[id].reviewAt,dueAt+day);
-a.clock.now+=day;a.model.record(id,q.a,true);assert.equal(a.model.state.stats[id].reviewPass,0);a.clock.now+=day;a.model.record(id,q.a);a.clock.now+=day;a.model.record(id,q.a);assert.equal(a.model.weak(id),false);
+// Immediate first review, exact 30-minute boundary, and reset on failure.
+a=app();const id=311,q=Q.find(q=>q.id===id),interval=30*60*1000;
+a.model.record(id,!q.a);assert.equal(a.model.state.stats[id].reviewAt,initialTime);assert.equal(a.model.due(id),true);
+a.model.record(id,q.a);assert.equal(a.model.state.stats[id].reviewPass,1);
+const dueAt=a.model.state.stats[id].reviewAt;assert.equal(dueAt,initialTime+interval);
+a.clock.now=dueAt-1;a.model.record(id,q.a);assert.equal(a.model.state.stats[id].reviewPass,1);assert.equal(a.model.due(id),false);assert.equal(a.model.state.stats[id].reviewAt,dueAt);
+a.clock.now=dueAt;assert.equal(a.model.due(id),true);a.model.record(id,q.a);assert.equal(a.model.weak(id),false);
+a.model.record(id,!q.a);assert.equal(a.model.due(id),true);
+a.model.record(id,!q.a);assert.equal(a.model.due(id),false);assert.equal(a.model.state.stats[id].reviewPass,0);
+a.clock.now+=interval;a.model.record(id,q.a,true);assert.equal(a.model.due(id),false);assert.equal(a.model.state.stats[id].reviewPass,0);
+a.clock.now+=interval;a.model.record(id,q.a);a.clock.now+=interval;a.model.record(id,q.a);assert.equal(a.model.weak(id),false);
 a.model.record(id,!q.a);a.model.record(343,Q.find(q=>q.id===343).a);assert.equal(a.model.weak(id),true);
+// Old schedules shorten once, retaining scores and first successful review.
+const oldSchedule=a.model.exportData();delete oldSchedule.reviewPolicy;oldSchedule.stats[id].reviewPass=1;oldSchedule.stats[id].reviewAt=initialTime+day;
+const migrated=M.normalize(oldSchedule);assert.equal(migrated.stats[id].reviewAt,initialTime+interval);assert.equal(migrated.stats[id].reviewPass,1);
+assert.equal(migrated.stats[id].total,oldSchedule.stats[id].total);assert.deepEqual(toPlain(M.normalize(migrated)),toPlain(migrated));
+// Review order differs between starts and survives save/reload.
+a=app();a.model.begin({ids:[301,302,303,304],kind:'review'});const reviewOrder=toPlain(a.model.state.session.ids);
+a.model.answer(Q.find(q=>q.id===reviewOrder[0]).a);const savedSession=toPlain(a.model.state.session);
+a.model=a.create();assert.deepEqual(toPlain(a.model.state.session),savedSession);
+a.model.finish();a.model.begin({ids:[301,302,303,304],kind:'review'});
+assert.notDeepEqual(toPlain(a.model.state.session.ids),reviewOrder);assert.deepEqual(toPlain(a.model.state.session.ids).sort(),[301,302,303,304]);
 // Changed content archives unfinished work; historical points are not recalculated.
 a=app();r=score(a,48);const raw=a.model.exportData();raw.mockResults[1].best.scoreSnapshot=42;raw.mockResults[1].best.contentVersion='older';raw.attempts=[];raw.lastResult=null;raw.mockResults[1].recent=[];const b=app();b.model.importData(raw);assert.equal(b.model.state.mockResults[1].best.scoreSnapshot,42);assert.equal(score(b,45).previousScore,null);
 a.model.begin({ids:[301],kind:'study'});const changed=a.model.exportData();changed.session.contentVersion='old-content';b.model.importData(changed);assert.equal(b.model.state.session,null);assert.ok(b.model.state.legacyArchive.sessions.length);

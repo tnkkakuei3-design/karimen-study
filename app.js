@@ -146,7 +146,7 @@ function renderReview() {
     ${all.length ? `<section class="review-now-card" aria-labelledby="review-now-title"><h3 id="review-now-title">復習する問題</h3><p class="review-now-count">${all.length}<small>問</small></p><button class="btn wide" data-action="review-all">今すぐ${all.length}問を復習 ${icon('arrow')}</button></section>
     <section class="review-timing"><h3>${icon('clock')}おすすめのタイミング</h3><div class="review-stats"><div><span>今がおすすめ</span><strong>${due.length}<small>問</small></strong></div><div><span>これから</span><strong>${later.length}<small>問</small></strong></div></div>${due.length ? `<button class="textbtn wide" data-action="due">おすすめの${Math.min(10,due.length)}問から復習 ${icon('arrow')}</button>` : ''}<p class="hintline">予定前でも、上のボタンから練習できます。</p></section>
     <div class="section-heading"><h3>問題を選んで練習</h3><small>${all.length}問</small></div>${all.slice(0,reviewMore ? all.length : 10).map(q => reviewRow(q,!model.due(q.id))).join('')}${all.length > 10 && !reviewMore ? '<button class="textbtn wide" data-action="review-more">すべての問題を見る</button>' : ''}` : `<div class="empty review-empty"><div class="empty-message"><h3>復習する問題はまだありません</h3><p>間違い・自信なしの問題がここに集まります。</p><button class="textbtn" data-action="tab" data-tab="learn">学習へ進む ${icon('arrow')}</button></div>${characterArt(completed ? 'D011' : 'D012','empty-guide')}</div>`}
-    <details class="review-graduation"><summary>復習リストから卒業するには？</summary><p>24時間以上あけた「自信のある正解」2回で卒業します。練習はいつでもできますが、おすすめの時刻より前の正解は卒業回数に含めません。</p></details>`;
+    <details class="review-graduation"><summary>復習リストから卒業するには？</summary><p>初回の間違いはすぐ復習できます。1回正解したら30分後にもう一度。自信をもって2回正解すると卒業します。間違い・自信なしは回数をリセットし、30分後に再挑戦です。練習はいつでもできますが、おすすめの時刻より前の正解は卒業回数に含めません。</p></details>`;
 }
 function questionArt(q, revealed = false, compact = false) {
   const assets = ADDED_ART[q.id]; if (!assets) return originalQuestionArt(q, revealed, compact);
@@ -163,7 +163,7 @@ function explanationExtras(q, withNote = true) {
 function reviewSchedule(q) {
   if (!weak(q)) return '';
   const stat = state.stats[q.id];
-  return `<section class="review-schedule-note review-again-card"><h3>この問題は、今すぐ復習できます</h3><button class="btn secondary wide" data-action="practice-again" data-id="${q.id}">もう一度練習する ${icon('repeat')}</button><p>${icon('clock')}おすすめの復習：${dateLabel(stat?.reviewAt)}</p><small>卒業まであと${Math.max(1,2-(stat?.reviewPass||0))}回 · 24時間以上あけた、自信のある正解が対象です。</small></section>`;
+  return `<section class="review-schedule-note review-again-card"><h3>この問題は、今すぐ復習できます</h3><button class="btn secondary wide" data-action="practice-again" data-id="${q.id}">もう一度練習する ${icon('repeat')}</button><p>${icon('clock')}おすすめの復習：${model.due(q.id) ? '今すぐ' : dateLabel(stat?.reviewAt)}</p><small>卒業まであと${Math.max(1,2-(stat?.reviewPass||0))}回 · 初回はすぐ、復習後は30分あけた正解が対象です。</small></section>`;
 
 }
 function explanation(q, answer, withNote = true) {
@@ -418,4 +418,12 @@ $('brandmark').innerHTML = icon('road'); $('settings-button').innerHTML = icon('
 $('nav-mock').innerHTML = icon('license'); $('nav-learn').innerHTML = icon('book'); $('nav-review').innerHTML = icon('repeat');
 theme(); navigate('mock'); updateTimer(); setInterval(updateTimer,500);
 
-
+let displayedReviewDue = '';
+setInterval(() => {
+  if (document.hidden || externalChange || view !== 'review') return;
+  const signature = model.schedule().due.map(q => q.id).join(',');
+  if (signature !== displayedReviewDue) {
+    if (!$('review').contains(document.activeElement)) { displayedReviewDue = signature; renderReview(); }
+    updateChrome();
+  }
+},1000);
