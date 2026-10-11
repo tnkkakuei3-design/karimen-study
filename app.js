@@ -44,6 +44,7 @@ function updateChrome() {
   $('footer').hidden = locked || ['play','result','notes'].includes(view);
   $('migration-notice').hidden = locked || !state.notices.length || !['mock','learn','review'].includes(view);
   $('migration-notice').innerHTML = state.notices.map(t => `<p>${esc(t)}</p>`).join('') + '<button class="textbtn" data-action="dismiss-notice">確認しました</button>';
+  window.KarimenHomeInstall?.sync();
 }
 function show(name, top = true) {
   view = name; for (const k of ['mock','learn','review','play','result','notes','archive']) $(k).hidden = k !== name;
@@ -302,6 +303,7 @@ function openNotes(id = null) {
 function settings() {
   const exam = state.session?.mode === 'exam';
   $('settings-content').innerHTML = `<div class="settings-group"><h3>画面の明るさ</h3><div class="seg">${[['auto','自動'],['light','ライト'],['dark','ダーク']].map(([k,t]) => `<button data-action="theme" data-value="${k}" aria-pressed="${state.theme === k}">${t}</button>`).join('')}</div></div><div class="settings-group"><h3>効果音</h3><div class="seg">${[[true,'オン'],[false,'オフ']].map(([v,t]) => `<button data-action="sound" data-value="${v}" aria-pressed="${state.sound === v}">${t}</button>`).join('')}</div><p class="muted">学習で答えたときに鳴ります。模試中は鳴りません。</p></div><div class="settings-group"><label class="confidence-control"><input id="reduce-motion" type="checkbox" ${state.reduceMotion ? 'checked' : ''}>動きを抑える</label><p class="muted">端末の「視差効果を減らす」設定にも対応します。</p><button class="textbtn" data-action="preview" data-score="45">花丸の見本を見る →</button></div><div class="settings-group"><h3>学習記録を引き継ぐ</h3><p class="muted">成績・復習予定・途中の回答・以前の記録をJSONで保管できます。</p><div class="btnrow"><button class="btn secondary" data-action="export">書き出す</button><button class="btn secondary" data-action="import" ${exam ? 'disabled' : ''}>読み込む</button></div></div><div class="settings-group"><button class="textbtn" data-action="archive" ${exam ? 'disabled' : ''}>以前の学習記録を見る →</button><p class="muted">旧50問練習、判定A〜C、以前の問題の回答を保管しています。</p></div><div class="settings-group"><button class="textbtn danger" data-action="reset" ${state.session ? 'disabled' : ''}>現在の学習記録を初期化する</button>${state.session ? '<p class="muted">途中の学習を終えると初期化できます。</p>' : ''}</div>`;
+  $('settings-content').insertAdjacentHTML('afterbegin', window.KarimenHomeInstall?.settingsMarkup() || '');
   if (!$('settings').open) $('settings').showModal();
 }
 function renderArchive() {
@@ -416,6 +418,13 @@ matchMedia('(prefers-color-scheme:dark)').addEventListener?.('change',theme);
 $('brandmark').innerHTML = icon('road'); $('settings-button').innerHTML = icon('settings');
 $('nav-mock').innerHTML = icon('license'); $('nav-learn').innerHTML = icon('book'); $('nav-review').innerHTML = icon('repeat');
 theme(); navigate('mock'); updateTimer(); setInterval(updateTimer,500);
+window.KarimenHomeInstall?.init({
+  canPrompt: () => view === 'mock' && !state.session && !externalChange,
+  canGuide: () => view !== 'play' && state.session?.mode !== 'exam' && !externalChange,
+  hasProgress: () => Boolean(state.session || state.attempts.length || Object.keys(state.stats).length),
+  openSettings: settings,
+  exportRecord: downloadRecord
+});
 
 let displayedReviewDue = '';
 setInterval(() => {

@@ -681,3 +681,43 @@ body{-webkit-text-size-adjust:100%}
  .learning-overview{padding:12px 0}
  .learning-overview dt,.learning-overview small{font-size:13px}
 }
+
+/* A single optional invitation; learning controls remain available. */
+.shell{padding-top:env(safe-area-inset-top)}
+.install-icon{flex:none;object-fit:cover;background:#066be9;border-radius:14px}
+.install-prompt{position:fixed;z-index:25;left:50%;bottom:calc(76px + env(safe-area-inset-bottom));transform:translateX(-50%);width:calc(100% - 24px);max-width:440px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 36px #122d4726}
+.install-prompt-heading,.install-guide-heading{display:flex;align-items:center;gap:12px}
+.install-prompt-heading>div,.install-guide-heading>div{min-width:0}
+.install-prompt h2{font-size:16px;line-height:1.5;letter-spacing:-.025em}
+.install-prompt p{margin-top:3px;color:var(--muted);font-size:12px;line-height:1.65}
+.install-prompt-actions{display:flex;align-items:center;gap:12px;margin-top:12px}
+.install-prompt-actions .btn{flex:1;font-size:15px;min-height:46px}
+.install-prompt-actions .textbtn{min-width:64px;min-height:46px;color:var(--muted)}
+.install-guide{padding:22px;max-width:440px}
+.install-guide-heading{margin-bottom:16px}
+.install-guide .install-app-name{font-size:12px;color:var(--muted);margin:0 0 2px}
+.install-guide h2{margin:0;font-size:21px}
+.install-guide h2:focus{outline:none}
+.install-guide .install-platforms{display:flex;flex-wrap:nowrap;gap:8px;margin:0 0 12px}
+.install-platforms button{flex:1;padding:8px;font-size:14px;border-radius:10px}
+.install-steps{list-style:none;counter-reset:install;margin:18px 0;padding:0;display:grid;gap:18px}
+.install-steps li{counter-increment:install;display:flex;align-items:flex-start;gap:12px;line-height:1.55}
+.install-steps li:before{content:counter(install);display:grid;place-items:center;flex:none;width:28px;height:28px;border-radius:50%;background:var(--pale);color:var(--blue);font-size:14px;font-weight:750}
+.install-steps li>span{min-width:0;flex:1}
+.install-steps strong{font-size:16px;line-height:1.6}
+.install-steps small{display:block;margin-top:3px;font-size:12px;color:var(--muted);line-height:1.7}
+.install-share{width:21px;height:21px;margin-right:4px;color:var(--blue)}
+.install-help{border-top:1px solid var(--line);margin-top:16px}
+.install-help summary{display:flex;align-items:center;min-height:48px;padding:8px 0;color:var(--muted);font-size:12px;cursor:pointer;list-style:none;gap:8px}
+.install-help summary::-webkit-details-marker{display:none}
+.install-help summary:before{content:'+';color:var(--blue);font-size:18px}
+.install-help[open] summary:before{content:'−'}
+.install-help p{font-size:12px}
+.install-records{padding:14px;background:var(--soft);border-radius:12px;margin:14px 0 16px}
+.install-records strong{font-size:14px}
+.install-records p{font-size:12px}
+.install-native{margin:10px 0 0}
+#home-install-close{margin-top:14px}
+body.play-active .install-prompt,body.focused-view .install-prompt{display:none!important}
+@media(max-width:374px){.install-prompt{padding:14px}.install-prompt-heading{gap:10px}.install-prompt h2{font-size:15px}.install-prompt .install-icon{width:48px;height:48px}.install-guide{padding:18px}.install-guide h2{font-size:20px}}
+@media(display-mode:standalone),(display-mode:fullscreen),(display-mode:minimal-ui){.install-prompt{display:none!important}}
