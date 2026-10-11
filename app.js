@@ -134,13 +134,19 @@ function renderLearn() {
 }
 function reviewRow(q, early = false) {
   const s = state.stats[q.id], left = Math.max(1, 2 - (s?.reviewPass || 0));
-  return `<button class="review-row" data-action="review-one" data-id="${q.id}">${icon('book')}<span class="row-copy"><strong>${esc(q.topic)}${q.isSupplemental ? '・補足' : ''}</strong><small>第${q.worksheet}回・問${q.number}</small>${early ? `<small>${dateLabel(s.reviewAt)}から</small>` : ''}</span><span class="badge ${early ? '' : 'blue'}">あと${left}回</span>${icon('chevron')}</button>`;
+  return `<button class="review-row" data-action="review-one" data-id="${q.id}">${icon('book')}<span class="row-copy"><strong>${esc(q.topic)}${q.isSupplemental ? '・補足' : ''}</strong><small>第${q.worksheet}回・問${q.number}</small>${early ? `<small>おすすめ：${dateLabel(s.reviewAt)}</small>` : ''}</span><span class="badge ${early ? '' : 'blue'}">あと${left}回</span>${icon('chevron')}</button>`;
 }
 function renderReview() {
   const { all, due, later } = model.schedule();
-  const s = state.session, unfinished = s?.kind === 'review';
+  const session = state.session, unfinished = session?.kind === 'review';
   const completed = !unfinished && !due.length && completedReviewToday();
-  $('review').innerHTML = `<div class="page-heading ${due.length ? 'character-heading' : ''}"><div><h2><span class="heading-phrase">くり返して、</span><span class="heading-phrase">覚える。</span></h2><p class="muted">時間をあけて、確かな力に。</p></div>${due.length ? characterArt('D051','review-guide') : ''}</div>${unfinished ? `<button class="resume-card" data-action="resume"><span><strong>途中の復習を続ける</strong><small>${esc(s.label)} · ${s.answers.filter(a => a !== null).length} / ${s.ids.length}問 回答済み</small></span>${icon('arrow')}</button>` : ''}<div class="review-stats"><div><span>今日の復習</span><strong>${due.length}<small>問</small></strong></div><div><span>次回の予定</span><strong>${later.length}<small>問</small></strong></div></div>${due.length ? `<button class="btn wide" data-action="due">今日の${Math.min(10,due.length)}問を復習 ${icon('arrow')}</button>` : `<div class="empty review-empty"><div class="empty-message"><h3>${unfinished ? '途中の復習があります' : completed ? '今日の復習は完了です' : all.length ? '次回の復習待ちです' : '復習する問題はまだありません'}</h3><p>${unfinished ? '上の「途中の復習を続ける」から、残りの回答や結果を確認できます。' : later.length ? `次は ${dateLabel(state.stats[later[0].id].reviewAt)} から。` : completed ? 'おつかれさまでした。今日の復習対象はありません。' : '間違い・自信なしの問題がここに集まります。'}</p><button class="textbtn" data-action="tab" data-tab="learn">学習へ進む ${icon('arrow')}</button></div>${characterArt(completed ? 'D011' : 'D012','empty-guide')}</div>`}${due.length ? `<div class="section-heading"><h3>今日の問題</h3><small>${due.length}問</small></div>${due.slice(0, reviewMore ? due.length : 10).map(q => reviewRow(q)).join('')}${due.length > 10 && !reviewMore ? '<button class="textbtn wide" data-action="review-more">すべての復習予定を見る</button>' : ''}` : ''}<div class="info-strip">${icon('clock')}<span>24時間以上あけた「自信のある正解」2回で卒業。予定より前の正解は回数に含めません。</span></div>${later.length ? `<details><summary>次回の予定 · ${later.length}問</summary>${later.map(q => reviewRow(q, true)).join('')}<p class="hintline">予定前にも練習できます。卒業までの回数は進みません。</p></details>` : ''}`;
+  $('review').innerHTML = `<div class="page-heading character-heading"><div><h2>復習</h2><p class="muted">待たずに、いつでも練習できます。</p></div>${characterArt('D051','review-guide')}</div>
+    ${unfinished ? `<button class="resume-card" data-action="resume"><span><strong>途中の復習を続ける</strong><small>途中の復習があります · ${session.answers.filter(a => a !== null).length} / ${session.ids.length}問 回答済み</small></span>${icon('arrow')}</button>` : ''}
+    ${completed ? '<p class="hintline">今日の復習は完了です。続けて練習することもできます。</p>' : ''}
+    ${all.length ? `<section class="review-now-card" aria-labelledby="review-now-title"><h3 id="review-now-title">復習する問題</h3><p class="review-now-count">${all.length}<small>問</small></p><button class="btn wide" data-action="review-all">今すぐ${all.length}問を復習 ${icon('arrow')}</button></section>
+    <section class="review-timing"><h3>${icon('clock')}おすすめのタイミング</h3><div class="review-stats"><div><span>今がおすすめ</span><strong>${due.length}<small>問</small></strong></div><div><span>これから</span><strong>${later.length}<small>問</small></strong></div></div>${due.length ? `<button class="textbtn wide" data-action="due">おすすめの${Math.min(10,due.length)}問から復習 ${icon('arrow')}</button>` : ''}<p class="hintline">予定前でも、上のボタンから練習できます。</p></section>
+    <div class="section-heading"><h3>問題を選んで練習</h3><small>${all.length}問</small></div>${all.slice(0,reviewMore ? all.length : 10).map(q => reviewRow(q,!model.due(q.id))).join('')}${all.length > 10 && !reviewMore ? '<button class="textbtn wide" data-action="review-more">すべての問題を見る</button>' : ''}` : `<div class="empty review-empty"><div class="empty-message"><h3>復習する問題はまだありません</h3><p>間違い・自信なしの問題がここに集まります。</p><button class="textbtn" data-action="tab" data-tab="learn">学習へ進む ${icon('arrow')}</button></div>${characterArt(completed ? 'D011' : 'D012','empty-guide')}</div>`}
+    <details class="review-graduation"><summary>復習リストから卒業するには？</summary><p>24時間以上あけた「自信のある正解」2回で卒業します。練習はいつでもできますが、おすすめの時刻より前の正解は卒業回数に含めません。</p></details>`;
 }
 function questionArt(q, revealed = false, compact = false) {
   const assets = ADDED_ART[q.id]; if (!assets) return originalQuestionArt(q, revealed, compact);
@@ -157,7 +163,8 @@ function explanationExtras(q, withNote = true) {
 function reviewSchedule(q) {
   if (!weak(q)) return '';
   const stat = state.stats[q.id];
-  return `<p class="review-schedule-note">${icon('clock')}<span>次の復習：${dateLabel(stat?.reviewAt)}<span class="review-remaining">卒業まであと${Math.max(1, 2 - (stat?.reviewPass || 0))}回</span></span></p>`;
+  return `<section class="review-schedule-note review-again-card"><h3>この問題は、今すぐ復習できます</h3><button class="btn secondary wide" data-action="practice-again" data-id="${q.id}">もう一度練習する ${icon('repeat')}</button><p>${icon('clock')}おすすめの復習：${dateLabel(stat?.reviewAt)}</p><small>卒業まであと${Math.max(1,2-(stat?.reviewPass||0))}回 · 24時間以上あけた、自信のある正解が対象です。</small></section>`;
+
 }
 function explanation(q, answer, withNote = true) {
   const ok = answer === q.a, text = q.ex || '', split = text.indexOf('。'), brief = split >= 0 ? text.slice(0, split + 1) : text, rest = split >= 0 ? text.slice(split + 1) : '';
@@ -302,6 +309,14 @@ function preview(score) {
   $('achievement-preview').querySelectorAll('[data-action="preview"]').forEach(b => b.setAttribute('aria-pressed',String(Number(b.dataset.score) === n)));
   if (!$('achievement-preview').open) $('achievement-preview').showModal();
 }
+// Confirmation practice is isolated from the saved session and scores.
+function practiceAgain(id) {
+  if (state.session?.mode === 'exam') return;
+  const q = activeQuestion(id); if (!q) return;
+  const d = $('practice-dialog'); d.dataset.id = q.id; d.dataset.answered = '';
+  $('practice-body').innerHTML = `<p class="question">${esc(q.q)}</p>${questionArt(q)}<div class="btnrow"><button class="btn secondary" data-action="practice-answer" data-value="true">○ 正しい</button><button class="btn secondary" data-action="practice-answer" data-value="false">× 誤り</button></div><div id="practice-feedback" role="status" tabindex="-1"></div>`;
+  d.showModal();
+}
 function openQuestionArt(id, revealed) {
   const q = byId.get(id); if (!q) return;
   if (state.session?.mode === 'exam') revealed = false;
@@ -321,6 +336,18 @@ document.addEventListener('click', e => {
   else if (a === 'quick-study') startStudy(studySelection(Q), '10問の学習');
   else if (a === 'category') { const c = CATS.find(c => c.k === b.dataset.cat); if (c) { let list = categorized(c); if (categoryFilter === 'new') list = list.filter(q => !state.stats[q.id]?.total); if (categoryFilter === 'weak') list = list.filter(weak); startStudy(studySelection(list), c.extra ? '補足の学習' : c.label); } }
   else if (a === 'due') startStudy(model.schedule().due.slice(0,10).map(q => q.id),'今日の復習','review');
+  else if (a === 'review-all') startStudy(model.schedule().all.map(q => q.id),'いつでも復習','review');
+  else if (a === 'practice-again') practiceAgain(b.dataset.id);
+  else if (a === 'practice-close') $('practice-dialog').close();
+  else if (a === 'practice-answer') {
+    const d = $('practice-dialog'), q = activeQuestion(d.dataset.id);
+    if (q && d.open && !d.dataset.answered && s?.mode !== 'exam') {
+      d.dataset.answered = 'true';
+      d.querySelectorAll('[data-action="practice-answer"]').forEach(button => button.disabled = true);
+      $('practice-feedback').innerHTML = `<h3>${(b.dataset.value === 'true') === q.a ? '正解です' : 'もう一度確認しましょう'} · 答えは ${q.a ? '○' : '×'}</h3><p>${esc(q.ex)}</p><p class="muted">確認できたら、閉じて次の問題へ進めます。</p>`;
+      $('practice-feedback').focus();
+    }
+  }
   else if (a === 'review-one') { const q = activeQuestion(b.dataset.id); if (q) startStudy([q.id],model.due(q.id) ? '今日の復習' : '予定前の練習','review'); }
   else if (a === 'review-more') { reviewMore = true; renderReview(); }
   else if (a === 'answer') { const exam = s?.mode === 'exam', ok = model.answer(b.dataset.value === 'true',Boolean($('uncertain')?.checked)); if (!model.state.session) { lastResult = model.state.lastResult; renderResult(true); show('result'); } else { if (ok && !exam) sfx(activeQuestion(s.ids[s.index]).a === (b.dataset.value === 'true')); renderPlay(); if (!exam && ok) requestAnimationFrame(() => { const feedback = $('play').querySelector('.feedback'); feedback?.focus({preventScroll:true}); ($('play').querySelector('.answer-layout') || feedback)?.scrollIntoView({block:'start',behavior:'instant'}); }); } }
@@ -390,4 +417,5 @@ matchMedia('(prefers-color-scheme:dark)').addEventListener?.('change',theme);
 $('brandmark').innerHTML = icon('road'); $('settings-button').innerHTML = icon('settings');
 $('nav-mock').innerHTML = icon('license'); $('nav-learn').innerHTML = icon('book'); $('nav-review').innerHTML = icon('repeat');
 theme(); navigate('mock'); updateTimer(); setInterval(updateTimer,500);
+
 

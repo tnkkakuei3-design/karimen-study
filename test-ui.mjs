@@ -50,7 +50,7 @@ assert.equal(a.w.document.activeElement,a.query('#note-search'));assert.equal(a.
 for(const el of a.all('#notes details.note'))a.run(`populateNote(document.getElementById(${JSON.stringify(el.id)}))`);
 assert.equal(a.all('#notes .note-content').filter(el=>!el.innerHTML).length,0);assert.equal(a.run('NOTES.flatMap(noteIds).every(id=>id>=301&&id<=800)'),true);
 a.run("openNotes('n-hand')");assert.equal(a.query('#n-hand').open,true);a.click('[data-action="note-return"]');assert.equal(a.query('#learn').hidden,false);
-a.click('#tab-review');assert.equal(a.query('#review').hidden,false);assert.ok(a.query('#review').textContent.includes('次回の予定'));
+a.click('#tab-review');assert.equal(a.query('#review').hidden,false);assert.ok(a.query('#review').textContent.includes('いつでも練習できます'));
 // All 500 question texts and image bindings render through the common UI.
 a.run('state.session=null');let imageCount=0;
 for(let i=0;i<500;i++){
@@ -248,3 +248,27 @@ assert.equal(a.run('lastResult.scoreSnapshot'),50);assert.equal(a.run('lastResul
 assert.match(a.query('#result .comparison').textContent,/はじめての記録/);assert.doesNotMatch(a.query('#result .comparison').textContent,/前回 0点/);a.close();
 console.log(`PASS: DOM navigation; early-finish accuracy and separate unanswered list; historical correction; result-first answers for all 500 questions; ${imageCount} image bindings; confidence review; round switching; Japanese search; timer; guided completion; export.`);
 
+
+
+
+// Immediate review remains available before any scheduled question is due.
+a=app();a.run("model.begin({ids:[710,711],kind:'study'});model.answer(!activeQuestion(710).a);model.finish();navigate('review')");
+assert.equal(a.run('model.schedule().due.length'),0);
+assert.ok(a.query('[data-action="review-all"]'));
+assert.equal(a.query('#review [data-action="review-one"]').closest('details'),null);
+a.click('[data-action="review-all"]');
+assert.equal(a.run('state.session.ids[0]'),710);
+const scheduledAt=a.run('state.stats[710].reviewAt');
+a.click(`[data-action="answer"][data-value="${a.run('activeQuestion(710).a')}"]`);
+assert.equal(a.run('state.stats[710].reviewPass'),0);
+assert.equal(a.run('state.stats[710].reviewAt'),scheduledAt);
+const preserved=a.run('JSON.stringify(state)');
+a.click('[data-action="practice-again"]');
+assert.ok(a.query('#practice-dialog').open);
+a.click(`[data-action="practice-answer"][data-value="${a.run('activeQuestion(710).a')}"]`);
+assert.match(a.query('#practice-feedback').textContent,/正解です/);
+assert.equal(a.run('JSON.stringify(state)'),preserved);
+a.click('[data-action="practice-close"]');
+assert.equal(a.query('#practice-dialog').open,false);
+assert.equal(a.run('JSON.stringify(state)'),preserved);
+assert.equal(a.errors.length,0);a.close();
