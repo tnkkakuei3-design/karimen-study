@@ -324,3 +324,11 @@ html[data-reduce-motion=true] .result-confetti{display:none}
 .result-character{height:auto;aspect-ratio:7/4}
 .result-achievement .flower-stamp{width:74px;height:74px}
 @media(max-width:649px){.result-character{width:100px}.result-achievement .flower-stamp{width:68px;height:68px}}
+
+/* Leave the long next-action label enough room on narrow question cards. */
+.category-copy strong{text-wrap:balance}
+.toolbar select{font-size:16px}
+@media(max-width:649px){
+ .question-card>.btnrow{display:grid;grid-template-columns:minmax(64px,.55fr) minmax(0,1.45fr)}
+ .question-card>.btnrow>.btn{padding:10px 12px}
+}
