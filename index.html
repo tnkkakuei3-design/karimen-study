@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/karimen-192.png?v=20261012-icon-v2">
   <meta name="description" content="教習問題1〜10の500問を、模試・分野別学習・復習で学ぶ仮免学科ドリル。">
   <title>仮免ドリル</title>
-  <link rel="stylesheet" href="./styles.css?v=20261012-home-install-v30">
+  <link rel="stylesheet" href="./styles.css?v=20261012-controls-v31">
 </head>
 <body>
   <a class="skip-link" href="#main">本文へ</a>
@@ -45,13 +45,13 @@
     <button id="tab-review" role="tab" aria-controls="review" aria-selected="false" tabindex="-1" data-action="tab" data-tab="review"><span id="nav-review"></span>復習<span class="nav-dot" id="review-dot" hidden></span></button>
   </nav>
   <dialog class="modal" id="confirm" aria-labelledby="confirm-title"><h2 id="confirm-title"></h2><p id="confirm-message"></p><div class="btnrow"><button class="btn secondary" id="confirm-no">キャンセル</button><button class="btn" id="confirm-yes"></button></div></dialog>
-  <dialog class="modal" id="detail" aria-labelledby="detail-title"><div id="detail-content"></div><button class="textbtn wide" data-action="close-detail">閉じる</button></dialog>
+  <dialog class="modal" id="detail" aria-labelledby="detail-title"><div id="detail-content"></div><button class="btn secondary wide" data-action="close-detail">閉じる</button></dialog>
   <dialog class="modal" id="settings" aria-labelledby="settings-title"><h2 id="settings-title">表示と学習記録</h2><div id="settings-content"></div><button class="btn secondary wide" data-action="close-settings">閉じる</button></dialog>
   <dialog class="modal" id="achievement-preview" aria-labelledby="preview-title"><h2 id="preview-title">花丸の見本</h2><p class="muted">見本です。学習記録には保存されません。</p><div class="seg"><button data-action="preview" data-score="44">44点</button><button data-action="preview" data-score="45">45点</button><button data-action="preview" data-score="48">48点</button><button data-action="preview" data-score="50">50点</button></div><div id="achievement-preview-body"></div><button class="btn secondary wide" data-action="close-preview">閉じる</button></dialog>
   <dialog id="figure-dialog" class="figure-dialog" aria-label="図を拡大"><div class="figure-toolbar"><label>倍率 <input id="figure-zoom" type="range" min="100" max="250" step="25" value="100" aria-label="図の拡大率"></label><button class="btn secondary" data-action="close-figure">閉じる</button></div><p class="muted">拡大後は左右・上下にスクロールできます。</p><div class="figure-scroll"><div id="figure-content"></div></div></dialog>
   <aside id="home-install-prompt" class="install-prompt" aria-labelledby="home-install-prompt-title" hidden>
     <div class="install-prompt-heading"><img class="install-icon" src="./assets/icons/karimen-192.png" width="54" height="54" alt="" decoding="async"><div><h2 id="home-install-prompt-title">ホーム画面から、すぐに学習</h2><p>次回からアイコンをタップして開けます。</p></div></div>
-    <div class="install-prompt-actions"><button class="btn" data-install-action="guide">追加方法を見る</button><button class="textbtn" data-install-action="dismiss">あとで</button></div>
+    <div class="install-prompt-actions"><button class="btn" data-install-action="guide">追加方法を見る</button><button class="btn secondary" data-install-action="dismiss">あとで</button></div>
   </aside>
   <dialog id="home-install-guide" class="modal install-guide" aria-labelledby="home-install-guide-title">
     <div class="install-guide-heading"><img class="install-icon" src="./assets/icons/karimen-192.png" width="64" height="64" alt=""><div><p class="install-app-name">仮免ドリル</p><h2 id="home-install-guide-title" tabindex="-1">ホーム画面に追加</h2></div></div>
@@ -65,7 +65,7 @@
   <script defer src="./learning-content.js?v=20261012-polish-v11"></script>
   <script defer src="./model.js?v=20261012-review-locked-v23"></script>
   <script defer src="./visuals.js?v=20261012-images-reviewed-v2"></script>
-  <script defer src="./home-install.js?v=20261012-home-install-v30"></script>
-  <script defer src="./app.js?v=20261012-home-install-v28"></script>
+  <script defer src="./home-install.js?v=20261012-controls-v31"></script>
+  <script defer src="./app.js?v=20261012-controls-v31"></script>
 </body>
 </html>

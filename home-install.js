@@ -72,7 +72,7 @@
     if ($('home-install-guide').open) renderGuide();
   }
   function settingsMarkup() {
-    return `<div class="settings-group install-settings"><h3>ホーム画面に追加</h3>${standalone() ? '<p class="muted">ホーム画面から起動しています。</p>' : `<p class="muted">次回からアイコンをタップして開けます。</p><button class="textbtn" data-install-action="guide" ${context && !context.canGuide() ? 'disabled' : ''}>追加方法を見る →</button>`}</div>`;
+    return `<div class="settings-group install-settings"><h3>ホーム画面に追加</h3>${standalone() ? '<p class="muted">ホーム画面から起動しています。</p>' : `<p class="muted">次回からアイコンをタップして開けます。</p><button class="textbtn" data-install-action="guide" ${context && !context.canGuide() ? 'disabled' : ''}>追加方法を見る ${icon('arrow')}</button>`}</div>`;
   }
   function init(options) {
     if (initialized) return;
