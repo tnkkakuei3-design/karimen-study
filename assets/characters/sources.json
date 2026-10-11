@@ -1,0 +1,200 @@
+[
+  {
+    "alt": "プーリーくんとよりともさん",
+    "src": "https://dondondrive.jp/wp/wp-content/themes/dondora/assets/img/home/friends02.png",
+    "pages": [
+      "https://dondondrive.jp/"
+    ],
+    "id": "D004",
+    "file": "assets/home/friends02.png",
+    "width": 1400,
+    "height": 792,
+    "bytes": 863086,
+    "sha256": "5d4016e2c7ed83f4588b2565cfc4565f26188689e881be639cafaa2f6c48e2c3",
+    "transparent": true,
+    "visible_bounds": [
+      190,
+      4,
+      1365,
+      792
+    ],
+    "existing_app_file": null,
+    "name": "二人組",
+    "pose": "手を上げる二人",
+    "suggested_use": "ホーム・合格結果・学習達成",
+    "status": "新規候補",
+    "recommended_number": null,
+    "rights": "公式サイト掲載画像。再利用許諾・フリー素材の明示は未確認。",
+    "retrieved_date_jst": "2026-10-12"
+  },
+  {
+    "alt": "プーリーくんとよりともさん",
+    "src": "https://dondondrive.jp/wp/wp-content/themes/dondora/assets/img/home/friends04.png",
+    "pages": [
+      "https://dondondrive.jp/"
+    ],
+    "id": "D006",
+    "file": "assets/home/friends04.png",
+    "width": 1400,
+    "height": 792,
+    "bytes": 846224,
+    "sha256": "88eaa2fa34fd22d641e91d453cf024dafa9b7946d8431c9eb24406e02077f860",
+    "transparent": true,
+    "visible_bounds": [
+      286,
+      19,
+      1184,
+      791
+    ],
+    "existing_app_file": null,
+    "name": "二人組",
+    "pose": "二人でポーズ",
+    "suggested_use": "ホーム・合格結果・学習達成",
+    "status": "新規候補",
+    "recommended_number": 6,
+    "rights": "公式サイト掲載画像。再利用許諾・フリー素材の明示は未確認。",
+    "retrieved_date_jst": "2026-10-12"
+  },
+  {
+    "alt": "pulley",
+    "src": "https://dondondrive.jp/wp/wp-content/themes/dondora/assets/img/home/pulley03.png",
+    "pages": [
+      "https://dondondrive.jp/"
+    ],
+    "id": "D011",
+    "file": "assets/home/pulley03.png",
+    "width": 510,
+    "height": 426,
+    "bytes": 178057,
+    "sha256": "f1094321cccd3b7c5d0376b53ff258aca772511106f13a35ff62ec3ae68b1e26",
+    "transparent": true,
+    "visible_bounds": [
+      18,
+      70,
+      507,
+      426
+    ],
+    "existing_app_file": null,
+    "name": "プーリーくん",
+    "pose": "両手を広げる",
+    "suggested_use": "学習再開・応援・復習の入口",
+    "status": "新規候補",
+    "recommended_number": 4,
+    "rights": "公式サイト掲載画像。再利用許諾・フリー素材の明示は未確認。",
+    "retrieved_date_jst": "2026-10-12"
+  },
+  {
+    "alt": "pulley",
+    "src": "https://dondondrive.jp/wp/wp-content/themes/dondora/assets/img/common/sns-pulley01.png",
+    "pages": [
+      "https://dondondrive.jp/"
+    ],
+    "id": "D012",
+    "file": "assets/common/sns-pulley01.png",
+    "width": 400,
+    "height": 400,
+    "bytes": 164721,
+    "sha256": "2b81bf58072d0b91a1583f734c9a791d40e3d3fd053b6ebd2be7b392356372d5",
+    "transparent": true,
+    "visible_bounds": [
+      10,
+      0,
+      339,
+      360
+    ],
+    "existing_app_file": null,
+    "name": "プーリーくん",
+    "pose": "片手で案内",
+    "suggested_use": "学習再開・応援・復習の入口",
+    "status": "新規候補",
+    "recommended_number": null,
+    "rights": "公式サイト掲載画像。再利用許諾・フリー素材の明示は未確認。",
+    "retrieved_date_jst": "2026-10-12"
+  },
+  {
+    "alt": "プロ",
+    "src": "https://dondondrive.jp/wp/wp-content/themes/dondora/assets/img/friends/pro_b02.png",
+    "pages": [
+      "https://dondondrive.jp/",
+      "https://dondondrive.jp/friends/",
+      "https://dondondrive.jp/about/"
+    ],
+    "id": "D042",
+    "file": "assets/friends/pro_b02.png",
+    "width": 260,
+    "height": 312,
+    "bytes": 80607,
+    "sha256": "a751e6aceb7e916212fce07be3b19ea7deab4ba810c4113a6afa944de247e0af",
+    "transparent": true,
+    "visible_bounds": [
+      10,
+      2,
+      250,
+      312
+    ],
+    "existing_app_file": null,
+    "name": "プロ",
+    "pose": "指示棒を持つ",
+    "suggested_use": "注意事項・解説のポイント",
+    "status": "新規候補",
+    "recommended_number": 3,
+    "rights": "公式サイト掲載画像。再利用許諾・フリー素材の明示は未確認。",
+    "retrieved_date_jst": "2026-10-12"
+  },
+  {
+    "alt": "ロボット教官",
+    "src": "https://dondondrive.jp/wp/wp-content/themes/dondora/assets/img/friends/robot01.png",
+    "pages": [
+      "https://dondondrive.jp/friends/"
+    ],
+    "id": "D047",
+    "file": "assets/friends/robot01.png",
+    "width": 310,
+    "height": 460,
+    "bytes": 110968,
+    "sha256": "f93a93efb79f05012c62a36743c31e45ba30ed4d5e1927f575ecfaffd30171cb",
+    "transparent": true,
+    "visible_bounds": [
+      8,
+      1,
+      269,
+      460
+    ],
+    "existing_app_file": null,
+    "name": "ロボット教官",
+    "pose": "正面で手を上げる",
+    "suggested_use": "学習見出し・図解案内・正解後のひと言",
+    "status": "新規候補",
+    "recommended_number": 1,
+    "rights": "公式サイト掲載画像。再利用許諾・フリー素材の明示は未確認。",
+    "retrieved_date_jst": "2026-10-12"
+  },
+  {
+    "alt": "マスター・シャドウ",
+    "src": "https://dondondrive.jp/wp/wp-content/themes/dondora/assets/img/friends/master03.png",
+    "pages": [
+      "https://dondondrive.jp/friends/"
+    ],
+    "id": "D051",
+    "file": "assets/friends/master03.png",
+    "width": 350,
+    "height": 410,
+    "bytes": 128820,
+    "sha256": "1b12a3c3ea7ae6d6c69d911f91cff07dc2d5a63b07b891816aa73f848609760a",
+    "transparent": true,
+    "visible_bounds": [
+      0,
+      2,
+      350,
+      410
+    ],
+    "existing_app_file": null,
+    "name": "マスター・シャドウ",
+    "pose": "指差し",
+    "suggested_use": "復習・覚えるポイント",
+    "status": "新規候補",
+    "recommended_number": 7,
+    "rights": "公式サイト掲載画像。再利用許諾・フリー素材の明示は未確認。",
+    "retrieved_date_jst": "2026-10-12"
+  }
+]

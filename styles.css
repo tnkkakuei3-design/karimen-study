@@ -496,3 +496,20 @@ body{-webkit-text-size-adjust:100%}
  .achievement-copy h3{font-size:18px}
  .result-achievement{padding:12px;gap:10px}
 }
+
+/* Approved character placements; keep teaching diagrams and answer controls clear. */
+.placement-character{display:block;object-fit:contain;flex:none;pointer-events:none}
+.character-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.character-heading>div{min-width:0;flex:1}
+.character-heading h2{text-wrap:balance}
+.learn-guide{width:62px;height:85px}
+.review-guide{width:76px;height:80px}
+.review-empty{display:flex;align-items:center;gap:12px;text-align:left}
+.empty-message{min-width:0;flex:1}
+.empty-guide{width:82px;height:90px}
+.caution-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.caution-heading h3{min-width:0;margin:0}
+.caution-guide{width:46px;height:56px}
+.result-character.placement-character{aspect-ratio:175/99}
+@media(min-width:650px){.learn-guide{width:70px;height:96px}.review-guide{width:85px;height:92px}}
+@media(max-width:380px){.character-heading{gap:8px}.character-heading h2{font-size:23px}.empty-guide{width:66px;height:80px}.review-empty{gap:8px}}
