@@ -549,6 +549,7 @@ body{-webkit-text-size-adjust:100%}
 .learning-next-bar>.secondary{flex:0 0 28%}
 #play .feedback,#play .explanation{scroll-margin-bottom:100px}
 /* Answered learning/review: outcome, key point, then the original question. */
+.answer-layout{scroll-margin-top:18px}
 .answer-layout .tags{margin-bottom:14px}
 .feedback.answer-result{border:0;border-radius:0;background:transparent;padding:0;margin:0 0 22px;scroll-margin-top:18px}
 .answer-result .answer-state{display:inline-flex;align-items:center;gap:7px;padding:5px 10px;border-radius:7px;background:var(--okbg);color:var(--ok);font-size:14px;font-weight:700;line-height:1.6}
