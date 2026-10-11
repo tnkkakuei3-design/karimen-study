@@ -30,7 +30,17 @@ for(const [id,items] of Object.entries(ADDED_ART)){
  assert.ok(Q.some(q=>q.id===Number(id)));
  for(const a of items){assert.ok(a.alt);const bytes=fs.readFileSync(path.join(root,a.file));assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),a.sha256);assets.add(a.file);}
 }
-assert.equal(assets.size,99);
+const imageAudit=JSON.parse(read('dev/reports/image-replacements-20261012.json'));
+assert.equal(assets.size,imageAudit.added_art_unique_count);
+assert.equal(imageAudit.replaced_question_ids.length,74);
+const blockedPhotos=new Set(imageAudit.blocked_provided_hashes);
+for(const items of Object.values(ADDED_ART))for(const a of items)assert.ok(!blockedPhotos.has(a.sha256),`Provided photo remains: ${a.file}`);
+for(const id of imageAudit.replaced_question_ids){
+ const r=imageAudit.records.find(r=>r.question_ids.includes(id));
+ assert.ok(r?.sources.length,`Missing source provenance: ${id}`);
+ assert.equal(ADDED_ART[id][0].sha256,r.sha256);
+}
+for(const f of imageAudit.removed_provided_assets)assert.ok(!fs.existsSync(path.join(root,f)),`Removed photo still published: ${f}`);
 for(const f of ['index.html','app.js','visuals.js','learning-content.js','styles.css'])for(const m of read(f).matchAll(/\.\/(image-[a-z0-9]+\.(?:png|jpg|webp|gif))/g))assert.ok(fs.existsSync(path.join(root,m[1])),`Missing asset ${m[1]}`);
 for(const m of read('index.html').matchAll(/(?:src|href)="\.\/([^"?]+)(?:\?[^"?]+)?"/g))assert.ok(fs.existsSync(path.join(root,m[1])),`Missing entry ${m[1]}`);
-console.log(`PASS: 500 active / 408 archived; 10 ordered sets; 28 replacements; 9 supplemental; 104 image questions / 99 verified assets; 47 notes.`);
+console.log(`PASS: 500 active / 408 archived; 10 ordered sets; 28 replacements; 9 supplemental; 104 added image questions / ${assets.size} verified assets; all 74 provided-photo questions replaced; 47 notes.`);

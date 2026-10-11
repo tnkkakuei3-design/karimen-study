@@ -1,0 +1,2339 @@
+{
+  "date": "2026-10-12",
+  "active_questions": 500,
+  "question_images": 130,
+  "provided_photo_questions_before": 74,
+  "provided_photo_questions_after": 0,
+  "replaced_question_ids": [
+    403,
+    412,
+    414,
+    419,
+    421,
+    427,
+    440,
+    453,
+    457,
+    463,
+    466,
+    467,
+    471,
+    478,
+    493,
+    504,
+    510,
+    511,
+    513,
+    514,
+    515,
+    516,
+    518,
+    528,
+    540,
+    552,
+    554,
+    556,
+    558,
+    559,
+    562,
+    563,
+    564,
+    565,
+    566,
+    567,
+    568,
+    569,
+    574,
+    581,
+    595,
+    612,
+    618,
+    620,
+    627,
+    632,
+    639,
+    653,
+    666,
+    667,
+    703,
+    707,
+    708,
+    712,
+    714,
+    715,
+    716,
+    717,
+    728,
+    741,
+    752,
+    755,
+    760,
+    762,
+    763,
+    764,
+    765,
+    766,
+    767,
+    768,
+    769,
+    776,
+    789,
+    792
+  ],
+  "replacement_asset_count": 56,
+  "added_art_unique_count": 80,
+  "removed_provided_assets": [
+    "data/assets/5d49d5181b10455c1414.png",
+    "data/assets/f3acc5b9463366d4fb33.png",
+    "data/assets/e32ca1c911f4536f4c29.png",
+    "data/assets/82a6725976969265915d.png",
+    "data/assets/a43343f8e8bb0193f167.png",
+    "data/assets/1b34269029b272f2d4f7.png",
+    "data/assets/563486e2acf36ec30aeb.png",
+    "data/assets/94af45aab2d3ad2b99c9.png",
+    "data/assets/584bdecac25d66d7b512.png",
+    "data/assets/04476beedd22236267c0.png",
+    "data/assets/7f435d21a246fa4d614a.png",
+    "data/assets/752f34a60e287f22f9ee.png",
+    "data/assets/d29f7c2917b1d6677404.png",
+    "data/assets/508ee60c428bcb4d2d98.png",
+    "data/assets/388a9e07d324c91a0a35.png",
+    "data/assets/74c59d5c20276824dd1c.png",
+    "data/assets/0a4073e2f81b2c4b78f5.png",
+    "data/assets/e344a7af8e02c0c8e631.png",
+    "data/assets/f4642f059b50137e70ca.png",
+    "data/assets/df2c4dbb07058bd0db7a.png",
+    "data/assets/bfeed56d2e700e3b1136.png",
+    "data/assets/8dd7624f60b2837cc00d.png",
+    "data/assets/46d302fb4c8021422a05.png",
+    "data/assets/84ee0614c0f9c180a9ab.png",
+    "data/assets/977293ff35a6ee758db8.png",
+    "data/assets/d63aa010ff16fd6ea2da.png",
+    "data/assets/d3f0c4d8592620fcdf90.png",
+    "data/assets/850ce957f535f9a2f881.png",
+    "data/assets/75669674be7c83faac7d.png",
+    "data/assets/0e72296f507ee94679ec.png",
+    "data/assets/0766da32209b44abd0fb.png",
+    "data/assets/4c730a91a0709185d947.png",
+    "data/assets/69fb1f8b26a1d9f70d53.png",
+    "data/assets/6b731cd75b0311bbf8b6.png",
+    "data/assets/8bf22802f6ace49822c0.png",
+    "data/assets/9f08404dbaa8207afed1.png",
+    "data/assets/da5ecff3132fa6ea0c96.png",
+    "data/assets/b6777d44989c85d5a135.png",
+    "data/assets/3a5f22514ea369985f97.png",
+    "data/assets/1a9449d5f79e4e3eff50.png",
+    "data/assets/bfb0773e231f16287b09.png",
+    "data/assets/7221ddb775d76aae933b.png",
+    "data/assets/6cf6a0eda6d68a7328df.png",
+    "data/assets/960f7276097f4a6a5123.png",
+    "data/assets/90333a7137091c523253.png",
+    "data/assets/9e68945dae5c95b93a65.png",
+    "data/assets/123b017408865856ab90.png",
+    "data/assets/4320c9ca55a5054f384e.png",
+    "data/assets/aa1337d9b38f78d4d3c0.png",
+    "data/assets/5c3dda0cf601b2f8c090.png",
+    "data/assets/4e03ec632eb213d2c7e1.png",
+    "data/assets/d18776db3788e7f9e9f9.png",
+    "data/assets/8ef57c7b7b900ae2ebc8.png",
+    "data/assets/5184687481f1cbcf54f8.png",
+    "data/assets/598fd97f8e8124de7000.png",
+    "data/assets/966081ed93413a76308b.png",
+    "data/assets/bce9a3877249d7eb2764.png",
+    "data/assets/54320b0c1494b95b8877.png",
+    "data/assets/8ff275fafc9b03dd226d.png",
+    "data/assets/31c9bb35c359dee3a0e6.png",
+    "data/assets/e78233691ae238e285fe.png",
+    "data/assets/af80d65cb3b76d70c223.png",
+    "data/assets/699793fd0b7c009cce98.png",
+    "data/assets/aa80654318fa956d9b12.png",
+    "data/assets/a4ab2c4515214437d514.png",
+    "data/assets/b02b0fa5cdc77ad01487.png",
+    "data/assets/238ebe18d59cabd7ae77.png",
+    "data/assets/5a6a2c7bff87276d1db2.png",
+    "data/assets/22c47e8d922684eda4ee.png",
+    "data/assets/0de2d50b7da0fc33006b.png",
+    "data/assets/2bf24a635d3a36d6386d.png",
+    "data/assets/c97938b060c51e655891.png"
+  ],
+  "blocked_provided_hashes": [
+    "04476beedd22236267c0f4f9177af9c716e72d790389bead9b624fdccfbb8585",
+    "0766da32209b44abd0fb8639bcdcb991bf3d117e6204bedff7f90f08fc733e86",
+    "0a4073e2f81b2c4b78f56261e4bddd0de182ad459036e8344902d7b13960334b",
+    "0de2d50b7da0fc33006bdce5c57b772647369b3adc0d19a0c87a674a5638758a",
+    "0e72296f507ee94679ecc6932f3256502ecfad2cbb09d2989b21fd28d4f6ee58",
+    "123b017408865856ab9090bc00ff44807957bb983f65d0d3f0bc8637515009b4",
+    "1a9449d5f79e4e3eff50b082993e51ef48b34baba85192d831500992b2ffa7f9",
+    "1b34269029b272f2d4f79c69f204cc31e1d4c7256f7d64666dbe4f286b7ed57c",
+    "22c47e8d922684eda4ee5ed7dee10a1ba5bc4f8d701728d0fedb70d515b543a7",
+    "238ebe18d59cabd7ae774c053879e30ed1459955e1a5ae2e2b87378b23c44111",
+    "2bf24a635d3a36d6386dd41cd3c13b9db5339975e12d8ae8454f6a14189295c2",
+    "31c9bb35c359dee3a0e65d5936ab38f6f1c671ff9eb8e0db15174bec8671c642",
+    "388a9e07d324c91a0a35c4f126b28f2a5e38d24e9e4c7dc899b260c7158e2618",
+    "3a5f22514ea369985f97bafb436d861b6c1f65e14b10aa60550ab0630852e8cb",
+    "4320c9ca55a5054f384e42eba642118ca72faf4df0710ace42d0716d7e9beb29",
+    "46d302fb4c8021422a057d97c51ad0bd7e64f9cf13075186d18e65f1f4c20629",
+    "4c730a91a0709185d947138828e2cf1b808210f263071b0a1cffd358ebcc8394",
+    "4e03ec632eb213d2c7e196021d818d0450e28d8af880e422f3c6d6b6775af202",
+    "508ee60c428bcb4d2d9805f45c5279ac82dc597ef20ce66c98e79819b0906b60",
+    "5184687481f1cbcf54f81ebcb04be8240690bd23be908d55a6f8d7824b1c95ef",
+    "54320b0c1494b95b887787914869a0d27902f56a72e2a00441b81c1eab0c0431",
+    "563486e2acf36ec30aeb1ffefff80a4f6e5d1c8aa9680b8b7a46704186c838b3",
+    "584bdecac25d66d7b512e304c18e5f4928c9fa24c03e4e682a47860b9618993b",
+    "598fd97f8e8124de700099b73f6933e240a3c5c37b8a1af41b1966072e63a360",
+    "5a6a2c7bff87276d1db2c42677aacc36d445bf5f25ce6e503a9589ebdd4592cb",
+    "5c3dda0cf601b2f8c0903bd2c69f54414a3e48aea4c61547f7a3748ab8f2c8d7",
+    "5d49d5181b10455c1414d8dc469fc96f624b2780bc9ed5d7a654e0b1f5bc19cd",
+    "699793fd0b7c009cce98eab3a1abb22dd74c3accb3b0f7c67ed8d0026699febb",
+    "69fb1f8b26a1d9f70d537cd5a334481d648be1ae8a45b41f2f7896a47015d28b",
+    "6b731cd75b0311bbf8b67821a7cea22cf158cf162a29e2c0e72d1fa9a1a73f05",
+    "6cf6a0eda6d68a7328df8197d9b2ad7db8d87f7ba38a94036cebf61e76e53b88",
+    "7221ddb775d76aae933b88ca39ee3d51fe7caddae8ca7aef7fd69ff6303e6ec3",
+    "74c59d5c20276824dd1c55106ebcb2395e405f728edb82230728bc4ac101a014",
+    "752f34a60e287f22f9ee084ca288b0ce2a75db2be9b73049d48cc4ca0f5224fb",
+    "75669674be7c83faac7dc813e4c2e7bba54c76da1e58e8d8e5a37047826adf53",
+    "7f435d21a246fa4d614a14f08383e909ec77a87dc9c9b504f1b0db3e95bf1b2d",
+    "82a6725976969265915d7679dd39540c2b039d7c2987fa780dc49cc3440ba235",
+    "84ee0614c0f9c180a9ab28e6357f79202d67e6f65600638310c574d0a5f3484d",
+    "850ce957f535f9a2f881b2f239e75435d527e5b2dd5447f0da96ebe5ba7a6267",
+    "8bf22802f6ace49822c082e69ac25bdc6dc0ddf33debe3c35b9ee90dae7bedfa",
+    "8dd7624f60b2837cc00d68310ae12f9f846e40a958ff0b727f8d3ce469868c14",
+    "8ef57c7b7b900ae2ebc84899494f04024e6f8040849470cb42813944e48cb254",
+    "8ff275fafc9b03dd226debe6f96b1fd0a0366683d29fc7c79dcc6487bd0022c6",
+    "90333a7137091c523253d3936a688a0d441d92b65a5eee4d240bdf1feef67b55",
+    "94af45aab2d3ad2b99c9cc4d8b2cdfeb6608025c0a93b664cbf5e5866d522b20",
+    "960f7276097f4a6a512346dca5efcbf4c943e9fb69a49c3cc8582a082b02c681",
+    "966081ed93413a76308b8fcdf4406ad0f85bedaa630b266fba2c210bea3755cf",
+    "977293ff35a6ee758db811233673edea962db4644b470b055cb2322dbf3c5a14",
+    "9e68945dae5c95b93a657b3071186cad9156aed061912cbd437e62d8ef248bd2",
+    "9f08404dbaa8207afed1a88b4808b104d00f6f2f89cced4aeb14b716cd4783b9",
+    "a43343f8e8bb0193f1678a61de76923551d7fece7cfd32ca91c8f8efb992b6a4",
+    "a4ab2c4515214437d5149d272cf615d5034b8d8ff533b59d6b28a154e24b6145",
+    "aa1337d9b38f78d4d3c01c4accfdbc94cfd066466aba9860c490a68bc2a60112",
+    "aa80654318fa956d9b1273cce10a6e7f08455ae5acadb08ad74d62e21b3226b8",
+    "af80d65cb3b76d70c2238e4610081601d6b699cb56b61db9c86b918ffce5c616",
+    "b02b0fa5cdc77ad014878d6c56090464f2f2d43f8bb3e45a0108400013c7a09c",
+    "b6777d44989c85d5a1359108550b5c9922796c67fa46099a33343bc7448005de",
+    "bce9a3877249d7eb2764a3eec126bd223b85eb0479ac8b90ad0eb35bca250695",
+    "bfb0773e231f16287b09b62808af233fc5065a754f766d50af2534b3a715c552",
+    "bfeed56d2e700e3b11367f2bd0682369f0a5f17422c61540e6b4584ab0f528b0",
+    "c97938b060c51e655891d1ab95646a137c3b0d872beb6a822630a17266ede027",
+    "d18776db3788e7f9e9f9e20a8284755a6b0809df61ebdf7395c91c27e2e18016",
+    "d29f7c2917b1d667740462c15a6546793cc67c584a17722f2809df1d491883cc",
+    "d3f0c4d8592620fcdf90113d99de84b1c19657de54809baf5eca84da7b616c48",
+    "d63aa010ff16fd6ea2da7fbd65e05d0ea274e07de0f83b963088d5a5d044022b",
+    "da5ecff3132fa6ea0c9678f3e12600b42eccc520c04ad46e3b5763c4e3f544d8",
+    "df2c4dbb07058bd0db7ae868e5ec6286e3079eff4d746c1ba936ce8ccd507fa7",
+    "e32ca1c911f4536f4c29bb6b670d6864f252ad75c97b2cf0a1ab29d3872977ac",
+    "e344a7af8e02c0c8e631d28494385a363926a5e9f40249be529790ac467117ae",
+    "e78233691ae238e285fe8acb885ea492b915bf36845d1e35973c522113bdb947",
+    "f3acc5b9463366d4fb33a20b74d0fadde0b1eb4b82a4d2a9fa5197cea334dcc7",
+    "f4642f059b50137e70cad97de86d593456fc4f8e008697cf2203944d61720bd6"
+  ],
+  "question_changes": [
+    {
+      "id": 471,
+      "field": "ex",
+      "before": "図は水平の腕を上へ動かしている状態です。腕を垂直に上げるまで、又は水平に戻すまでの間も、矢印の方向の交通には黄信号と同じ意味になります。",
+      "after": "図は腕を垂直に上げた手信号です。警察官の身体の正面に平行する、左右の矢印の交通には黄信号と同じ意味です。水平の腕を上げる途中や、水平に戻す途中も同じ意味になります。",
+      "reason": "水平から動かす途中の図から、腕を垂直に上げた図へ変更。同じ方向に対する黄信号という正答を維持。"
+    },
+    {
+      "id": 493,
+      "field": "q",
+      "before": "この図のように、交通渋滞のため停止している対向車の間を通り道路右側のレストランに入ろうとするときは、停止している車の左側を自転車などが進行してくることが予測されるので、一時停止し安全確認を十分行うのがよい。",
+      "after": "図のV3の車のように、停止している対向車の前を横切って道路右側の施設に入ろうとするときは、対向車の左側から自転車や二輪車が進行してくることがあるので、一時停止して十分に安全確認するのがよい。",
+      "reason": "新しい図面の車両名V3と施設の表現に合わせる。右折時の死角確認という出題意図・正答は維持。"
+    }
+  ],
+  "records": [
+    {
+      "key": "horn_within",
+      "question_ids": [
+        414,
+        440
+      ],
+      "alt": "青い円のラッパの図と、下に左右両向きの赤矢印の補助標識。",
+      "conditions_checked": "ラッパ・区間内の双方向赤矢印を保持",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            265.5,
+            766,
+            303.5,
+            804
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        },
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            1117,
+            612,
+            1161,
+            630
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "公式PDFの本標識と補助標識をそれぞれ切り抜き、元の問題と同じ上下関係に配置。図柄・数字・色の変更なし。",
+      "sha256": "20c862a2095cbbe55c2c05c6e151ed6193921a76d4575405f5829061fd6f685d",
+      "width": 650,
+      "height": 832,
+      "file": "data/assets/20c862a2095cbbe55c2c.png",
+      "previous_assets": {
+        "414": [
+          {
+            "file": "data/assets/e32ca1c911f4536f4c29.png",
+            "sha256": "e32ca1c911f4536f4c29bb6b670d6864f252ad75c97b2cf0a1ab29d3872977ac"
+          }
+        ],
+        "440": [
+          {
+            "file": "data/assets/e32ca1c911f4536f4c29.png",
+            "sha256": "e32ca1c911f4536f4c29bb6b670d6864f252ad75c97b2cf0a1ab29d3872977ac"
+          }
+        ]
+      }
+    },
+    {
+      "key": "bus_exclusive",
+      "question_ids": [
+        427,
+        776
+      ],
+      "alt": "青い四角にバス、専用の文字、下向き矢印。",
+      "conditions_checked": "専用の文字・バス・通行帯を示す下矢印",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            753,
+            649,
+            796,
+            688
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "205b3f27470b2e322d4e691129806324be76a9460de1377ef5a0b73b24f27015",
+      "width": 564,
+      "height": 565,
+      "file": "data/assets/205b3f27470b2e322d4e.png",
+      "previous_assets": {
+        "427": [
+          {
+            "file": "data/assets/1b34269029b272f2d4f7.png",
+            "sha256": "1b34269029b272f2d4f79c69f204cc31e1d4c7256f7d64666dbe4f286b7ed57c"
+          }
+        ],
+        "776": [
+          {
+            "file": "data/assets/0de2d50b7da0fc33006b.png",
+            "sha256": "0de2d50b7da0fc33006bdce5c57b772647369b3adc0d19a0c87a674a5638758a"
+          }
+        ]
+      }
+    },
+    {
+      "key": "direction_straight_left_8_20",
+      "question_ids": [
+        453
+      ],
+      "alt": "青い円に直進と左折の白矢印。下の補助標識は8−20。",
+      "conditions_checked": "指定方向は直進・左折、規制時間は8時から20時",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            265.5,
+            533.5,
+            303.5,
+            571.5
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        },
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            1072,
+            486,
+            1114,
+            504
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "公式PDFの本標識と補助標識をそれぞれ切り抜き、元の問題と同じ上下関係に配置。図柄・数字・色の変更なし。",
+      "sha256": "82647148820992d0d4342f6df3d4aa122d2e8a2de2fe3f7bb0c466393080b72a",
+      "width": 650,
+      "height": 861,
+      "file": "data/assets/82647148820992d0d434.png",
+      "previous_assets": {
+        "453": [
+          {
+            "file": "data/assets/563486e2acf36ec30aeb.png",
+            "sha256": "563486e2acf36ec30aeb1ffefff80a4f6e5d1c8aa9680b8b7a46704186c838b3"
+          }
+        ]
+      }
+    },
+    {
+      "key": "parking_end",
+      "question_ids": [
+        466
+      ],
+      "alt": "赤い斜線が1本の青い円と、下に左向きの赤矢印の補助標識。",
+      "conditions_checked": "駐車禁止1本斜線・終わりの左向き赤矢印・時間制限なし",
+      "sources": [
+        {
+          "publisher": "Wikimedia Commons / Monaneko・Fry1989（法令標識図、Public Domain）",
+          "url": "https://commons.wikimedia.org/wiki/File:Japan_road_sign_316.svg",
+          "source_file": "commons_parking_render.png",
+          "source_sha256": "f2bac0742712079a9a043b0965e92db75ce648a7c758ea120f5b8c84bf6b7699",
+          "license": "Public Domain"
+        },
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            984,
+            671,
+            1028,
+            686
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "公式PDFの本標識と補助標識をそれぞれ切り抜き、元の問題と同じ上下関係に配置。図柄・数字・色の変更なし。",
+      "sha256": "279b99328ac529ad4255d3ed6058ffd7fc7debaf4cbc6f7fb85f4b677ec042e1",
+      "width": 650,
+      "height": 831,
+      "file": "data/assets/279b99328ac529ad4255.png",
+      "previous_assets": {
+        "466": [
+          {
+            "file": "data/assets/04476beedd22236267c0.png",
+            "sha256": "04476beedd22236267c0f4f9177af9c716e72d790389bead9b624fdccfbb8585"
+          }
+        ]
+      }
+    },
+    {
+      "key": "no_stopping_area",
+      "question_ids": [
+        467,
+        574
+      ],
+      "alt": "灰色の路面に、白い長方形の枠と内向きの斜線。",
+      "conditions_checked": "白線のみ・停止禁止部分・黄色の立入り禁止部分と区別",
+      "sources": [
+        {
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 122,
+          "crop_points": [
+            457,
+            149,
+            518,
+            192
+          ],
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "650e3b38df07906f408a2d636a297fea7a3ddcdb6602dc82a122fc01a1eede4a",
+      "width": 678,
+      "height": 484,
+      "file": "data/assets/650e3b38df07906f408a.png",
+      "previous_assets": {
+        "467": [
+          {
+            "file": "data/assets/7f435d21a246fa4d614a.png",
+            "sha256": "7f435d21a246fa4d614a14f08383e909ec77a87dc9c9b504f1b0db3e95bf1b2d"
+          }
+        ],
+        "574": [
+          {
+            "file": "data/assets/b6777d44989c85d5a135.png",
+            "sha256": "b6777d44989c85d5a1359108550b5c9922796c67fa46099a33343bc7448005de"
+          }
+        ]
+      }
+    },
+    {
+      "key": "direction_straight_left_truck",
+      "question_ids": [
+        478,
+        620
+      ],
+      "alt": "直進と左折の白矢印がある青い円と、下にトラックの補助標識。",
+      "conditions_checked": "直進・左折指定、補助標識の大型貨物等の車種記号",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            265.5,
+            533.5,
+            303.5,
+            571.5
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        },
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            984,
+            526,
+            1028,
+            548
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "公式PDFの本標識と補助標識をそれぞれ切り抜き、元の問題と同じ上下関係に配置。図柄・数字・色の変更なし。",
+      "sha256": "a1f0571956f02d5b46c576541a860378329941824f42e0dc29bf6b602f2d772f",
+      "width": 650,
+      "height": 922,
+      "file": "data/assets/a1f0571956f02d5b46c5.png",
+      "previous_assets": {
+        "478": [
+          {
+            "file": "data/assets/d29f7c2917b1d6677404.png",
+            "sha256": "d29f7c2917b1d667740462c15a6546793cc67c584a17722f2809df1d491883cc"
+          }
+        ],
+        "620": [
+          {
+            "file": "data/assets/6cf6a0eda6d68a7328df.png",
+            "sha256": "6cf6a0eda6d68a7328df8197d9b2ad7db8d87f7ba38a94036cebf61e76e53b88"
+          }
+        ]
+      }
+    },
+    {
+      "key": "pedestrian_bicycle_crossing",
+      "question_ids": [
+        504
+      ],
+      "alt": "青い五角形に歩行者、自転車、横断部分の白いしま。",
+      "conditions_checked": "横断歩道・自転車横断帯の一体標識",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "reused_asset": "image-24946ef9f8d0.png"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "f918a5493c3b2f32df3ff3e108542f322119d0100dc28acdf54b4590cbce9966",
+      "width": 456,
+      "height": 492,
+      "file": "data/assets/f918a5493c3b2f32df3f.png",
+      "previous_assets": {
+        "504": [
+          {
+            "file": "data/assets/388a9e07d324c91a0a35.png",
+            "sha256": "388a9e07d324c91a0a35c4f126b28f2a5e38d24e9e4c7dc899b260c7158e2618"
+          }
+        ]
+      }
+    },
+    {
+      "key": "priority_road",
+      "question_ids": [
+        511
+      ],
+      "alt": "青い四角に、縦が太い白い交差の記号。",
+      "conditions_checked": "優先道路の太い縦線",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "reused_asset": "image-31d37e41c233.png"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "fe65657fdea126e9c2dca1bbec118314cb8b352abb7defca4181c00e9403c8fd",
+      "width": 480,
+      "height": 468,
+      "file": "data/assets/fe65657fdea126e9c2dc.png",
+      "previous_assets": {
+        "511": [
+          {
+            "file": "data/assets/0a4073e2f81b2c4b78f5.png",
+            "sha256": "0a4073e2f81b2c4b78f56261e4bddd0de182ad459036e8344902d7b13960334b"
+          }
+        ]
+      }
+    },
+    {
+      "key": "falling_rocks",
+      "question_ids": [
+        513,
+        568
+      ],
+      "alt": "黄色いひし形に、崖から石が落ちる黒い絵。",
+      "conditions_checked": "落石の警戒標識",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            45.2,
+            648.8,
+            85.2,
+            688.8
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "e2b683151015a3baf612c898d161da32be753d4cde5437036da4333eb534a96b",
+      "width": 596,
+      "height": 595,
+      "file": "data/assets/e2b683151015a3baf612.png",
+      "previous_assets": {
+        "513": [
+          {
+            "file": "data/assets/e344a7af8e02c0c8e631.png",
+            "sha256": "e344a7af8e02c0c8e631d28494385a363926a5e9f40249be529790ac467117ae"
+          }
+        ],
+        "568": [
+          {
+            "file": "data/assets/9f08404dbaa8207afed1.png",
+            "sha256": "9f08404dbaa8207afed1a88b4808b104d00f6f2f89cced4aeb14b716cd4783b9"
+          }
+        ]
+      }
+    },
+    {
+      "key": "speed50",
+      "question_ids": [
+        514
+      ],
+      "alt": "赤い円の内側に青い50の数字。",
+      "conditions_checked": "最高速度50、下線なし",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            461.2,
+            591.7,
+            499.2,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "401b45795abe04eebd0e0a2255734b107ab01ad0cae826588c69cdbd99fa7724",
+      "width": 652,
+      "height": 652,
+      "file": "data/assets/401b45795abe04eebd0e.png",
+      "previous_assets": {
+        "514": [
+          {
+            "file": "data/assets/f4642f059b50137e70ca.png",
+            "sha256": "f4642f059b50137e70cad97de86d593456fc4f8e008697cf2203944d61720bd6"
+          }
+        ]
+      }
+    },
+    {
+      "key": "bicycle_pedestrian",
+      "question_ids": [
+        515,
+        708
+      ],
+      "alt": "青い円に、大人と子ども、自転車の白い絵。",
+      "conditions_checked": "普通自転車等及び歩行者等専用",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            657,
+            591.7,
+            695,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "691dba8277aa1b2185ff89915efed59b04e415c0092ebac924f5f49460cc7287",
+      "width": 652,
+      "height": 652,
+      "file": "data/assets/691dba8277aa1b2185ff.png",
+      "previous_assets": {
+        "515": [
+          {
+            "file": "data/assets/df2c4dbb07058bd0db7a.png",
+            "sha256": "df2c4dbb07058bd0db7ae868e5ec6286e3079eff4d746c1ba936ce8ccd507fa7"
+          }
+        ],
+        "708": [
+          {
+            "file": "data/assets/4e03ec632eb213d2c7e1.png",
+            "sha256": "4e03ec632eb213d2c7e196021d818d0450e28d8af880e422f3c6d6b6775af202"
+          }
+        ]
+      }
+    },
+    {
+      "key": "no_uturn",
+      "question_ids": [
+        516,
+        789
+      ],
+      "alt": "赤い円と斜線の中にU字の青い矢印。",
+      "conditions_checked": "転回禁止、車両横断禁止と区別",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            608,
+            533.5,
+            646,
+            571.5
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "8f6f5fc9875284ff16e1a4c8ed901dd73ed5e5e352730c1fab65df88d0211df5",
+      "width": 652,
+      "height": 652,
+      "file": "data/assets/8f6f5fc9875284ff16e1.png",
+      "previous_assets": {
+        "516": [
+          {
+            "file": "data/assets/bfeed56d2e700e3b1136.png",
+            "sha256": "bfeed56d2e700e3b11367f2bd0682369f0a5f17422c61540e6b4584ab0f528b0"
+          }
+        ],
+        "789": [
+          {
+            "file": "data/assets/2bf24a635d3a36d6386d.png",
+            "sha256": "2bf24a635d3a36d6386dd41cd3c13b9db5339975e12d8ae8454f6a14189295c2"
+          }
+        ]
+      }
+    },
+    {
+      "key": "safety_zone",
+      "question_ids": [
+        528
+      ],
+      "alt": "灰色の路面に、黄色の外枠と白い内枠の長方形。",
+      "conditions_checked": "安全地帯の黄白二重枠、斜線なし",
+      "sources": [
+        {
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 124,
+          "crop_points": [
+            401.7,
+            149.7,
+            441.7,
+            192.5
+          ],
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "57d41554e9b99aad0c3208e271614e6550a8aedcd5de414de3a3a83c15b37e43",
+      "width": 526,
+      "height": 669,
+      "file": "data/assets/57d41554e9b99aad0c32.png",
+      "previous_assets": {
+        "528": [
+          {
+            "file": "data/assets/46d302fb4c8021422a05.png",
+            "sha256": "46d302fb4c8021422a057d97c51ad0bd7e64f9cf13075186d18e65f1f4c20629"
+          }
+        ]
+      }
+    },
+    {
+      "key": "no_crossing",
+      "question_ids": [
+        540
+      ],
+      "alt": "赤い円と斜線の中に、右へ折れる青い矢印。",
+      "conditions_checked": "車両横断禁止、転回禁止と区別",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "reused_asset": "image-b0038f725f5c.png"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "f05a01d7f49f538941843b1c76ec511322cffc78e03ae38cc63d29abd2fa0e1e",
+      "width": 468,
+      "height": 468,
+      "file": "data/assets/f05a01d7f49f53894184.png",
+      "previous_assets": {
+        "540": [
+          {
+            "file": "data/assets/84ee0614c0f9c180a9ab.png",
+            "sha256": "84ee0614c0f9c180a9ab28e6357f79202d67e6f65600638310c574d0a5f3484d"
+          }
+        ]
+      }
+    },
+    {
+      "key": "train_crossing",
+      "question_ids": [
+        552
+      ],
+      "alt": "黄色いひし形に、電車の黒い絵。",
+      "conditions_checked": "踏切あり、電車の意匠",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            88.1,
+            591.7,
+            126.1,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "154162c5fcc33358a74c8ba594ce0379d9a4f862014902a3f9d145e167a6f4c7",
+      "width": 625,
+      "height": 626,
+      "file": "data/assets/154162c5fcc33358a74c.png",
+      "previous_assets": {
+        "552": [
+          {
+            "file": "data/assets/977293ff35a6ee758db8.png",
+            "sha256": "977293ff35a6ee758db811233673edea962db4644b470b055cb2322dbf3c5a14"
+          }
+        ]
+      }
+    },
+    {
+      "key": "no_vehicles_area",
+      "question_ids": [
+        554,
+        728
+      ],
+      "alt": "灰色の路面に、黄色の縁線と白い斜線で囲まれた細長い部分。",
+      "conditions_checked": "立入り禁止部分の黄色縁線・白い斜線",
+      "sources": [
+        {
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "reused_asset": "image-7562b75403f5.png"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "e3a6671237efaac87dae778d7c6982a8c5e8a1bdad5ad216a4b7da19c425cec7",
+      "width": 194,
+      "height": 368,
+      "file": "data/assets/e3a6671237efaac87dae.png",
+      "previous_assets": {
+        "554": [
+          {
+            "file": "data/assets/d63aa010ff16fd6ea2da.png",
+            "sha256": "d63aa010ff16fd6ea2da7fbd65e05d0ea274e07de0f83b963088d5a5d044022b"
+          }
+        ],
+        "728": [
+          {
+            "file": "data/assets/bce9a3877249d7eb2764.png",
+            "sha256": "bce9a3877249d7eb2764a3eec126bd223b85eb0479ac8b90ad0eb35bca250695"
+          }
+        ]
+      }
+    },
+    {
+      "key": "dangerous_goods",
+      "question_ids": [
+        558
+      ],
+      "alt": "赤い円内に青い危険物の文字。",
+      "conditions_checked": "危険物積載車両通行止め",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            265.5,
+            591.7,
+            303.5,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "8dd56ef8509cc85b22c9d0558f63c4d2d6d577788aa2eadfe2402d120ed9214f",
+      "width": 652,
+      "height": 652,
+      "file": "data/assets/8dd56ef8509cc85b22c9.png",
+      "previous_assets": {
+        "558": [
+          {
+            "file": "data/assets/850ce957f535f9a2f881.png",
+            "sha256": "850ce957f535f9a2f881b2f239e75435d527e5b2dd5447f0da96ebe5ba7a6267"
+          }
+        ]
+      }
+    },
+    {
+      "key": "moped_small_turn",
+      "question_ids": [
+        559
+      ],
+      "alt": "赤い円の中に、右へ曲がる青矢印と原付の文字。",
+      "conditions_checked": "小回り右折、二段階右折の矢印と区別",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "reused_asset": "data/assets/63f56f0df360c7ea01c3.png"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "63f56f0df360c7ea01c3a094b88286fb8becfc5354946cef4dda842f313c4428",
+      "width": 191,
+      "height": 186,
+      "file": "data/assets/63f56f0df360c7ea01c3.png",
+      "previous_assets": {
+        "559": [
+          {
+            "file": "data/assets/75669674be7c83faac7d.png",
+            "sha256": "75669674be7c83faac7dc813e4c2e7bba54c76da1e58e8d8e5a37047826adf53"
+          }
+        ]
+      }
+    },
+    {
+      "key": "oneway_left",
+      "question_ids": [
+        563
+      ],
+      "alt": "青い長方形に、左向きの白い矢印。",
+      "conditions_checked": "一方通行、左折可と背景色を区別",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            410,
+            652,
+            453,
+            688
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "cec1fe7293cc82db511239254216889260fdf8463811749783336b1c09cacd2b",
+      "width": 564,
+      "height": 341,
+      "file": "data/assets/cec1fe7293cc82db5112.png",
+      "previous_assets": {
+        "563": [
+          {
+            "file": "data/assets/0766da32209b44abd0fb.png",
+            "sha256": "0766da32209b44abd0fb8639bcdcb991bf3d117e6204bedff7f90f08fc733e86"
+          }
+        ]
+      }
+    },
+    {
+      "key": "right_curve",
+      "question_ids": [
+        564
+      ],
+      "alt": "黄色いひし形に、右へ曲がる黒い矢印。",
+      "conditions_checked": "右方屈曲、勾配標識と区別",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            46.2,
+            533.5,
+            84.2,
+            571.5
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "56a6e0160f7bab519b97bf9fa74df5d471de2d119de8a6604797004c0bbb6ead",
+      "width": 625,
+      "height": 626,
+      "file": "data/assets/56a6e0160f7bab519b97.png",
+      "previous_assets": {
+        "564": [
+          {
+            "file": "data/assets/4c730a91a0709185d947.png",
+            "sha256": "4c730a91a0709185d947138828e2cf1b808210f263071b0a1cffd358ebcc8394"
+          }
+        ]
+      }
+    },
+    {
+      "key": "direction_left_right",
+      "question_ids": [
+        565
+      ],
+      "alt": "青い円の中に、左右に分かれる白矢印。",
+      "conditions_checked": "指定方向は左右のみ、直進矢印なし",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            412.3,
+            533.5,
+            450.3,
+            571.5
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "44d3966c0c16944300e12b0712d2bb23a4d55bec2059054a07ceaf8d2f465df1",
+      "width": 652,
+      "height": 652,
+      "file": "data/assets/44d3966c0c16944300e1.png",
+      "previous_assets": {
+        "565": [
+          {
+            "file": "data/assets/69fb1f8b26a1d9f70d53.png",
+            "sha256": "69fb1f8b26a1d9f70d537cd5a334481d648be1ae8a45b41f2f7896a47015d28b"
+          }
+        ]
+      }
+    },
+    {
+      "key": "no_light_vehicles_except_bikes",
+      "question_ids": [
+        566
+      ],
+      "alt": "赤い円と斜線の中に、青い荷車の絵。",
+      "conditions_checked": "自転車以外の軽車両通行止め",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "reused_asset": "data/assets/2d179b01f3aa251e99b9.png"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "2d179b01f3aa251e99b9644a8afd087099cb9f2d9db365d7e542ecfe57986dbb",
+      "width": 191,
+      "height": 191,
+      "file": "data/assets/2d179b01f3aa251e99b9.png",
+      "previous_assets": {
+        "566": [
+          {
+            "file": "data/assets/6b731cd75b0311bbf8b6.png",
+            "sha256": "6b731cd75b0311bbf8b67821a7cea22cf158cf162a29e2c0e72d1fa9a1a73f05"
+          }
+        ]
+      }
+    },
+    {
+      "key": "children_crossing",
+      "question_ids": [
+        567
+      ],
+      "alt": "青い五角形に、子ども2人と横断歩道の白いしま。",
+      "conditions_checked": "横断歩道の子ども意匠",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "reused_asset": "image-709a3dd25201.png"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "3990dde493e4e4e48ec5a9e20c3e10bbbad101649e2787fce3ac125204e31cdd",
+      "width": 585,
+      "height": 585,
+      "file": "data/assets/3990dde493e4e4e48ec5.png",
+      "previous_assets": {
+        "567": [
+          {
+            "file": "data/assets/8bf22802f6ace49822c0.png",
+            "sha256": "8bf22802f6ace49822c082e69ac25bdc6dc0ddf33debe3c35b9ee90dae7bedfa"
+          }
+        ]
+      }
+    },
+    {
+      "key": "no_vehicles",
+      "question_ids": [
+        569
+      ],
+      "alt": "白い円を赤い縁と1本の斜線が囲む。",
+      "conditions_checked": "車両通行止め、進入禁止と区別",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "reused_asset": "data/assets/c9a8860d3ee69b5899d7.png"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "c9a8860d3ee69b5899d7478987c07b8229ff2a6745a0d2bf79b778b45b1767b0",
+      "width": 226,
+      "height": 225,
+      "file": "data/assets/c9a8860d3ee69b5899d7.png",
+      "previous_assets": {
+        "569": [
+          {
+            "file": "data/assets/da5ecff3132fa6ea0c96.png",
+            "sha256": "da5ecff3132fa6ea0c9678f3e12600b42eccc520c04ad46e3b5763c4e3f544d8"
+          }
+        ]
+      }
+    },
+    {
+      "key": "pedestrian_only",
+      "question_ids": [
+        581,
+        763
+      ],
+      "alt": "青い円の中に、大人と子どもの白い絵。",
+      "conditions_checked": "歩行者等専用、横断歩道と区別",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            706,
+            591.7,
+            744,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "07a7d541e99276db96301d1f1917d6211202e218a26b67b056a18904cc2c9aa1",
+      "width": 652,
+      "height": 652,
+      "file": "data/assets/07a7d541e99276db9630.png",
+      "previous_assets": {
+        "581": [
+          {
+            "file": "data/assets/3a5f22514ea369985f97.png",
+            "sha256": "3a5f22514ea369985f97bafb436d861b6c1f65e14b10aa60550ab0630852e8cb"
+          }
+        ],
+        "763": [
+          {
+            "file": "data/assets/699793fd0b7c009cce98.png",
+            "sha256": "699793fd0b7c009cce98eab3a1abb22dd74c3accb3b0f7c67ed8d0026699febb"
+          }
+        ]
+      }
+    },
+    {
+      "key": "no_parking_mark",
+      "question_ids": [
+        618
+      ],
+      "alt": "歩道の縁に黄色の破線。",
+      "conditions_checked": "黄色の破線、駐停車禁止の実線と区別",
+      "sources": [
+        {
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 158,
+          "crop_points": [
+            486,
+            127,
+            521,
+            171
+          ],
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "38df8ec79d08054353af25050ac9a093954711d161f5b020c80281d907c13d86",
+      "width": 546,
+      "height": 663,
+      "file": "data/assets/38df8ec79d08054353af.png",
+      "previous_assets": {
+        "618": [
+          {
+            "file": "data/assets/7221ddb775d76aae933b.png",
+            "sha256": "7221ddb775d76aae933b88ca39ee3d51fe7caddae8ca7aef7fd69ff6303e6ec3"
+          }
+        ]
+      }
+    },
+    {
+      "key": "uturn_ban_mark",
+      "question_ids": [
+        639
+      ],
+      "alt": "灰色の路面に、黄色いU字の矢印とその下のX。",
+      "conditions_checked": "転回禁止の黄色矢印とX、終わりの白色楕円なし",
+      "sources": [
+        {
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 138,
+          "crop_points": [
+            489.5,
+            138,
+            522,
+            182
+          ],
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "e2f21e89340984c8165adb1bb534354b178b76083b5203c52a140a45ec88c2ac",
+      "width": 500,
+      "height": 668,
+      "file": "data/assets/e2f21e89340984c8165a.png",
+      "previous_assets": {
+        "639": [
+          {
+            "file": "data/assets/9e68945dae5c95b93a65.png",
+            "sha256": "9e68945dae5c95b93a657b3071186cad9156aed061912cbd437e62d8ef248bd2"
+          }
+        ]
+      }
+    },
+    {
+      "key": "sidewalk_bicycle_part",
+      "question_ids": [
+        667
+      ],
+      "alt": "灰色の部分に、縦の白線と白い自転車の記号。",
+      "conditions_checked": "歩道内通行部分の区切り白線と自転車記号",
+      "sources": [
+        {
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 174,
+          "crop_points": [
+            470,
+            161,
+            528,
+            204
+          ],
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "26784990744782b9bfe336a8cc3bc1b03453a688d00d668b0acff8a7cc0b4bd1",
+      "width": 660,
+      "height": 495,
+      "file": "data/assets/26784990744782b9bfe3.png",
+      "previous_assets": {
+        "667": [
+          {
+            "file": "data/assets/4320c9ca55a5054f384e.png",
+            "sha256": "4320c9ca55a5054f384e42eba642118ca72faf4df0710ace42d0716d7e9beb29"
+          }
+        ]
+      }
+    },
+    {
+      "key": "bicycle_only",
+      "question_ids": [
+        703
+      ],
+      "alt": "青い円の中に白い自転車の絵。",
+      "conditions_checked": "特定小型原付・自転車専用",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            608,
+            591.7,
+            646,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "cfc7edf5f26297492ddb1aa3f3ee74775c932177ee04f1575879afae18f98b80",
+      "width": 652,
+      "height": 652,
+      "file": "data/assets/cfc7edf5f26297492ddb.png",
+      "previous_assets": {
+        "703": [
+          {
+            "file": "data/assets/aa1337d9b38f78d4d3c0.png",
+            "sha256": "aa1337d9b38f78d4d3c01c4accfdbc94cfd066466aba9860c490a68bc2a60112"
+          }
+        ]
+      }
+    },
+    {
+      "key": "traffic_signal_warning",
+      "question_ids": [
+        714
+      ],
+      "alt": "黄色いひし形に、青・黄・赤の信号機の絵。",
+      "conditions_checked": "信号機ありの警戒標識",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            172.1,
+            591.7,
+            210.1,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "4d5d0e7738b014c28caa42000a1a1ce41ac1ad812b72fc08dafd91c63f45d36b",
+      "width": 626,
+      "height": 626,
+      "file": "data/assets/4d5d0e7738b014c28caa.png",
+      "previous_assets": {
+        "714": [
+          {
+            "file": "data/assets/8ef57c7b7b900ae2ebc8.png",
+            "sha256": "8ef57c7b7b900ae2ebc84899494f04024e6f8040849470cb42813944e48cb254"
+          }
+        ]
+      }
+    },
+    {
+      "key": "bus_priority",
+      "question_ids": [
+        715
+      ],
+      "alt": "青い四角にバス、優先の文字、下向き矢印。",
+      "conditions_checked": "優先の文字、専用通行帯と区別",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            263,
+            707,
+            306,
+            746
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "168921b797886ed42c00f5898847e027573c7ed646a5e3fd667cde369a065cb0",
+      "width": 564,
+      "height": 565,
+      "file": "data/assets/168921b797886ed42c00.png",
+      "previous_assets": {
+        "715": [
+          {
+            "file": "data/assets/5184687481f1cbcf54f8.png",
+            "sha256": "5184687481f1cbcf54f81ebcb04be8240690bd23be908d55a6f8d7824b1c95ef"
+          }
+        ]
+      }
+    },
+    {
+      "key": "pedestrian_crossing",
+      "question_ids": [
+        716
+      ],
+      "alt": "青い五角形に、歩行者と横断歩道の白いしま。",
+      "conditions_checked": "横断歩道の成人意匠",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "reused_asset": "image-f66bd89db03f.png"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "940a5ac8e9d9ecd26f6c63470ce34881f4bebf37d54981b1b67ef9b10d1f6a9f",
+      "width": 444,
+      "height": 468,
+      "file": "data/assets/940a5ac8e9d9ecd26f6c.png",
+      "previous_assets": {
+        "716": [
+          {
+            "file": "data/assets/598fd97f8e8124de7000.png",
+            "sha256": "598fd97f8e8124de700099b73f6933e240a3c5c37b8a1af41b1966072e63a360"
+          }
+        ]
+      }
+    },
+    {
+      "key": "no_entry",
+      "question_ids": [
+        717
+      ],
+      "alt": "赤い円の中に白い横線。",
+      "conditions_checked": "車両進入禁止",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            363.4,
+            475.3,
+            401.4,
+            513.3
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "2c04a8d69d0bccafc981200f94e100b59cf2e710e9081614f67709752547c8ca",
+      "width": 652,
+      "height": 652,
+      "file": "data/assets/2c04a8d69d0bccafc981.png",
+      "previous_assets": {
+        "717": [
+          {
+            "file": "data/assets/966081ed93413a76308b.png",
+            "sha256": "966081ed93413a76308b8fcdf4406ad0f85bedaa630b266fba2c210bea3755cf"
+          }
+        ]
+      }
+    },
+    {
+      "key": "no_parking",
+      "question_ids": [
+        752
+      ],
+      "alt": "青い円に赤い縁と1本の赤い斜線。",
+      "conditions_checked": "駐車禁止、斜線1本、時間制限なし",
+      "sources": [
+        {
+          "publisher": "Wikimedia Commons / Monaneko・Fry1989（法令標識図、Public Domain）",
+          "url": "https://commons.wikimedia.org/wiki/File:Japan_road_sign_316.svg",
+          "source_file": "commons_parking_render.png",
+          "source_sha256": "f2bac0742712079a9a043b0965e92db75ce648a7c758ea120f5b8c84bf6b7699",
+          "license": "Public Domain"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "6c6be06d221c5058ae34929512013e73de0d9fd22cb0f0b7ea4e01794b906013",
+      "width": 632,
+      "height": 631,
+      "file": "data/assets/6c6be06d221c5058ae34.png",
+      "previous_assets": {
+        "752": [
+          {
+            "file": "data/assets/8ff275fafc9b03dd226d.png",
+            "sha256": "8ff275fafc9b03dd226debe6f96b1fd0a0366683d29fc7c79dcc6487bd0022c6"
+          }
+        ]
+      }
+    },
+    {
+      "key": "direction_straight",
+      "question_ids": [
+        755
+      ],
+      "alt": "青い円に上向きの白い矢印。",
+      "conditions_checked": "直進指定の円形、一方通行の長方形と区別",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            363.4,
+            533.5,
+            401.4,
+            571.5
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "85896d5406ec7a0d87ccfc6891c2bf2b5009f80c519893a607c23bf6c96c1111",
+      "width": 652,
+      "height": 652,
+      "file": "data/assets/85896d5406ec7a0d87cc.png",
+      "previous_assets": {
+        "755": [
+          {
+            "file": "data/assets/31c9bb35c359dee3a0e6.png",
+            "sha256": "31c9bb35c359dee3a0e65d5936ab38f6f1c671ff9eb8e0db15174bec8671c642"
+          }
+        ]
+      }
+    },
+    {
+      "key": "motor_only",
+      "question_ids": [
+        760
+      ],
+      "alt": "青い円の中に、自動車の正面の白い絵。",
+      "conditions_checked": "自動車専用",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            559,
+            591.7,
+            597,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "f2c565857becfb57498265bd85dd4e2091da3343673b5701f9aea40f0fe06b47",
+      "width": 652,
+      "height": 652,
+      "file": "data/assets/f2c565857becfb574982.png",
+      "previous_assets": {
+        "760": [
+          {
+            "file": "data/assets/e78233691ae238e285fe.png",
+            "sha256": "e78233691ae238e285fe8acb885ea492b915bf36845d1e35973c522113bdb947"
+          }
+        ]
+      }
+    },
+    {
+      "key": "road_narrows",
+      "question_ids": [
+        764
+      ],
+      "alt": "黄色いひし形に、左右から道幅が狭くなる黒い線。",
+      "conditions_checked": "幅員減少",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "reused_asset": "image-37291fd5ab79.png"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "2008bcfc5069390b1c3463b89f75ba5f65b270e7f0c7fa7d40fe475f36d4a7fc",
+      "width": 468,
+      "height": 468,
+      "file": "data/assets/2008bcfc5069390b1c34.png",
+      "previous_assets": {
+        "764": [
+          {
+            "file": "data/assets/aa80654318fa956d9b12.png",
+            "sha256": "aa80654318fa956d9b1273cce10a6e7f08455ae5acadb08ad74d62e21b3226b8"
+          }
+        ]
+      }
+    },
+    {
+      "key": "priority_ahead_mark",
+      "question_ids": [
+        765
+      ],
+      "alt": "灰色の道路に、前方へ向かって続く2個の白い逆三角形。",
+      "conditions_checked": "前方優先道路の白色逆三角形2個",
+      "sources": [
+        {
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 151,
+          "crop_points": [
+            473,
+            138,
+            527,
+            181
+          ],
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "9fd3db593bd3c8ad0ad8be7b9e38270a14e8f596634a24c18417884bcf215f3d",
+      "width": 639,
+      "height": 537,
+      "file": "data/assets/9fd3db593bd3c8ad0ad8.png",
+      "previous_assets": {
+        "765": [
+          {
+            "file": "data/assets/a4ab2c4515214437d514.png",
+            "sha256": "a4ab2c4515214437d5149d272cf615d5034b8d8ff533b59d6b28a154e24b6145"
+          }
+        ]
+      }
+    },
+    {
+      "key": "no_bicycles",
+      "question_ids": [
+        766
+      ],
+      "alt": "赤い円と斜線の中に、青い自転車の絵。",
+      "conditions_checked": "特定小型原付・自転車通行止め",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            657,
+            475.3,
+            695,
+            513.3
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "0df728c89894c3a977375eca173980a895df4e05573a0f021ea43163a88dc0cf",
+      "width": 652,
+      "height": 652,
+      "file": "data/assets/0df728c89894c3a97737.png",
+      "previous_assets": {
+        "766": [
+          {
+            "file": "data/assets/b02b0fa5cdc77ad01487.png",
+            "sha256": "b02b0fa5cdc77ad014878d6c56090464f2f2d43f8bb3e45a0108400013c7a09c"
+          }
+        ]
+      }
+    },
+    {
+      "key": "oneway_up",
+      "question_ids": [
+        769
+      ],
+      "alt": "青い縦長の長方形に、上向きの白い矢印。",
+      "conditions_checked": "縦長の一方通行、方向別通行区分と区別",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            466,
+            649,
+            494,
+            688
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "3bc015b3ff3529612d310e7f633194cc466e44042c5fe99a5f8165a0429f64e0",
+      "width": 373,
+      "height": 619,
+      "file": "data/assets/3bc015b3ff3529612d31.png",
+      "previous_assets": {
+        "769": [
+          {
+            "file": "data/assets/22c47e8d922684eda4ee.png",
+            "sha256": "22c47e8d922684eda4ee5ed7dee10a1ba5bc4f8d701728d0fedb70d515b543a7"
+          }
+        ]
+      }
+    },
+    {
+      "key": "horn",
+      "question_ids": [
+        792
+      ],
+      "alt": "青い円の中に、白いラッパと稲妻状の線。",
+      "conditions_checked": "警笛鳴らせ、区間補助標識なし",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            265.5,
+            766,
+            303.5,
+            804
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "76ef0ba23314924ae2b02cbdd568b58aedf9b2a92ab0fd980026aac02f17230c",
+      "width": 652,
+      "height": 652,
+      "file": "data/assets/76ef0ba23314924ae2b0.png",
+      "previous_assets": {
+        "792": [
+          {
+            "file": "data/assets/c97938b060c51e655891.png",
+            "sha256": "c97938b060c51e655891d1ab95646a137c3b0d872beb6a822630a17266ede027"
+          }
+        ]
+      }
+    },
+    {
+      "key": "bicycle_intersection_ban",
+      "question_ids": [
+        419
+      ],
+      "alt": "路面に白い自転車と左へ曲がる矢印。右側から上を囲む黄色い線。",
+      "conditions_checked": "普通自転車の交差点進入禁止、黄色線と白矢印",
+      "sources": [
+        {
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 179,
+          "crop_points": [
+            483.5,
+            138,
+            530,
+            181
+          ],
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "177606e64f549cd4f13875a64f35bf5192c8faf8cf34f29dc5693db15542b447",
+      "width": 576,
+      "height": 625,
+      "file": "data/assets/177606e64f549cd4f138.png",
+      "previous_assets": {
+        "419": [
+          {
+            "file": "data/assets/82a6725976969265915d.png",
+            "sha256": "82a6725976969265915d7679dd39540c2b039d7c2987fa780dc49cc3440ba235"
+          }
+        ]
+      }
+    },
+    {
+      "key": "four_lanes",
+      "question_ids": [
+        403
+      ],
+      "alt": "4つの通行帯。左から左折、直進、直進、右折の白い矢印。",
+      "conditions_checked": "左端の左折車線を含む4車線。一般原付の二段階右折は左端を通行。",
+      "sources": [
+        {
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "reused_asset": "image-d7aa6047b402.png"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "9af5845b2f6b35f7e807ff75d158d2125805a94c8be88cd4cd125f06de6001ad",
+      "width": 442,
+      "height": 459,
+      "file": "data/assets/9af5845b2f6b35f7e807.png",
+      "previous_assets": {
+        "403": [
+          {
+            "file": "data/assets/5d49d5181b10455c1414.png",
+            "sha256": "5d49d5181b10455c1414d8dc469fc96f624b2780bc9ed5d7a654e0b1f5bc19cd"
+          }
+        ]
+      }
+    },
+    {
+      "key": "pedestrian_red",
+      "question_ids": [
+        412
+      ],
+      "alt": "歩行者用信号機の上側の赤い人形が点灯し、下側は消灯している。",
+      "conditions_checked": "赤点灯・青消灯",
+      "sources": [
+        {
+          "publisher": "内閣府「交通安全イラスト集」",
+          "url": "https://www8.cao.go.jp/koutu/kyouiku/i008.html",
+          "source_file": "cao_ped_red.png",
+          "source_sha256": "b21daa132b6443f7459e22abd484bbd374f39ce8eb8b7a0eecd2fd837442a4fc"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "2572d84f00b828dc7e3a9a07f0c098c72d5dbbe1aa97eed305558a3bee0e7cfa",
+      "width": 171,
+      "height": 292,
+      "file": "data/assets/2572d84f00b828dc7e3a.png",
+      "previous_assets": {
+        "412": [
+          {
+            "file": "data/assets/f3acc5b9463366d4fb33.png",
+            "sha256": "f3acc5b9463366d4fb33a20b74d0fadde0b1eb4b82a4d2a9fa5197cea334dcc7"
+          }
+        ]
+      }
+    },
+    {
+      "key": "police_horizontal_side",
+      "question_ids": [
+        421
+      ],
+      "alt": "腕を横に水平に伸ばした警察官に、左右から矢印が向いている。",
+      "conditions_checked": "水平腕・側方の交通",
+      "sources": [
+        {
+          "publisher": "JAF Mate Online（警察官図を抜粋・方向矢印を付した既存画像）",
+          "url": "https://jafmate.jp/safety/licensetest_20260408.html",
+          "reused_asset": "image-1b2964732c7d.png"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "1b2964732c7da2d9a59f7e64e14b5af33ca0c225c12335166a42ce0394545ed7",
+      "width": 607,
+      "height": 407,
+      "file": "data/assets/1b2964732c7da2d9a59f.png",
+      "previous_assets": {
+        "421": [
+          {
+            "file": "data/assets/a43343f8e8bb0193f167.png",
+            "sha256": "a43343f8e8bb0193f1678a61de76923551d7fece7cfd32ca91c8f8efb992b6a4"
+          }
+        ]
+      }
+    },
+    {
+      "key": "left_turn_allowed",
+      "question_ids": [
+        457,
+        556,
+        768
+      ],
+      "alt": "白い長方形に、青い左向きの矢印。",
+      "conditions_checked": "左折可の白地・青矢印。一方通行の青地と区別。",
+      "sources": [
+        {
+          "publisher": "Wikimedia Commons / Born-to-be-wild（法令標示図、Public Domain）",
+          "url": "https://commons.wikimedia.org/wiki/File:Left_turn_ok_in_Japan.png",
+          "source_file": "commons_left.png",
+          "source_sha256": "2b487436667bc7fbbe0024ea154eb9da86193802bc034141d4f509ce8bcc433c",
+          "license": "Public Domain"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "0387bc0f4c74e6ffb005a3125070fea73e4be5a5027584855f866b57cffaa36a",
+      "width": 1028,
+      "height": 601,
+      "file": "data/assets/0387bc0f4c74e6ffb005.png",
+      "previous_assets": {
+        "457": [
+          {
+            "file": "data/assets/94af45aab2d3ad2b99c9.png",
+            "sha256": "94af45aab2d3ad2b99c9cc4d8b2cdfeb6608025c0a93b664cbf5e5866d522b20"
+          }
+        ],
+        "556": [
+          {
+            "file": "data/assets/d3f0c4d8592620fcdf90.png",
+            "sha256": "d3f0c4d8592620fcdf90113d99de84b1c19657de54809baf5eca84da7b616c48"
+          }
+        ],
+        "768": [
+          {
+            "file": "data/assets/5a6a2c7bff87276d1db2.png",
+            "sha256": "5a6a2c7bff87276d1db2c42677aacc36d445bf5f25ce6e503a9589ebdd4592cb"
+          }
+        ]
+      }
+    },
+    {
+      "key": "red_green_right",
+      "question_ids": [
+        463,
+        612,
+        653,
+        707,
+        762
+      ],
+      "alt": "主信号が赤。下の信号に青い右向きの矢印が点灯。",
+      "conditions_checked": "赤主灯・青右矢印",
+      "sources": [
+        {
+          "publisher": "石原自動車教習所「信号に従うこと」",
+          "url": "https://www.iac-ds.co.jp/oyakudachi01002/",
+          "source_file": "iac_signals_oyakudachi_zu02002.png",
+          "source_sha256": "e9e3a5d518ad6461154552111b4dbc4188ffc5af39e7184b837ca9235884e752"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "1865b6527b9302a96e484079a7237cb5cba5eed12f9985688172a900c30c29c5",
+      "width": 193,
+      "height": 145,
+      "file": "data/assets/1865b6527b9302a96e48.png",
+      "previous_assets": {
+        "463": [
+          {
+            "file": "data/assets/584bdecac25d66d7b512.png",
+            "sha256": "584bdecac25d66d7b512e304c18e5f4928c9fa24c03e4e682a47860b9618993b"
+          }
+        ],
+        "612": [
+          {
+            "file": "data/assets/bfb0773e231f16287b09.png",
+            "sha256": "bfb0773e231f16287b09b62808af233fc5065a754f766d50af2534b3a715c552"
+          }
+        ],
+        "653": [
+          {
+            "file": "data/assets/bfb0773e231f16287b09.png",
+            "sha256": "bfb0773e231f16287b09b62808af233fc5065a754f766d50af2534b3a715c552"
+          }
+        ],
+        "707": [
+          {
+            "file": "data/assets/5c3dda0cf601b2f8c090.png",
+            "sha256": "5c3dda0cf601b2f8c0903bd2c69f54414a3e48aea4c61547f7a3748ab8f2c8d7"
+          }
+        ],
+        "762": [
+          {
+            "file": "data/assets/af80d65cb3b76d70c223.png",
+            "sha256": "af80d65cb3b76d70c2238e4610081601d6b699cb56b61db9c86b918ffce5c616"
+          }
+        ]
+      }
+    },
+    {
+      "key": "red_yellow_right",
+      "question_ids": [
+        510,
+        562,
+        712
+      ],
+      "alt": "主信号が赤。下の信号に黄色い右向きの矢印が点灯。",
+      "conditions_checked": "赤主灯・黄右矢印。青矢印と区別。",
+      "sources": [
+        {
+          "publisher": "石原自動車教習所「信号に従うこと」",
+          "url": "https://www.iac-ds.co.jp/oyakudachi01002/",
+          "source_file": "iac_signals_oyakudachi_zu02003.png",
+          "source_sha256": "a0e7a6fb9bcfb5e1093392e39d26f0f50848a95d6b1cbf43d533e1b1eb20098a"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "528c9ff23e94f4e4fdd97ba54e4627531a169567b105e26e580ca0c14357ca89",
+      "width": 193,
+      "height": 145,
+      "file": "data/assets/528c9ff23e94f4e4fdd9.png",
+      "previous_assets": {
+        "510": [
+          {
+            "file": "data/assets/74c59d5c20276824dd1c.png",
+            "sha256": "74c59d5c20276824dd1c55106ebcb2395e405f728edb82230728bc4ac101a014"
+          }
+        ],
+        "562": [
+          {
+            "file": "data/assets/0e72296f507ee94679ec.png",
+            "sha256": "0e72296f507ee94679ecc6932f3256502ecfad2cbb09d2989b21fd28d4f6ee58"
+          }
+        ],
+        "712": [
+          {
+            "file": "data/assets/d18776db3788e7f9e9f9.png",
+            "sha256": "d18776db3788e7f9e9f9e20a8284755a6b0809df61ebdf7395c91c27e2e18016"
+          }
+        ]
+      }
+    },
+    {
+      "key": "police_vertical_side",
+      "question_ids": [
+        471
+      ],
+      "alt": "両腕を上に上げた警察官と、左右から向かう青い矢印。",
+      "conditions_checked": "腕を垂直に上げた状態・身体の正面に平行する方向",
+      "sources": [
+        {
+          "publisher": "水原自動車学校「学科練習問題 1-2」",
+          "url": "https://www.unten.co.jp/gakka/item1-2/q1-2/",
+          "source_file": "signals_4.png",
+          "source_sha256": "f794f0892cd50dd7deb9920f154ff9d816aad84b784aa1e421fddb8e3e65756c"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "5cc49c73095643a62222e4cc072e0db5a4991714db9b284445e8dceca5249aa9",
+      "width": 910,
+      "height": 786,
+      "file": "data/assets/5cc49c73095643a62222.png",
+      "previous_assets": {
+        "471": [
+          {
+            "file": "data/assets/752f34a60e287f22f9ee.png",
+            "sha256": "752f34a60e287f22f9ee084ca288b0ce2a75db2be9b73049d48cc4ca0f5224fb"
+          }
+        ]
+      }
+    },
+    {
+      "key": "police_front_both",
+      "question_ids": [
+        518
+      ],
+      "alt": "腕が水平な警察官と上に上がった警察官。それぞれ正面・背面から向かう矢印。",
+      "conditions_checked": "両姿勢・正面背面への矢印。側方矢印と解答色を表示しない。",
+      "sources": [
+        {
+          "publisher": "JAF Mate Online（警察官図を抜粋・方向矢印を付した既存画像）",
+          "url": "https://jafmate.jp/safety/licensetest_20260408.html",
+          "reused_asset": "image-1b2964732c7d.png"
+        },
+        {
+          "publisher": "水原自動車学校「学科練習問題 1-2」",
+          "url": "https://www.unten.co.jp/gakka/item1-2/q1-2/",
+          "source_file": "signals_4.png",
+          "source_sha256": "f794f0892cd50dd7deb9920f154ff9d816aad84b784aa1e421fddb8e3e65756c"
+        },
+        {
+          "publisher": "運転教室スタートライン「警察官の手信号」",
+          "url": "https://ds-startline.com/teshingo/",
+          "source_file": "startline_hands_7.jpg",
+          "source_sha256": "0ca593e3c32e6ce169d9a5b5a02a4caa9752c98682f9c6559ab079e4a1165525",
+          "crop_pixels": [
+            424,
+            241,
+            502,
+            499
+          ]
+        }
+      ],
+      "processing": "外部資料から人物と中立の方向矢印をそれぞれ抜粋し、元の問題と同じ正面・背面の位置関係に配置。人物・姿勢・矢印の描き直しなし。",
+      "sha256": "5a960423f205105c85ea0c47a6f089a05b0e859984785fb9a56bc61fc33e1717",
+      "width": 840,
+      "height": 750,
+      "file": "data/assets/5a960423f205105c85ea.png",
+      "previous_assets": {
+        "518": [
+          {
+            "file": "data/assets/8dd7624f60b2837cc00d.png",
+            "sha256": "8dd7624f60b2837cc00d68310ae12f9f846e40a958ff0b727f8d3ce469868c14"
+          }
+        ]
+      }
+    },
+    {
+      "key": "parking_hidden_bike",
+      "question_ids": [
+        493
+      ],
+      "alt": "V3の車が対向車V2の前を横切って右側の駐車場へ向かう。V2の左側に二輪車V1。",
+      "conditions_checked": "道路外の施設へ右折・対向車による死角・車列左側の二輪車",
+      "sources": [
+        {
+          "publisher": "日本国特許庁 特許第7663704号公報・図4（日立Astemo）",
+          "url": "https://patentimages.storage.googleapis.com/1e/60/95/a116dc90fb7cf4/JP7663704B2.pdf",
+          "page": 12,
+          "crop_points": [
+            318,
+            499,
+            489,
+            665
+          ],
+          "source_sha256": "e715a386477a001840da8323c976cb12dfbdf6ac1e1d0df33ec374747a1242b4"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "b3f6d4ce3c8db9000bc645bb7c3797f1c896eb52eaa1766bd3d802be54f09a2c",
+      "width": 1019,
+      "height": 999,
+      "file": "data/assets/b3f6d4ce3c8db9000bc6.png",
+      "previous_assets": {
+        "493": [
+          {
+            "file": "data/assets/508ee60c428bcb4d2d98.png",
+            "sha256": "508ee60c428bcb4d2d9805f45c5279ac82dc597ef20ce66c98e79819b0906b60"
+          }
+        ]
+      }
+    },
+    {
+      "key": "yellow_lane_change",
+      "question_ids": [
+        595
+      ],
+      "alt": "黄色と白色の線で分かれた車線で、右の車から左車線へ向かう矢印。",
+      "conditions_checked": "同方向の車両通行帯・自車側黄色線を越す進路変更",
+      "sources": [
+        {
+          "publisher": "JAF Mate Online「黄色の実線と白の破線がある車線境界線」",
+          "url": "https://jafmate.jp/safety/traffic_rules_quiz_20250310.html",
+          "source_file": "jaf_yellow_lane_14.jpg",
+          "source_sha256": "c79347151f05848b78ee5d4b8a15cdc7a98f2366e5c43531f7ae09c10f393de4"
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "d8121b0ac25612fbcf8e7415657179ef40706689e5429870e4a1c259065cc387",
+      "width": 1028,
+      "height": 528,
+      "file": "data/assets/d8121b0ac25612fbcf8e.png",
+      "previous_assets": {
+        "595": [
+          {
+            "file": "data/assets/1a9449d5f79e4e3eff50.png",
+            "sha256": "1a9449d5f79e4e3eff50b082993e51ef48b34baba85192d831500992b2ffa7f9"
+          }
+        ]
+      }
+    },
+    {
+      "key": "turn_path",
+      "question_ids": [
+        627
+      ],
+      "alt": "灰色の路面に、右へ曲がる白い矢印と曲線状の白い破線。",
+      "conditions_checked": "右折方向・白い経路矢印と破線",
+      "sources": [
+        {
+          "publisher": "SOMPOダイレクト「道路標識・道路標示の一覧」",
+          "url": "https://www.sompo-direct.co.jp/otona/oshiete/car/road-sign.html",
+          "source_file": "sompo_turn1.png",
+          "source_sha256": "ed92a5c06d91e7c87ff81ddfa02d8a496ca2ee64639442e5c1e20b9d181a29d3",
+          "crop_pixels": [
+            708,
+            708,
+            1334,
+            1334
+          ]
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "1012716d220d616d5b67beaa24ddcc351eb7093ec1f7262034f21b3ced867344",
+      "width": 654,
+      "height": 653,
+      "file": "data/assets/1012716d220d616d5b67.png",
+      "previous_assets": {
+        "627": [
+          {
+            "file": "data/assets/960f7276097f4a6a5123.png",
+            "sha256": "960f7276097f4a6a512346dca5efcbf4c943e9fb69a49c3cc8582a082b02c681"
+          }
+        ]
+      }
+    },
+    {
+      "key": "speed50_sign_B_source_fallback",
+      "question_ids": [
+        632
+      ],
+      "alt": "赤い円の内側に青い50の数字。",
+      "conditions_checked": "最高速度50の丸形標識・下線なし。普通自動車50、一般原付30。",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            461.2,
+            591.7,
+            499.2,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "processing": "B提案：原典画像の再照合が未完の路面50写真から、国交省PDFの50標識へ変更。ID514のファイルを再利用。",
+      "sha256": "401b45795abe04eebd0e0a2255734b107ab01ad0cae826588c69cdbd99fa7724",
+      "width": 652,
+      "height": 652,
+      "file": "data/assets/401b45795abe04eebd0e.png",
+      "previous_assets": {
+        "632": [
+          {
+            "file": "data/assets/90333a7137091c523253.png",
+            "sha256": "90333a7137091c523253d3936a688a0d441d92b65a5eee4d240bdf1feef67b55"
+          }
+        ]
+      }
+    },
+    {
+      "key": "uturn_end_mark",
+      "question_ids": [
+        666
+      ],
+      "alt": "灰色の路面に白い斜線入りの輪と、その下に黄色いU字矢印。",
+      "conditions_checked": "上が白い終わり記号・下が黄色い転回記号・Xなし",
+      "sources": [
+        {
+          "publisher": "キクテック「規制標示：終わり」",
+          "url": "https://www.kictec.co.jp/varieties-road-mark/115.php/",
+          "source_file": "kictec_owari.gif",
+          "source_sha256": "ec30e2ed94941b04b766fc2a63c68ac4d99e3b99a2ff55e129730d98761590db",
+          "crop_pixels": [
+            104,
+            45,
+            491,
+            106
+          ],
+          "rotation_degrees": -90
+        }
+      ],
+      "processing": "出典の図版だけを切り抜き。文字・色・矢印の描き直しなし。",
+      "sha256": "fe3afd3a904b7f2c3b68f2d5526bc36e5b369d3511304ba23a41c23b648f6acb",
+      "width": 89,
+      "height": 415,
+      "file": "data/assets/fe3afd3a904b7f2c3b68.png",
+      "previous_assets": {
+        "666": [
+          {
+            "file": "data/assets/123b017408865856ab90.png",
+            "sha256": "123b017408865856ab9090bc00ff44807957bb983f65d0d3f0bc8637515009b4"
+          }
+        ]
+      }
+    },
+    {
+      "key": "centerline_a_yellow",
+      "question_ids": [
+        741
+      ],
+      "alt": "A側に黄色の実線、B側に白色の破線が並ぶ路面標示の部分。",
+      "conditions_checked": "黄色の中央線側がA・白色側がB。正誤記号は切り抜き範囲外。",
+      "sources": [
+        {
+          "publisher": "SOMPOダイレクト「道路標識・道路標示の一覧」（A・Bと線の部分を抜粋）",
+          "url": "https://www.sompo-direct.co.jp/otona/oshiete/car/road-sign.html",
+          "source_file": "sompo_road-sign-06-02-02.png",
+          "source_sha256": "6a25278fce6586221eac6ccce3478d07767bcdac69895c496ab8d02508841323",
+          "crop_pixels": [
+            333,
+            1160,
+            1000,
+            1334
+          ],
+          "additional_crop_pixels": [
+            530,
+            950,
+            779,
+            1160
+          ]
+        }
+      ],
+      "processing": "A・Bの部分と、黄・白線の部分をそれぞれ抜粋して元と同じ位置関係に配置。白い破線の切れ目を保持し、正誤記号や解説は範囲外とした。",
+      "sha256": "e8e3c58e70bfed5f22bd1a9fa160836f3ce471dff03a5be6e3d556d154ea9170",
+      "width": 695,
+      "height": 412,
+      "file": "data/assets/e8e3c58e70bfed5f22bd.png",
+      "previous_assets": {
+        "741": [
+          {
+            "file": "data/assets/54320b0c1494b95b8877.png",
+            "sha256": "54320b0c1494b95b887787914869a0d27902f56a72e2a00441b81c1eab0c0431"
+          }
+        ]
+      }
+    },
+    {
+      "key": "uturn_end_both",
+      "question_ids": [
+        767
+      ],
+      "alt": "転回禁止に青い斜線入りの円を上に組み合わせた標識と、白い輪・黄色いU字の路面標示。",
+      "conditions_checked": "転回禁止の終わりを示す標識と標示の両方",
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            1072,
+            643,
+            1114,
+            683
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        },
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            608,
+            533.5,
+            646,
+            571.5
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        },
+        {
+          "publisher": "キクテック「規制標示：終わり」",
+          "url": "https://www.kictec.co.jp/varieties-road-mark/115.php/",
+          "source_file": "kictec_owari.gif",
+          "source_sha256": "ec30e2ed94941b04b766fc2a63c68ac4d99e3b99a2ff55e129730d98761590db",
+          "crop_pixels": [
+            104,
+            45,
+            491,
+            106
+          ],
+          "rotation_degrees": -90
+        }
+      ],
+      "processing": "国交省の本標識・補助標識を上下に配置し、キクテックの路面標示を90度回転して横に併記。図柄・色の変更なし。",
+      "sha256": "8fd702f019c7250ec2255271e6f5cacfe7c4189c999f359885e70974a13dddb8",
+      "width": 578,
+      "height": 700,
+      "file": "data/assets/8fd702f019c7250ec225.png",
+      "previous_assets": {
+        "767": [
+          {
+            "file": "data/assets/238ebe18d59cabd7ae77.png",
+            "sha256": "238ebe18d59cabd7ae774c053879e30ed1459955e1a5ae2e2b87378b23c44111"
+          }
+        ]
+      }
+    }
+  ],
+  "B_independent_review": {
+    "baseline_commit": "4d76c3bf504a4afdfc4f9f757bf340ee409885a4",
+    "result": "See B result ZIP. Source inspection of the previous ID632 photograph remained unresolved; this candidate replaces it with an independently verified sign.",
+    "modified_question_ids": [
+      363,
+      366,
+      416,
+      632,
+      738
+    ],
+    "answers_changed": 0
+  }
+}

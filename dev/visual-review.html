@@ -11,6 +11,8 @@
 <label>幅 <select id="width"><option>360</option><option selected>390</option><option>430</option><option>1200</option></select></label>
 <label>画面 <select id="screen">
 <option value="mock">模試・未受験</option><option value="mock-old">以前の内容版の模試記録</option><option value="note-safe">安全地帯・条件補足</option><option value="mock-records">模試・得点あり</option><option value="learn">学習</option><option value="learn-review">学習・要復習あり</option><option value="review">復習・0件</option><option value="review-wait">復習・次回待ち</option><option value="review-complete">復習・今日完了</option><option value="study-perfect">学習・全問正解</option><option value="review-due">復習・予定あり</option><option value="exam">受験中</option><option value="exam-image">受験中・図</option><option value="exam-map">回答一覧</option><option value="explanation">学習・解説</option><option value="result44">結果44点</option><option value="result45">結果45点</option><option value="result48">結果48点</option><option value="result50">結果50点</option><option value="guided-result">50問練習の結果</option><option value="guided-detail">練習記録の花丸</option><option value="notes">図解一覧</option><option value="note">図解本文</option><option value="settings">設定</option><option value="preview">花丸見本</option>
+<option value="exam-image-453">第4回問3・8–20の補助標識</option><option value="exam-image-504">第5回問4・横断歩道と自転車横断帯</option><option value="exam-image-518">第5回問18・手信号</option><option value="exam-image-493">第4回問43・右折時の死角</option><option value="exam-image-741">第9回問41・黄色と白色の中央線</option>
+<option value="exam-image-363">第2回問13・歩行者等専用</option><option value="exam-image-366">第2回問16・一般原付</option><option value="exam-image-416">第3回問16・二段階右折</option><option value="exam-image-632">第7回問32・最高速度50</option><option value="exam-image-738">第9回問38・進路変更禁止</option>
 </select></label><label>表示 <select id="theme"><option value="light">ライト</option><option value="dark">ダーク</option></select></label><label><input id="motion" type="checkbox">動きを抑える</label><button id="reload">読み直す</button><button id="measure">寸法を確認</button></header>
 <main><iframe id="app-frame" title="学科ドリルの検証画面" sandbox="allow-scripts" width="390" height="780"></iframe></main><div id="audit" role="status">読み込み中</div>
 <script>
@@ -51,7 +53,9 @@ function fixture(config){
       for(let i=0;i<10;i++){state.session.index=i;model.answer(activeQuestion(state.session.ids[i]).a);}
       lastResult=model.finish();tab='learn';renderResult();show('result');
     }else if(screen.startsWith('exam')){
-      startSet(3,'mock');if(screen==='exam-image')jump(2);if(screen==='exam-map')openMap();
+      const imageId=Number(screen.slice('exam-image-'.length));
+      if(screen.startsWith('exam-image-')&&activeQuestion(imageId)){const q=activeQuestion(imageId);startSet(q.worksheet,'mock');jump(q.number-1);}
+      else{startSet(3,'mock');if(screen==='exam-image')jump(2);if(screen==='exam-map')openMap();}
     }else if(screen==='explanation'){
       const q=Q.find(q=>q.isReplacement);startStudy([q.id],'代替問題の学習');model.answer(q.a);renderPlay();show('play');
     }else if(screen.startsWith('result')){

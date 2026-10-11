@@ -1,0 +1,688 @@
+{
+  "active_questions": 500,
+  "questions_with_raster_images": 130,
+  "questions_without_raster_images": 370,
+  "replaced_questions": 74,
+  "provided_photo_references_remaining": 0,
+  "provided_photo_files_remaining_in_data_assets": 0,
+  "removed_photo_files": 72,
+  "all_image_files_decoded": 103,
+  "all_answers_unchanged": true,
+  "ids_order_and_saved_progress_versions_unchanged": true,
+  "existing_47_notes_and_70_vector_figures_unchanged": true,
+  "field_changes": [
+    [
+      363,
+      "ex"
+    ],
+    [
+      366,
+      "q"
+    ],
+    [
+      366,
+      "ex"
+    ],
+    [
+      471,
+      "ex"
+    ],
+    [
+      493,
+      "q"
+    ],
+    [
+      632,
+      "q"
+    ],
+    [
+      632,
+      "ex"
+    ]
+  ],
+  "rendered_refs": [
+    [
+      305,
+      "image-e983ea806e4f.png"
+    ],
+    [
+      307,
+      "image-b0038f725f5c.png"
+    ],
+    [
+      309,
+      "image-709a3dd25201.png"
+    ],
+    [
+      313,
+      "image-c81ee7a28599.png"
+    ],
+    [
+      314,
+      "image-31d37e41c233.png"
+    ],
+    [
+      315,
+      "image-d98fd5846ec9.png"
+    ],
+    [
+      316,
+      "image-ab0667b46af0.png"
+    ],
+    [
+      316,
+      "image-d1683db0556c.png"
+    ],
+    [
+      317,
+      "image-b6fc65013940.png"
+    ],
+    [
+      318,
+      "image-37291fd5ab79.png"
+    ],
+    [
+      330,
+      "image-af0a81668f39.png"
+    ],
+    [
+      339,
+      "image-6054b170c2b6.png"
+    ],
+    [
+      352,
+      "image-6028d71c3937.png"
+    ],
+    [
+      353,
+      "image-f66bd89db03f.png"
+    ],
+    [
+      359,
+      "image-d7aa6047b402.png"
+    ],
+    [
+      360,
+      "image-d98fd5846ec9.png"
+    ],
+    [
+      362,
+      "image-0099ceae1ac5.png"
+    ],
+    [
+      363,
+      "image-8950862ac005.png"
+    ],
+    [
+      364,
+      "image-d98fd5846ec9.png"
+    ],
+    [
+      365,
+      "image-ab0667b46af0.png"
+    ],
+    [
+      366,
+      "image-d04e022894be.png"
+    ],
+    [
+      367,
+      "image-24946ef9f8d0.png"
+    ],
+    [
+      368,
+      "image-7562b75403f5.png"
+    ],
+    [
+      370,
+      "image-1b2964732c7d.png"
+    ],
+    [
+      371,
+      "image-60e66a4754ae.png"
+    ],
+    [
+      379,
+      "image-979349c747a6.png"
+    ],
+    [
+      390,
+      "image-ab0667b46af0.png"
+    ],
+    [
+      390,
+      "image-b0038f725f5c.png"
+    ],
+    [
+      403,
+      "data/assets/9af5845b2f6b35f7e807.png"
+    ],
+    [
+      404,
+      "data/assets/ef3b29c6cd8b72e71cca.png"
+    ],
+    [
+      407,
+      "data/assets/699384cf5c37c3eccf4c.png"
+    ],
+    [
+      412,
+      "data/assets/2572d84f00b828dc7e3a.png"
+    ],
+    [
+      414,
+      "data/assets/20c862a2095cbbe55c2c.png"
+    ],
+    [
+      415,
+      "data/assets/2001d830b1a65572437f.png"
+    ],
+    [
+      416,
+      "data/assets/f06f40506be97a09b8c0.png"
+    ],
+    [
+      417,
+      "data/assets/2ef5b9cc31fea2e5b8c6.png"
+    ],
+    [
+      418,
+      "data/assets/c9a8860d3ee69b5899d7.png"
+    ],
+    [
+      419,
+      "data/assets/177606e64f549cd4f138.png"
+    ],
+    [
+      421,
+      "data/assets/1b2964732c7da2d9a59f.png"
+    ],
+    [
+      427,
+      "data/assets/205b3f27470b2e322d4e.png"
+    ],
+    [
+      440,
+      "data/assets/20c862a2095cbbe55c2c.png"
+    ],
+    [
+      453,
+      "data/assets/82647148820992d0d434.png"
+    ],
+    [
+      457,
+      "data/assets/0387bc0f4c74e6ffb005.png"
+    ],
+    [
+      458,
+      "data/assets/823c4a1f13fb61e64b17.png"
+    ],
+    [
+      460,
+      "data/assets/5024505bec61d11dad35.png"
+    ],
+    [
+      463,
+      "data/assets/1865b6527b9302a96e48.png"
+    ],
+    [
+      465,
+      "data/assets/823c4a1f13fb61e64b17.png"
+    ],
+    [
+      466,
+      "data/assets/279b99328ac529ad4255.png"
+    ],
+    [
+      467,
+      "data/assets/650e3b38df07906f408a.png"
+    ],
+    [
+      468,
+      "data/assets/627d8a7ca3c8e84ec835.png"
+    ],
+    [
+      469,
+      "data/assets/e91f7c6ee9567031006a.png"
+    ],
+    [
+      471,
+      "data/assets/5cc49c73095643a62222.png"
+    ],
+    [
+      478,
+      "data/assets/a1f0571956f02d5b46c5.png"
+    ],
+    [
+      481,
+      "data/assets/cd2bed61f76bc1869e29.png"
+    ],
+    [
+      493,
+      "data/assets/b3f6d4ce3c8db9000bc6.png"
+    ],
+    [
+      494,
+      "data/assets/d289186fb201ccc0a0a2.png"
+    ],
+    [
+      504,
+      "data/assets/f918a5493c3b2f32df3f.png"
+    ],
+    [
+      510,
+      "data/assets/528c9ff23e94f4e4fdd9.png"
+    ],
+    [
+      511,
+      "data/assets/fe65657fdea126e9c2dc.png"
+    ],
+    [
+      513,
+      "data/assets/e2b683151015a3baf612.png"
+    ],
+    [
+      514,
+      "data/assets/401b45795abe04eebd0e.png"
+    ],
+    [
+      515,
+      "data/assets/691dba8277aa1b2185ff.png"
+    ],
+    [
+      516,
+      "data/assets/8f6f5fc9875284ff16e1.png"
+    ],
+    [
+      518,
+      "data/assets/5a960423f205105c85ea.png"
+    ],
+    [
+      528,
+      "data/assets/57d41554e9b99aad0c32.png"
+    ],
+    [
+      540,
+      "data/assets/f05a01d7f49f53894184.png"
+    ],
+    [
+      552,
+      "data/assets/154162c5fcc33358a74c.png"
+    ],
+    [
+      554,
+      "data/assets/e3a6671237efaac87dae.png"
+    ],
+    [
+      556,
+      "data/assets/0387bc0f4c74e6ffb005.png"
+    ],
+    [
+      558,
+      "data/assets/8dd56ef8509cc85b22c9.png"
+    ],
+    [
+      559,
+      "data/assets/63f56f0df360c7ea01c3.png"
+    ],
+    [
+      562,
+      "data/assets/528c9ff23e94f4e4fdd9.png"
+    ],
+    [
+      563,
+      "data/assets/cec1fe7293cc82db5112.png"
+    ],
+    [
+      564,
+      "data/assets/56a6e0160f7bab519b97.png"
+    ],
+    [
+      565,
+      "data/assets/44d3966c0c16944300e1.png"
+    ],
+    [
+      566,
+      "data/assets/2d179b01f3aa251e99b9.png"
+    ],
+    [
+      567,
+      "data/assets/3990dde493e4e4e48ec5.png"
+    ],
+    [
+      568,
+      "data/assets/e2b683151015a3baf612.png"
+    ],
+    [
+      569,
+      "data/assets/c9a8860d3ee69b5899d7.png"
+    ],
+    [
+      574,
+      "data/assets/650e3b38df07906f408a.png"
+    ],
+    [
+      581,
+      "data/assets/07a7d541e99276db9630.png"
+    ],
+    [
+      595,
+      "data/assets/d8121b0ac25612fbcf8e.png"
+    ],
+    [
+      601,
+      "data/assets/84cb2c7fa5846374924f.png"
+    ],
+    [
+      603,
+      "data/assets/4ce774f2810dc4641b8a.png"
+    ],
+    [
+      612,
+      "data/assets/1865b6527b9302a96e48.png"
+    ],
+    [
+      613,
+      "data/assets/da330b4f536573022f58.png"
+    ],
+    [
+      614,
+      "data/assets/5899d1d763618e61b31b.png"
+    ],
+    [
+      615,
+      "data/assets/63f56f0df360c7ea01c3.png"
+    ],
+    [
+      616,
+      "data/assets/27a3cf844089ec9e44db.png"
+    ],
+    [
+      617,
+      "data/assets/ccda5a58e0dcae811c75.png"
+    ],
+    [
+      618,
+      "data/assets/38df8ec79d08054353af.png"
+    ],
+    [
+      620,
+      "data/assets/a1f0571956f02d5b46c5.png"
+    ],
+    [
+      627,
+      "data/assets/1012716d220d616d5b67.png"
+    ],
+    [
+      628,
+      "data/assets/d241b7eee0cab081efa8.png"
+    ],
+    [
+      632,
+      "data/assets/401b45795abe04eebd0e.png"
+    ],
+    [
+      639,
+      "data/assets/e2f21e89340984c8165a.png"
+    ],
+    [
+      648,
+      "data/assets/94926dc772cc7bd7c571.png"
+    ],
+    [
+      653,
+      "data/assets/1865b6527b9302a96e48.png"
+    ],
+    [
+      657,
+      "data/assets/2d179b01f3aa251e99b9.png"
+    ],
+    [
+      662,
+      "data/assets/4e7f4d5b933bae4e0bbf.png"
+    ],
+    [
+      663,
+      "data/assets/39391cdebe7e7d1cd240.png"
+    ],
+    [
+      664,
+      "data/assets/bda6b3930f5bc4e1494e.png"
+    ],
+    [
+      665,
+      "data/assets/da330b4f536573022f58.png"
+    ],
+    [
+      666,
+      "data/assets/fe3afd3a904b7f2c3b68.png"
+    ],
+    [
+      667,
+      "data/assets/26784990744782b9bfe3.png"
+    ],
+    [
+      703,
+      "data/assets/cfc7edf5f26297492ddb.png"
+    ],
+    [
+      707,
+      "data/assets/1865b6527b9302a96e48.png"
+    ],
+    [
+      708,
+      "data/assets/691dba8277aa1b2185ff.png"
+    ],
+    [
+      712,
+      "data/assets/528c9ff23e94f4e4fdd9.png"
+    ],
+    [
+      714,
+      "data/assets/4d5d0e7738b014c28caa.png"
+    ],
+    [
+      715,
+      "data/assets/168921b797886ed42c00.png"
+    ],
+    [
+      716,
+      "data/assets/940a5ac8e9d9ecd26f6c.png"
+    ],
+    [
+      717,
+      "data/assets/2c04a8d69d0bccafc981.png"
+    ],
+    [
+      728,
+      "data/assets/e3a6671237efaac87dae.png"
+    ],
+    [
+      733,
+      "data/assets/bc0bccb8627b20f59a04.png"
+    ],
+    [
+      738,
+      "data/assets/a95bfa9f545535aa9f09.png"
+    ],
+    [
+      741,
+      "data/assets/e8e3c58e70bfed5f22bd.png"
+    ],
+    [
+      752,
+      "data/assets/6c6be06d221c5058ae34.png"
+    ],
+    [
+      755,
+      "data/assets/85896d5406ec7a0d87cc.png"
+    ],
+    [
+      760,
+      "data/assets/f2c565857becfb574982.png"
+    ],
+    [
+      762,
+      "data/assets/1865b6527b9302a96e48.png"
+    ],
+    [
+      763,
+      "data/assets/07a7d541e99276db9630.png"
+    ],
+    [
+      764,
+      "data/assets/2008bcfc5069390b1c34.png"
+    ],
+    [
+      765,
+      "data/assets/9fd3db593bd3c8ad0ad8.png"
+    ],
+    [
+      766,
+      "data/assets/0df728c89894c3a97737.png"
+    ],
+    [
+      767,
+      "data/assets/8fd702f019c7250ec225.png"
+    ],
+    [
+      768,
+      "data/assets/0387bc0f4c74e6ffb005.png"
+    ],
+    [
+      769,
+      "data/assets/3bc015b3ff3529612d31.png"
+    ],
+    [
+      776,
+      "data/assets/205b3f27470b2e322d4e.png"
+    ],
+    [
+      783,
+      "data/assets/bc0bccb8627b20f59a04.png"
+    ],
+    [
+      789,
+      "data/assets/8f6f5fc9875284ff16e1.png"
+    ],
+    [
+      792,
+      "data/assets/76ef0ba23314924ae2b0.png"
+    ]
+  ],
+  "asset_hashes": {
+    "image-e983ea806e4f.png": "e983ea806e4f6e8996f014aca9f21687c94de2ce9c1f1d6b34623c0a50f94b03",
+    "image-b0038f725f5c.png": "b0038f725f5cc58e8afaee00800f9ad74608a0e16179736e0fbc891c2964f2e2",
+    "image-709a3dd25201.png": "709a3dd25201eac9f75345685b6acc1f3138853e52a9788c421ebb21f7b2ed2f",
+    "image-c81ee7a28599.png": "c81ee7a28599232ac5ae6c43c689d33613f22363e633390bff33effcc46f0412",
+    "image-31d37e41c233.png": "31d37e41c23310b53f53699b61dcbb6cfab89397e54ee1f7f4077ec83f8013ae",
+    "image-d98fd5846ec9.png": "d98fd5846ec9c735b18da35530fa1a321cbc793d08ceb017159206453e4ae4b3",
+    "image-ab0667b46af0.png": "ab0667b46af0ddbfd77432bbc04132d262b375763e136c8cb789b36554ef8c90",
+    "image-d1683db0556c.png": "d1683db0556c2ebe8b855fbc18d19f0bedafbc45080632b1796bfc8dd4105403",
+    "image-b6fc65013940.png": "b6fc6501394065406a2e2f65ba4a9ee01fb9d19e65e4e75a05adce2d34482ce8",
+    "image-37291fd5ab79.png": "37291fd5ab7980e962e441a79a752712225f381dcde06c1fb6a657e1e8cb36fc",
+    "image-af0a81668f39.png": "af0a81668f39b65362fa879e8aa1aa6c2ec100ba4dc46cbbc49517dce61f7b1d",
+    "image-6054b170c2b6.png": "6054b170c2b687b706b0d11e565e435d9a48f2a5928a34eb2cf6a9ecf0ed442b",
+    "image-6028d71c3937.png": "6028d71c3937d0b4a5316308d59f01a476ce51bc717acb555406a814732b5ce8",
+    "image-f66bd89db03f.png": "f66bd89db03fbfe7db824aa09743915f51491fdebbb499b78656c1e366b73fc1",
+    "image-d7aa6047b402.png": "d7aa6047b4029cd94cb1c27f5b4aa450eeb7606944e18264082aec3fd4a8ced8",
+    "image-0099ceae1ac5.png": "0099ceae1ac529f949b90e6810fd3a0012756958a11b07fb4cfce32bddc8541a",
+    "image-8950862ac005.png": "8950862ac005c55c36a2a4e3c11102a6bb46893f85007ce98d17463eed75f6c5",
+    "image-d04e022894be.png": "d04e022894be352682dd0d6f1e0676cdb88610df744a45e8154a2768eb31b3a7",
+    "image-24946ef9f8d0.png": "24946ef9f8d0abe81471c9e9cd6749404d14324b3b89ee5a379c333f35f12d9e",
+    "image-7562b75403f5.png": "7562b75403f5e68e31aaac2e1b09d81ecbb4b16a773389f96e057f120d8932bb",
+    "image-1b2964732c7d.png": "1b2964732c7da2d9a59f7e64e14b5af33ca0c225c12335166a42ce0394545ed7",
+    "image-60e66a4754ae.png": "60e66a4754aed7c5b8f510f69bd33dbdd5d5a035dd90d645e9778e67281055df",
+    "image-979349c747a6.png": "979349c747a69b2016c7d9bcc09cba76d01d0ae8f35b55b4e2febb706f5c2487",
+    "data/assets/9af5845b2f6b35f7e807.png": "9af5845b2f6b35f7e807ff75d158d2125805a94c8be88cd4cd125f06de6001ad",
+    "data/assets/ef3b29c6cd8b72e71cca.png": "ef3b29c6cd8b72e71cca5a5dfb9d6dea006085f67646f0ef60517d41a63c7f84",
+    "data/assets/699384cf5c37c3eccf4c.png": "699384cf5c37c3eccf4c091e706663c870bc015f54ec52ff0a91e595c056d490",
+    "data/assets/2572d84f00b828dc7e3a.png": "2572d84f00b828dc7e3a9a07f0c098c72d5dbbe1aa97eed305558a3bee0e7cfa",
+    "data/assets/20c862a2095cbbe55c2c.png": "20c862a2095cbbe55c2c05c6e151ed6193921a76d4575405f5829061fd6f685d",
+    "data/assets/2001d830b1a65572437f.png": "2001d830b1a65572437fffcaf49f0ab432bb565f33e35aefe6485418692fe07a",
+    "data/assets/f06f40506be97a09b8c0.png": "f06f40506be97a09b8c018de7924fe5e182077a85ce5229084c166525a5f00c3",
+    "data/assets/2ef5b9cc31fea2e5b8c6.png": "2ef5b9cc31fea2e5b8c640f428809bd4df03bb8086e2122fff46f6c3a1ebadc6",
+    "data/assets/c9a8860d3ee69b5899d7.png": "c9a8860d3ee69b5899d7478987c07b8229ff2a6745a0d2bf79b778b45b1767b0",
+    "data/assets/177606e64f549cd4f138.png": "177606e64f549cd4f13875a64f35bf5192c8faf8cf34f29dc5693db15542b447",
+    "data/assets/1b2964732c7da2d9a59f.png": "1b2964732c7da2d9a59f7e64e14b5af33ca0c225c12335166a42ce0394545ed7",
+    "data/assets/205b3f27470b2e322d4e.png": "205b3f27470b2e322d4e691129806324be76a9460de1377ef5a0b73b24f27015",
+    "data/assets/82647148820992d0d434.png": "82647148820992d0d4342f6df3d4aa122d2e8a2de2fe3f7bb0c466393080b72a",
+    "data/assets/0387bc0f4c74e6ffb005.png": "0387bc0f4c74e6ffb005a3125070fea73e4be5a5027584855f866b57cffaa36a",
+    "data/assets/823c4a1f13fb61e64b17.png": "823c4a1f13fb61e64b177d4ae37b15d7af38c12a26754d800d62484657c1094c",
+    "data/assets/5024505bec61d11dad35.png": "5024505bec61d11dad359bd67b6fcfe16f6df3e42ac3723ecc84c01e5af8075d",
+    "data/assets/1865b6527b9302a96e48.png": "1865b6527b9302a96e484079a7237cb5cba5eed12f9985688172a900c30c29c5",
+    "data/assets/279b99328ac529ad4255.png": "279b99328ac529ad4255d3ed6058ffd7fc7debaf4cbc6f7fb85f4b677ec042e1",
+    "data/assets/650e3b38df07906f408a.png": "650e3b38df07906f408a2d636a297fea7a3ddcdb6602dc82a122fc01a1eede4a",
+    "data/assets/627d8a7ca3c8e84ec835.png": "627d8a7ca3c8e84ec83526ffc97556b751aa560ff6d66fb41f042c895f8d04f5",
+    "data/assets/e91f7c6ee9567031006a.png": "e91f7c6ee9567031006ab7133b276093bf80d0e64a63f6d6f8ea1240e3f674af",
+    "data/assets/5cc49c73095643a62222.png": "5cc49c73095643a62222e4cc072e0db5a4991714db9b284445e8dceca5249aa9",
+    "data/assets/a1f0571956f02d5b46c5.png": "a1f0571956f02d5b46c576541a860378329941824f42e0dc29bf6b602f2d772f",
+    "data/assets/cd2bed61f76bc1869e29.png": "cd2bed61f76bc1869e29164c40061f909f1b67b53725ee9ee0c3e894a190e908",
+    "data/assets/b3f6d4ce3c8db9000bc6.png": "b3f6d4ce3c8db9000bc645bb7c3797f1c896eb52eaa1766bd3d802be54f09a2c",
+    "data/assets/d289186fb201ccc0a0a2.png": "d289186fb201ccc0a0a21824653d91fc16e854d98b876b42f5cf22217be05c1f",
+    "data/assets/f918a5493c3b2f32df3f.png": "f918a5493c3b2f32df3ff3e108542f322119d0100dc28acdf54b4590cbce9966",
+    "data/assets/528c9ff23e94f4e4fdd9.png": "528c9ff23e94f4e4fdd97ba54e4627531a169567b105e26e580ca0c14357ca89",
+    "data/assets/fe65657fdea126e9c2dc.png": "fe65657fdea126e9c2dca1bbec118314cb8b352abb7defca4181c00e9403c8fd",
+    "data/assets/e2b683151015a3baf612.png": "e2b683151015a3baf612c898d161da32be753d4cde5437036da4333eb534a96b",
+    "data/assets/401b45795abe04eebd0e.png": "401b45795abe04eebd0e0a2255734b107ab01ad0cae826588c69cdbd99fa7724",
+    "data/assets/691dba8277aa1b2185ff.png": "691dba8277aa1b2185ff89915efed59b04e415c0092ebac924f5f49460cc7287",
+    "data/assets/8f6f5fc9875284ff16e1.png": "8f6f5fc9875284ff16e1a4c8ed901dd73ed5e5e352730c1fab65df88d0211df5",
+    "data/assets/5a960423f205105c85ea.png": "5a960423f205105c85ea0c47a6f089a05b0e859984785fb9a56bc61fc33e1717",
+    "data/assets/57d41554e9b99aad0c32.png": "57d41554e9b99aad0c3208e271614e6550a8aedcd5de414de3a3a83c15b37e43",
+    "data/assets/f05a01d7f49f53894184.png": "f05a01d7f49f538941843b1c76ec511322cffc78e03ae38cc63d29abd2fa0e1e",
+    "data/assets/154162c5fcc33358a74c.png": "154162c5fcc33358a74c8ba594ce0379d9a4f862014902a3f9d145e167a6f4c7",
+    "data/assets/e3a6671237efaac87dae.png": "e3a6671237efaac87dae778d7c6982a8c5e8a1bdad5ad216a4b7da19c425cec7",
+    "data/assets/8dd56ef8509cc85b22c9.png": "8dd56ef8509cc85b22c9d0558f63c4d2d6d577788aa2eadfe2402d120ed9214f",
+    "data/assets/63f56f0df360c7ea01c3.png": "63f56f0df360c7ea01c3a094b88286fb8becfc5354946cef4dda842f313c4428",
+    "data/assets/cec1fe7293cc82db5112.png": "cec1fe7293cc82db511239254216889260fdf8463811749783336b1c09cacd2b",
+    "data/assets/56a6e0160f7bab519b97.png": "56a6e0160f7bab519b97bf9fa74df5d471de2d119de8a6604797004c0bbb6ead",
+    "data/assets/44d3966c0c16944300e1.png": "44d3966c0c16944300e12b0712d2bb23a4d55bec2059054a07ceaf8d2f465df1",
+    "data/assets/2d179b01f3aa251e99b9.png": "2d179b01f3aa251e99b9644a8afd087099cb9f2d9db365d7e542ecfe57986dbb",
+    "data/assets/3990dde493e4e4e48ec5.png": "3990dde493e4e4e48ec5a9e20c3e10bbbad101649e2787fce3ac125204e31cdd",
+    "data/assets/07a7d541e99276db9630.png": "07a7d541e99276db96301d1f1917d6211202e218a26b67b056a18904cc2c9aa1",
+    "data/assets/d8121b0ac25612fbcf8e.png": "d8121b0ac25612fbcf8e7415657179ef40706689e5429870e4a1c259065cc387",
+    "data/assets/84cb2c7fa5846374924f.png": "84cb2c7fa5846374924fc377919b5f7439c0af4b0735cfb9c5bfaf23f9648298",
+    "data/assets/4ce774f2810dc4641b8a.png": "4ce774f2810dc4641b8afe6c715cc92052a250ccb6f48c336a5db5a7db629af3",
+    "data/assets/da330b4f536573022f58.png": "da330b4f536573022f58b6b5cb4ae0c51387a412b9f50c6197ea942ff94e295f",
+    "data/assets/5899d1d763618e61b31b.png": "5899d1d763618e61b31b882f896daf6c55140e1c163438f6311ded16dfd2f0c9",
+    "data/assets/27a3cf844089ec9e44db.png": "27a3cf844089ec9e44db689d3450f3142e9a85fec4f9b22f6d0272cbe1b4d07c",
+    "data/assets/ccda5a58e0dcae811c75.png": "ccda5a58e0dcae811c75249965fd91e6f2782057e4cf307c98a323d879b1e146",
+    "data/assets/38df8ec79d08054353af.png": "38df8ec79d08054353af25050ac9a093954711d161f5b020c80281d907c13d86",
+    "data/assets/1012716d220d616d5b67.png": "1012716d220d616d5b67beaa24ddcc351eb7093ec1f7262034f21b3ced867344",
+    "data/assets/d241b7eee0cab081efa8.png": "d241b7eee0cab081efa8dc670b787701dad692a30cfe659892e08e620ec21c53",
+    "data/assets/e2f21e89340984c8165a.png": "e2f21e89340984c8165adb1bb534354b178b76083b5203c52a140a45ec88c2ac",
+    "data/assets/94926dc772cc7bd7c571.png": "94926dc772cc7bd7c571503a2d04acdc196130d09b47b07d33989f3c8dd18409",
+    "data/assets/4e7f4d5b933bae4e0bbf.png": "4e7f4d5b933bae4e0bbfbea7db9a7d19a9d447ae1b7a882b805479456181c2bc",
+    "data/assets/39391cdebe7e7d1cd240.png": "39391cdebe7e7d1cd240a0d260228523b7632bd3a4a05a5b32bb43ef8210dd3c",
+    "data/assets/bda6b3930f5bc4e1494e.png": "bda6b3930f5bc4e1494e89aebce674ea0ac86929a9e08b2f10527ea031f00371",
+    "data/assets/fe3afd3a904b7f2c3b68.png": "fe3afd3a904b7f2c3b68f2d5526bc36e5b369d3511304ba23a41c23b648f6acb",
+    "data/assets/26784990744782b9bfe3.png": "26784990744782b9bfe336a8cc3bc1b03453a688d00d668b0acff8a7cc0b4bd1",
+    "data/assets/cfc7edf5f26297492ddb.png": "cfc7edf5f26297492ddb1aa3f3ee74775c932177ee04f1575879afae18f98b80",
+    "data/assets/4d5d0e7738b014c28caa.png": "4d5d0e7738b014c28caa42000a1a1ce41ac1ad812b72fc08dafd91c63f45d36b",
+    "data/assets/168921b797886ed42c00.png": "168921b797886ed42c00f5898847e027573c7ed646a5e3fd667cde369a065cb0",
+    "data/assets/940a5ac8e9d9ecd26f6c.png": "940a5ac8e9d9ecd26f6c63470ce34881f4bebf37d54981b1b67ef9b10d1f6a9f",
+    "data/assets/2c04a8d69d0bccafc981.png": "2c04a8d69d0bccafc981200f94e100b59cf2e710e9081614f67709752547c8ca",
+    "data/assets/bc0bccb8627b20f59a04.png": "bc0bccb8627b20f59a04def96bc57a4515fc96f6633dd1934508fd5e08b71683",
+    "data/assets/a95bfa9f545535aa9f09.png": "a95bfa9f545535aa9f09d0c9ffbd42a37706d8323f81a3cd2d8d1b58389a25eb",
+    "data/assets/e8e3c58e70bfed5f22bd.png": "e8e3c58e70bfed5f22bd1a9fa160836f3ce471dff03a5be6e3d556d154ea9170",
+    "data/assets/6c6be06d221c5058ae34.png": "6c6be06d221c5058ae34929512013e73de0d9fd22cb0f0b7ea4e01794b906013",
+    "data/assets/85896d5406ec7a0d87cc.png": "85896d5406ec7a0d87ccfc6891c2bf2b5009f80c519893a607c23bf6c96c1111",
+    "data/assets/f2c565857becfb574982.png": "f2c565857becfb57498265bd85dd4e2091da3343673b5701f9aea40f0fe06b47",
+    "data/assets/2008bcfc5069390b1c34.png": "2008bcfc5069390b1c3463b89f75ba5f65b270e7f0c7fa7d40fe475f36d4a7fc",
+    "data/assets/9fd3db593bd3c8ad0ad8.png": "9fd3db593bd3c8ad0ad8be7b9e38270a14e8f596634a24c18417884bcf215f3d",
+    "data/assets/0df728c89894c3a97737.png": "0df728c89894c3a977375eca173980a895df4e05573a0f021ea43163a88dc0cf",
+    "data/assets/8fd702f019c7250ec225.png": "8fd702f019c7250ec2255271e6f5cacfe7c4189c999f359885e70974a13dddb8",
+    "data/assets/3bc015b3ff3529612d31.png": "3bc015b3ff3529612d310e7f633194cc466e44042c5fe99a5f8165a0429f64e0",
+    "data/assets/76ef0ba23314924ae2b0.png": "76ef0ba23314924ae2b02cbdd568b58aedf9b2a92ab0fd980026aac02f17230c"
+  },
+  "integration_base_commit": "6c3feae846cd420a12f9c78c1bf944983211f9bc",
+  "b_review_integrated": true,
+  "b_review_finding_ids": [
+    "B-001",
+    "B-002",
+    "B-003",
+    "B-004",
+    "B-005"
+  ],
+  "b_review_unresolved_findings_remaining": 0
+}
