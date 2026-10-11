@@ -37,7 +37,7 @@ a.click('[data-action="result-filter"][data-filter="all"]');assert.equal(a.all('
 a.click('#tab-learn');assert.equal(a.query('#learn').hidden,false);assert.equal(a.run('CATS.flatMap(categorized).length'),500);assert.equal(a.run('new Set(CATS.flatMap(categorized).map(q=>q.id)).size'),500);a.click('#learn .recommend');assert.equal(a.run('state.session.ids.length'),10);assert.equal(a.run('state.session.mode'),'drill');
 a.click('[data-action="answer"][data-value="true"]');assert.equal(a.all('#play .feedback').length,1);assert.ok(a.query('#play #next'));assert.equal(a.w.document.activeElement,a.query('#play .feedback'));assert.equal(a.query('#tabs').hidden,true);assert.equal(a.run('state.stats[state.session.ids[0]].total'),1);
 const id=a.run('state.session.ids[0]');a.run('renderPlay();renderPlay()');assert.equal(a.run(`state.stats[${id}].total`),1);
-a.click('[data-action="pause"]');a.click('[data-action="notes"]');assert.equal(a.all('#notes details.note').length,47);
+a.click('[data-action="pause"]');a.run('openNotes()');assert.equal(a.all('#notes details.note').length,47);
 assert.equal(a.query('#notes .section-character').getAttribute('src'),'./image-a5b30a44fd43.png');
 assert.match(a.query('#notes .section-character').alt,/ロボット教官/);
 // Reset must clear both search controls and restore the complete notebook without changing records.
@@ -154,7 +154,7 @@ a.click('#review [data-action="resume"]');a.click('#next');a.click('#confirm-yes
 assert.equal(a.run('state.attempts[0].scoreSnapshot'),3);assert.equal(a.run('state.stats[301].total'),2);
 a.click('#tab-review');assert.equal(a.query('#review [data-action="resume"]'),null);assert.match(a.query('#review').textContent,/今すぐの復習は完了です/);a.close();
 // Keep the actual focused search field alive throughout Japanese composition; filter when committed.
-a=app();a.click('#tab-learn');a.click('[data-action="notes"]');const beforeSearch=a.run('JSON.stringify(state)');
+a=app();a.click('#tab-learn');a.run('openNotes()');const beforeSearch=a.run('JSON.stringify(state)');
 const composingInput=a.query('#note-search');composingInput.focus();
 composingInput.dispatchEvent(new a.w.CompositionEvent('compositionstart',{bubbles:true}));
 for(const isComposing of [true,false]){
@@ -301,3 +301,13 @@ a.click(`[data-action="answer"][data-value="${a.run('activeQuestion(710).a')}"]`
 assert.equal(a.run('model.weak(710)'),false);
 assert.equal(a.query('[data-action="practice-again"]'),null);
 assert.equal(a.errors.length,0);a.close();
+
+assert.equal(a.errors.length,0);a.close();
+
+a=app();a.click('#tab-learn');
+assert.equal(a.all('.learn-switch [role="tab"]').length,2);
+a.click('#learn-tab-notes');assert.equal(a.query('#learn-notes').hidden,false);assert.equal(a.query('#learn-categories').hidden,true);assert.equal(a.all('#learn-notes details.note').length,47);
+assert.equal(a.all('#note-search').length,1);
+a.run("openNotes('n-hand')");assert.equal(a.all('#note-search').length,1);a.click('[data-action="note-return"]');assert.equal(a.all('#learn-notes details.note').length,47);
+a.click('#learn-tab-categories');assert.equal(a.query('#learn-categories').hidden,false);assert.equal(a.all('#learn .notes-entry').length,0);
+a.close();
