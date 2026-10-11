@@ -511,6 +511,9 @@ body{-webkit-text-size-adjust:100%}
 .caution-heading h3{min-width:0;margin:0}
 .caution-guide{width:46px;height:56px}
 .result-character.placement-character{aspect-ratio:175/99}
+.result-character.placement-character.result-character-solo{width:88px;height:100px;aspect-ratio:auto}
+@media(min-width:650px){.result-character.placement-character.result-character-solo{width:96px;height:110px}}
+@media(max-width:380px){.result-character.placement-character.result-character-solo{width:80px;height:92px}}
 @media(min-width:650px){.learn-guide{width:70px;height:96px}.review-guide{width:85px;height:92px}}
 @media(max-width:380px){.character-heading{gap:8px}.character-heading h2{font-size:23px}.empty-guide{width:66px;height:80px}.review-empty{gap:8px}}
 

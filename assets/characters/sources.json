@@ -112,6 +112,35 @@
     "retrieved_date_jst": "2026-10-12"
   },
   {
+    "alt": "pulley",
+    "src": "https://dondondrive.jp/wp/wp-content/themes/dondora/assets/img/common/sns-pulley02.png",
+    "pages": [
+      "https://dondondrive.jp/"
+    ],
+    "id": "D013",
+    "file": "assets/common/sns-pulley02.png",
+    "width": 400,
+    "height": 400,
+    "bytes": 164471,
+    "sha256": "e8b6f66b83832c77c49783886cbb00a0357c95630ba9eaa4b02a347de19ab349",
+    "transparent": true,
+    "visible_bounds": [
+      40,
+      16,
+      324,
+      360
+    ],
+    "existing_app_file": null,
+    "name": "プーリーくん",
+    "pose": "正面",
+    "suggested_use": "学習再開・応援・復習の入口",
+    "status": "新規候補",
+    "recommended_number": null,
+    "rights": "公式サイト掲載画像。再利用許諾・フリー素材の明示は未確認。",
+    "retrieved_date_jst": "2026-10-12",
+    "adopted_usage": "通常の完了結果・回答がある途中終了の結果"
+  },
+  {
     "alt": "プロ",
     "src": "https://dondondrive.jp/wp/wp-content/themes/dondora/assets/img/friends/pro_b02.png",
     "pages": [
