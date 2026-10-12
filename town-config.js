@@ -161,47 +161,112 @@
     "caption": "2022年3月撮影",
     "sha256": "a6d4df790421e493e2f71731a522a13386c9480461cc067c615669088c08841c",
     "title": "Itoman Market 202203 01.jpg"
+  },
+  "katsudon": {
+    "url": "./assets/town/katsudon.jpg",
+    "alt": "カツ丼の参考イメージ（掲載店舗の実際の商品写真ではありません）",
+    "credit": "Ocdp",
+    "title": "File:Katsudon 001.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Katsudon_001.jpg",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "permission": "cc0-1.0",
+    "kind": "menu-illustration",
+    "caption": "店舗の実際の料理写真ではありません",
+    "sha256": "9afd1a68a9f99612dbfcafdcd6c965e3bf30a61577d7cb1e4ad9c7d257c22938"
+  },
+  "takoyaki": {
+    "url": "./assets/town/takoyaki.jpg",
+    "alt": "たこ焼きの参考イメージ（掲載店舗の実際の商品写真ではありません）",
+    "credit": "Corpse Reviver",
+    "title": "File:Takoyaki 01.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Takoyaki_01.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "permission": "cc-by-sa-3.0",
+    "kind": "menu-illustration",
+    "caption": "店舗の実際の料理写真ではありません",
+    "sha256": "22dd0f9eb64ed2bc4a8c8c72787b30c6df72ec3d74aa96f1d127254b8f7eae07"
+  },
+  "bread": {
+    "url": "./assets/town/bread.jpg",
+    "alt": "パンの参考イメージ（掲載店舗の実際の商品写真ではありません）",
+    "credit": "Ocdp",
+    "title": "File:Anpan 001.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Anpan_001.jpg",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "permission": "cc0-1.0",
+    "kind": "menu-illustration",
+    "caption": "店舗の実際の料理写真ではありません",
+    "sha256": "36a60cf57f045fb62ad856fcc5feb19d737c787e94778208a3078a905800b4c2"
+  },
+  "itomaru-interior": {
+    "url": "./assets/town/itomaru-interior.jpg",
+    "alt": "糸満市場いとま〜るの施設内通路・傘の装飾。2022年3月撮影。",
+    "credit": "Kugel~commonswiki",
+    "title": "File:Hanged umbrellas at Itoman Market 202203.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hanged_umbrellas_at_Itoman_Market_202203.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "permission": "cc-by-sa-4.0",
+    "kind": "venue",
+    "caption": "2022年3月撮影・当時の装飾です",
+    "sha256": "65dfeda949531914ddadf459546011b8fe941a5ed61c5025e91eb53ccf6f60ed"
   }
 };
   const selection = {
   "center": [
-    "okinawa-soba"
+    "okinawa-soba",
+    "katsudon",
+    "omurice"
   ],
   "umibozu": [
-    "kaisendon"
+    "kaisendon",
+    "bento"
   ],
   "kirakira": [
-    "omurice"
+    "omurice",
+    "teishoku"
   ],
   "kinta": [
     "teishoku"
   ],
   "chiquita": [
+    "curry",
+    "omurice"
+  ],
+  "mahoroba": [
+    "okinawa-soba",
     "curry"
   ],
-
-  "mahoroba": [
-    "okinawa-soba"
-  ],
   "ritz": [
-    "cake"
+    "cake",
+    "bread"
   ],
   "uminchu": [
-    "teishoku"
+    "teishoku",
+    "okinawa-soba"
   ],
   "konaya": [
-    "udon"
+    "udon",
+    "takoyaki"
   ],
   "yotsuba": [
-    "onigiri"
+    "onigiri",
+    "bento",
+    "katsudon"
   ],
   "cafe-itoman": [
     "coffee",
-    "cake"
+    "cake",
+    "curry",
+    "teishoku"
   ],
   "itomaru": [
     "itomaru-02",
-    "itomaru-01"
+    "itomaru-01",
+    "itomaru-interior"
   ],
   "ichiman-yokocho": [
     "teishoku"

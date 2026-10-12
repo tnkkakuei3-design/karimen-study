@@ -77,8 +77,9 @@ assert.equal(a.query('#town').hidden,false);assert.equal(a.w.location.hash,'#tow
 assert.equal(a.all('.town-card').length,14);assert.equal(a.all('.town-card .town-hours').length,14);assert.equal(a.all('.town-card .town-hours dl').length,14);assert.equal(a.query('#town-title'),a.w.document.activeElement);
 assert.equal(a.query('script[src*="maps.googleapis.com"]'),null,'no API calls before provider configuration');
 await settle();
-assert.equal(a.all('.town-card .town-photo-gallery img').length,14,'all 14 cards include a real image file without an API');
-assert.equal(a.all('.town-card .town-photo-kind').length,13,'generic food imagery is explicitly labeled');
+assert.ok(a.all('.town-card').every(card=>card.querySelector('.town-photo-gallery img')),'all 14 cards include an image without an API');
+assert.equal(a.all('.town-card .town-photo-gallery img').length,30);
+assert.equal(a.all('.town-card .town-photo-kind').length,27,'every generic food image is explicitly labeled');
 assert.ok(a.all('.town-card .town-photo-credit').every(el=>el.querySelector('a[href*="creativecommons.org"]')),'photo licenses remain accessible');
 for(const [id,photos]of Object.entries(a.w.KarimenTownConfig.suppliedPhotos)){
  assert.ok(photos.length>0,id);
@@ -91,6 +92,17 @@ for(const [id,photos]of Object.entries(a.w.KarimenTownConfig.suppliedPhotos)){
   if(id!=='itomaru'){assert.equal(photo.kind,'menu-illustration');assert.match(photo.alt,/イメージ/)}
  }
 }
+// Opening from a card stays in the app; stepping and closing preserve the directory.
+const photoTrigger=a.query('[data-town-photo="center"] [data-town-action="photo"]');photoTrigger.click();
+assert.ok(a.query('.town-photo-dialog').open);assert.equal(a.w.location.hash,'#town');
+assert.match(a.query('.town-expanded-kind').textContent,/実際の料理写真ではありません/);
+const firstExpanded=a.query('.town-expanded-photo').src;a.click('[data-photo-next]');
+assert.notEqual(a.query('.town-expanded-photo').src,firstExpanded);
+a.query('.town-photo-dialog').dispatchEvent(new a.w.KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true}));
+assert.equal(a.query('.town-expanded-photo').src,firstExpanded);
+a.click('[data-photo-close]');assert.equal(a.query('.town-photo-dialog'),null);assert.equal(a.w.document.activeElement,photoTrigger);
+photoTrigger.click();a.w.KarimenTown.open('itomaru');assert.equal(a.query('.town-photo-dialog'),null);await settle();
+assert.equal(a.all('.town-media-detail img').length,3);a.w.KarimenTown.open();await settle();
 a.click('[data-town-action="filter"][data-value="cafe"]');assert.equal(a.all('.town-card').length,3);
 a.click('[data-town-action="filter"][data-value="all"]');
 let input=a.query('#town-search');input.value='ｷﾗｷﾗ';input.dispatchEvent(new a.w.Event('input',{bubbles:true}));

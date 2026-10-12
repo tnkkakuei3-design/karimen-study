@@ -1,5 +1,5 @@
 {
-  "verifiedOn": "2026-10-12",
+  "verifiedOn": "2026-10-13",
   "images": [
     {
       "file": "okinawa-soba.jpg",
@@ -156,49 +156,104 @@
       "modifications": "サイト提供のJPEGをそのまま収録。画面上では表示枠に合わせてトリミング。",
       "actualListedRestaurantPhoto": true,
       "capturedOn": "2022-03-09"
+    },
+    {
+      "file": "katsudon.jpg",
+      "sha256": "9afd1a68a9f99612dbfcafdcd6c965e3bf30a61577d7cb1e4ad9c7d257c22938",
+      "title": "File:Katsudon 001.jpg",
+      "author": "Ocdp",
+      "source": "https://commons.wikimedia.org/wiki/File:Katsudon_001.jpg",
+      "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Katsudon_001.jpg/1280px-Katsudon_001.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "kind": "menu-illustration"
+    },
+    {
+      "file": "takoyaki.jpg",
+      "sha256": "22dd0f9eb64ed2bc4a8c8c72787b30c6df72ec3d74aa96f1d127254b8f7eae07",
+      "title": "File:Takoyaki 01.jpg",
+      "author": "Corpse Reviver",
+      "source": "https://commons.wikimedia.org/wiki/File:Takoyaki_01.jpg",
+      "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9c/Takoyaki_01.jpg/1280px-Takoyaki_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "kind": "menu-illustration"
+    },
+    {
+      "file": "bread.jpg",
+      "sha256": "36a60cf57f045fb62ad856fcc5feb19d737c787e94778208a3078a905800b4c2",
+      "title": "File:Anpan 001.jpg",
+      "author": "Ocdp",
+      "source": "https://commons.wikimedia.org/wiki/File:Anpan_001.jpg",
+      "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e9/Anpan_001.jpg/1280px-Anpan_001.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "kind": "menu-illustration"
+    },
+    {
+      "file": "itomaru-interior.jpg",
+      "sha256": "65dfeda949531914ddadf459546011b8fe941a5ed61c5025e91eb53ccf6f60ed",
+      "title": "File:Hanged umbrellas at Itoman Market 202203.jpg",
+      "author": "Kugel~commonswiki",
+      "source": "https://commons.wikimedia.org/wiki/File:Hanged_umbrellas_at_Itoman_Market_202203.jpg",
+      "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Hanged_umbrellas_at_Itoman_Market_202203.jpg/1280px-Hanged_umbrellas_at_Itoman_Market_202203.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "kind": "venue"
     }
   ],
   "shopImages": {
     "center": [
-      "okinawa-soba"
+      "okinawa-soba",
+      "katsudon",
+      "omurice"
     ],
     "umibozu": [
-      "kaisendon"
+      "kaisendon",
+      "bento"
     ],
     "kirakira": [
-      "omurice"
+      "omurice",
+      "teishoku"
     ],
     "kinta": [
       "teishoku"
     ],
     "chiquita": [
-      "curry"
-    ],
-    "365": [
-      "bento"
+      "curry",
+      "omurice"
     ],
     "mahoroba": [
-      "okinawa-soba"
+      "okinawa-soba",
+      "curry"
     ],
     "ritz": [
-      "cake"
+      "cake",
+      "bread"
     ],
     "uminchu": [
-      "teishoku"
+      "teishoku",
+      "okinawa-soba"
     ],
     "konaya": [
-      "udon"
+      "udon",
+      "takoyaki"
     ],
     "yotsuba": [
-      "onigiri"
+      "onigiri",
+      "bento",
+      "katsudon"
     ],
     "cafe-itoman": [
       "coffee",
-      "cake"
+      "cake",
+      "curry",
+      "teishoku"
     ],
     "itomaru": [
       "itomaru-02",
-      "itomaru-01"
+      "itomaru-01",
+      "itomaru-interior"
     ],
     "ichiman-yokocho": [
       "teishoku"

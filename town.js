@@ -154,6 +154,7 @@
     document.getElementById('town-title')?.focus({preventScroll:true});
   }
   function close() {
+    closePhotoViewer();
     history.replaceState({...history.state,karimenTown:false},'',location.pathname+location.search);
     selected=null; disconnectPhotos(); api?.back();
   }
@@ -191,6 +192,7 @@
     return `<div class="town-topline"><button class="textbtn" data-town-action="list">${icon('back')}お店一覧へ</button><span class="town-pr">地域のお店紹介 · PR</span></div><div class="town-detail-hero">${media(shop,'detail')}${bookmarkButton(shop)}</div><div class="town-detail-heading"><div><p class="town-eyebrow">${esc(shop.category)}</p><h2 id="town-title" tabindex="-1">${esc(shop.name)}</h2></div>${badge(shop)}</div>${link(searchUrl(shop),`${icon('photo')}Googleマップで写真・口コミを見る ↗`,'textbtn town-all-photos')}${socialLink}<section class="town-detail-section"><h3>お店のメニュー</h3><p class="town-section-sub">案内表に記載されているメニューです</p><ul class="town-menu-list">${shop.menus.map(menu=>`<li>${esc(menu)}</li>`).join('')}</ul><p class="town-menu-note">この一覧は、すべてのメニューが食券だけで注文できることを示すものではありません。</p></section><section class="town-detail-section"><h3>来店前にチェック</h3><p class="town-hours-notice">教習所の案内表に基づく営業予定です。臨時休業・売り切れは来店前にご確認ください。</p>${scheduleSummary(shop)}<dl class="town-details">${shop.phone?`<div><dt>電話</dt><dd><a href="tel:${shop.phone.replace(/-/g,'')}">${esc(shop.phone)}</a></dd></div>`:''}${shop.address?`<div><dt>住所</dt><dd>${esc(shop.address)}</dd></div>`:''}</dl>${shop.note?`<p class="town-store-note">${esc(shop.note)}</p>`:''}<p class="town-section-sub">営業時間・定休日は案内表の情報です。臨時休業や売り切れは、来店前にご確認ください。</p>${addressSource}</section><section class="town-detail-section"><h3>${icon('pin')}お店への行き方</h3>${embeddedMap(shop)}<p class="town-section-sub">${canRoute?'経路の出発点は糸満自動車学校です。Googleマップで現在地に変更できます。':'所在地を確認中です。店舗または教習所に場所をご確認ください。'}</p></section><div class="town-voucher-info">${townCharacter()}<div><h3>食券が使えるお店です</h3><p>${shop.facility?'施設内の飲食店が対象です。':'教習所の食券対象店として案内されています。'} 対象メニュー・差額・利用時間は、お持ちの食券とお店でご確認ください。</p></div></div><div class="town-detail-actions">${link(routeUrl(shop),`${icon(canRoute?'walk':'search')}${canRoute?'徒歩ルートを見る':'場所を確認する'}`,'btn')}${shop.phone?`<a class="btn secondary" href="tel:${shop.phone.replace(/-/g,'')}">${icon('phone')}電話する</a>`:''}</div><p id="town-status" class="sr-only" role="status" aria-live="polite"></p>`;
   }
   function render() {
+    closePhotoViewer();
     if(!root())return;
     disconnectPhotos(); requestVersion++;
     root().innerHTML=selected ? detail(byId.get(selected)) : directory();
@@ -232,15 +234,46 @@
     const credit=`${photo.google?'<span translate="no">Google Maps</span> · ':''}${authors}${source?` · <a href="${esc(source)}" target="_blank" rel="noopener noreferrer" title="${esc(photo.title||'写真の出典')}">出典 ↗</a>`:''}${license?` · ${link(license,esc(photo.license))}`:''}${photo.caption?`<span class="town-photo-caption">${esc(photo.caption)}</span>`:''}`;
     return `<figcaption class="town-photo-credit">${compact&&!photo.google?`<details><summary>写真の出典</summary>${credit}</details>`:credit}</figcaption>`;
   }
+  const loadedPhotos = new WeakMap();
+  let photoViewer = null;
+  function closePhotoViewer() {
+    if(!photoViewer)return;
+    const dialog=photoViewer;photoViewer=null;dialog.close();dialog.remove();
+  }
+  function openPhotoViewer(button) {
+    const media=button.closest('[data-town-photo]');
+    const photos=loadedPhotos.get(media);if(!photos?.length)return;
+    let index=Number(button.dataset.photoIndex)||0;
+    closePhotoViewer();
+    const dialog=document.createElement('dialog');photoViewer=dialog;
+    dialog.className='town-photo-dialog';dialog.setAttribute('aria-label','写真を拡大');
+    const paint=()=>{
+      const photo=photos[index];
+      dialog.innerHTML=`<div class="town-photo-dialog-head"><strong>${esc(byId.get(media.dataset.townPhoto)?.name)}</strong><button class="btn secondary compact" data-photo-close autofocus>閉じる</button></div><figure><img class="town-expanded-photo" src="${esc(safeUrl(photo.url))}" alt="${esc(photo.alt)}"><p class="town-expanded-kind">${photo.kind==='menu-illustration'?'料理イメージ（店舗の実際の料理写真ではありません）':'店舗・施設の写真'}</p>${photoCredit(photo)}</figure><div class="town-photo-dialog-nav"><button class="btn secondary" data-photo-prev ${index===0?'disabled':''}>前の写真</button><span aria-live="polite">${index+1} / ${photos.length}</span><button class="btn secondary" data-photo-next ${index===photos.length-1?'disabled':''}>次の写真</button></div>`;
+      dialog.querySelector('img').addEventListener('error',()=>{dialog.querySelector('img').hidden=true;dialog.querySelector('.town-expanded-kind').textContent='写真を読み込めませんでした。前後の写真をご覧ください。';},{once:true});
+    };
+    const move=step=>{const next=index+step;if(next<0||next>=photos.length)return;index=next;paint();dialog.querySelector(step>0?'[data-photo-next]:not(:disabled)':'[data-photo-prev]:not(:disabled)')?.focus();if(!dialog.contains(document.activeElement))dialog.querySelector('[data-photo-close]').focus();};
+    dialog.addEventListener('click',event=>{
+      if(event.target.closest('[data-photo-close]'))closePhotoViewer();
+      else if(event.target.closest('[data-photo-prev]'))move(-1);
+      else if(event.target.closest('[data-photo-next]'))move(1);
+    });
+    dialog.addEventListener('keydown',event=>{if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();move(event.key==='ArrowRight'?1:-1);}});
+    dialog.addEventListener('close',()=>{if(photoViewer===dialog)photoViewer=null;dialog.remove();if(button.isConnected)button.focus({preventScroll:true});},{once:true});
+    document.body.append(dialog);paint();dialog.showModal();
+  }
   async function fillMedia(el) {
     const shop=byId.get(el.dataset.townPhoto);if(!shop)return;
     const version=requestVersion;const photos=await getPhotos(shop);
     if(!el.isConnected || !photos.length || (el.closest('#town')&&version!==requestVersion))return;
-    const images=el.classList.contains('town-media-detail')?photos.slice(0,5):photos.slice(0,1);
+    const images=el.classList.contains('town-media-teaser')?photos.slice(0,1):el.classList.contains('town-media-detail')?photos:photos.slice(0,3);
+    loadedPhotos.set(el,photos);
     const fallback=el.innerHTML;
-    el.innerHTML=`<div class="town-photo-gallery" tabindex="${images.length>1?'0':'-1'}" ${images.length>1?'aria-label="掲載写真。横にスクロールできます"':''}>${images.map(p=>`<figure><div class="town-photo-frame"><img src="${esc(safeUrl(p.url))}" alt="${esc(p.alt)}" loading="lazy" decoding="async" width="960" height="640">${p.kind==='menu-illustration'?'<span class="town-photo-kind">料理イメージ</span>':''}</div>${photoCredit(p,el.classList.contains('town-media-teaser'))}</figure>`).join('')}</div>`;
+    el.innerHTML=`<div class="town-photo-gallery" tabindex="${images.length>1?'0':'-1'}" ${images.length>1?'aria-label="掲載写真。横にスクロールできます"':''}>${images.map((p,i)=>`<figure><button class="town-photo-frame town-photo-open" data-town-action="photo" data-photo-index="${i}" aria-label="${esc(shop.name)}の写真${i+1}を拡大"><img src="${esc(safeUrl(p.url))}" alt="${esc(p.alt)}" loading="lazy" decoding="async" width="960" height="640">${p.kind==='menu-illustration'?'<span class="town-photo-kind">料理イメージ</span>':''}</button>${photoCredit(p)}</figure>`).join('')}</div><div class="town-gallery-help"><span class="town-photo-counter">1 / ${images.length}</span><span>${images.length>1?'横スワイプ · ':''}タップで拡大${photos.length>images.length?` · 全${photos.length}枚`:''}</span></div>`;
     el.classList.add('has-photo');
-    el.querySelectorAll('img').forEach(img=>img.addEventListener('error',()=>{el.innerHTML=fallback;el.classList.remove('has-photo');},{once:true}));
+    const gallery=el.querySelector('.town-photo-gallery');
+    gallery.addEventListener('scroll',()=>{const width=gallery.querySelector('figure')?.getBoundingClientRect().width||1;const current=Math.min(images.length,Math.max(1,Math.round(gallery.scrollLeft/(width+10))+1));el.querySelector('.town-photo-counter').textContent=`${current} / ${images.length}`;},{passive:true});
+    el.querySelectorAll('img').forEach(img=>img.addEventListener('error',()=>{if(images.length===1){el.innerHTML=fallback;el.classList.remove('has-photo');}else{img.hidden=true;const frame=img.closest('.town-photo-frame');frame.disabled=true;frame.insertAdjacentHTML('beforeend','<span class="town-photo-error">写真を読み込めませんでした</span>');}},{once:true}));
   }
   function activatePhotos(scope) {
     const els=[...scope.querySelectorAll('[data-town-photo]')];
@@ -261,7 +294,8 @@
   document.addEventListener('click',event=>{
     const button=event.target.closest('[data-town-action]');if(!button||button.disabled)return;
     const action=button.dataset.townAction;
-    if(action==='open'){mode='cards';filter='all';query='';listScroll=0;open();}
+    if(action==='photo')openPhotoViewer(button);
+    else if(action==='open'){mode='cards';filter='all';query='';listScroll=0;open();}
     else if(action==='shop'){mapShop=button.dataset.id;open(button.dataset.id);}
     else if(action==='close')close();
     else if(action==='list')backToList();
@@ -280,7 +314,7 @@
     if(location.hash==='#town'||location.hash.startsWith('#town/')) {
       let id=null;try{id=decodeURIComponent(location.hash.slice(6));}catch{}
       open(id,true);
-    } else if(isOpen()) { selected=null;disconnectPhotos();api?.back(); }
+    } else if(isOpen()) { closePhotoViewer();selected=null;disconnectPhotos();api?.back(); }
   }
   window.addEventListener('popstate',readRoute);
   window.KarimenTown = {

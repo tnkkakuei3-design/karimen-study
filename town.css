@@ -69,3 +69,20 @@
 .town-voucher-info .town-character{width:60px;height:60px}
 @media(max-width:380px){.town-heading{gap:8px}.town-heading .town-character{width:60px;height:60px}.town-heading h2{font-size:25px}.town-voucher-info{padding:14px;gap:10px}}
 @media(min-width:650px){.town-heading .town-character{width:80px;height:80px}}
+
+/* Browse locally served photos without leaving the guide. */
+.town-photo-open{display:block;width:100%;padding:0;border:0;background:var(--soft);cursor:zoom-in;text-align:left;min-height:150px}
+.town-photo-open:focus-visible{outline:3px solid var(--blue);outline-offset:-3px}
+.town-media-card .town-photo-gallery>figure{flex-basis:92%}
+.town-photo-gallery>figure:only-child{flex-basis:100%}
+.town-gallery-help{display:flex;justify-content:space-between;gap:8px;padding:8px 12px;font-size:11px;color:var(--muted);border-top:1px solid var(--line)}
+.town-photo-counter{font-variant-numeric:tabular-nums;white-space:nowrap}
+.town-photo-dialog{width:min(940px,calc(100vw - 24px));max-width:calc(100vw - 24px);max-height:90dvh;padding:16px;margin:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--fg);overflow:auto}
+.town-photo-dialog::backdrop{background:rgba(0,0,0,.76)}
+.town-photo-dialog-head,.town-photo-dialog-nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.town-photo-dialog-head{margin-bottom:12px}.town-photo-dialog-head strong{font-size:16px}.town-photo-dialog-head button{flex:none}
+.town-photo-dialog figure{margin:0}.town-expanded-photo{display:block;width:100%;height:auto;max-height:60dvh;object-fit:contain;background:var(--soft)}
+.town-expanded-kind{font-size:12px;margin-top:10px;line-height:1.7}.town-photo-dialog-nav{margin-top:16px}.town-photo-dialog-nav .btn{font-size:13px;min-height:44px;padding:8px 12px}
+.town-photo-error{display:block;padding:40px 16px;font-size:13px;color:var(--muted)}
+
+.town-photo-gallery{gap:10px}.town-photo-gallery>figure{margin:0}
