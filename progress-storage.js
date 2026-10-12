@@ -110,11 +110,22 @@ const KarimenStorage = (() => {
             const actual = storage.getItem(KEY);
             if (actual !== observedPrimary || cache !== snapshot.raw) return;
             const old = request.result;
-            // When localStorage is full it cannot arbitrate tabs. The database
-            // transaction compares the head we read instead of overwriting it.
-            if (snapshot.fallback && (old?.seq !== databaseHead?.seq || old?.hash !== databaseHead?.hash)) {
-              conflict = true; failure = '別の画面で学習記録が更新されました。再読み込みして続けてください。'; return;
+            // A quota failure can leave the primary behind the database. Check
+            // the database head even if primary writes have since recovered.
+            if (old?.hash !== databaseHead?.hash && old?.hash !== snapshot.baseHash) {
+              conflict = true; failure = '別の画面で学習記録が更新されました。再読み込みして続けてください。';
+              if (snapshotGood(old)) {
+                const protectedCopy = { ...old, seq: Math.max(old.seq, snapshot.seq, sequence) + 1, fallback: true, baseHash: hash(actual) };
+                records.put({ uncommittedRaw: snapshot.raw, at: now() }, 'conflicting');
+                records.put(protectedCopy, 'latest');
+                // Keep the newer committed record authoritative on the next
+                // startup, even when the primary cannot be repaired immediately.
+                try { if (storage.getItem(KEY) === snapshot.raw) storage.setItem(KEY, old.raw); } catch {}
+                remember(protectedCopy);
+              }
+              return;
             }
+            snapshot.seq = Math.max(snapshot.seq, (old?.seq || 0) + 1); sequence = Math.max(sequence, snapshot.seq);
             if (snapshotGood(old) && old.raw !== snapshot.raw) records.put(old, 'previous');
             records.put(snapshot, 'latest');
             result(true);
@@ -123,7 +134,7 @@ const KarimenStorage = (() => {
         });
         if (committed) databaseHead = snapshot;
         if (committed && current === snapshot && storage.getItem(KEY) === observedPrimary) {
-          if (snapshot.fallback) remember(snapshot);
+          remember(snapshot);
           backupSaved = true; failure = '';
         }
       }).catch(() => {

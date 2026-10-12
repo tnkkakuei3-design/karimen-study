@@ -125,10 +125,12 @@ firstModel.save();await first.flush();assert.equal(firstModel.conflicted,true);a
 first.close();second.close();
 
 // The database transaction also arbitrates tabs when the primary store is full.
+for(const primaryRecovers of [false,true]){
 const quotaOptions=setup();makeModel(quotaOptions.storage);quotaOptions.storage.failPrimary=true;
 const oldTab=await open(quotaOptions),oldModel=makeModel(oldTab);await oldTab.flush();
 const newTab=await open(quotaOptions),newModel=makeModel(newTab);await newTab.flush();
 newModel.begin({ids:[302],kind:'study'});newModel.answer(Q[1].a);await newTab.flush();
+if(primaryRecovers)quotaOptions.storage.failPrimary=false;
 oldModel.begin({ids:[301],kind:'study'});oldModel.answer(Q[0].a);
 for(let i=0;i<20;i++)oldModel.save(); // Even a higher local sequence is not a committed backup.
 await oldTab.flush();
@@ -136,6 +138,7 @@ assert.equal(oldTab.conflict,true);assert.equal(oldModel.save(),false);assert.eq
 oldTab.close();newTab.close();quotaOptions.storage.failPrimary=false;
 const restoredTab=await open(quotaOptions),restoredModel=makeModel(restoredTab);await restoredTab.flush();
 assert.equal(restoredModel.state.stats[302].correct,1);assert.equal(restoredModel.state.stats[301],undefined);restoredTab.close();
+}
 
 // Intentional reset is also saved. Recovery must not resurrect cleared answers.
 adapter=await open(options);model=makeModel(adapter);model.reset();await adapter.flush();adapter.close();
