@@ -99,7 +99,7 @@
       const params=new URLSearchParams({key:config.googleMapsApiKey,q:`place_id:${config.placeIds[shop.id]}`,language:'ja'});
       src=`https://www.google.com/maps/embed/v1/place?${params}`;
     }
-    return src ? `<div class="town-map-frame"><iframe title="${esc(shop.name)}のGoogleマップ" src="${esc(src)}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><p class="town-map-fallback">地図が表示されない場合は ${link(searchUrl(shop),'Googleマップで開く ↗')}</p>` : `<div class="town-map-fallback-card">${icon('map')}<strong>${shop.address ? esc(shop.address) : '場所をGoogleマップで確認'}</strong><p>${shop.address ? '教習所からの徒歩ルートを確認できます。' : '同名のお店があるため、電話番号や所在地を確認してお選びください。'}</p>${link(searchUrl(shop),'Googleマップを開く ↗','btn secondary')}</div>`;
+    return src ? `<div class="town-map-frame"><iframe title="${esc(shop.name)}のGoogleマップ" src="${esc(src)}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><p class="town-map-fallback">地図が表示されない場合は ${link(searchUrl(shop),'Googleマップで開く ↗')}</p>` : `<div class="town-map-fallback-card">${icon('map')}<strong>${shop.address ? esc(shop.address) : shop.mapNote ? '所在地を確認中' : '場所をGoogleマップで確認'}</strong><p>${shop.mapNote ? esc(shop.mapNote) : shop.address ? '教習所からの徒歩ルートを確認できます。' : '同名のお店があるため、電話番号や所在地を確認してお選びください。'}</p>${link(searchUrl(shop),'Googleマップを開く ↗','btn secondary')}</div>`;
   }
   function mapResults(list) {
     if(!list.some(s=>s.id===mapShop))mapShop=(list.find(shop=>shop.embedUrl)||list[0]).id;

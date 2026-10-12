@@ -1,0 +1,123 @@
+{
+  "checkedOn": "2026-10-12",
+  "verified": [
+    {
+      "id": "center",
+      "name": "センター食堂",
+      "address": [
+        "〒901-0361 沖縄県糸満市糸満１９４２−１９"
+      ],
+      "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44K744Oz44K_44O86aOf5aCCIOaylue4hOecjOezuOa6gOW4guWtl-ezuOa6gDE5NDItMTk!3m1!1sja!5m1!1sja"
+    },
+    {
+      "id": "umibozu",
+      "name": "海ぼうず",
+      "address": [
+        "〒901-0361 沖縄県糸満市糸満２２５０"
+      ],
+      "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.0544679097716!2d127.66208631543645!3d26.129766983471033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34e567bf2477cb9f:0x2798504fdbff2255!2z5rW344G844GG44Ga!5e0!3m2!1sja!2sjp!4v1570704761917!5m2!1sja!2sjp"
+    },
+    {
+      "id": "kirakira",
+      "name": "きらきら",
+      "address": [
+        "〒901-0361 沖縄県糸満市糸満１９４３−６０"
+      ],
+      "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44GN44KJ44GN44KJIOaylue4hOecjOezuOa6gOW4guezuOa6gDE5NDMtNjA!3m1!1sja!5m1!1sja"
+    },
+    {
+      "id": "kinta",
+      "name": "きんた",
+      "address": [
+        "〒901-0361 沖縄県糸満市糸満９８９−６１"
+      ],
+      "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44GN44KT44GfIOaylue4hOecjOezuOa6gOW4gg!3m1!1sja!5m1!1sja"
+    },
+    {
+      "id": "chiquita",
+      "name": "チキータ",
+      "address": [
+        "〒901-0361 沖縄県糸満市糸満９８９−６０"
+      ],
+      "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44OB44Kt44O844K_IOaylue4hOecjOezuOa6gOW4guWtl-ezuOa6gDk4OS02MA!3m1!1sja!5m1!1sja"
+    },
+    {
+      "id": "mahoroba",
+      "name": "食工房まほろば",
+      "address": [
+        "〒901-0361 沖縄県糸満市糸満２２２８"
+      ],
+      "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.0739910419907!2d127.6618229116158!3d26.129130377027504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34e567b855e743af:0x741399137a08eb46!2z6aOf5bel5oi_44G-44G744KN44Gw!5e0!3m2!1sja!2sjp!4v1733458762026!5m2!1sja!2sjp"
+    },
+    {
+      "id": "ritz",
+      "name": "リッツ・パンとケーキのお店",
+      "address": [
+        "〒901-0361 沖縄県糸満市糸満９８９−８ フォーションビル"
+      ],
+      "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44Oq44OD44OEIOaylue4hOecjOezuOa6gOW4guWtl-ezuOa6gDk4OS04IDFG!3m1!1sja!5m1!1sja"
+    },
+    {
+      "id": "uminchu",
+      "name": "糸満海人食堂",
+      "address": [
+        "〒901-0361 沖縄県糸満市糸満９８９−８８"
+      ],
+      "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z57O45rqA5rW35Lq66aOf5aCCIOaylue4hOecjOezuOa6gOW4gg!3m1!1sja!5m1!1sja"
+    },
+    {
+      "id": "konaya",
+      "name": "こなや本家",
+      "address": [
+        "〒901-0361 沖縄県糸満市糸満５０２"
+      ],
+      "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44GT44Gq44KE5pys5a62IOaylue4hOecjOezuOa6gOW4guWtl-ezuOa6gDUwMg!3m1!1sja!5m1!1sja"
+    },
+    {
+      "id": "yotsuba",
+      "name": "よつばキッチン",
+      "address": [
+        "〒901-0361 沖縄県糸満市糸満２２２４"
+      ],
+      "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44KI44Gk44Gw44Kt44OD44OB44OzIOaylue4hOecjOezuOa6gOW4guezuOa6gDIyMjQ!3m1!1sja!5m1!1sja"
+    },
+    {
+      "id": "cafe-itoman",
+      "name": "Ceramic Art Cafe Itoman",
+      "address": [
+        "〒901-0361 沖縄県糸満市糸満９８９−５６"
+      ],
+      "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44K744Op44Of44OD44Kv44Ki44O844OI44Kr44OV44KnIOOCpOODiOODnuODsyDmspbnuITnnIzns7jmuoDluILns7jmuoA5ODktNTYgMUY!3m1!1sja!5m1!1sja"
+    },
+    {
+      "id": "itomaru",
+      "name": "糸満市場いとま〜る",
+      "address": [
+        "〒901-0361 沖縄県糸満市糸満９８９−８３"
+      ],
+      "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.0814061315573!2d127.6660044150284!3d26.12888858347142!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34e567b85876ac85:0x3f052d52e5e6676f!2z57O45rqA5biC5aC044GE44Go44G-44Cc44KL!5e0!3m2!1sja!2sjp!4v1684471900572!5m2!1sja!2sjp"
+    },
+    {
+      "id": "ichiman-yokocho",
+      "name": "いちまん横丁",
+      "address": [
+        "〒901-0361 沖縄県糸満市糸満９８９−９０"
+      ],
+      "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44GE44Gh44G-44KT5qiq5LiBIOaylue4hOecjOezuOa6gOW4guezuOa6gDk4OS05MCDph5Hln47jgqLjg5Hjg7zjg4gxRg!3m1!1sja!5m1!1sja"
+    },
+    {
+      "id": "zero",
+      "name": "喫茶&BAR ゼロ番地",
+      "address": [
+        "〒901-0361 沖縄県糸満市糸満１９５３"
+      ],
+      "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.088940654995!2d127.66393336227826!3d26.128642893247587!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34e5670007a90743:0x37c5b85c7b2205c8!2z5Zar6Iy2JkJBUiDjgrzjg63nlarlnLA!5e0!3m2!1sja!2sjp!4v1781005333722!5m2!1sja!2sjp"
+    }
+  ],
+  "unresolved": [
+    {
+      "id": "365",
+      "reason": "Google embed searches by store name, Itoman and provided phone did not identify the restaurant. City-level and unrelated restaurant results rejected."
+    }
+  ]
+}

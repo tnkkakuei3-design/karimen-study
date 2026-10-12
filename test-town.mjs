@@ -85,12 +85,21 @@ assert.equal(route.searchParams.get('travelmode'),'walking');assert.match(route.
 assert.equal(a.run('JSON.stringify(state)'),original,'browsing and favorites never alter study records');
 a.click('[data-town-action="list"]');a.click('[data-town-action="filter"][data-value="all"]');
 a.click('[data-town-action="mode"][data-value="map"]');
-// The previously selected Kirakira has no verified embed; a known location stays selected.
-assert.ok(a.query('.town-map-selected'));
-a.click('[data-town-action="map-shop"][data-id="umibozu"]');
-assert.equal(new URL(a.query('#town iframe').src).host,'www.google.com');
-a.click('[data-town-action="map-shop"][data-id="kinta"]');
-assert.equal(a.query('#town iframe'),null);assert.match(a.query('.town-map-actions a').href,/\/maps\/search\//);
+// Switching repeatedly and re-entering map mode preserves each verified shop's map.
+assert.equal(shops.filter(shop=>shop.embedUrl).length,14);
+for(let round=0;round<2;round++){
+ for(const shop of shops.filter(shop=>shop.embedUrl)){
+  a.click(`[data-town-action="map-shop"][data-id="${shop.id}"]`);
+  assert.equal(a.query('#town iframe').src,shop.embedUrl,`${shop.id} round ${round}`);
+  assert.equal(a.query('#town iframe').title,`${shop.name}のGoogleマップ`);
+ }
+ a.click('[data-town-action="mode"][data-value="cards"]');
+ a.click('[data-town-action="mode"][data-value="map"]');
+}
+a.click('[data-town-action="map-shop"][data-id="365"]');
+assert.equal(a.query('#town iframe'),null,'unknown location must not show an unrelated pin');
+assert.match(a.query('.town-map-fallback-card').textContent,/所在地を確認中/);
+assert.match(a.query('.town-map-actions a').href,/\/maps\/search\//);
 a.click('[data-town-action="close"]');assert.equal(a.query('#mock').hidden,false);assert.equal(a.w.location.hash,'');
 const remembered=a.snapshot();a.close();
 
