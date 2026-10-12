@@ -69,9 +69,16 @@
   function scheduleStatus(shop, now=new Date()) {
     const rule=data.schedules?.[shop.id];
     const check=note=>({kind:'check',label:'営業状況は要確認',note});
-    if(!rule || rule.uncertain)return check(rule?.uncertain || '店舗にご確認ください');
+    if(!rule)return check('店舗にご確認ください');
     const date=new Date(now.getTime()+9*60*60*1000);
     const minutes=date.getUTCHours()*60+date.getUTCMinutes();
+    if(rule.uncertain){
+      const ranges=[0,6].includes(date.getUTCDay())&&rule.weekendRanges?rule.weekendRanges:rule.ranges;
+      if(ranges&&!ranges.some(([start,end])=>minutes>=start&&minutes<end)){
+        return {kind:'outside',label:'営業時間外',note:`案内表の時間外・${rule.uncertain}`};
+      }
+      return check(rule.uncertain);
+    }
     const holidayData=data.holidays;
     const dayInfo=d=>{
       const weekday=d.getUTCDay();
@@ -92,9 +99,9 @@
       return '';
     };
     if(today.closed)return {kind:'closed',label:'本日定休日',note:nextOpening()};
-    if(today.unknown)return check('祝日の営業は店舗にご確認ください');
     const [start,end]=today.hours;
     if(minutes<start || (end!==null&&minutes>=end))return {kind:'outside',label:'営業時間外',note:nextOpening()};
+    if(today.unknown)return check('祝日の営業は店舗にご確認ください');
     if(rule.soldOut)return check('案内上は営業時間内・売り切れ次第終了');
     if(rule.lastOrder&&minutes>=rule.lastOrder)return check('ラストオーダー時刻を過ぎています');
     return {kind:'open',label:'営業予定',note:`案内上は${timeText(end)}まで`};

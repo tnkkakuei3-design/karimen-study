@@ -146,10 +146,10 @@ window.KarimenTownData.schedules = {
  uminchu:{hours:[1020,1320],closed:[1,2,3],lastOrder:1260},
  konaya:{hours:[1020,1440],sunday:[960,1380],closed:[4],lastWednesday:true},
  yotsuba:{hours:[630,null],closed:[0,3,6],holidays:true,soldOut:true},
- 'cafe-itoman':{uncertain:'営業曜日の記載に重複あり'},
- itomaru:{uncertain:'施設内の店舗ごとに異なります'},
+ 'cafe-itoman':{ranges:[[660,1020]],weekendRanges:[[660,1080]],uncertain:'営業曜日の記載に重複あり'},
+ itomaru:{ranges:[[540,1080]],uncertain:'施設内の店舗ごとに異なります'},
  'ichiman-yokocho':{uncertain:'店舗ごとの営業時間・不定休を確認'},
- zero:{uncertain:'不定休のため来店前に確認'}
+ zero:{ranges:[[660,960],[1140,1440]],uncertain:'不定休のため来店前に確認'}
 };
 
 // Cabinet Office holiday CSV, retrieved 2026-10-12. Years outside this snapshot are unknown.

@@ -65,6 +65,12 @@ assert.equal(status('yotsuba','2026-10-13T03:00:00Z').kind,'check');
 assert.equal(status('uminchu','2026-10-15T12:00:00Z').kind,'check');
 for(const id of ['zero','itomaru','ichiman-yokocho','cafe-itoman'])assert.equal(status(id,'2026-10-13T03:00:00Z').kind,'check');
 assert.equal(status('chiquita','2028-01-04T03:00:00Z').kind,'check','unknown holiday year never claims scheduled opening');
+for(const id of ['cafe-itoman','itomaru','zero'])assert.equal(status(id,'2026-10-12T18:10:00Z').kind,'outside','03:10 JST must be outside listed hours even when days are uncertain');
+assert.equal(status('cafe-itoman','2026-10-17T08:30:00Z').kind,'check','Saturday 17:30 is inside possible hours');
+assert.equal(status('cafe-itoman','2026-10-13T08:30:00Z').kind,'outside','weekday 17:30 is outside hours');
+assert.equal(status('zero','2026-10-13T08:00:00Z').kind,'outside','between lunch and dinner');
+assert.equal(status('zero','2026-10-13T10:00:00Z').kind,'check','dinner hours still need day confirmation');
+assert.match(read('town.css'),/data-town-state=open/,'only scheduled-open photos remain undimmed');
 const original=a.run('JSON.stringify(state)');
 a.click('#mock [data-town-action="open"]');
 assert.equal(a.query('#town').hidden,false);assert.equal(a.w.location.hash,'#town');
@@ -235,6 +241,8 @@ a.click('[data-town-action="map-shop"][data-id="kirakira"]');const map=a.query('
 clock=Date.parse('2026-10-13T15:00:00Z');a.w.dispatchEvent(new a.w.Event('focus'));
 assert.equal(a.query('#town iframe'),map,'time refresh preserves the selected map');
 assert.equal(a.query('.town-map-picker [aria-pressed="true"]').dataset.id,'kirakira');
-a.click('[data-town-action="mode"][data-value="cards"]');assertScheduleOrder();a.close();
+a.click('[data-town-action="mode"][data-value="cards"]');assertScheduleOrder();
+assert.equal(a.all('.town-card[data-town-state="open"]').length,0,'no bright scheduled-open cards at midnight');
+assert.equal(a.query('[data-town-hours="cafe-itoman"]').closest('.town-card').dataset.townState,'outside');a.close();
 
 console.log('PASS: 14 shops, scheduled-hours ordering and refresh, filters/maps, photos, bookmarks, unchanged study records.');
