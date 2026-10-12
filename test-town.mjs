@@ -77,9 +77,9 @@ assert.equal(a.query('#town').hidden,false);assert.equal(a.w.location.hash,'#tow
 assert.equal(a.all('.town-card').length,14);assert.equal(a.all('.town-card .town-hours').length,14);assert.equal(a.all('.town-card .town-hours dl').length,14);assert.equal(a.query('#town-title'),a.w.document.activeElement);
 assert.equal(a.query('script[src*="maps.googleapis.com"]'),null,'no API calls before provider configuration');
 await settle();
-assert.ok(a.all('.town-card').every(card=>card.querySelector('.town-photo-gallery img')),'all 14 cards include an image without an API');
-assert.equal(a.all('.town-card .town-photo-gallery img').length,30);
-assert.equal(a.all('.town-card .town-photo-kind').length,27,'every generic food image is explicitly labeled');
+assert.equal(a.all('.town-card .town-photo-placeholder').length,13,'missing actual venue photos never use unrelated substitutes');
+assert.equal(a.all('.town-card .town-photo-gallery img').length,3);
+assert.equal(a.all('.town-card .town-photo-kind').length,0,'no generic food imagery is displayed');
 assert.ok(a.all('.town-card .town-photo-credit').every(el=>el.querySelector('a[href*="creativecommons.org"]')),'photo licenses remain accessible');
 for(const [id,photos]of Object.entries(a.w.KarimenTownConfig.suppliedPhotos)){
  assert.ok(photos.length>0,id);
@@ -89,13 +89,13 @@ for(const [id,photos]of Object.entries(a.w.KarimenTownConfig.suppliedPhotos)){
   assert.equal(file.subarray(0,2).toString('hex'),'ffd8','published photo is a JPEG');
   assert.equal(crypto.createHash('sha256').update(file).digest('hex'),photo.sha256,'downloaded source image remains intact');
   assert.ok(photo.credit&&photo.licenseUrl&&photo.sourceUrl);
-  if(id!=='itomaru'){assert.equal(photo.kind,'menu-illustration');assert.match(photo.alt,/イメージ/)}
+  assert.equal(photo.kind,'venue');assert.equal(photo.shopId,id);
  }
 }
 // Opening from a card stays in the app; stepping and closing preserve the directory.
-const photoTrigger=a.query('[data-town-photo="center"] [data-town-action="photo"]');photoTrigger.click();
+const photoTrigger=a.query('[data-town-photo="itomaru"] [data-town-action="photo"]');photoTrigger.click();
 assert.ok(a.query('.town-photo-dialog').open);assert.equal(a.w.location.hash,'#town');
-assert.match(a.query('.town-expanded-kind').textContent,/実際の料理写真ではありません/);
+assert.match(a.query('.town-expanded-kind').textContent,/店舗・施設の写真/);
 const firstExpanded=a.query('.town-expanded-photo').src;a.click('[data-photo-next]');
 assert.notEqual(a.query('.town-expanded-photo').src,firstExpanded);
 a.query('.town-photo-dialog').dispatchEvent(new a.w.KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true}));
@@ -222,7 +222,7 @@ assert.ok(!Object.values(a.snapshot()).some(value=>value.includes('kirakira.jpg'
 img.dispatchEvent(new a.w.Event('error'));assert.ok(a.query('.town-photo-placeholder'),'failed photos fall back to the map link');
 assert.ok(a.query('.town-all-photos'));a.close();
 
-a=app({configure(w){w.KarimenTownConfig={suppliedPhotos:{kirakira:[{url:'javascript:alert(1)',credit:'Bad',permission:'owner-provided'},{url:'https://example.test/owner.jpg',alt:'店舗提供の料理写真',credit:'きらきら提供',permission:'owner-provided'}]}};}});
+a=app({configure(w){w.KarimenTownConfig={suppliedPhotos:{kirakira:[{url:'javascript:alert(1)',credit:'Bad',permission:'owner-provided'},{kind:'venue',shopId:'kirakira',url:'https://example.test/owner.jpg',alt:'店舗提供の料理写真',credit:'きらきら提供',permission:'owner-provided'}]}};}});
 a.w.KarimenTown.open('kirakira');await settle();
 assert.equal(a.all('.town-media-detail img').length,1);assert.equal(a.query('.town-media-detail img').src,'https://example.test/owner.jpg');
 assert.match(a.query('.town-photo-credit').textContent,/きらきら提供/);a.close();

@@ -86,3 +86,6 @@
 .town-photo-error{display:block;padding:40px 16px;font-size:13px;color:var(--muted)}
 
 .town-photo-gallery{gap:10px}.town-photo-gallery>figure{margin:0}
+
+/* Do not fill missing venue photographs with unrelated food imagery. */
+.town-photo-placeholder,.town-media-detail .town-photo-placeholder{aspect-ratio:auto;min-height:76px;padding:18px;flex-direction:row;gap:12px}.town-photo-placeholder>.icon,.town-media-detail .town-photo-placeholder>.icon{width:24px;height:24px}

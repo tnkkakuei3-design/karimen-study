@@ -2,136 +2,6 @@
   "verifiedOn": "2026-10-13",
   "images": [
     {
-      "file": "okinawa-soba.jpg",
-      "sha256": "a8a4ad37b9878f4b0b188410489a41f2932557b335e2dceaeb89e80181b37818",
-      "title": "File:Okinawa soba and mixed rice.jpg",
-      "author": "Mokkie",
-      "source": "https://commons.wikimedia.org/wiki/File:Okinawa_soba_and_mixed_rice.jpg",
-      "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/58/Okinawa_soba_and_mixed_rice.jpg/1280px-Okinawa_soba_and_mixed_rice.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-      "kind": "menu-illustration",
-      "modifications": "サイト提供のJPEGをそのまま収録。画面上では表示枠に合わせてトリミング。",
-      "actualListedRestaurantPhoto": false
-    },
-    {
-      "file": "kaisendon.jpg",
-      "sha256": "fa5b0f0a151779ff0afa420d64ec25438113f62b76aaf72cc08954ad6df4ba54",
-      "title": "File:Kaisendon (15650467898).jpg",
-      "author": "Jun Seita",
-      "source": "https://commons.wikimedia.org/wiki/File:Kaisendon_(15650467898).jpg",
-      "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Kaisendon_%2815650467898%29.jpg/1280px-Kaisendon_%2815650467898%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-      "kind": "menu-illustration",
-      "modifications": "サイト提供のJPEGをそのまま収録。画面上では表示枠に合わせてトリミング。",
-      "actualListedRestaurantPhoto": false
-    },
-    {
-      "file": "omurice.jpg",
-      "sha256": "7972de87789e0f359d30f79650059c29f9ff7bff9c4647c0ce4c46bb9f6910d2",
-      "title": "File:Omurice 001.jpg",
-      "author": "Ocdp",
-      "source": "https://commons.wikimedia.org/wiki/File:Omurice_001.jpg",
-      "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f2/Omurice_001.jpg/1280px-Omurice_001.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
-      "license": "CC0 1.0",
-      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
-      "kind": "menu-illustration",
-      "modifications": "サイト提供のJPEGをそのまま収録。画面上では表示枠に合わせてトリミング。",
-      "actualListedRestaurantPhoto": false
-    },
-    {
-      "file": "teishoku.jpg",
-      "sha256": "fc1ea294782bde33a9fd516f686b90fa10459fd44ef14585c06a8ff47f6997d7",
-      "title": "File:Teishoku 20200118.jpg",
-      "author": "円周率３パーセント",
-      "source": "https://commons.wikimedia.org/wiki/File:Teishoku_20200118.jpg",
-      "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Teishoku_20200118.jpg/1280px-Teishoku_20200118.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-      "kind": "menu-illustration",
-      "modifications": "サイト提供のJPEGをそのまま収録。画面上では表示枠に合わせてトリミング。",
-      "actualListedRestaurantPhoto": false
-    },
-    {
-      "file": "onigiri.jpg",
-      "sha256": "5a5a0b9850f5afb803d61bf5e886531277986caefb0c4aac22f43f7b6a68d6f3",
-      "title": "File:Onigiri 001.jpg",
-      "author": "Ocdp",
-      "source": "https://commons.wikimedia.org/wiki/File:Onigiri_001.jpg",
-      "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Onigiri_001.jpg/1280px-Onigiri_001.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
-      "license": "CC0 1.0",
-      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
-      "kind": "menu-illustration",
-      "modifications": "サイト提供のJPEGをそのまま収録。画面上では表示枠に合わせてトリミング。",
-      "actualListedRestaurantPhoto": false
-    },
-    {
-      "file": "curry.jpg",
-      "sha256": "907d0b510df7d505db8c66a472f3afba0a29823dcd99e0adc781bd3676da8d09",
-      "title": "File:Beef curry rice 001.jpg",
-      "author": "Ocdp",
-      "source": "https://commons.wikimedia.org/wiki/File:Beef_curry_rice_001.jpg",
-      "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Beef_curry_rice_001.jpg/1280px-Beef_curry_rice_001.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
-      "license": "CC0 1.0",
-      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
-      "kind": "menu-illustration",
-      "modifications": "サイト提供のJPEGをそのまま収録。画面上では表示枠に合わせてトリミング。",
-      "actualListedRestaurantPhoto": false
-    },
-    {
-      "file": "cake.jpg",
-      "sha256": "32da912dc7399b7f3fd210b2c570c113b3060ac8bad131e6dddfc3151e768c5c",
-      "title": "File:Strawberry shortcake.jpg",
-      "author": "Tomomarusan",
-      "source": "https://commons.wikimedia.org/wiki/File:Strawberry_shortcake.jpg",
-      "download": "https://upload.wikimedia.org/wikipedia/commons/4/43/Strawberry_shortcake.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail_unscaled&_=20060301140619",
-      "license": "CC BY 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
-      "kind": "menu-illustration",
-      "modifications": "サイト提供のJPEGをそのまま収録。画面上では表示枠に合わせてトリミング。",
-      "actualListedRestaurantPhoto": false
-    },
-    {
-      "file": "udon.jpg",
-      "sha256": "c13b387d2f65635bc7364b2fc860e53a64cc9f5bfd42ea76e23fbeac91293f58",
-      "title": "File:Yoshida udon 003.jpg",
-      "author": "Ocdp",
-      "source": "https://commons.wikimedia.org/wiki/File:Yoshida_udon_003.jpg",
-      "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Yoshida_udon_003.jpg/1280px-Yoshida_udon_003.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
-      "license": "CC0 1.0",
-      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
-      "kind": "menu-illustration",
-      "modifications": "サイト提供のJPEGをそのまま収録。画面上では表示枠に合わせてトリミング。",
-      "actualListedRestaurantPhoto": false
-    },
-    {
-      "file": "coffee.jpg",
-      "sha256": "4996f857534e248e4c91e14b18c32376b1f2df9b3025c3d3cb4ccefa9198255c",
-      "title": "File:Espresso Coffee 01.jpg",
-      "author": "Jubair1985",
-      "source": "https://commons.wikimedia.org/wiki/File:Espresso_Coffee_01.jpg",
-      "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Espresso_Coffee_01.jpg/1280px-Espresso_Coffee_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
-      "license": "CC0 1.0",
-      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
-      "kind": "menu-illustration",
-      "modifications": "サイト提供のJPEGをそのまま収録。画面上では表示枠に合わせてトリミング。",
-      "actualListedRestaurantPhoto": false
-    },
-    {
-      "file": "bento.jpg",
-      "sha256": "6feef47cfcab82c404e087cb3f0851f3d48120713374d5618eb49a68c1b2ef53",
-      "title": "File:Bento 001.jpg",
-      "author": "Ocdp",
-      "source": "https://commons.wikimedia.org/wiki/File:Bento_001.jpg",
-      "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/93/Bento_001.jpg/1280px-Bento_001.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
-      "license": "CC0 1.0",
-      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
-      "kind": "menu-illustration",
-      "modifications": "サイト提供のJPEGをそのまま収録。画面上では表示枠に合わせてトリミング。",
-      "actualListedRestaurantPhoto": false
-    },
-    {
       "file": "itomaru-02.jpg",
       "sha256": "2ed94854694a6a695dafb3d49c99e31eb4e755913ec557e5314e0a3b7fdc503a",
       "title": "Itoman Market 202203 02.jpg",
@@ -158,39 +28,6 @@
       "capturedOn": "2022-03-09"
     },
     {
-      "file": "katsudon.jpg",
-      "sha256": "9afd1a68a9f99612dbfcafdcd6c965e3bf30a61577d7cb1e4ad9c7d257c22938",
-      "title": "File:Katsudon 001.jpg",
-      "author": "Ocdp",
-      "source": "https://commons.wikimedia.org/wiki/File:Katsudon_001.jpg",
-      "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Katsudon_001.jpg/1280px-Katsudon_001.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
-      "license": "CC0 1.0",
-      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
-      "kind": "menu-illustration"
-    },
-    {
-      "file": "takoyaki.jpg",
-      "sha256": "22dd0f9eb64ed2bc4a8c8c72787b30c6df72ec3d74aa96f1d127254b8f7eae07",
-      "title": "File:Takoyaki 01.jpg",
-      "author": "Corpse Reviver",
-      "source": "https://commons.wikimedia.org/wiki/File:Takoyaki_01.jpg",
-      "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9c/Takoyaki_01.jpg/1280px-Takoyaki_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-      "kind": "menu-illustration"
-    },
-    {
-      "file": "bread.jpg",
-      "sha256": "36a60cf57f045fb62ad856fcc5feb19d737c787e94778208a3078a905800b4c2",
-      "title": "File:Anpan 001.jpg",
-      "author": "Ocdp",
-      "source": "https://commons.wikimedia.org/wiki/File:Anpan_001.jpg",
-      "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e9/Anpan_001.jpg/1280px-Anpan_001.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
-      "license": "CC0 1.0",
-      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
-      "kind": "menu-illustration"
-    },
-    {
       "file": "itomaru-interior.jpg",
       "sha256": "65dfeda949531914ddadf459546011b8fe941a5ed61c5025e91eb53ccf6f60ed",
       "title": "File:Hanged umbrellas at Itoman Market 202203.jpg",
@@ -203,65 +40,11 @@
     }
   ],
   "shopImages": {
-    "center": [
-      "okinawa-soba",
-      "katsudon",
-      "omurice"
-    ],
-    "umibozu": [
-      "kaisendon",
-      "bento"
-    ],
-    "kirakira": [
-      "omurice",
-      "teishoku"
-    ],
-    "kinta": [
-      "teishoku"
-    ],
-    "chiquita": [
-      "curry",
-      "omurice"
-    ],
-    "mahoroba": [
-      "okinawa-soba",
-      "curry"
-    ],
-    "ritz": [
-      "cake",
-      "bread"
-    ],
-    "uminchu": [
-      "teishoku",
-      "okinawa-soba"
-    ],
-    "konaya": [
-      "udon",
-      "takoyaki"
-    ],
-    "yotsuba": [
-      "onigiri",
-      "bento",
-      "katsudon"
-    ],
-    "cafe-itoman": [
-      "coffee",
-      "cake",
-      "curry",
-      "teishoku"
-    ],
     "itomaru": [
       "itomaru-02",
       "itomaru-01",
       "itomaru-interior"
-    ],
-    "ichiman-yokocho": [
-      "teishoku"
-    ],
-    "zero": [
-      "coffee",
-      "cake"
     ]
   },
-  "displayNote": "料理イメージは掲載店舗の実際の商品を示しません。画像は各作者の指定ライセンスに従い再配布します。著作者が掲載店舗・本アプリを推奨することを意味しません。"
+  "displayNote": "掲載店舗・施設の実写のみ。汎用料理写真・生成画像は掲載しません。"
 }
