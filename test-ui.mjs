@@ -215,6 +215,36 @@ a.run("state.session=null;startStudy([710,711],'自信なし')");a.query('#uncer
 a.click('[data-action="answer"][data-value="false"]');assert.equal(a.all('.answer-result.incorrect').length,0);
 assert.match(a.query('.answer-uncertain').textContent,/復習に残しました/);assert.ok(a.query('.review-schedule-note'));
 assert.equal(a.run('model.weak(710)'),true);assert.equal(a.errors.length,0);a.close();
+// Category accuracy uses the latest answer to each attempted question, never the entire bank or repeat count.
+{
+ a=app();a.click('#tab-learn');
+ assert.ok(a.all('.category-accuracy').every(el=>el.textContent==='未学習'));
+ assert.ok(a.all('.category-card .progress i').every(el=>el.style.width==='0%'));
+ const category=a.run('CATS[0].k'), card=()=>a.query(`.category-card[data-cat="${category}"]`);
+ const questionIds=JSON.parse(a.run('JSON.stringify(categorized(CATS[0]).slice(0,2).map(q=>q.id))'));
+ a.run(`model.record(${questionIds[0]},!activeQuestion(${questionIds[0]}).a);renderLearn()`);
+ assert.equal(card().querySelector('.category-accuracy').textContent,'正解率 0%');
+ assert.equal(card().querySelector('.category-answer-count').textContent,'正解 0 / 回答済み 1問');
+ a.run(`model.record(${questionIds[1]},activeQuestion(${questionIds[1]}).a);renderLearn()`);
+ assert.equal(card().querySelector('.category-accuracy').textContent,'正解率 50%');
+ assert.equal(card().querySelector('.category-answer-count').textContent,'正解 1 / 回答済み 2問');
+ assert.equal(card().querySelector('.progress i').style.width,'50%');
+ for(const filter of ['new','weak','all']){
+  a.click(`[data-action="category-filter"][data-filter="${filter}"]`);
+  assert.equal(card().querySelector('.category-accuracy').textContent,'正解率 50%');
+  assert.equal(card().querySelector('.category-answer-count').textContent,'正解 1 / 回答済み 2問');
+ }
+ a.run(`model.record(${questionIds[0]},activeQuestion(${questionIds[0]}).a);model.save();renderLearn()`);
+ assert.equal(card().querySelector('.category-accuracy').textContent,'正解率 100%');
+ assert.equal(card().querySelector('.category-answer-count').textContent,'正解 2 / 回答済み 2問');
+ assert.equal(card().querySelector('.progress i').style.width,'100%');
+ assert.match(a.query('.learning-overview').textContent,/累積正答率67%/);
+ const records=a.w.localStorage.getItem('karimen-study-v4');a.close();
+ a=app({'karimen-study-v4':records});a.click('#tab-learn');
+ assert.equal(card().querySelector('.category-accuracy').textContent,'正解率 100%');
+ assert.equal(a.run(`state.stats[${questionIds[0]}].total`),2);
+ assert.equal(a.errors.length,0);a.close();
+}
 // Ten actual answers (8 correct) must show 80%, leave 40 questions unlearned, and create only 2 review items.
 a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
 for(let i=0;i<10;i++){
@@ -231,6 +261,18 @@ assert.equal(a.all('#result > details.review-item').length,2);
 a.click('[data-action="result-filter"][data-filter="unanswered"]');assert.equal(a.all('#result > details.review-item').length,40);
 a.click('#tab-learn');assert.match(a.query('.learning-overview').textContent,/回答済み10 \/ 500問累積正答率80%要復習2問/);
 assert.equal(a.run('Q.filter(q=>!state.stats[q.id]?.total).length'),490);
+{
+ let categoryCorrect=0,categoryAnswered=0;
+ for(const card of a.all('.category-card')){
+  const counts=card.querySelector('.category-answer-count').textContent.match(/^正解 (\d+) \/ 回答済み (\d+)問$/);
+  if(!counts){assert.equal(card.querySelector('.category-accuracy').textContent,'未学習');continue;}
+  const correct=Number(counts[1]),answered=Number(counts[2]),percent=Math.round(correct/answered*100);
+  categoryCorrect+=correct;categoryAnswered+=answered;
+  assert.equal(card.querySelector('.category-accuracy').textContent,`正解率 ${percent}%`);
+  assert.equal(card.querySelector('.progress i').style.width,`${percent}%`);
+ }
+ assert.equal(categoryCorrect,8);assert.equal(categoryAnswered,10);
+}
 a.click('#tab-mock');assert.match(a.query('#mock .achievement-progress').textContent,/0 \/ 10回/);
 a.click('[data-action="detail"][data-set="1"]');assert.match(a.query('#detail').textContent,/模試の途中終了/);assert.doesNotMatch(a.query('#detail').textContent,/最高 8点/);
 a.click('[data-action="stored-result"]');assert.match(a.query('#result .accuracy').textContent,/80%/);

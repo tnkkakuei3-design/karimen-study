@@ -522,8 +522,13 @@ body{-webkit-text-size-adjust:100%}
 .category-card{border-radius:12px;gap:12px}
 .category-copy{flex:1}
 .category-copy>strong{min-height:3em;display:flex;align-items:center;text-wrap:pretty}
-.category-status{justify-content:space-between;gap:4px;margin:6px 0 10px;min-height:24px}
+.category-status{justify-content:space-between;gap:4px;margin:6px 0 2px;min-height:29px}
 .category-status small{font-size:12px;white-space:nowrap}
+.category-accuracy{font-size:12px;color:var(--muted);white-space:nowrap}
+.category-accuracy b{font-size:22px;font-weight:750;line-height:1.3;color:var(--fg);font-variant-numeric:tabular-nums}
+.category-accuracy b span{font-size:12px;margin-left:1px}
+.category-copy .category-answer-count{font-size:11px;margin:0 0 10px}
+.learn-metric-note{font-size:12px;line-height:1.6;margin:0 0 12px}
 .category-review-badge{font-size:11px;padding:2px 5px}
 .category-copy .progress{height:4px}
 .weak-topics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
