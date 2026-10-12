@@ -28,19 +28,21 @@
     if (!value) return '';
     try { const u = new URL(value, location.href); return u.protocol === 'https:' || (u.origin === location.origin && u.protocol === 'http:') ? u.href : ''; } catch { return ''; }
   };
-  const link = (url, label, cls = '') => `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer" class="${cls}">${label}</a>`;
+  const link = (url, label, cls = '') => !url ? '' : `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer" class="${cls}">${label}</a>`;
   const normalize = s => String(s).normalize('NFKC').toLowerCase().replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-0x60)).replace(/[\s・〜～ー-]/g, '');
+  const mapPlaceId = shop => config.placeIds?.[shop.id] || shop.mapPlaceId;
   const searchUrl = shop => {
+    if (!shop.address && !mapPlaceId(shop)) return '';
     const params = new URLSearchParams({api:'1',query:[shop.name,shop.address || '沖縄県糸満市',!shop.address ? shop.phone : ''].filter(Boolean).join(' ')});
-    const placeId = config.placeIds?.[shop.id];
+    const placeId = mapPlaceId(shop);
     if (placeId) params.set('query_place_id', placeId);
     return `https://www.google.com/maps/search/?${params}`;
   };
   const routeUrl = shop => {
-    // Unverified locations go to search, never to a guessed walking destination.
-    if (!shop.address && !config.placeIds?.[shop.id]) return searchUrl(shop);
+    // Do not offer a destination until its location is verified.
+    if (!shop.address && !mapPlaceId(shop)) return '';
     const params = new URLSearchParams({api:'1',origin:`${data.school.name} ${data.school.address}`,destination:`${shop.name} ${shop.address || ''}`,travelmode:'walking'});
-    if (config.placeIds?.[shop.id]) params.set('destination_place_id',config.placeIds[shop.id]);
+    if (mapPlaceId(shop)) params.set('destination_place_id',mapPlaceId(shop));
     return `https://www.google.com/maps/dir/?${params}`;
   };
   const filters = [['all','すべて'],['meal','ごはん'],['cafe','カフェ'],['takeout','持ち帰り'],['bakery','パン・ケーキ'],['market','市場・横丁'],['saved','保存したお店']];
@@ -104,7 +106,7 @@
   function mapResults(list) {
     if(!list.some(s=>s.id===mapShop))mapShop=(list.find(shop=>shop.embedUrl)||list[0]).id;
     const shop=byId.get(mapShop);
-    return `<div class="town-map-layout"><div class="town-map-picker" role="group" aria-label="地図に表示するお店">${list.map(s=>`<button data-town-action="map-shop" data-id="${s.id}" aria-pressed="${s.id===mapShop}"><span class="town-number">${s.number}</span>${esc(s.shortName||s.name)}</button>`).join('')}</div><div class="town-map-selected"><h3>${esc(shop.name)}</h3>${embeddedMap(shop)}<div class="town-map-actions"><button class="btn secondary" data-town-action="shop" data-id="${shop.id}">お店の詳細を見る ${icon('arrow')}</button>${link(routeUrl(shop),shop.address||config.placeIds?.[shop.id]?'徒歩ルートを見る ↗':'お店の場所を探す ↗','textbtn')}</div></div></div>`;
+    return `<div class="town-map-layout"><div class="town-map-picker" role="group" aria-label="地図に表示するお店">${list.map(s=>`<button data-town-action="map-shop" data-id="${s.id}" aria-pressed="${s.id===mapShop}"><span class="town-number">${s.number}</span>${esc(s.shortName||s.name)}</button>`).join('')}</div><div class="town-map-selected"><h3>${esc(shop.name)}</h3>${embeddedMap(shop)}<div class="town-map-actions"><button class="btn secondary" data-town-action="shop" data-id="${shop.id}">お店の詳細を見る ${icon('arrow')}</button>${link(routeUrl(shop),shop.address||mapPlaceId(shop)?'徒歩ルートを見る ↗':'お店の場所を探す ↗','textbtn')}</div></div></div>`;
   }
   function refreshResults() {
     const holder=document.getElementById('town-results'); if(!holder)return;
@@ -115,10 +117,10 @@
     announce(`${list.length}件のお店を表示しています`);
   }
   function detail(shop) {
-    const canRoute=Boolean(shop.address || config.placeIds?.[shop.id]);
+    const canRoute=Boolean(shop.address || mapPlaceId(shop));
     const addressSource=shop.source ? link(shop.source,'店舗の案内を確認 ↗','town-source-link') : '';
     const socialLink=safeUrl(shop.instagram) ? link(safeUrl(shop.instagram),'公式Instagramで写真を見る ↗','town-source-link') : '';
-    return `<div class="town-topline"><button class="textbtn" data-town-action="list">${icon('back')}お店一覧へ</button><span class="town-pr">地域のお店紹介 · PR</span></div><div class="town-detail-hero">${media(shop,'detail')}${bookmarkButton(shop)}</div><div class="town-detail-heading"><div><p class="town-eyebrow">${esc(shop.category)}</p><h2 id="town-title" tabindex="-1">${esc(shop.name)}</h2></div>${badge(shop)}</div>${link(searchUrl(shop),`${icon('photo')}Googleマップで写真・口コミを見る ↗`,'textbtn town-all-photos')}${socialLink}<div class="town-voucher-info">${icon('ticket')}<div><h3>食券が使えるお店です</h3><p>${shop.facility?'施設内の飲食店が対象です。':'教習所の食券対象店として案内されています。'} 対象メニュー・差額・利用時間は、お持ちの食券とお店でご確認ください。</p></div></div><section class="town-detail-section"><h3>お店のメニュー</h3><p class="town-section-sub">案内表に記載されているメニューです</p><ul class="town-menu-list">${shop.menus.map(menu=>`<li>${esc(menu)}</li>`).join('')}</ul><p class="town-menu-note">この一覧は、すべてのメニューが食券だけで注文できることを示すものではありません。</p></section><section class="town-detail-section"><h3>来店前にチェック</h3><dl class="town-details"><div><dt>営業時間</dt><dd>${esc(shop.hours)}</dd></div><div><dt>定休日</dt><dd>${esc(shop.closed)}</dd></div>${shop.phone?`<div><dt>電話</dt><dd><a href="tel:${shop.phone.replace(/-/g,'')}">${esc(shop.phone)}</a></dd></div>`:''}${shop.address?`<div><dt>住所</dt><dd>${esc(shop.address)}</dd></div>`:''}</dl>${shop.note?`<p class="town-store-note">${esc(shop.note)}</p>`:''}<p class="town-section-sub">営業時間・定休日は案内表の情報です。臨時休業や売り切れは、来店前にご確認ください。</p>${addressSource}</section><section class="town-detail-section"><h3>${icon('pin')}お店への行き方</h3>${embeddedMap(shop)}<p class="town-section-sub">${canRoute?'経路の出発点は糸満自動車学校です。Googleマップで現在地に変更できます。':'場所が確定していないため、地図上の候補と電話番号をご確認ください。'}</p></section><div class="town-detail-actions">${link(routeUrl(shop),`${icon(canRoute?'walk':'search')}${canRoute?'徒歩ルートを見る':'場所を確認する'}`,'btn')}${shop.phone?`<a class="btn secondary" href="tel:${shop.phone.replace(/-/g,'')}">${icon('phone')}電話する</a>`:''}</div><p id="town-status" class="sr-only" role="status" aria-live="polite"></p>`;
+    return `<div class="town-topline"><button class="textbtn" data-town-action="list">${icon('back')}お店一覧へ</button><span class="town-pr">地域のお店紹介 · PR</span></div><div class="town-detail-hero">${media(shop,'detail')}${bookmarkButton(shop)}</div><div class="town-detail-heading"><div><p class="town-eyebrow">${esc(shop.category)}</p><h2 id="town-title" tabindex="-1">${esc(shop.name)}</h2></div>${badge(shop)}</div>${link(searchUrl(shop),`${icon('photo')}Googleマップで写真・口コミを見る ↗`,'textbtn town-all-photos')}${socialLink}<div class="town-voucher-info">${icon('ticket')}<div><h3>食券が使えるお店です</h3><p>${shop.facility?'施設内の飲食店が対象です。':'教習所の食券対象店として案内されています。'} 対象メニュー・差額・利用時間は、お持ちの食券とお店でご確認ください。</p></div></div><section class="town-detail-section"><h3>お店のメニュー</h3><p class="town-section-sub">案内表に記載されているメニューです</p><ul class="town-menu-list">${shop.menus.map(menu=>`<li>${esc(menu)}</li>`).join('')}</ul><p class="town-menu-note">この一覧は、すべてのメニューが食券だけで注文できることを示すものではありません。</p></section><section class="town-detail-section"><h3>来店前にチェック</h3><dl class="town-details"><div><dt>営業時間</dt><dd>${esc(shop.hours)}</dd></div><div><dt>定休日</dt><dd>${esc(shop.closed)}</dd></div>${shop.phone?`<div><dt>電話</dt><dd><a href="tel:${shop.phone.replace(/-/g,'')}">${esc(shop.phone)}</a></dd></div>`:''}${shop.address?`<div><dt>住所</dt><dd>${esc(shop.address)}</dd></div>`:''}</dl>${shop.note?`<p class="town-store-note">${esc(shop.note)}</p>`:''}<p class="town-section-sub">営業時間・定休日は案内表の情報です。臨時休業や売り切れは、来店前にご確認ください。</p>${addressSource}</section><section class="town-detail-section"><h3>${icon('pin')}お店への行き方</h3>${embeddedMap(shop)}<p class="town-section-sub">${canRoute?'経路の出発点は糸満自動車学校です。Googleマップで現在地に変更できます。':'所在地を確認中です。店舗または教習所に場所をご確認ください。'}</p></section><div class="town-detail-actions">${link(routeUrl(shop),`${icon(canRoute?'walk':'search')}${canRoute?'徒歩ルートを見る':'場所を確認する'}`,'btn')}${shop.phone?`<a class="btn secondary" href="tel:${shop.phone.replace(/-/g,'')}">${icon('phone')}電話する</a>`:''}</div><p id="town-status" class="sr-only" role="status" aria-live="polite"></p>`;
   }
   function render() {
     if(!root())return;

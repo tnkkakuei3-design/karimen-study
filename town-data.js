@@ -29,86 +29,100 @@ const townLocations = {
     "address": "沖縄県糸満市字糸満1942-19",
     "source": "https://tabelog.com/okinawa/A4704/A470402/47020162/dtlmap/",
     "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44K744Oz44K_44O86aOf5aCCIOaylue4hOecjOezuOa6gOW4guWtl-ezuOa6gDE5NDItMTk!3m1!1sja!5m1!1sja",
-    "mapCheckedOn": "2026-10-12"
+    "mapCheckedOn": "2026-10-12",
+    "mapPlaceId": "ChIJ__-b2rhn5TQRc3QyeiMDgfQ"
   },
   "2": {
     "address": "沖縄県糸満市字糸満2250",
     "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.0544679097716!2d127.66208631543645!3d26.129766983471033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34e567bf2477cb9f:0x2798504fdbff2255!2z5rW344G844GG44Ga!5e0!3m2!1sja!2sjp!4v1570704761917!5m2!1sja!2sjp",
     "source": "https://map.yahoo.co.jp/v3/place/8wLP8dEF2Uw",
-    "mapCheckedOn": "2026-10-12"
+    "mapCheckedOn": "2026-10-12",
+    "mapPlaceId": "ChIJn8t3JL9n5TQRVSL_209QmCc"
   },
   "3": {
     "address": "沖縄県糸満市糸満1943-60",
     "source": "https://tabelog.com/okinawa/A4704/A470402/47033114/",
     "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44GN44KJ44GN44KJIOaylue4hOecjOezuOa6gOW4guezuOa6gDE5NDMtNjA!3m1!1sja!5m1!1sja",
-    "mapCheckedOn": "2026-10-12"
+    "mapCheckedOn": "2026-10-12",
+    "mapPlaceId": "ChIJzwlhp61n5TQRnsxijy1Kuvs"
   },
   "4": {
     "source": "https://tabelog.com/okinawa/A4704/A470402/47005590/",
     "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44GN44KT44GfIOaylue4hOecjOezuOa6gOW4gg!3m1!1sja!5m1!1sja",
     "mapCheckedOn": "2026-10-12",
-    "address": "沖縄県糸満市字糸満989-61"
+    "address": "沖縄県糸満市字糸満989-61",
+    "mapPlaceId": "ChIJ47Ft5rhn5TQRW4-RJXXP_5g"
   },
   "5": {
     "address": "沖縄県糸満市字糸満989-60",
     "source": "https://map.yahoo.co.jp/v3/place/pvyY4f30I3E",
     "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44OB44Kt44O844K_IOaylue4hOecjOezuOa6gOW4guWtl-ezuOa6gDk4OS02MA!3m1!1sja!5m1!1sja",
-    "mapCheckedOn": "2026-10-12"
+    "mapCheckedOn": "2026-10-12",
+    "mapPlaceId": "ChIJVd4d5rhn5TQRG2Gd5SEa8z8"
   },
   "7": {
     "address": "沖縄県糸満市糸満2228",
     "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.0739910419907!2d127.6618229116158!3d26.129130377027504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34e567b855e743af:0x741399137a08eb46!2z6aOf5bel5oi_44G-44G744KN44Gw!5e0!3m2!1sja!2sjp!4v1733458762026!5m2!1sja!2sjp",
     "source": "https://www.instagram.com/syokukobo_mahoroba/",
-    "mapCheckedOn": "2026-10-12"
+    "mapCheckedOn": "2026-10-12",
+    "mapPlaceId": "ChIJr0PnVbhn5TQRRusIehOZE3Q"
   },
   "8": {
     "address": "沖縄県糸満市字糸満989-8 1F",
     "source": "https://itp.ne.jp/zenkoku/okinawa/itomanshi/azaitoman/474373715182131120",
     "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44Oq44OD44OEIOaylue4hOecjOezuOa6gOW4guWtl-ezuOa6gDk4OS04IDFG!3m1!1sja!5m1!1sja",
-    "mapCheckedOn": "2026-10-12"
+    "mapCheckedOn": "2026-10-12",
+    "mapPlaceId": "ChIJ9VEvXLhn5TQR_Tfb8gR_kuI"
   },
   "9": {
     "source": "https://men-japan.com/news/773/",
     "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z57O45rqA5rW35Lq66aOf5aCCIOaylue4hOecjOezuOa6gOW4gg!3m1!1sja!5m1!1sja",
     "mapCheckedOn": "2026-10-12",
-    "address": "沖縄県糸満市字糸満989-88"
+    "address": "沖縄県糸満市字糸満989-88",
+    "mapPlaceId": "ChIJZdGP5zxn5TQRIoOCcO23Bl0"
   },
   "10": {
     "address": "沖縄県糸満市字糸満502",
     "source": "https://itp.ne.jp/zenkoku/okinawa/itomanshi/azaitoman/853276722674383001",
     "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44GT44Gq44KE5pys5a62IOaylue4hOecjOezuOa6gOW4guWtl-ezuOa6gDUwMg!3m1!1sja!5m1!1sja",
-    "mapCheckedOn": "2026-10-12"
+    "mapCheckedOn": "2026-10-12",
+    "mapPlaceId": "ChIJJSskQ-ln5TQRrZ1B3ceV2wM"
   },
   "11": {
     "address": "沖縄県糸満市糸満2224",
     "source": "https://tabelog.com/okinawa/A4704/A470402/47033137/",
     "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44KI44Gk44Gw44Kt44OD44OB44OzIOaylue4hOecjOezuOa6gOW4guezuOa6gDIyMjQ!3m1!1sja!5m1!1sja",
-    "mapCheckedOn": "2026-10-12"
+    "mapCheckedOn": "2026-10-12",
+    "mapPlaceId": "ChIJt70uw75n5TQR4jNs9Uu_FqE"
   },
   "12": {
     "address": "沖縄県糸満市糸満989-56 1F",
     "source": "https://ceramic-art-cafe-itoman.studio.site/",
     "socialUrl": "https://www.instagram.com/ceramic_art_cafe_itoman",
     "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44K744Op44Of44OD44Kv44Ki44O844OI44Kr44OV44KnIOOCpOODiOODnuODsyDmspbnuITnnIzns7jmuoDluILns7jmuoA5ODktNTYgMUY!3m1!1sja!5m1!1sja",
-    "mapCheckedOn": "2026-10-12"
+    "mapCheckedOn": "2026-10-12",
+    "mapPlaceId": "ChIJVSJytEtn5TQRsECRKlinkSg"
   },
   "13": {
     "address": "沖縄県糸満市字糸満989-83",
     "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.0814061315573!2d127.6660044150284!3d26.12888858347142!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34e567b85876ac85:0x3f052d52e5e6676f!2z57O45rqA5biC5aC044GE44Go44G-44Cc44KL!5e0!3m2!1sja!2sjp!4v1684471900572!5m2!1sja!2sjp",
     "source": "https://www.itoman-itomaru.okinawa/",
-    "mapCheckedOn": "2026-10-12"
+    "mapCheckedOn": "2026-10-12",
+    "mapPlaceId": "ChIJhax2WLhn5TQRb2fm5VItBT8"
   },
   "14": {
     "address": "沖縄県糸満市糸満989-90 金城アパート1F",
     "source": "https://www.okinawastory.jp/gourmet/600011430",
     "embedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1z44GE44Gh44G-44KT5qiq5LiBIOaylue4hOecjOezuOa6gOW4guezuOa6gDk4OS05MCDph5Hln47jgqLjg5Hjg7zjg4gxRg!3m1!1sja!5m1!1sja",
-    "mapCheckedOn": "2026-10-12"
+    "mapCheckedOn": "2026-10-12",
+    "mapPlaceId": "ChIJlZ_JPr5n5TQR0H9h4ohVZMU"
   },
   "15": {
     "address": "沖縄県糸満市字糸満1953番地",
     "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.088940654995!2d127.66393336227826!3d26.128642893247587!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34e5670007a90743:0x37c5b85c7b2205c8!2z5Zar6Iy2JkJBUiDjgrzjg63nlarlnLA!5e0!3m2!1sja!2sjp!4v1781005333722!5m2!1sja!2sjp",
     "source": "https://www.instagram.com/kissaandbarzerobanchi/",
-    "mapCheckedOn": "2026-10-12"
+    "mapCheckedOn": "2026-10-12",
+    "mapPlaceId": "ChIJQwepBwBn5TQRyAUie1y4xTc"
   },
   "6": {
     "mapNote": "「365」の正確な所在地を確認中です。来店前に店舗または教習所に場所をご確認ください。"

@@ -92,6 +92,8 @@ for(let round=0;round<2;round++){
   a.click(`[data-town-action="map-shop"][data-id="${shop.id}"]`);
   assert.equal(a.query('#town iframe').src,shop.embedUrl,`${shop.id} round ${round}`);
   assert.equal(a.query('#town iframe').title,`${shop.name}のGoogleマップ`);
+  assert.equal(new URL(a.query('.town-map-fallback a').href).searchParams.get('query_place_id'),shop.mapPlaceId);
+  assert.equal(new URL(a.query('.town-map-actions a').href).searchParams.get('destination_place_id'),shop.mapPlaceId);
  }
  a.click('[data-town-action="mode"][data-value="cards"]');
  a.click('[data-town-action="mode"][data-value="map"]');
@@ -99,7 +101,7 @@ for(let round=0;round<2;round++){
 a.click('[data-town-action="map-shop"][data-id="365"]');
 assert.equal(a.query('#town iframe'),null,'unknown location must not show an unrelated pin');
 assert.match(a.query('.town-map-fallback-card').textContent,/所在地を確認中/);
-assert.match(a.query('.town-map-actions a').href,/\/maps\/search\//);
+assert.equal(a.query('.town-map-actions a'),null,'unknown location does not offer a failing map search');
 a.click('[data-town-action="close"]');assert.equal(a.query('#mock').hidden,false);assert.equal(a.w.location.hash,'');
 const remembered=a.snapshot();a.close();
 
@@ -115,6 +117,31 @@ assert.equal(a.query('#play').hidden,false);assert.equal(a.run('JSON.stringify(s
 a.click('[data-action="pause"]');const paused=a.run('JSON.stringify(state)');
 assert.equal(a.query('#learn .town-teaser'),null,'learning screen has no restaurant promotion');
 a.click('#tab-mock');a.click('#mock [data-town-action="open"]');a.click('[data-town-action="save"][data-id="mahoroba"]');
+// Every map entry point must identify the same verified business, including repeat visits.
+for(const shop of shops){
+ a.w.KarimenTown.open(shop.id);
+ const links=a.all('#town a').filter(el=>el.href.startsWith('https://www.google.com/maps/'));
+ if(shop.id==='365'){
+  assert.equal(links.length,0,'unknown shop has no Google Maps buttons');
+  assert.ok(a.query('.town-detail-actions a[href^="tel:"]'));
+ }else{
+  assert.ok(shop.mapPlaceId,shop.id);
+  assert.ok(links.length>=3,shop.id);
+  for(const link of links){
+   const url=new URL(link.href);
+   assert.equal(url.searchParams.get('api'),'1');
+   assert.equal(url.searchParams.get(url.pathname.includes('/dir/')?'destination_place_id':'query_place_id'),shop.mapPlaceId,shop.id);
+  }
+  assert.equal(a.query('#town iframe').src,shop.embedUrl);
+ }
+}
+a.w.KarimenTown.open();
+for(const card of a.all('.town-card')){
+ const id=card.querySelector('[data-town-action="shop"]').dataset.id;
+ const photo=card.querySelector('.town-photo-link');
+ if(id==='365') assert.equal(photo,null);
+ else assert.equal(new URL(photo.href).searchParams.get('query_place_id'),shops.find(s=>s.id===id).mapPlaceId);
+}
 a.click('[data-town-action="close"]');assert.equal(a.query('#mock').hidden,false);
 a.click('#tab-learn');
 assert.equal(a.run('JSON.stringify(state)'),paused,'paused answer/session remains unchanged');
