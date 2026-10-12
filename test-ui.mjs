@@ -229,6 +229,8 @@ assert.equal(a.run('model.weak(710)'),true);assert.equal(a.errors.length,0);a.cl
  assert.equal(card().querySelector('.category-accuracy').textContent,'正解率 50%');
  assert.equal(card().querySelector('.category-answer-count').textContent,'正解 1 / 回答済み 2問');
  assert.equal(card().querySelector('.progress i').style.width,'50%');
+ assert.match(card().querySelector('.category-sample-note').textContent,/5問未満/);
+ assert.match(card().querySelector('.category-coverage').textContent,/学習進捗 2 \/ /);
  for(const filter of ['new','weak','all']){
   a.click(`[data-action="category-filter"][data-filter="${filter}"]`);
   assert.equal(card().querySelector('.category-accuracy').textContent,'正解率 50%');
@@ -238,11 +240,44 @@ assert.equal(a.run('model.weak(710)'),true);assert.equal(a.errors.length,0);a.cl
  assert.equal(card().querySelector('.category-accuracy').textContent,'正解率 100%');
  assert.equal(card().querySelector('.category-answer-count').textContent,'正解 2 / 回答済み 2問');
  assert.equal(card().querySelector('.progress i').style.width,'100%');
- assert.match(a.query('.learning-overview').textContent,/累積正答率67%/);
+ assert.match(a.query('.learning-overview').textContent,/現在の正解率100%/);
+ assert.match(a.query('.learning-cumulative').textContent,/累積正答率 67%/);
  const records=a.w.localStorage.getItem('karimen-study-v4');a.close();
  a=app({'karimen-study-v4':records});a.click('#tab-learn');
  assert.equal(card().querySelector('.category-accuracy').textContent,'正解率 100%');
  assert.equal(a.run(`state.stats[${questionIds[0]}].total`),2);
+ assert.equal(a.errors.length,0);a.close();
+}
+// Result percentages use this attempt, and retry combines wrong/uncertain without bypassing cooldowns.
+{
+ a=app();
+ const ids=JSON.parse(a.run('JSON.stringify([...categorized(CATS[0]).slice(0,5),...categorized(CATS[1]).slice(0,2)].map(q=>q.id))'));
+ a.run(`model.record(${ids[0]},!activeQuestion(${ids[0]}).a);model.record(${ids[5]},!activeQuestion(${ids[5]}).a);model.begin({ids:${JSON.stringify(ids)},kind:'study'});`);
+ for(let i=0;i<ids.length;i++)a.run(`state.session.index=${i};model.answer(${[0,1,5].includes(i)?'!':''}activeQuestion(${ids[i]}).a,${[0,2].includes(i)});`);
+ a.run("lastResult=model.finish();renderResult();show('result')");
+ assert.ok(a.query('.result-actions').compareDocumentPosition(a.query('.result-weak')) & 4);
+ assert.deepEqual(JSON.parse(a.run('JSON.stringify(resultWeakGroups(lastResult).map(g=>[g.correct,g.answered]))')),[[1,2],[3,5]]);
+ assert.equal(a.all('.weak-topic')[0].querySelector('strong').textContent,'正解率 50%');
+ assert.equal(a.all('.weak-topic')[1].querySelector('strong').textContent,'正解率 60%');
+ assert.equal(a.all('.topic-sample-note').length,1);
+ assert.match(a.query('#result-review-plan').textContent,/不正解・自信なし 4問（重複なし）/);
+ assert.match(a.query('#result-review-plan').textContent,/今すぐ 2問 · 待機中 2問/);
+ assert.equal(a.all('[data-action="result-topic"]')[0].disabled,true);
+ a.click('[data-action="result-retry"]');
+ assert.deepEqual(JSON.parse(a.run('JSON.stringify(state.session.ids)')).sort((a,b)=>a-b),[ids[1],ids[2]].sort((a,b)=>a-b));
+ for(let i=0;i<2;i++)a.run(`state.session.index=${i};model.answer(!activeQuestion(state.session.ids[${i}]).a);`);
+ a.run("lastResult=model.finish();renderResult();show('result')");
+ assert.match(a.query('#result-review-plan').textContent,/今すぐ 0問 · 待機中 2問/);
+ assert.equal(a.query('[data-action="result-retry"]').disabled,true);
+ assert.ok(a.all('[data-action="result-topic"]').every(el=>el.disabled));
+ const detail=a.query('#result details.review-item');detail.open=true;
+ const beforeWait=a.run('JSON.stringify(state)');
+ a.clock.now+=30*60*1000;a.run('refreshReviewSchedule()');
+ assert.equal(a.query('[data-action="result-retry"]').disabled,false);
+ assert.match(a.query('#result-review-plan').textContent,/今すぐ 2問 · 待機中 0問/);
+ assert.equal(a.query('#result details.review-item'),detail);assert.equal(detail.open,true);
+ assert.equal(a.run('JSON.stringify(state)'),beforeWait);
+ a.click('[data-action="result-retry"]');assert.equal(a.run('state.session.ids.length'),2);
  assert.equal(a.errors.length,0);a.close();
 }
 // Ten actual answers (8 correct) must show 80%, leave 40 questions unlearned, and create only 2 review items.
@@ -259,7 +294,7 @@ assert.match(a.query('#result .partial-result').textContent,/未回答40問/);as
 assert.equal(a.run('state.mockResults[1].best'),null);assert.equal(a.run('model.schedule().all.length'),2);
 assert.equal(a.all('#result > details.review-item').length,2);
 a.click('[data-action="result-filter"][data-filter="unanswered"]');assert.equal(a.all('#result > details.review-item').length,40);
-a.click('#tab-learn');assert.match(a.query('.learning-overview').textContent,/回答済み10 \/ 500問累積正答率80%要復習2問/);
+a.click('#tab-learn');assert.match(a.query('.learning-overview').textContent,/回答済み10 \/ 500問現在の正解率80%要復習2問/);
 assert.equal(a.run('Q.filter(q=>!state.stats[q.id]?.total).length'),490);
 {
  let categoryCorrect=0,categoryAnswered=0;
@@ -281,7 +316,7 @@ assert.equal(a.run('state.session.ids.every(id=>!state.stats[id])'),true);a.clos
 // Existing browser records are corrected automatically and keep their partial history accessible.
 const oldPartial=JSON.parse(fs.readFileSync(path.join(root,'dev/fixtures/unanswered-stats-v4.json'),'utf8')).cases.partialTen;
 a=app({'karimen-study-v4':oldPartial});assert.match(a.query('#migration-notice').textContent,/未回答40件/);
-a.click('#tab-learn');assert.match(a.query('.learning-overview').textContent,/累積正答率80%/);assert.equal(a.run('model.schedule().all.length'),2);
+a.click('#tab-learn');assert.match(a.query('.learning-overview').textContent,/現在の正解率80%/);assert.equal(a.run('model.schedule().all.length'),2);
 a.click('#tab-mock');a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="stored-result"]');
 assert.match(a.query('#result .accuracy').textContent,/80%/);assert.equal(a.query('#result .result-achievement'),null);a.close();
 // Historical complete attempts compare with other complete attempts, even if an early exit came first.
