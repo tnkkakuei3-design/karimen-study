@@ -7,7 +7,7 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 const output = path.join(root, 'dist');
 const files = [
   'index.html', 'styles.css', 'app.js', 'model.js', 'questions.js',
-  'learning-content.js', 'visuals.js', 'home-install.js',
+  'learning-content.js', 'visuals.js', 'home-install.js', 'progress-storage.js', 'startup.js',
   'manifest.webmanifest', 'apple-touch-icon.png', 'assets', 'data/assets',
   ...(await readdir(root)).filter(name => /^image-[a-z0-9]+\.(?:png|jpe?g|webp|gif|svg)$/.test(name)),
 ];

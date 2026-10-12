@@ -5,7 +5,8 @@ function sfx(ok){if(state.sound===false)return;try{const C=window.AudioContext||
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const byId = new Map(BANK.map(q => [q.id, q]));
-const model = KarimenModel.create({ storage: { getItem: k => window.localStorage.getItem(k), setItem: (k, v) => window.localStorage.setItem(k, v) } });
+const progressStorage = window.KarimenProgressStorage || { getItem: k => window.localStorage.getItem(k), setItem: (k, v) => window.localStorage.setItem(k, v) };
+const model = KarimenModel.create({ storage: progressStorage });
 let state = model.state, tab = 'mock', view = 'mock', mockFilter = 'all', categoryFilter = 'all', learnSection = 'categories';
 let lastResult = null, reviewFilter = 'wrong', noteReturn = null, toastTimer = null, modalAction = null;
 let noteSearch = '', noteFilter = '', noteComposing = false, reviewMore = false, externalChange = false;
@@ -32,9 +33,12 @@ function theme() { document.documentElement.dataset.theme = state.theme === 'dar
 function ask(title, message, yes, action) { modalAction = action; $('confirm-title').textContent = title; $('confirm-message').textContent = message; $('confirm-yes').textContent = yes; $('confirm').showModal(); }
 function closeDialogs() { for (const el of document.querySelectorAll('dialog[open]')) el.close(); modalAction = null; }
 function updateChrome() {
-  state = model.state; externalChange ||= model.conflicted;
-  $('storage-warning').hidden = !model.error && !externalChange;
-  $('storage-warning').textContent = externalChange ? '別のタブで記録が更新されました。重複を防ぐため操作を止めています。再読み込みして続けてください。' : model.error;
+  state = model.state; externalChange ||= model.conflicted || Boolean(progressStorage.conflict);
+  const saving = progressStorage.status;
+  const saveWarning = model.error || saving?.message || (saving && !saving.primarySaved && !saving.backupSaved && saving.pending ? '学習記録を自動保存しています。完了までこの画面を開いてお待ちください。' : '');
+  $('storage-warning').hidden = !saveWarning && !externalChange;
+  $('storage-warning').textContent = externalChange ? '別のタブで記録が更新されました。重複を防ぐため操作を止めています。再読み込みして続けてください。' : saveWarning;
+  if ($('save-status')) $('save-status').textContent = saveWarning || (saving?.backupSaved ? '自動保存・バックアップ済み' : '自動保存済み');
   const locked = state.session?.mode === 'exam';
   const focusedExam = locked && view === 'play';
   $('tabs').hidden = view === 'play';
@@ -313,9 +317,9 @@ function openNotes(id = null) {
 }
 function settings() {
   const exam = state.session?.mode === 'exam';
-  $('settings-content').innerHTML = `<div class="settings-group"><h3>画面の明るさ</h3><div class="seg">${[['auto','自動'],['light','ライト'],['dark','ダーク']].map(([k,t]) => `<button data-action="theme" data-value="${k}" aria-pressed="${state.theme === k}">${t}</button>`).join('')}</div></div><div class="settings-group"><h3>効果音</h3><div class="seg">${[[true,'オン'],[false,'オフ']].map(([v,t]) => `<button data-action="sound" data-value="${v}" aria-pressed="${state.sound === v}">${t}</button>`).join('')}</div><p class="muted">学習で答えたときに鳴ります。模試中は鳴りません。</p></div><div class="settings-group"><label class="confidence-control"><input id="reduce-motion" type="checkbox" ${state.reduceMotion ? 'checked' : ''}>動きを抑える</label><p class="muted">端末の「視差効果を減らす」設定にも対応します。</p><button class="textbtn" data-action="preview" data-score="45">花丸の見本を見る ${icon('arrow')}</button></div><div class="settings-group"><h3>学習記録を引き継ぐ</h3><p class="muted">成績・復習予定・途中の回答・以前の記録をJSONで保管できます。</p><div class="btnrow"><button class="btn secondary" data-action="export">書き出す</button><button class="btn secondary" data-action="import" ${exam ? 'disabled' : ''}>読み込む</button></div></div><div class="settings-group"><button class="textbtn" data-action="archive" ${exam ? 'disabled' : ''}>以前の学習記録を見る ${icon('arrow')}</button><p class="muted">旧50問練習、判定A〜C、以前の問題の回答を保管しています。</p></div><div class="settings-group"><button class="textbtn danger" data-action="reset" ${state.session ? 'disabled' : ''}>現在の学習記録を初期化する</button>${state.session ? '<p class="muted">途中の学習を終えると初期化できます。</p>' : ''}</div>`;
+  $('settings-content').innerHTML = `<div class="settings-group"><h3>画面の明るさ</h3><div class="seg">${[['auto','自動'],['light','ライト'],['dark','ダーク']].map(([k,t]) => `<button data-action="theme" data-value="${k}" aria-pressed="${state.theme === k}">${t}</button>`).join('')}</div></div><div class="settings-group"><h3>効果音</h3><div class="seg">${[[true,'オン'],[false,'オフ']].map(([v,t]) => `<button data-action="sound" data-value="${v}" aria-pressed="${state.sound === v}">${t}</button>`).join('')}</div><p class="muted">学習で答えたときに鳴ります。模試中は鳴りません。</p></div><div class="settings-group"><label class="confidence-control"><input id="reduce-motion" type="checkbox" ${state.reduceMotion ? 'checked' : ''}>動きを抑える</label><p class="muted">端末の「視差効果を減らす」設定にも対応します。</p><button class="textbtn" data-action="preview" data-score="45">花丸の見本を見る ${icon('arrow')}</button></div><div class="settings-group"><h3>学習記録の保存</h3><p class="muted">回答・成績・復習予定は自動で保存します。同じ端末・ブラウザでのサイト更新後も、そのまま続けられます。</p><p id="save-status" role="status"></p><details><summary>予備の書き出し・読み込み</summary><p class="muted">通常の更新では操作不要です。別の端末へ記録を渡す場合などに使用できます。</p><div class="btnrow"><button class="btn secondary" data-action="export">書き出す</button><button class="btn secondary" data-action="import" ${exam ? 'disabled' : ''}>読み込む</button></div></details></div><div class="settings-group"><button class="textbtn" data-action="archive" ${exam ? 'disabled' : ''}>以前の学習記録を見る ${icon('arrow')}</button><p class="muted">旧50問練習、判定A〜C、以前の問題の回答を保管しています。</p></div><div class="settings-group"><button class="textbtn danger" data-action="reset" ${state.session ? 'disabled' : ''}>現在の学習記録を初期化する</button>${state.session ? '<p class="muted">途中の学習を終えると初期化できます。</p>' : ''}</div>`;
   $('settings-content').insertAdjacentHTML('afterbegin', window.KarimenHomeInstall?.settingsMarkup() || '');
-  if (!$('settings').open) $('settings').showModal();
+  if (!$('settings').open) $('settings').showModal(); updateChrome();
 }
 function renderArchive() {
   const a = state.legacyArchive, records = Object.entries(a.stats || {}), history = [...(a.history || []), ...Object.values(a.checks || {}).map(c => c?.first).filter(Boolean)];
@@ -348,6 +352,7 @@ function openFigure(k) { if (state.session?.mode === 'exam' || !FIG[k]) return; 
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-action]'); if (!b || b.disabled || externalChange) return;
   const a = b.dataset.action, s = state.session;
+  if (model.readOnly && !['settings','close-settings','export','archive','tab','close-detail','close-figure','close-preview'].includes(a)) { toast(model.error); return; }
   if (a === 'tab') navigate(b.dataset.tab);
   else if (a === 'mock-filter') { mockFilter = b.dataset.filter; renderMock(); }
   else if (a === 'category-filter') { categoryFilter = b.dataset.filter; renderLearn(); }
@@ -430,6 +435,8 @@ window.addEventListener('focus', () => { windowFocused = true; refreshAfterRetur
 window.addEventListener('pagehide', () => { pageActive = false; updateTimer(); });
 window.addEventListener('pageshow', () => { pageActive = true; windowFocused = document.hasFocus(); refreshAfterReturn(); });
 window.addEventListener('storage', e => { if ((e.key === KarimenModel.STORE || e.key === null) && e.newValue !== JSON.stringify(state)) { externalChange = true; closeDialogs(); updateChrome(); } });
+window.addEventListener('karimen-storage-status', updateChrome);
+setInterval(() => { try { progressStorage.retry?.(); } catch {} }, 10000);
 matchMedia('(prefers-color-scheme:dark)').addEventListener?.('change',theme);
 $('brandmark').innerHTML = icon('road'); $('settings-button').innerHTML = icon('settings');
 $('nav-mock').innerHTML = icon('exam'); $('nav-learn').innerHTML = icon('book'); $('nav-review').innerHTML = icon('review');

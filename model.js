@@ -7,6 +7,7 @@ const KarimenModel = (() => {
   const object = v => v && typeof v === 'object' && !Array.isArray(v);
   const worksheet = n => WORKSHEETS.find(w => w.worksheet === Number(n));
   const fullWorksheet = (w, ids) => !!w && ids.length === 50 && new Set(ids).size === 50 && ids.every(id => w.orderedIds.includes(id));
+  const questionSignature = id => { const q = active.get(id); return JSON.stringify([q.q, q.a, q.fig || null]); };
   const emptyArchive = () => ({ stats: {}, misses: {}, history: [], checks: {}, sessions: [], importSnapshots: [] });
   function normalizeArchive(raw) {
     const archive = { ...emptyArchive(), ...(object(raw) ? copy(raw) : {}) };
@@ -142,7 +143,8 @@ const KarimenModel = (() => {
     const w = worksheet(legacy ? legacyWorksheet : s.worksheet);
     const fullSet = fullWorksheet(w, s.ids);
     if (legacy && s.mode === 'exam') return null; // Old random / assessment tests keep their original rules in the archive.
-    if (!legacy && s.contentVersion !== (fullSet ? w.contentVersion : CONTENT_VERSION)) return null;
+    if (!legacy && s.contentVersion !== (fullSet ? w.contentVersion : CONTENT_VERSION) &&
+        !s.ids.every(id => s.questionSignatures?.[id] === questionSignature(id))) return null;
     const startedAt = number(s.startedAt ?? s.started), endAt = number(s.endAt ?? s.end);
     if (s.mode === 'exam') {
       if (!fullSet || !startedAt) return null;
@@ -154,7 +156,8 @@ const KarimenModel = (() => {
     return { ...copy(s), attemptId: typeof s.attemptId === 'string' ? s.attemptId : 'migrated-' + startedAt,
       mode: s.mode, kind: s.mode === 'exam' ? 'mock' : fullSet ? 'guided' : s.kind === 'review' ? 'review' : 'study',
       worksheet: fullSet ? w.worksheet : null, contentVersion: fullSet ? w.contentVersion : CONTENT_VERSION,
-      ids: [...s.ids], answers: s.ids.map((_, i) => typeof s.answers?.[i] === 'boolean' ? s.answers[i] : null),
+      ids: [...s.ids], questionSignatures: Object.fromEntries(s.ids.map(id => [id, questionSignature(id)])),
+      answers: s.ids.map((_, i) => typeof s.answers?.[i] === 'boolean' ? s.answers[i] : null),
       flags: s.ids.map((_, i) => !!s.flags?.[i]), uncertain: s.ids.map((_, i) => !!s.uncertain?.[i]),
       answeredAt: s.ids.map((_, i) => number(s.answeredAt?.[i]) || null),
       index: number(s.index, s.ids.length - 1), startedAt, endAt: s.mode === 'exam' && !s.timerPaused ? endAt : null,
@@ -230,16 +233,18 @@ const KarimenModel = (() => {
       try { state = normalize(JSON.parse(rawV4)); }
       catch {
         state = fresh();
-        state.notices.push('保存データを読み込めませんでした。壊れた元データを保管し、新しい記録を開始しています。');
+        blocked = true;
+        error = '保存データを読み込めません。元の記録を守るため上書きを止めています。ページを再読み込みしてください。';
+        state.notices.push('保存データを読み込めなかったため、元の記録を保護しています。新しい記録で上書きしていません。');
         state.legacyArchive.corruptRaw = rawV4;
         try { storage.setItem(STORE + '-recovery-' + now(), rawV4); }
-        catch { blocked = true; error = '保存データを読み込めません。元の記録を守るため上書きを止めています。設定から書き出してください。'; }
+        catch { /* Keep the unreadable original even if its extra copy cannot be saved. */ }
       }
     } else {
       const oldRaw = read(OLD);
       if (oldRaw !== null) {
         try { state = normalize(JSON.parse(oldRaw)); }
-        catch { state = fresh(); state.legacyArchive.corruptRaw = oldRaw; state.notices.push('以前の保存データを読み込めませんでした。元のデータは削除せず保管しています。'); }
+        catch { state = fresh(); blocked = true; error = '以前の保存記録を読み込めないため、上書きを止めています。'; state.legacyArchive.corruptRaw = oldRaw; state.notices.push('以前の保存データを読み込めませんでした。元のデータは削除せず保管しています。'); }
       } else {
         state = fresh();
         const oldest = read('karimen-drill-miss');
@@ -267,7 +272,7 @@ const KarimenModel = (() => {
       try {
         // A storage event may not have reached a suspended tab yet. Check again
         // immediately before writing so its stale state cannot replace newer work.
-        if (storage.getItem(STORE) !== persistedRaw) {
+        if (storage.conflict || storage.getItem(STORE) !== persistedRaw) {
           blocked = true; conflicted = true;
           error = '別のタブで記録が更新されました。上書きを止めています。再読み込みして続けてください。';
           return false;
@@ -293,11 +298,13 @@ const KarimenModel = (() => {
       return { all, due: all.filter(q => due(q.id, at)), later: all.filter(q => !due(q.id, at)) };
     }
     function record(id, answer, uncertain = false) {
+      if (blocked) return false;
       const q = active.get(id); if (!q || typeof answer !== 'boolean') return false;
       const ok = answer === q.a, at = now();
       recordOutcome(state, id, ok, uncertain, at); return ok;
     }
     function begin({ ids, kind = 'study', worksheet: n = null, label = '10問の学習' }) {
+      if (blocked) return null;
       if (state.session?.mode === 'exam') throw new Error('進行中の模試があります。');
       if (!ids.length || !ids.every(id => active.has(id)) || new Set(ids).size !== ids.length) throw new Error('出題する問題が見つかりません。');
       if (kind === 'review' && ids.some(id => weak(id) && !due(id))) throw new Error('次の復習時刻までお待ちください。');
@@ -319,7 +326,8 @@ const KarimenModel = (() => {
       }
       const at = now();
       state.session = { attemptId: makeId(), mode: kind === 'mock' ? 'exam' : 'drill', kind, worksheet: fullSet ? w.worksheet : null,
-        contentVersion: fullSet ? w.contentVersion : CONTENT_VERSION, ids: orderedIds, answers: ids.map(() => null),
+        contentVersion: fullSet ? w.contentVersion : CONTENT_VERSION, ids: orderedIds,
+        questionSignatures: Object.fromEntries(orderedIds.map(id => [id, questionSignature(id)])), answers: ids.map(() => null),
         uncertain: ids.map(() => false), flags: ids.map(() => false), answeredAt: ids.map(() => null), index: 0, label,
         startedAt: at, endAt: kind === 'mock' ? at + EXAM_DURATION : null,
         ...(kind === 'mock' ? { timerPolicy: 1, remainingMs: EXAM_DURATION, timerPaused: false } : {}) };
@@ -327,7 +335,7 @@ const KarimenModel = (() => {
     }
     const expired = () => state.session?.mode === 'exam' && remaining() === 0;
     function answer(value, uncertain = false) {
-      const s = state.session; if (!s || typeof value !== 'boolean') return false;
+      const s = state.session; if (blocked || !s || typeof value !== 'boolean') return false;
       if (expired()) { finish(true); return false; }
       if (s.mode === 'exam' && s.timerPaused) return false;
       if (s.mode === 'drill' && s.answers[s.index] !== null) return false;
@@ -338,7 +346,7 @@ const KarimenModel = (() => {
       save(); return true;
     }
     function finish(timeout = false) {
-      const s = state.session; if (!s || state.completed[s.attemptId]) return state.lastResult;
+      const s = state.session; if (blocked || !s || state.completed[s.attemptId]) return state.lastResult;
       if (s.mode === 'exam') s.remainingMs = remaining();
       const a = { ...copy(s), mode: s.kind, total: s.ids.length, completedAt: now(), statsPolicy: 1,
         timeout: s.mode === 'exam' && (timeout || expired()), scoreSnapshot: s.ids.filter((id, i) => s.answers[i] === active.get(id).a).length };
@@ -359,6 +367,7 @@ const KarimenModel = (() => {
       state.attempts.push(a); state.lastResult = a; state.session = null; save(); return a;
     }
     function importData(raw) {
+      if (blocked) throw new Error(error || '保存記録を保護しています。');
       if (conflicted) throw new Error('別のタブで記録が更新されました。再読み込みしてください。');
       if (state.session?.mode === 'exam') throw new Error('模試の終了後に読み込めます。');
       const next = normalize(raw), previous = copy(state);
@@ -366,11 +375,12 @@ const KarimenModel = (() => {
       state = next; restoreTimer(); blocked = false; return save();
     }
     function reset() {
+      if (blocked) return false;
       if (state.session) throw new Error('途中の学習を終えてから初期化してください。');
       state = { ...fresh(), ...settings(state) }; return save();
     }
     save();
-    return { get state() { return state; }, get error() { return error; }, get conflicted() { return conflicted; }, save, weak, due, schedule, record, begin, answer, finish, expired, remaining, pauseTimer, resumeTimer,
+    return { get state() { return state; }, get error() { return error; }, get conflicted() { return conflicted; }, get readOnly() { return blocked; }, save, weak, due, schedule, record, begin, answer, finish, expired, remaining, pauseTimer, resumeTimer,
       importData, reset, exportData: () => {
         const out = { ...copy(state), exportedAt: new Date(now()).toISOString() };
         if (out.session?.mode === 'exam') Object.assign(out.session, { remainingMs: remaining(), timerPaused: true, endAt: null });

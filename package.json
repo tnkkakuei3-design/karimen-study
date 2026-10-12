@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "build": "node validate.mjs && node build-static.mjs",
-    "test": "node validate.mjs && node test-progress.mjs && node test-ui.mjs && node test-home-install.mjs"
+    "test": "node validate.mjs && node test-progress.mjs && node test-storage.mjs && node test-ui.mjs && node test-home-install.mjs"
   },
   "devDependencies": {
+    "fake-indexeddb": "6.2.5",
     "jsdom": "30.1.2"
   },
   "engines": {

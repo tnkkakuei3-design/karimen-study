@@ -103,10 +103,17 @@ a.model.finish();a.model.begin({ids:[301,302,303,304],kind:'review'});
 assert.notDeepEqual(toPlain(a.model.state.session.ids),reviewOrder);assert.deepEqual(toPlain(a.model.state.session.ids).sort(),[301,302,303,304]);
 // Changed content archives unfinished work; historical points are not recalculated.
 a=app();r=score(a,48);const raw=a.model.exportData();raw.mockResults[1].best.scoreSnapshot=42;raw.mockResults[1].best.contentVersion='older';raw.attempts=[];raw.lastResult=null;raw.mockResults[1].recent=[];const b=app();b.model.importData(raw);assert.equal(b.model.state.mockResults[1].best.scoreSnapshot,42);assert.equal(score(b,45).previousScore,null);
-a.model.begin({ids:[301],kind:'study'});const changed=a.model.exportData();changed.session.contentVersion='old-content';b.model.importData(changed);assert.equal(b.model.state.session,null);assert.ok(b.model.state.legacyArchive.sessions.length);
+a.model.begin({ids:[301],kind:'study'});const changed=a.model.exportData();changed.session.contentVersion='old-content';b.model.importData(changed);
+assert.equal(b.model.state.session.ids[0],301);assert.equal(b.model.state.session.contentVersion,CONTENT_VERSION);
+changed.session.questionSignatures[301]='different question';b.model.importData(changed);assert.equal(b.model.state.session,null);assert.ok(b.model.state.legacyArchive.sessions.length);
 // Storage failures are surfaced without deleting old or corrupt raw data.
 a=app({version:3,stats:{301:{total:1,correct:1}},misses:{}});const old=a.storage.get(M.OLD);a.quota();assert.equal(a.model.save(),false);assert.match(a.model.error,/保存できません/);assert.equal(a.storage.get(M.OLD),old);
 const corrupt=new Map([[M.STORE,'{invalid']]);a=app(null,corrupt);assert.equal(a.model.state.legacyArchive.corruptRaw,'{invalid');assert.ok([...corrupt.keys()].some(k=>k.startsWith(M.STORE+'-recovery-')));
+assert.equal(a.model.readOnly,true);assert.equal(a.model.save(),false);assert.equal(corrupt.get(M.STORE),'{invalid');
+assert.equal(a.model.begin({ids:[301]}),null);assert.equal(a.model.reset(),false);
+const future=JSON.stringify({kind:'karimen-progress',version:5,stats:{301:{total:20,correct:17}}});
+const futureStore=new Map([[M.STORE,future]]),futureModel=app(null,futureStore).model;
+assert.equal(futureModel.readOnly,true);assert.equal(futureModel.save(),false);assert.equal(futureStore.get(M.STORE),future);
 const brokenStore={getItem:k=>k===M.STORE?'{invalid':null,setItem:()=>{throw Error('quota')}};const blocked=M.create({storage:brokenStore,now:()=>initialTime});assert.equal(blocked.save(),false);assert.match(blocked.error,/上書きを止め/);
 a=app();score(a,50);a.model.reset();assert.equal(a.model.state.attempts.length,0);assert.equal(a.model.state.session,null);assert.deepEqual(toPlain(a.model.state.mockResults),{});
 // Repeated imports preserve earlier recovery snapshots even after a reload.

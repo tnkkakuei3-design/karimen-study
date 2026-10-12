@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import {fileURLToPath} from 'node:url';
 const root=path.dirname(fileURLToPath(import.meta.url));
 const read=f=>fs.readFileSync(path.join(root,f),'utf8');
-for(const f of ['questions.js','learning-content.js','model.js','visuals.js','app.js'])new vm.Script(read(f),{filename:f});
+for(const f of ['questions.js','learning-content.js','model.js','visuals.js','app.js','progress-storage.js','startup.js'])new vm.Script(read(f),{filename:f});
 const sandbox={};vm.createContext(sandbox);
 vm.runInContext(read('questions.js')+'\n'+read('learning-content.js')+'\nthis.data={Q,ARCHIVED_Q,BANK,WORKSHEETS,ADDED_ART,NOTES,FIG};',sandbox);
 const {Q,ARCHIVED_Q,BANK,WORKSHEETS,ADDED_ART,NOTES,FIG}=sandbox.data;
