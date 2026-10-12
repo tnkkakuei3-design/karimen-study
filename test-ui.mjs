@@ -12,8 +12,8 @@ const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
 function app(seed={}){
  const errors=[],downloads=[],intervals=[],clock={now:Date.parse('2026-10-11T12:00:00Z')};
  const console=new VirtualConsole();console.on('jsdomError',e=>errors.push(e));
- const dom=new JSDOM(html,{url:'https://tnkkakuei3-design.github.io/karimen-study/',runScripts:'outside-only',virtualConsole:console});
- const w=dom.window;let randomSeed=123456;w.Math.random=()=>((randomSeed=(Math.imul(randomSeed,1664525)+1013904223)>>>0)/4294967296);for(const [k,v] of Object.entries(seed))w.localStorage.setItem(k,typeof v==='string'?v:JSON.stringify(v));
+ const dom=new JSDOM(html,{url:'https://tnkkakuei3-design.github.io/karimen-study/',runScripts:'outside-only',pretendToBeVisual:true,virtualConsole:console});
+ const w=dom.window;w.document.hasFocus=()=>true;let randomSeed=123456;w.Math.random=()=>((randomSeed=(Math.imul(randomSeed,1664525)+1013904223)>>>0)/4294967296);for(const [k,v] of Object.entries(seed))w.localStorage.setItem(k,typeof v==='string'?v:JSON.stringify(v));
  w.matchMedia=()=>({matches:false,addEventListener(){}});w.scrollTo=()=>{};w.requestAnimationFrame=fn=>fn();w.setInterval=fn=>{intervals.push(fn);return intervals.length};
  w.HTMLElement.prototype.scrollIntoView=function(){};w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
  class ClockDate extends Date{constructor(...a){super(...(a.length?a:[clock.now]))}static now(){return clock.now}}
@@ -99,8 +99,8 @@ a.click('#next');a.click('#confirm-yes');assert.equal(a.run('state.mockResults[1
 for(const target of ['learn','review']){
  a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
  a.click('[data-action="answer"][data-value="true"]');
- const pending=a.run('JSON.stringify(state.session)');
  a.click('[data-action="pause"]');a.click('#confirm-yes');
+ const pending=a.run('JSON.stringify(state.session)');
  assert.equal(a.query('#tab-learn').disabled,false);assert.equal(a.query('#tab-review').disabled,false);
  a.click('#tab-'+target);assert.equal(a.query('#confirm').open,true);
  assert.match(a.query('#confirm-title').textContent,/模試を途中終了して/);assert.match(a.query('#confirm-message').textContent,/未回答49問/);
@@ -112,11 +112,12 @@ for(const target of ['learn','review']){
  const persisted=a.w.localStorage.getItem('karimen-study-v4');a.close();a=app({'karimen-study-v4':persisted});
  a.click('#tab-'+target);assert.equal(a.query('#'+target).hidden,false);assert.equal(a.run('state.attempts.length'),1);a.close();
 }
-// An expired suspended mock grades once before opening the requested tab.
+// A suspended mock does not expire while browsing the list, even after a day.
 a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
-a.click('[data-action="pause"]');a.click('#confirm-yes');a.clock.now=a.run('state.session.endAt');
-a.click('#tab-learn');assert.equal(a.query('#learn').hidden,false);assert.equal(a.run('state.session'),null);
-assert.equal(a.run('state.attempts.length'),1);assert.equal(a.run('state.attempts[0].timeout'),true);a.close();
+a.click('[data-action="pause"]');a.click('#confirm-yes');a.clock.now+=86400000;a.run('updateTimer()');
+a.click('#tab-learn');assert.equal(a.query('#confirm').open,true);assert.equal(a.run('state.attempts.length'),0);
+a.click('#confirm-yes');assert.equal(a.query('#learn').hidden,false);assert.equal(a.run('state.session'),null);
+assert.equal(a.run('state.attempts[0].timeout'),false);a.close();
 // Selecting a different mock round must honor the selected round and keep the current answers until confirmation.
 a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
 a.click('[data-action="answer"][data-value="true"]');a.click('[data-action="pause"]');a.click('#confirm-yes');
@@ -129,11 +130,11 @@ a.click('[data-action="pause"]');a.click('#confirm-yes');a.click('[data-action="
 assert.equal(a.query('#detail').open,true);assert.equal(a.query('#detail-title').textContent,'第2回');
 assert.equal(a.run('state.session'),null);assert.equal(a.run('state.attempts.length'),1);assert.equal(a.run('state.attempts[0].answers[0]'),true);
 a.click('#detail [data-action="start-mock"]');assert.equal(a.run('state.session.worksheet'),2);assert.equal(a.run('state.session.ids.every(id=>WORKSHEETS[1].orderedIds.includes(id))'),true);a.close();
-// Expiry while choosing a new round or while a confirmation is open must finish the old round only once.
+// Changing rounds after a long pause stays a manual finish; an active confirmation still expires once.
 a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
-a.click('[data-action="pause"]');a.click('#confirm-yes');a.clock.now=a.run('state.session.endAt');
-a.click('[data-action="detail"][data-set="3"]');assert.equal(a.query('#detail-title').textContent,'第3回');
-assert.equal(a.run('state.attempts.length'),1);assert.equal(a.run('state.attempts[0].timeout'),true);a.close();
+a.click('[data-action="pause"]');a.click('#confirm-yes');a.clock.now+=86400000;
+a.click('[data-action="detail"][data-set="3"]');assert.equal(a.query('#confirm').open,true);a.click('#confirm-yes');assert.equal(a.query('#detail-title').textContent,'第3回');
+assert.equal(a.run('state.attempts.length'),1);assert.equal(a.run('state.attempts[0].timeout'),false);a.close();
 a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');a.click('[data-action="submit"]');
 a.clock.now=a.run('state.session.endAt');a.run('updateTimer()');assert.equal(a.query('#confirm').open,false);
 assert.equal(a.query('#result').hidden,false);assert.equal(a.run('state.attempts.length'),1);assert.equal(a.run('modalAction'),null);a.close();
@@ -358,3 +359,59 @@ for(const kind of ['study','guided','review']){
  assert.equal(a.errors.length,0);a.close();
 }
 console.log('PASS: permanent ten-question study; conditional resume; reload, cancellation and preserved answers when starting fresh.');
+
+// Browser lifecycle: count only foreground play time, including repeated/out-of-order events.
+a=app();
+let focused=true,hidden=false;
+a.w.document.hasFocus=()=>focused;
+Object.defineProperty(a.w.document,'hidden',{configurable:true,get:()=>hidden});
+const visibility=()=>a.w.document.dispatchEvent(new a.w.Event('visibilitychange'));
+const lifecycle=name=>a.w.dispatchEvent(new a.w.Event(name));
+a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
+a.click('[data-action="answer"][data-value="true"]');a.click('#next');
+const bindings=a.run('JSON.stringify([state.session.ids,state.session.answers,state.session.index])');
+a.clock.now+=10000;hidden=true;visibility();
+assert.equal(a.run('model.remaining()'),1790000);assert.equal(a.run('state.session.timerPaused'),true);
+assert.match(a.query('#timer').textContent,/29:50 · 停止中/);
+assert.equal(JSON.parse(a.w.localStorage.getItem('karimen-study-v4')).session.remainingMs,1790000);
+a.clock.now+=7200000;a.intervals.forEach(fn=>fn());lifecycle('focus');
+assert.equal(a.run('model.remaining()'),1790000);assert.equal(a.run('state.attempts.length'),0);
+focused=false;hidden=false;visibility();
+assert.equal(a.run('state.session.timerPaused'),true);
+focused=true;lifecycle('focus');
+assert.equal(a.run('state.session.timerPaused'),false);assert.equal(a.query('#timer').textContent,'残り 29:50');
+a.clock.now+=15000;focused=false;lifecycle('blur');
+assert.equal(a.run('model.remaining()'),1775000);
+a.clock.now+=7200000;lifecycle('blur');hidden=true;visibility();hidden=false;visibility();
+assert.equal(a.run('model.remaining()'),1775000);assert.equal(a.run('state.session.timerPaused'),true);
+focused=true;lifecycle('focus');a.clock.now+=2000;lifecycle('pagehide');
+assert.equal(a.run('model.remaining()'),1773000);
+a.clock.now+=86400000;lifecycle('focus');
+assert.equal(a.run('state.session.timerPaused'),true);assert.equal(a.run('model.remaining()'),1773000);
+lifecycle('pageshow');assert.equal(a.run('state.session.timerPaused'),false);
+a.clock.now+=5001;a.run('updateTimer()');
+assert.equal(JSON.parse(a.w.localStorage.getItem('karimen-study-v4')).session.remainingMs,1767999);
+a.clock.now+=1000;a.click('[data-action="pause"]');a.click('#confirm-yes');
+const manualRemaining=a.run('model.remaining()');assert.equal(manualRemaining,1766999);
+a.clock.now+=86400000;lifecycle('focus');visibility();a.intervals.forEach(fn=>fn());
+assert.equal(a.run('model.remaining()'),manualRemaining);assert.equal(a.run('state.session.timerPaused'),true);
+assert.equal(a.run('JSON.stringify([state.session.ids,state.session.answers,state.session.index])'),bindings);
+const timerSave=a.w.localStorage.getItem('karimen-study-v4'),returnedAt=a.clock.now;
+assert.equal(a.errors.length,0);a.close();
+a=app({'karimen-study-v4':timerSave});a.clock.now=returnedAt;
+assert.equal(a.run('model.remaining()'),manualRemaining);assert.equal(a.run('state.session.timerPaused'),true);
+a.click('#mock [data-action="resume"]');assert.equal(a.run('state.session.timerPaused'),false);
+assert.equal(a.run('JSON.stringify([state.session.ids,state.session.answers,state.session.index])'),bindings);
+a.clock.now+=manualRemaining-1;a.run('updateTimer()');assert.equal(a.run('state.attempts.length'),0);
+a.clock.now++;a.run('updateTimer()');assert.equal(a.run('state.session'),null);
+assert.equal(a.run('state.attempts.length'),1);assert.equal(a.run('state.attempts[0].timeout'),true);
+assert.equal(a.query('#result').hidden,false);lifecycle('pageshow');a.run('updateTimer()');
+assert.equal(a.run('state.attempts.length'),1);assert.equal(a.errors.length,0);a.close();
+// A lifecycle checkpoint may never overwrite a newer record from another tab.
+a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
+const newer=JSON.parse(a.w.localStorage.getItem('karimen-study-v4'));newer.session.answers[1]=false;
+const newerRaw=JSON.stringify(newer);a.w.localStorage.setItem('karimen-study-v4',newerRaw);
+lifecycle('blur');lifecycle('focus');
+assert.equal(a.run('model.conflicted'),true);assert.equal(a.w.localStorage.getItem('karimen-study-v4'),newerRaw);
+assert.match(a.query('#storage-warning').textContent,/別のタブ/);assert.equal(a.errors.length,0);a.close();
+console.log('PASS: hidden/blur/pagehide pauses, visible/focus/pageshow resumes, repeated events, saved remainder, manual pause, reload, active-only timeout and stale-tab protection.');

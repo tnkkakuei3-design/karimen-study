@@ -44,8 +44,38 @@ for(const version of [2,3]){
 }
 a=app({version:3,answerRevision:3,session:{mode:'drill',ids:[301,1],answers:[true,null]}});assert.equal(a.model.state.session,null);assert.equal(a.model.state.legacyArchive.sessions.length,1);
 a=app({version:2,answerRevision:2,stats:{366:{total:3,correct:3}},misses:{366:1},session:{mode:'drill',ids:[366],answers:[true],pool:'all'}});assert.equal(a.model.state.stats[366],undefined);assert.equal(a.model.state.legacyArchive.originalState.stats[366].total,3);assert.equal(a.model.state.session.answers[0],null);
-// Timer keeps its deadline, late answers cannot change it, and timeout scores once.
-a=app();a.model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});const end=a.model.state.session.endAt;a.model.answer(Q.find(q=>q.id===a.model.state.session.ids[0]).a);a.clock.now+=1000;a.model=a.create();assert.equal(a.model.state.session.endAt,end);a.clock.now=end;assert.equal(a.model.expired(),true);assert.equal(a.model.answer(Q[0].a),false);assert.equal(a.model.state.session,null);assert.equal(a.model.state.attempts.length,1);assert.equal(a.model.state.lastResult.scoreSnapshot,1);assert.equal(a.model.state.lastResult.timeout,true);a.model.finish(true);assert.equal(a.model.state.attempts.length,1);
+// Only active time counts. Pause, repeated events, reload and import keep the saved remainder.
+a=app();a.model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});
+a.model.answer(Q.find(q=>q.id===a.model.state.session.ids[0]).a);
+a.clock.now+=12345;assert.equal(a.model.remaining(),1800000-12345);
+a.model.pauseTimer();const paused=toPlain(a.model.state.session);
+a.clock.now+=day;assert.equal(a.model.expired(),false);assert.equal(a.model.answer(true),false);
+a.model.pauseTimer();assert.deepEqual(toPlain(a.model.state.session),paused);
+a.model=a.create();assert.deepEqual(toPlain(a.model.state.session),paused);
+const timerImport=app();timerImport.clock.now=a.clock.now;timerImport.model.importData(a.model.exportData());
+assert.deepEqual(toPlain(timerImport.model.state.session),paused);
+a.model.resumeTimer();const end=a.model.state.session.endAt;assert.equal(end-a.clock.now,1800000-12345);
+a.model.resumeTimer();assert.equal(a.model.state.session.endAt,end);
+a.clock.now=end;assert.equal(a.model.expired(),true);assert.equal(a.model.answer(Q[0].a),false);
+assert.equal(a.model.state.session,null);assert.equal(a.model.state.attempts.length,1);
+assert.equal(a.model.state.lastResult.scoreSnapshot,1);assert.equal(a.model.state.lastResult.timeout,true);
+a.model.finish(true);assert.equal(a.model.state.attempts.length,1);
+// Export checkpoints the live timer without pausing the source session.
+a=app();a.model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});a.clock.now+=61000;
+const timedExport=a.model.exportData();assert.equal(timedExport.session.remainingMs,1739000);
+assert.equal(timedExport.session.timerPaused,true);assert.equal(a.model.state.session.timerPaused,false);
+const migratedTimer=app();migratedTimer.clock.now+=day;migratedTimer.model.importData(timedExport);
+assert.equal(migratedTimer.model.remaining(),1739000);assert.equal(migratedTimer.model.expired(),false);
+// Interrupted reload uses the most recent active checkpoint, not elapsed offline time.
+a.model.save();a.clock.now+=day;a.model=a.create();assert.equal(a.model.remaining(),1739000);assert.equal(a.model.state.session.timerPaused,true);
+// Fixed-deadline records migrate once, including already expired records.
+for(const elapsed of [60000,1800001]){
+ const old=app();old.model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});
+ const raw=toPlain(old.model.state);delete raw.session.timerPolicy;delete raw.session.remainingMs;delete raw.session.timerPaused;
+ const target=app();target.clock.now+=elapsed;target.model.importData(raw);
+ assert.equal(target.model.remaining(),Math.max(0,1800000-elapsed));assert.equal(target.model.state.session.timerPaused,true);
+ assert.equal(target.model.expired(),elapsed>=1800000);assert.equal(target.model.state.session.ids.length,50);
+}
 // All-null completion and premature guided completion do not invent answered items.
 a=app();a.model.begin({ids:WORKSHEETS[2].orderedIds,kind:'mock',worksheet:3});assert.equal(a.model.finish().scoreSnapshot,0);assert.equal(Object.keys(a.model.state.misses).length,0);
 a=app();a.model.begin({ids:[301,302],kind:'study'});a.model.answer(Q[0].a);assert.equal(a.model.state.stats[301].total,1);a.model.finish();assert.equal(a.model.state.stats[301].total,1);assert.equal(a.model.state.stats[302],undefined);
@@ -162,10 +192,11 @@ for(const w of WORKSHEETS){
  assert.notDeepEqual(order,original);assert.deepEqual(toPlain(w.orderedIds),original);
  a.model.answer(Q.find(q=>q.id===order[0]).a);session.index=17;session.flags[17]=true;
  a.model.answer(!Q.find(q=>q.id===wrongId).a);
- const suspended=toPlain(session),backup=a.model.exportData();a.model=a.create();
+ a.model.pauseTimer();const suspended=toPlain(session),backup=a.model.exportData();a.model=a.create();
  assert.deepEqual(toPlain(a.model.state.session),suspended,`round ${w.worksheet} reload`);
  const imported=app();imported.model.importData(backup);
  assert.deepEqual(toPlain(imported.model.state.session),suspended,`round ${w.worksheet} import`);
+ a.model.resumeTimer();
  for(let i=0;i<50;i++){
   a.model.state.session.index=i;const value=Q.find(q=>q.id===order[i]).a;
   a.model.answer(i===17?!value:value);

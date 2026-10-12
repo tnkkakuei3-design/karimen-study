@@ -14,8 +14,8 @@ const android='Mozilla/5.0 (Linux; Android 15) AppleWebKit/537.36 Chrome/140.0.0
 function app({ua=ios,seed={},standalone=false,legacyStandalone=false,storageBlocked=false}={}){
  const errors=[],frames=[],downloads=[];
  const virtualConsole=new VirtualConsole();virtualConsole.on('jsdomError',e=>errors.push(e));
- const dom=new JSDOM(html,{url:'https://tnkkakuei3-design.github.io/karimen-study/',runScripts:'outside-only',virtualConsole});
- const w=dom.window;
+ const dom=new JSDOM(html,{url:'https://tnkkakuei3-design.github.io/karimen-study/',runScripts:'outside-only',pretendToBeVisual:true,virtualConsole});
+ const w=dom.window;w.document.hasFocus=()=>true;
  Object.defineProperty(w.navigator,'userAgent',{value:ua});
  Object.defineProperty(w.navigator,'standalone',{value:legacyStandalone});
  for(const [key,value]of Object.entries(seed))w.localStorage.setItem(key,value);

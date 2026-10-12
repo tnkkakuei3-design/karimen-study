@@ -1,6 +1,6 @@
 /* State and scoring are independent of the UI. Old storage is never overwritten. */
 const KarimenModel = (() => {
-  const STORE = 'karimen-study-v4', OLD = 'karimen-study-v2', DAY = 86400000, REVIEW_INTERVAL = 30 * 60 * 1000;
+  const STORE = 'karimen-study-v4', OLD = 'karimen-study-v2', DAY = 86400000, REVIEW_INTERVAL = 30 * 60 * 1000, EXAM_DURATION = 30 * 60 * 1000;
   const active = new Map(Q.map(q => [q.id, q]));
   const number = (v, max = 1e15) => Number.isFinite(v) ? Math.max(0, Math.min(max, Math.floor(v))) : 0;
   const copy = value => JSON.parse(JSON.stringify(value));
@@ -144,14 +144,20 @@ const KarimenModel = (() => {
     if (legacy && s.mode === 'exam') return null; // Old random / assessment tests keep their original rules in the archive.
     if (!legacy && s.contentVersion !== (fullSet ? w.contentVersion : CONTENT_VERSION)) return null;
     const startedAt = number(s.startedAt ?? s.started), endAt = number(s.endAt ?? s.end);
-    if (s.mode === 'exam' && (!fullSet || !startedAt || endAt - startedAt !== 1800000)) return null;
+    if (s.mode === 'exam') {
+      if (!fullSet || !startedAt) return null;
+      if (s.timerPolicy === 1) {
+        if (!Number.isFinite(s.remainingMs) || s.remainingMs < 0 || s.remainingMs > EXAM_DURATION ||
+            typeof s.timerPaused !== 'boolean' || (!s.timerPaused && endAt < startedAt)) return null;
+      } else if (s.timerPolicy != null || endAt - startedAt !== EXAM_DURATION) return null;
+    }
     return { ...copy(s), attemptId: typeof s.attemptId === 'string' ? s.attemptId : 'migrated-' + startedAt,
       mode: s.mode, kind: s.mode === 'exam' ? 'mock' : fullSet ? 'guided' : s.kind === 'review' ? 'review' : 'study',
       worksheet: fullSet ? w.worksheet : null, contentVersion: fullSet ? w.contentVersion : CONTENT_VERSION,
       ids: [...s.ids], answers: s.ids.map((_, i) => typeof s.answers?.[i] === 'boolean' ? s.answers[i] : null),
       flags: s.ids.map((_, i) => !!s.flags?.[i]), uncertain: s.ids.map((_, i) => !!s.uncertain?.[i]),
       answeredAt: s.ids.map((_, i) => number(s.answeredAt?.[i]) || null),
-      index: number(s.index, s.ids.length - 1), startedAt, endAt: s.mode === 'exam' ? endAt : null,
+      index: number(s.index, s.ids.length - 1), startedAt, endAt: s.mode === 'exam' && !s.timerPaused ? endAt : null,
       label: typeof s.label === 'string' ? s.label.slice(0, 120) : fullSet ? `第${w.worksheet}回・解説付き練習` : '引き継いだ学習' };
   }
   function normalize(raw) {
@@ -243,6 +249,19 @@ const KarimenModel = (() => {
         }
       }
     }
+    function remaining(at = now()) {
+      const s = state.session;
+      if (s?.mode !== 'exam') return 0;
+      return s.timerPaused ? s.remainingMs : Math.max(0, Math.min(s.remainingMs ?? EXAM_DURATION, s.endAt - at));
+    }
+    function restoreTimer() {
+      const s = state.session; if (s?.mode !== 'exam') return;
+      // New records restore the last saved remaining time, never offline wall time.
+      // Older records have only a deadline: preserve the time still left at migration.
+      s.remainingMs = s.timerPolicy === 1 ? number(s.remainingMs, EXAM_DURATION) : number(s.endAt - now(), EXAM_DURATION);
+      s.timerPolicy = 1; s.timerPaused = true; s.endAt = null;
+    }
+    restoreTimer();
     function save() {
       if (blocked) return false;
       try {
@@ -253,10 +272,19 @@ const KarimenModel = (() => {
           error = '別のタブで記録が更新されました。上書きを止めています。再読み込みして続けてください。';
           return false;
         }
+        if (state.session?.mode === 'exam') state.session.remainingMs = remaining();
         const serialized = JSON.stringify(state);
         storage.setItem(STORE, serialized); persistedRaw = serialized; error = ''; return true;
       }
       catch { error = '記録を保存できませんでした。容量やブラウザ設定を確認し、設定から記録を書き出してください。'; return false; }
+    }
+    function pauseTimer() {
+      const s = state.session; if (s?.mode !== 'exam' || s.timerPaused || conflicted) return;
+      s.remainingMs = remaining(); s.timerPaused = true; s.endAt = null; return save();
+    }
+    function resumeTimer() {
+      const s = state.session; if (s?.mode !== 'exam' || !s.timerPaused || conflicted) return;
+      s.endAt = now() + s.remainingMs; s.timerPaused = false; return save();
     }
     const weak = id => (state.misses[id] || 0) > 0 || !!state.stats[id]?.reviewAt;
     const due = (id, at = now()) => weak(id) && (state.stats[id]?.reviewAt || 0) <= at;
@@ -293,13 +321,15 @@ const KarimenModel = (() => {
       state.session = { attemptId: makeId(), mode: kind === 'mock' ? 'exam' : 'drill', kind, worksheet: fullSet ? w.worksheet : null,
         contentVersion: fullSet ? w.contentVersion : CONTENT_VERSION, ids: orderedIds, answers: ids.map(() => null),
         uncertain: ids.map(() => false), flags: ids.map(() => false), answeredAt: ids.map(() => null), index: 0, label,
-        startedAt: at, endAt: kind === 'mock' ? at + 1800000 : null };
+        startedAt: at, endAt: kind === 'mock' ? at + EXAM_DURATION : null,
+        ...(kind === 'mock' ? { timerPolicy: 1, remainingMs: EXAM_DURATION, timerPaused: false } : {}) };
       state.lastResult = null; save(); return state.session;
     }
-    const expired = () => state.session?.mode === 'exam' && now() >= state.session.endAt;
+    const expired = () => state.session?.mode === 'exam' && remaining() === 0;
     function answer(value, uncertain = false) {
       const s = state.session; if (!s || typeof value !== 'boolean') return false;
       if (expired()) { finish(true); return false; }
+      if (s.mode === 'exam' && s.timerPaused) return false;
       if (s.mode === 'drill' && s.answers[s.index] !== null) return false;
       if (s.kind === 'review' && weak(s.ids[s.index]) && !due(s.ids[s.index])) return false;
       s.answers[s.index] = value; s.uncertain[s.index] = uncertain;
@@ -309,6 +339,7 @@ const KarimenModel = (() => {
     }
     function finish(timeout = false) {
       const s = state.session; if (!s || state.completed[s.attemptId]) return state.lastResult;
+      if (s.mode === 'exam') s.remainingMs = remaining();
       const a = { ...copy(s), mode: s.kind, total: s.ids.length, completedAt: now(), statsPolicy: 1,
         timeout: s.mode === 'exam' && (timeout || expired()), scoreSnapshot: s.ids.filter((id, i) => s.answers[i] === active.get(id).a).length };
       // Set the completion guard before any presentation, and persist all mutations together.
@@ -332,15 +363,19 @@ const KarimenModel = (() => {
       if (state.session?.mode === 'exam') throw new Error('模試の終了後に読み込めます。');
       const next = normalize(raw), previous = copy(state);
       next.legacyArchive.importSnapshots = [...(Array.isArray(next.legacyArchive.importSnapshots) ? next.legacyArchive.importSnapshots : []), { at: now(), state: previous }];
-      state = next; blocked = false; return save();
+      state = next; restoreTimer(); blocked = false; return save();
     }
     function reset() {
       if (state.session) throw new Error('途中の学習を終えてから初期化してください。');
       state = { ...fresh(), ...settings(state) }; return save();
     }
     save();
-    return { get state() { return state; }, get error() { return error; }, get conflicted() { return conflicted; }, save, weak, due, schedule, record, begin, answer, finish, expired,
-      importData, reset, exportData: () => ({ ...copy(state), exportedAt: new Date(now()).toISOString() }),
+    return { get state() { return state; }, get error() { return error; }, get conflicted() { return conflicted; }, save, weak, due, schedule, record, begin, answer, finish, expired, remaining, pauseTimer, resumeTimer,
+      importData, reset, exportData: () => {
+        const out = { ...copy(state), exportedAt: new Date(now()).toISOString() };
+        if (out.session?.mode === 'exam') Object.assign(out.session, { remainingMs: remaining(), timerPaused: true, endAt: null });
+        return out;
+      },
       validateImport: normalize, worksheet, active };
   }
   return { create, normalize, validAttempt, answeredCount, partialAttempt, STORE, OLD, DAY, REVIEW_INTERVAL };
