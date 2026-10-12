@@ -10,7 +10,7 @@
 .town-teaser-all{display:flex;justify-content:center;align-items:center;gap:10px;width:100%;min-height:44px;border:0;border-top:1px solid var(--line);background:var(--town-mint);color:var(--town-green);font-size:13px;font-weight:700;padding:8px 12px}.town-teaser-all .icon{width:18px;height:18px}
 #town{padding-bottom:20px}#town a.btn{text-decoration:none}#town .icon{flex:none}#town h2:focus{outline:none}#town .btn{min-height:48px}
 .town-topline{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}.town-pr{font-size:11px;color:var(--muted);text-align:right}.town-topline .textbtn{font-size:14px}
-.town-heading{padding:8px 0 24px}.town-eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;color:var(--town-green);margin-bottom:7px}.town-heading h2{font-size:32px;line-height:1.4;letter-spacing:-.04em}.town-heading>p:last-child{font-size:15px;color:var(--muted);margin-top:8px}
+.town-heading{padding:8px 0 24px}.town-eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;color:var(--town-green);margin-bottom:7px}.town-heading h2{font-size:32px;line-height:1.4;letter-spacing:-.04em}.town-heading-copy>p:last-child{font-size:15px;color:var(--muted);margin-top:8px}
 .town-modes{display:grid;grid-template-columns:1fr 1fr;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--soft);margin-bottom:18px;gap:4px}
 .town-modes button{display:flex;justify-content:center;align-items:center;gap:8px;min-height:44px;background:transparent;border:0;border-radius:999px;font-size:14px;font-weight:700;color:var(--muted)}.town-modes button[aria-pressed=true]{background:var(--action-bg);color:var(--action-fg)}.town-modes .icon{width:20px;height:20px}
 .town-search{display:flex;align-items:center;gap:10px;min-height:48px;border:1px solid var(--line);border-radius:10px;padding:2px 12px;background:var(--surface);color:var(--muted)}.town-search .icon{width:20px;height:20px}.town-search input{background:none;border:0;width:100%;min-width:0;padding:10px 0;color:var(--fg);font-size:16px}.town-search:focus-within{outline:2px solid var(--blue);outline-offset:2px}.town-search input:focus{outline:none}
@@ -59,3 +59,13 @@
 .town-card[data-town-state]:not([data-town-state=open]) .town-photo-frame img{filter:brightness(.58) saturate(.65)}
 .town-card[data-town-state]:not([data-town-state=open]) .town-photo-placeholder{filter:brightness(.75)}
 .town-hours-notice{font-size:12px;color:var(--muted);line-height:1.8;margin:10px 0 14px}.town-map-selected>.town-hours,.town-detail-section>.town-hours{padding:8px 0 12px}
+
+/* Guide character stays beside page guidance, clear of maps and shop photos. */
+.town-character{display:block;width:72px;height:72px;object-fit:contain;flex:none;pointer-events:none}
+.town-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.town-heading-copy{min-width:0;flex:1}
+.town-voucher-info{margin-top:24px;align-items:center}
+.town-voucher-info>div{min-width:0;flex:1}
+.town-voucher-info .town-character{width:60px;height:60px}
+@media(max-width:380px){.town-heading{gap:8px}.town-heading .town-character{width:60px;height:60px}.town-heading h2{font-size:25px}.town-voucher-info{padding:14px;gap:10px}}
+@media(min-width:650px){.town-heading .town-character{width:80px;height:80px}}
