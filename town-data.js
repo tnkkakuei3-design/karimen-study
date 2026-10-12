@@ -10,7 +10,6 @@ window.KarimenTownData = {
     { id:'kirakira', number:3, name:'きらきら', category:'食堂', tags:['meal','dinner'], phone:'080-8356-2119', menus:['各種定食'], hours:'14:00〜21:00', closed:'水・日曜日', note:'' },
     { id:'kinta', number:4, name:'きんた', category:'居酒屋・定食', tags:['meal','dinner'], phone:'090-5731-9917', menus:['定食','居酒屋メニュー'], hours:'18:00〜24:00', closed:'日曜日・祝日', note:'' },
     { id:'chiquita', number:5, name:'チキータ', category:'喫茶店', tags:['cafe','meal','lunch'], phone:'098-994-8248', menus:['パスタセット','カレー','オムライス','なす味噌'], hours:'9:00〜17:00（モーニングは11:00まで）', closed:'日曜日・祝日', note:'' },
-    { id:'365', number:6, name:'365', category:'弁当・居酒屋', tags:['takeout','meal','lunch','dinner'], phone:'090-4471-0219', menus:['弁当','定食'], hours:'昼 12:00〜14:00／夜 18:00〜22:00', closed:'昼：土・日曜日・祝日／夜：不定休', note:'弁当の注文は9:30まで。' },
     { id:'mahoroba', number:7, name:'まほろば', category:'食堂', tags:['meal','lunch','takeout'], phone:'090-6859-7431', menus:['沖縄そば','カツカレー','豚キムチ','ルーロー飯','魚汁','煮付け','メガシャークバーガー'], hours:'10:30〜15:00', closed:'なし（案内表記載）', note:'電話注文で持ち帰り可。' },
     { id:'ritz', number:8, name:'リッツ', category:'パン・ケーキ', tags:['bakery','takeout'], phone:'098-992-6000', menus:['パン各種','ケーキ各種'], hours:'月〜土 8:00〜19:30／日 11:00〜18:00', closed:'なし（案内表記載）', note:'' },
     { id:'uminchu', number:9, name:'糸満海人食堂', category:'食堂・居酒屋', tags:['meal','dinner'], phone:'090-5295-3296', menus:['イカ','魚汁','沖縄そば','定食'], hours:'17:00〜22:00（ラストオーダー21:00）', closed:'月・火・水曜日', note:'来店前に、営業場所と営業時間を電話でご確認ください。' },
@@ -123,9 +122,6 @@ const townLocations = {
     "source": "https://www.instagram.com/kissaandbarzerobanchi/",
     "mapCheckedOn": "2026-10-12",
     "mapPlaceId": "ChIJQwepBwBn5TQRyAUie1y4xTc"
-  },
-  "6": {
-    "mapNote": "「365」の正確な所在地を確認中です。来店前に店舗または教習所に場所をご確認ください。"
   }
 };
 for (const shop of window.KarimenTownData.shops) Object.assign(shop, townLocations[shop.number] || {});

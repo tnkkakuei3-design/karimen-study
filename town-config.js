@@ -179,9 +179,7 @@
   "chiquita": [
     "curry"
   ],
-  "365": [
-    "bento"
-  ],
+
   "mahoroba": [
     "okinawa-soba"
   ],

@@ -1,0 +1,19 @@
+{
+  "checkedOn": "2026-10-12",
+  "decision": "Unlist 365 until its location can be verified, per user instruction. No claim that the store is closed.",
+  "originalGuideRecord": "{ id:'365', number:6, name:'365', category:'弁当・居酒屋', tags:['takeout','meal','lunch','dinner'], phone:'090-4471-0219', menus:['弁当','定食'], hours:'昼 12:00〜14:00／夜 18:00〜22:00', closed:'昼：土・日曜日・祝日／夜：不定休', note:'弁当の注文は9:30まで。' },",
+  "queries": [
+    "090-4471-0219",
+    "09044710219",
+    "糸満 365 弁当 居酒屋",
+    "糸満 さんろくご",
+    "糸満 365 せんべろ",
+    "糸満 365 site:instagram.com"
+  ],
+  "rejectedCandidate": {
+    "url": "https://www.ubereats.com/jp/store/365%E3%81%95%E3%82%93%E3%82%8D%E3%81%8F%E3%81%93/Yvx7c8yfU3iO8tQQpas5Gw",
+    "address": "那覇市金城5-11-1",
+    "phone": "07026252020",
+    "reason": "Different city and phone; no evidence linking it to the voucher store."
+  }
+}

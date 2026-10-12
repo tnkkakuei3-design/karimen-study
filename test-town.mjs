@@ -40,20 +40,21 @@ function app({hash='',seed={},configure,observe=false}={}){
 
 let a=app();
 const shops=a.w.KarimenTownData.shops;
-assert.equal(shops.length,15);assert.equal(new Set(shops.map(s=>s.id)).size,15);
-assert.deepEqual([...shops.map(s=>s.number)],[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
+assert.equal(shops.length,14);assert.equal(new Set(shops.map(s=>s.id)).size,14);
+assert.deepEqual([...shops.map(s=>s.number)],[1,2,3,4,5,7,8,9,10,11,12,13,14,15]);
 assert.equal(a.query('#mock').hidden,false);assert.ok(a.query('#mock .town-teaser'));
+assert.notEqual(a.query('#mock .town-teaser-main').dataset.id,'365');
 await settle();
 assert.ok(a.query('#mock .town-media-teaser img'),'home promotion includes a static image');
 assert.ok(a.query('#mock .town-photo-credit details'),'home photo credits can be opened');
 const original=a.run('JSON.stringify(state)');
 a.click('#mock [data-town-action="open"]');
 assert.equal(a.query('#town').hidden,false);assert.equal(a.w.location.hash,'#town');
-assert.equal(a.all('.town-card').length,15);assert.equal(a.query('#town-title'),a.w.document.activeElement);
+assert.equal(a.all('.town-card').length,14);assert.equal(a.query('#town-title'),a.w.document.activeElement);
 assert.equal(a.query('script[src*="maps.googleapis.com"]'),null,'no API calls before provider configuration');
 await settle();
-assert.equal(a.all('.town-card .town-photo-gallery img').length,15,'all 15 cards include a real image file without an API');
-assert.equal(a.all('.town-card .town-photo-kind').length,14,'generic food imagery is explicitly labeled');
+assert.equal(a.all('.town-card .town-photo-gallery img').length,14,'all 14 cards include a real image file without an API');
+assert.equal(a.all('.town-card .town-photo-kind').length,13,'generic food imagery is explicitly labeled');
 assert.ok(a.all('.town-card .town-photo-credit').every(el=>el.querySelector('a[href*="creativecommons.org"]')),'photo licenses remain accessible');
 for(const [id,photos]of Object.entries(a.w.KarimenTownConfig.suppliedPhotos)){
  assert.ok(photos.length>0,id);
@@ -98,10 +99,7 @@ for(let round=0;round<2;round++){
  a.click('[data-town-action="mode"][data-value="cards"]');
  a.click('[data-town-action="mode"][data-value="map"]');
 }
-a.click('[data-town-action="map-shop"][data-id="365"]');
-assert.equal(a.query('#town iframe'),null,'unknown location must not show an unrelated pin');
-assert.match(a.query('.town-map-fallback-card').textContent,/所在地を確認中/);
-assert.equal(a.query('.town-map-actions a'),null,'unknown location does not offer a failing map search');
+assert.equal(a.query('[data-town-action="map-shop"][data-id="365"]'),null);
 a.click('[data-town-action="close"]');assert.equal(a.query('#mock').hidden,false);assert.equal(a.w.location.hash,'');
 const remembered=a.snapshot();a.close();
 
@@ -109,7 +107,7 @@ a=app({seed:remembered,hash:'#town/kirakira'});
 assert.equal(a.query('#town').hidden,false,'direct links survive app initialization');
 assert.equal(a.query('#town-title').textContent,'きらきら');assert.equal(a.query('.town-save').getAttribute('aria-pressed'),'true');
 a.w.history.replaceState({},'','#town');a.w.dispatchEvent(new a.w.PopStateEvent('popstate'));
-assert.equal(a.all('.town-card').length,15,'browser back can restore the directory');
+assert.equal(a.all('.town-card').length,14,'browser back can restore the directory');
 a.w.history.replaceState({},'','./');a.w.dispatchEvent(new a.w.PopStateEvent('popstate'));assert.equal(a.query('#town').hidden,true);
 a.click('#tab-learn');a.click('[data-action="quick-study"]');a.click('[data-action="answer"][data-value="true"]');
 const playing=a.run('JSON.stringify(state)');a.w.KarimenTown.open('kirakira');
@@ -148,7 +146,12 @@ assert.equal(a.run('JSON.stringify(state)'),paused,'paused answer/session remain
 a.click('[data-action="resume"][data-mode="study"]');assert.equal(a.query('#play').hidden,false);
 assert.equal(a.run('state.session.answers.filter(answer=>answer!==null).length'),1);a.close();
 
-a=app({hash:'#town/unknown'});assert.equal(a.all('.town-card').length,15);
+a=app({hash:'#town/365',seed:{[key]:JSON.stringify(['365','kirakira'])}});
+assert.equal(a.all('.town-card').length,14,'retired direct links return to the directory');
+assert.equal(a.query('[data-town-action="shop"][data-id="365"]'),null);
+a.click('[data-town-action="filter"][data-value="saved"]');assert.equal(a.all('.town-card').length,1,'retired saved IDs are ignored');a.close();
+
+a=app({hash:'#town/unknown'});assert.equal(a.all('.town-card').length,14);
 a.w.Storage.prototype.setItem=function(name){if(name===key)throw new Error('quota')};
 const beforeQuota=a.run('JSON.stringify(state)');a.click('[data-town-action="save"][data-id="kirakira"]');
 assert.equal(a.query('[data-town-action="save"][data-id="kirakira"]').getAttribute('aria-pressed'),'false');
@@ -182,4 +185,4 @@ a.w.KarimenTown.open('kirakira');await settle();
 assert.equal(a.all('.town-media-detail img').length,1);assert.equal(a.query('.town-media-detail img').src,'https://example.test/owner.jpg');
 assert.match(a.query('.town-photo-credit').textContent,/きらきら提供/);a.close();
 
-console.log('PASS: 15 shops with verified static JPEG assets and illustration labels, search/IME/filters, bookmarks/reload/failure, map fallback, direct links/history, unchanged study answers and paused mock timer, lazy photo provider/attribution/error fallback.');
+console.log('PASS: 14 shops with verified static JPEG assets and illustration labels, search/IME/filters, bookmarks/reload/failure, map fallback, direct links/history, unchanged study answers and paused mock timer, lazy photo provider/attribution/error fallback.');
