@@ -77,10 +77,11 @@ assert.equal(a.query('#town').hidden,false);assert.equal(a.w.location.hash,'#tow
 assert.equal(a.all('.town-card').length,14);assert.equal(a.all('.town-card .town-hours').length,14);assert.equal(a.all('.town-card .town-hours dl').length,14);assert.equal(a.query('#town-title'),a.w.document.activeElement);
 assert.equal(a.query('script[src*="maps.googleapis.com"]'),null,'no API calls before provider configuration');
 await settle();
-assert.equal(a.all('.town-card .town-photo-placeholder').length,13,'missing actual venue photos never use unrelated substitutes');
-assert.equal(a.all('.town-card .town-photo-gallery img').length,3);
+assert.equal(a.all('.town-card .town-photo-placeholder').length,1,'only the unverified cafe photo remains unpublished');
+assert.equal(a.all('.town-card .town-photo-gallery img').length,21,'cards show up to three actual venue photos');
 assert.equal(a.all('.town-card .town-photo-kind').length,0,'no generic food imagery is displayed');
-assert.ok(a.all('.town-card .town-photo-credit').every(el=>el.querySelector('a[href*="creativecommons.org"]')),'photo licenses remain accessible');
+assert.ok(a.all('.town-card .town-photo-credit').every(el=>el.querySelector('a[target="_blank"]')),'every photo retains its source');
+assert.equal(a.all('[data-town-photo="itomaru"] .town-photo-credit a[href*="creativecommons.org"]').length,3,'existing photo licences remain accessible');
 for(const [id,photos]of Object.entries(a.w.KarimenTownConfig.suppliedPhotos)){
  assert.ok(photos.length>0,id);
  for(const photo of photos){
@@ -88,7 +89,9 @@ for(const [id,photos]of Object.entries(a.w.KarimenTownConfig.suppliedPhotos)){
   const file=fs.readFileSync(path.join(root,photo.url));
   assert.equal(file.subarray(0,2).toString('hex'),'ffd8','published photo is a JPEG');
   assert.equal(crypto.createHash('sha256').update(file).digest('hex'),photo.sha256,'downloaded source image remains intact');
-  assert.ok(photo.credit&&photo.licenseUrl&&photo.sourceUrl);
+  assert.ok(photo.credit&&photo.sourceUrl);
+  if(photo.permission)assert.ok(photo.licenseUrl);
+  else {assert.equal(photo.selectedForDisplay,true);assert.equal(photo.rightsStatus,'unconfirmed');assert.equal(photo.licenseUrl,undefined,'source photos are not assigned an invented licence');}
   assert.equal(photo.kind,'venue');assert.equal(photo.shopId,id);
  }
 }
@@ -103,6 +106,23 @@ assert.equal(a.query('.town-expanded-photo').src,firstExpanded);
 a.click('[data-photo-close]');assert.equal(a.query('.town-photo-dialog'),null);assert.equal(a.w.document.activeElement,photoTrigger);
 photoTrigger.click();a.w.KarimenTown.open('itomaru');assert.equal(a.query('.town-photo-dialog'),null);await settle();
 assert.equal(a.all('.town-media-detail img').length,3);a.w.KarimenTown.open();await settle();
+// Each detail view must show only that store's configured, intact photographs.
+for(const shop of shops){
+ a.w.KarimenTown.open(shop.id);await settle();
+ const expected=[...(a.w.KarimenTownConfig.suppliedPhotos[shop.id]||[])];
+ assert.deepEqual(a.all('.town-media-detail img').map(img=>img.src),expected.map(p=>new URL(p.url,a.w.location.href).href),shop.id);
+ if(!expected.length)assert.ok(a.query('.town-photo-placeholder'),shop.id);
+ if(expected.length){
+  a.click('.town-media-detail [data-town-action="photo"]');
+  for(let i=0;i<expected.length;i++){
+   assert.equal(a.query('.town-expanded-photo').src,new URL(expected[i].url,a.w.location.href).href,`${shop.id} photo ${i+1}`);
+   assert.equal(a.query('.town-photo-dialog-head strong').textContent,shop.name);
+   if(i+1<expected.length)a.click('[data-photo-next]');
+  }
+  a.click('[data-photo-close]');
+ }
+}
+a.w.KarimenTown.open();await settle();
 a.click('[data-town-action="filter"][data-value="cafe"]');assert.equal(a.all('.town-card').length,3);
 a.click('[data-town-action="filter"][data-value="all"]');
 let input=a.query('#town-search');input.value='ｷﾗｷﾗ';input.dispatchEvent(new a.w.Event('input',{bubbles:true}));
