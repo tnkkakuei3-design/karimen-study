@@ -804,3 +804,100 @@ body.play-active .install-prompt,body.focused-view .install-prompt{display:none!
 @media(display-mode:standalone),(display-mode:fullscreen),(display-mode:minimal-ui){.install-prompt{display:none!important}}
 
 .modal>[data-action="close-detail"],.modal>[data-action="close-settings"],.modal>[data-action="close-preview"]{margin-top:14px}
+
+/* Finish: a quiet page, distinct selectable cards, and diagrams before commentary. */
+.header{padding:20px 0 24px}
+.brand h1{font-weight:700;letter-spacing:-.035em}
+h2,h3{font-weight:700}
+.home-intro{align-items:center;margin-bottom:24px}
+.home-intro h2{line-height:1.35;letter-spacing:-.035em}
+.home-intro .home-character{object-fit:contain}
+.mock-heading h3{font-size:17px}
+.mock-heading .badge{border:0;background:transparent;padding:0;font-weight:400}
+.home-overview{margin-bottom:20px}
+#mock .set-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;min-height:122px;gap:10px}
+#mock .set-card.perfect{border-color:var(--stampline);background:var(--stampbg)}
+#mock .set-card.in-progress{border-color:var(--blue);background:var(--pale)}
+#mock .mock-card-heading b{font-size:16px;font-weight:650}
+#mock .mock-latest strong{font-size:32px;letter-spacing:-.035em}
+#mock .mock-best{font-weight:400;color:var(--muted)}
+#mock .legacy-label{font-size:12px;line-height:1.85;margin-top:20px}
+#learn .character-heading{min-height:68px;margin-bottom:12px;align-items:center}
+#learn .learn-guide{width:57px;height:68px;object-fit:contain}
+#learn .character-heading h2{font-size:23px;letter-spacing:-.035em}
+#learn .recommend[data-action="quick-study"]{border-radius:12px;min-height:68px;padding:12px 16px}
+.learning-overview{margin-top:18px;border-bottom:0}
+.learning-overview dd{font-weight:650;letter-spacing:-.025em}
+#learn .learning-cumulative>summary{font-size:12px;font-weight:500}
+#learn .category-card{background:var(--surface);border:1px solid var(--line);padding:16px 14px;gap:12px;border-radius:14px;text-align:left}
+#learn .category-card>.icon{color:var(--fg);width:27px;height:27px}
+#learn .category-card .card-chevron{color:var(--muted);opacity:.7}
+#learn .category-copy>strong{font-size:15px;font-weight:650;line-height:1.55;min-height:3.1em;align-items:flex-start}
+#learn .category-status{margin:10px 0 4px}
+#learn .category-accuracy b{font-size:26px;font-weight:650}
+#learn .category-copy .category-answer-count{font-size:11px;margin:0 0 10px;font-weight:400}
+#learn .category-copy .category-coverage{font-size:11px;margin:8px 0 0;font-weight:400}
+#learn .category-copy .category-sample-note{font-weight:400}
+.category-review-badge{font-weight:500}
+.review-now-card{background:var(--pale);border:0;border-radius:16px;padding:22px}
+.review-now-card h3{font-size:16px;font-weight:650}
+.review-now-count{font-size:56px;font-weight:650;line-height:1.1;margin:14px 0 20px;letter-spacing:-.04em}
+.review-timing{background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:18px 0 22px;margin:0 0 24px}
+.review-timing.is-empty{border:0;border-bottom:1px solid var(--line);border-radius:0;padding:16px 0}
+.review-timing .hintline{font-size:12px}
+.review-row{padding:16px 4px}
+.review-row:disabled{background:transparent}
+.review-row .row-copy>strong{font-weight:650}
+.review-row .review-progress{font-size:12px;color:var(--muted)}
+.review-row .review-row-status{border:0;background:transparent;font-size:12px;font-weight:500}
+.question{font-weight:650}
+.feedback.answer-result{margin-bottom:26px}
+.answer-result .answer-state{padding:0;background:transparent;font-size:14px;font-weight:600}
+.answer-result.incorrect .answer-state{background:transparent}
+.answer-result-title{margin:10px 0 0;font-size:25px;font-weight:650}
+.answer-result-title strong{font-size:42px}
+.answer-result .answer-choice.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.learning-points{border:0;border-radius:0;background:transparent;border-top:2px solid var(--fg);padding:20px 0 24px;margin:0}
+.learning-points>h3{font-size:14px;color:var(--muted);font-weight:500;margin-bottom:12px}
+.learning-points>h3 .icon{display:none}
+.point-main{font-size:18px;font-weight:650;line-height:1.85}
+.point-detail{border-top:0;padding-top:12px;margin-top:0}
+.point-detail h4{font-size:12px;font-weight:500;color:var(--muted)}
+.point-detail p{font-size:15px;line-height:1.85}
+.answered-question{border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;background:transparent}
+.answered-question>summary{padding:14px 0;font-weight:500}
+.answered-question-body{padding:0 0 18px}
+.question-visual,.inline-figure{border-radius:10px}
+.question-visual-head{background:transparent;border-bottom:1px solid var(--line);font-size:13px}
+.note{border-radius:0;border:0;border-bottom:1px solid var(--line);background:transparent}
+.note>summary{padding:16px 0;min-height:108px}
+.note[open]>summary{background:transparent}
+.note-summary-copy strong{font-weight:650;font-size:16px;line-height:1.55}
+.note-summary-copy small{font-size:12px;font-weight:400}
+.note-preview{border-radius:6px;background:#fff}
+.note-content{padding:12px 0 24px}
+.note-content>.fig:first-child{margin-top:0}
+.note-keypoints{padding:20px 0 8px}
+.note-keypoints h3{font-size:15px;font-weight:650}
+.note-keypoints ul{padding-left:20px;font-size:15px;line-height:1.85}
+.note-keypoints li+li{margin-top:8px}
+.note-caution{background:transparent;border-left:2px solid var(--blue);border-radius:0;padding:8px 0 8px 16px;margin-top:16px}
+.note-caution h3{font-size:15px}
+.note-caution p{font-size:15px;line-height:1.85}
+.result-card{padding:0;border:0;border-radius:0}
+.result-greeting{font-size:17px;font-weight:500;color:var(--muted);margin-top:20px}
+.result-hero{padding:12px 0}
+.score{font-weight:650;letter-spacing:-.055em}
+.score small{letter-spacing:0;font-weight:400}
+.comparison{padding:16px 0}
+.weak-topic{background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:16px 0}
+.settings-group{padding:18px 0}
+.settings-group .muted{font-size:12px;line-height:1.8}
+.footer{margin-top:32px;font-size:12px}
+@media(hover:hover){.category-card:hover,.set-card:hover{border-color:var(--muted)!important}.note>summary:hover{color:var(--blue)}}
+@media(max-width:374px){#learn .character-heading h2{font-size:21px}#learn .category-card{padding:14px 12px}.point-main{font-size:17px}}
+@media(min-width:650px){#learn .category-copy>strong{min-height:1.55em}.note-grid{gap:0 28px}.home-intro .home-character{width:180px}.result-card{max-width:720px;margin-inline:auto}.note-content{padding:16px 0 28px}}
+
+.note-content>.fig{border-radius:10px;margin:16px 0 24px}
+.note-content .fig-top{background:transparent;border-bottom:1px solid var(--line);font-size:14px;font-weight:650;padding:10px 14px}
+.note-content .figk{font-size:14px;line-height:1.85}
