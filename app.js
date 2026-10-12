@@ -10,6 +10,7 @@ let state = model.state, tab = 'mock', view = 'mock', mockFilter = 'all', catego
 let lastResult = null, reviewFilter = 'wrong', noteReturn = null, toastTimer = null, modalAction = null;
 let noteSearch = '', noteFilter = '', noteComposing = false, reviewMore = false, externalChange = false;
 let windowFocused = document.hasFocus(), pageActive = true, lastTimerCheckpoint = 0;
+let displayedReviewSignature = '';
 const shuffle = arr => { const out = [...arr]; for (let i = out.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [out[i], out[j]] = [out[j], out[i]]; } return out; };
 const activeQuestion = id => model.active.get(Number(id));
 const dateLabel = at => at ? new Date(at).toLocaleString('ja-JP', { month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' }) : '今すぐ';
@@ -155,8 +156,10 @@ function reviewRow(q, early = false) {
   const s = state.stats[q.id], left = Math.max(1, 2 - (s?.reviewPass || 0));
   return `<button class="review-row" data-action="review-one" data-id="${q.id}" ${early ? 'disabled' : ''}>${icon('book')}<span class="row-copy"><strong>${esc(q.topic)}${q.isSupplemental ? '・補足' : ''}</strong><small>第${q.worksheet}回・問${q.number}</small>${early ? `<small>次の復習まで ${reviewWaitHTML(s.reviewAt)}</small>` : ''}</span><span class="badge ${early ? '' : 'blue'}">あと${left}回</span>${icon('chevron')}</button>`;
 }
+function reviewSignature(due) { return new Date().toDateString() + '|' + due.map(q => q.id).join(','); }
 function renderReview() {
   const { all, due, later } = model.schedule();
+  displayedReviewSignature = reviewSignature(due);
   const session = state.session, unfinished = session?.kind === 'review';
   const completed = !unfinished && !all.length && completedReviewToday();
   const reviewArt = all.length || unfinished ? 'D051' : completed ? 'D011' : 'D012';
@@ -418,7 +421,9 @@ $('confirm-yes').addEventListener('click', () => { const action = modalAction; m
 $('confirm-no').addEventListener('click', () => { $('confirm').close(); modalAction = null; });
 $('confirm').addEventListener('cancel', () => modalAction = null);
 $('tabs').addEventListener('keydown', e => { if (!['ArrowLeft','ArrowRight','Home','End'].includes(e.key)) return; const buttons = [...$('tabs').querySelectorAll('button:not(:disabled)')]; let i = buttons.indexOf(document.activeElement); if (i < 0) return; e.preventDefault(); i = e.key === 'Home' ? 0 : e.key === 'End' ? buttons.length - 1 : (i + (e.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length; buttons[i].click(); buttons[i].focus(); });
-function refreshAfterReturn() { if (externalChange) return; updateTimer(); if (view === 'review') renderReview(); if (view === 'learn') renderLearn(); updateChrome(); }
+// Focus can arrive between pointer-down and click. Keep unchanged controls in
+// place so the first click works and expanded notes retain their position.
+function refreshAfterReturn() { if (externalChange) return; updateTimer(); refreshReviewSchedule(); updateChrome(); }
 document.addEventListener('visibilitychange', () => { if (document.hidden) updateTimer(); else { windowFocused = document.hasFocus(); refreshAfterReturn(); } });
 window.addEventListener('blur', () => { windowFocused = false; updateTimer(); });
 window.addEventListener('focus', () => { windowFocused = true; refreshAfterReturn(); });
@@ -437,8 +442,7 @@ window.KarimenHomeInstall?.init({
   exportRecord: downloadRecord
 });
 
-let displayedReviewDue = '';
-setInterval(() => {
+function refreshReviewSchedule() {
   if (document.hidden || externalChange) return;
   document.querySelectorAll('[data-review-at]').forEach(el => {
     const label = reviewWait(Number(el.dataset.reviewAt));
@@ -446,11 +450,11 @@ setInterval(() => {
   });
   if (view === 'play' && state.session?.kind === 'review' && $('play').querySelector('[data-review-at]') && !$('play').querySelector('[data-action="answer"]') && state.session.answers[state.session.index] === null && model.due(state.session.ids[state.session.index])) renderPlay();
   if (view !== 'review') return;
-  const signature = model.schedule().due.map(q => q.id).join(',');
-  if (signature !== displayedReviewDue) {
+  const signature = reviewSignature(model.schedule().due);
+  if (signature !== displayedReviewSignature) {
     const focused = document.activeElement, action = focused?.dataset?.action, id = focused?.dataset?.id;
     const inside = $('review').contains(focused), open = $('review').querySelector('.review-graduation')?.open;
-    displayedReviewDue = signature; renderReview();
+    renderReview();
     if (open) $('review').querySelector('.review-graduation').open = true;
     if (inside) {
       const target = [...$('review').querySelectorAll('[data-action]')].find(el => el.dataset.action === action && el.dataset.id === id);
@@ -458,7 +462,8 @@ setInterval(() => {
     }
     updateChrome();
   }
-},1000);
+}
+setInterval(refreshReviewSchedule,1000);
 
 document.addEventListener('keydown', e => {
   if (!e.target.matches('.learn-switch [role="tab"]') || !['ArrowLeft','ArrowRight','Home','End'].includes(e.key)) return;

@@ -415,3 +415,30 @@ lifecycle('blur');lifecycle('focus');
 assert.equal(a.run('model.conflicted'),true);assert.equal(a.w.localStorage.getItem('karimen-study-v4'),newerRaw);
 assert.match(a.query('#storage-warning').textContent,/別のタブ/);assert.equal(a.errors.length,0);a.close();
 console.log('PASS: hidden/blur/pagehide pauses, visible/focus/pageshow resumes, repeated events, saved remainder, manual pause, reload, active-only timeout and stale-tab protection.');
+
+// Returning focus during pointer-down must not detach the control before click.
+a=app();a.click('#tab-learn');
+const notesTabBeforeFocus=a.query('#learn-tab-notes');
+a.w.dispatchEvent(new a.w.Event('blur'));a.w.dispatchEvent(new a.w.Event('focus'));
+notesTabBeforeFocus.click();
+assert.equal(a.query('#learn-tab-notes').getAttribute('aria-selected'),'true');
+const openNoteBeforeFocus=a.query('#learn-notes details.note');openNoteBeforeFocus.open=true;
+a.w.dispatchEvent(new a.w.Event('blur'));a.w.dispatchEvent(new a.w.Event('focus'));
+assert.ok(openNoteBeforeFocus.isConnected);assert.equal(openNoteBeforeFocus.open,true);
+assert.equal(a.errors.length,0);a.close();
+a=app();a.run('model.record(301,!activeQuestion(301).a)');a.click('#tab-review');
+const reviewButtonBeforeFocus=a.query('[data-action="review-ready"]');
+a.w.dispatchEvent(new a.w.Event('blur'));a.w.dispatchEvent(new a.w.Event('focus'));
+reviewButtonBeforeFocus.click();
+assert.equal(a.run('state.session.kind'),'review');assert.equal(a.query('#play').hidden,false);
+assert.equal(a.errors.length,0);a.close();
+// A due review must still become available immediately when the user returns.
+a=app();a.run('model.record(301,!activeQuestion(301).a);state.stats[301].reviewAt=Date.now()+1000');
+a.click('#tab-review');a.query('.review-graduation').open=true;
+const statsBeforeFocus=a.run('JSON.stringify(state.stats)');
+assert.equal(a.query('[data-action="review-ready"]'),null);
+a.w.dispatchEvent(new a.w.Event('blur'));a.clock.now+=1001;a.w.dispatchEvent(new a.w.Event('focus'));
+assert.ok(a.query('[data-action="review-ready"]'));assert.equal(a.query('.review-graduation').open,true);
+assert.equal(a.run('JSON.stringify(state.stats)'),statsBeforeFocus);
+assert.equal(a.errors.length,0);a.close();
+console.log('PASS: first click after focus return, open notes, review controls, and due-review refresh without changing records.');
