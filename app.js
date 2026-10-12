@@ -372,8 +372,8 @@ function openNotes(id = null, figure = null) {
 }
 function settings() {
   const exam = state.session?.mode === 'exam', hasSessions = !!state.session || Object.keys(state.suspended).length > 0;
-  $('settings-content').innerHTML = `<div class="settings-group"><h3>画面の明るさ</h3><div class="seg">${[['auto','自動'],['light','ライト'],['dark','ダーク']].map(([k,t]) => `<button data-action="theme" data-value="${k}" aria-pressed="${state.theme === k}">${t}</button>`).join('')}</div></div><div class="settings-group"><h3>効果音</h3><div class="seg">${[[true,'オン'],[false,'オフ']].map(([v,t]) => `<button data-action="sound" data-value="${v}" aria-pressed="${state.sound === v}">${t}</button>`).join('')}</div><p class="muted">学習で答えたときに鳴ります。模試中は鳴りません。</p></div><div class="settings-group"><label class="confidence-control"><input id="reduce-motion" type="checkbox" ${state.reduceMotion ? 'checked' : ''}>動きを抑える</label><p class="muted">端末の「視差効果を減らす」設定にも対応します。</p><button class="textbtn" data-action="preview" data-score="45">花丸の見本を見る ${icon('arrow')}</button></div><div class="settings-group"><h3>学習記録の保存</h3><p class="muted">回答・成績・復習予定は自動で保存します。同じ端末・ブラウザでのサイト更新後も、そのまま続けられます。</p><p id="save-status" role="status"></p><details><summary>予備の書き出し・読み込み</summary><p class="muted">通常の更新では操作不要です。別の端末へ記録を渡す場合などに使用できます。</p><div class="btnrow"><button class="btn secondary" data-action="export">書き出す</button><button class="btn secondary" data-action="import" ${exam ? 'disabled' : ''}>読み込む</button></div></details></div><div class="settings-group"><button class="textbtn" data-action="archive" ${exam ? 'disabled' : ''}>以前の学習記録を見る ${icon('arrow')}</button><p class="muted">旧50問練習、判定A〜C、以前の問題の回答を保管しています。</p></div><div class="settings-group"><button class="textbtn danger" data-action="reset" ${hasSessions ? 'disabled' : ''}>現在の学習記録を初期化する</button>${hasSessions ? '<p class="muted">各モードの途中の学習を終えると初期化できます。</p>' : ''}</div>`;
-  $('settings-content').insertAdjacentHTML('afterbegin', window.KarimenHomeInstall?.settingsMarkup() || '');
+  $('settings-content').innerHTML = `<div class="settings-group"><h3>画面の明るさ</h3><div class="seg">${[['auto','自動'],['light','ライト'],['dark','ダーク']].map(([k,t]) => `<button data-action="theme" data-value="${k}" aria-pressed="${state.theme === k}">${t}</button>`).join('')}</div></div><div class="settings-group"><h3>効果音</h3><div class="seg">${[[true,'オン'],[false,'オフ']].map(([v,t]) => `<button data-action="sound" data-value="${v}" aria-pressed="${state.sound === v}">${t}</button>`).join('')}</div><p class="muted">学習で答えたときに鳴ります。模試中は鳴りません。</p></div><div class="settings-group"><label class="confidence-control"><input id="reduce-motion" type="checkbox" ${state.reduceMotion ? 'checked' : ''}>動きを抑える</label><p class="muted">端末の「視差効果を減らす」設定にも対応します。</p><button class="textbtn" data-action="preview" data-score="45">花丸の見本を見る ${icon('arrow')}</button></div><div class="settings-group"><h3>学習記録の保存</h3><p class="muted">回答・成績・復習予定は自動で保存します。同じ端末・ブラウザでのサイト更新後も、そのまま続けられます。</p><p id="save-status" role="status"></p><details><summary>予備の書き出し・読み込み</summary><p class="muted">通常の更新では操作不要です。別の端末へ記録を渡す場合などに使用できます。</p><div class="btnrow"><button class="btn secondary" data-action="export">書き出す</button><button class="btn secondary" data-action="import" ${exam ? 'disabled' : ''}>読み込む</button></div></details></div><div class="settings-group"><button class="textbtn" data-action="archive" ${exam ? 'disabled' : ''}>以前の学習記録を見る ${icon('arrow')}</button><p class="muted">旧50問練習、判定A〜C、以前の問題の回答を保管しています。</p></div><div class="settings-group"><button class="textbtn danger" data-action="reset" ${hasSessions || state.sync?.owner ? 'disabled' : ''}>現在の学習記録を初期化する</button>${hasSessions ? '<p class="muted">各モードの途中の学習を終えると初期化できます。</p>' : ''}</div>`;
+  $('settings-content').insertAdjacentHTML('afterbegin', (window.KarimenHomeInstall?.settingsMarkup() || '') + (typeof KarimenCloud !== 'undefined' ? KarimenCloud.settingsMarkup() : ''));
   if (!$('settings').open) $('settings').showModal(); updateChrome();
 }
 function renderArchive() {
@@ -552,4 +552,12 @@ window.KarimenTown?.init({
     else navigate('mock');
   },
   notify: toast
+});
+
+// Cloud records use the same model/storage path as local answers. Never replace a live question screen.
+if (typeof KarimenCloud !== 'undefined') KarimenCloud.init({
+  model, storage: progressStorage, canApply: () => view !== 'play' && !externalChange,
+  beforeLogin: () => { if (!model.suspend()) throw new Error(model.error); state = model.state; },
+  changed: () => { state = model.state; if (['mock','learn','review'].includes(view)) navigate(tab); updateChrome(); },
+  settingsChanged: () => { if ($('settings').open) settings(); }
 });

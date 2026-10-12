@@ -27,7 +27,7 @@ function app({hash='',seed={},configure,observe=false}={}){
   constructor(callback){this.callback=callback;this.elements=new Set();observers.push(this)}
   observe(element){this.elements.add(element)}unobserve(element){this.elements.delete(element)}disconnect(){this.elements.clear()}
  };
- for(const file of ['questions.js','learning-content.js','model.js','visuals.js','notebook-content.js','question-guides.js','home-install.js','town-data.js','town-config.js'])vm.runInContext(read(file),ctx,{filename:file});
+ for(const file of ['questions.js','learning-content.js','cloud-record.js','model.js','visuals.js','notebook-content.js','question-guides.js','home-install.js','town-data.js','town-config.js'])vm.runInContext(read(file),ctx,{filename:file});
  configure?.(w);
  for(const file of ['town.js','app.js'])vm.runInContext(read(file),ctx,{filename:file});
  const query=selector=>w.document.querySelector(selector);

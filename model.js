@@ -232,6 +232,10 @@ const KarimenModel = (() => {
         stat.reviewAt = Math.min(stat.reviewAt || lastReviewAt, lastReviewAt + (first ? 0 : REVIEW_INTERVAL));
       }
     }
+    if (raw.sync != null) {
+      if (typeof KarimenCloudRecord === 'undefined') throw new Error('新しい版が必要な保存記録です。');
+      s.sync = KarimenCloudRecord.validate(raw.sync);
+    }
     s.lastReviewOrder = Array.isArray(raw.lastReviewOrder) ? [...new Set(raw.lastReviewOrder.filter(id => active.has(id)))].slice(0,500) : [];
     return s;
   }
@@ -331,6 +335,12 @@ const KarimenModel = (() => {
       if (blocked) return false;
       const q = active.get(id); if (!q || typeof answer !== 'boolean') return false;
       const ok = answer === q.a, at = answeredAt;
+      if (typeof KarimenCloudRecord !== 'undefined') {
+        const journal = KarimenCloudRecord.seed(state);
+        const key = state.session ? state.session.attemptId + ':' + id : makeId();
+        if (journal.events[key]) return journal.events[key].ok;
+        journal.events[key] = { id, ok, uncertain: !!uncertain, at };
+      }
       recordOutcome(state, id, ok, uncertain, at); return ok;
     }
     function begin({ ids, kind = 'study', worksheet: n = null, label = '10問の学習' }) {
@@ -405,18 +415,28 @@ const KarimenModel = (() => {
       next.legacyArchive.importSnapshots = [...(Array.isArray(next.legacyArchive.importSnapshots) ? next.legacyArchive.importSnapshots : []), { at: now(), state: previous }];
       state = next; restoreTimer(); blocked = false; return save();
     }
+    function mergeCloud(remote, owner) {
+      if (blocked || storage.conflict) throw new Error('端末の保存記録を確認してから同期します。再読み込みしてください。');
+      const before = state;
+      const next = normalize(KarimenCloudRecord.merge(exportData(), remote ? normalize(remote) : null, owner, recordOutcome));
+      state = next;
+      if (!save()) { state = before; throw new Error(error || '記録を保存できませんでした。'); }
+      return state;
+    }
+    function exportData() {
+      const out = { ...copy(state), exportedAt: new Date(now()).toISOString() };
+      if (out.session?.mode === 'exam') Object.assign(out.session, { remainingMs: remaining(), timerPaused: true, endAt: null });
+      return out;
+    }
     function reset() {
       if (blocked) return false;
+      if (state.sync?.owner) throw new Error('クラウドに紐づいた記録の初期化は、誤消去を防ぐため停止しています。');
       if (state.session || Object.keys(state.suspended).length) throw new Error('途中の学習を終えてから初期化してください。');
       state = { ...fresh(), ...settings(state) }; return save();
     }
     save();
     return { get state() { return state; }, get error() { return error; }, get conflicted() { return conflicted; }, get readOnly() { return blocked; }, save, weak, due, schedule, record, begin, answer, finish, expired, remaining, pauseTimer, resumeTimer,
-      sessionFor, suspend, activate, importData, reset, exportData: () => {
-        const out = { ...copy(state), exportedAt: new Date(now()).toISOString() };
-        if (out.session?.mode === 'exam') Object.assign(out.session, { remainingMs: remaining(), timerPaused: true, endAt: null });
-        return out;
-      },
+      sessionFor, suspend, activate, importData, reset, mergeCloud, exportData,
       validateImport: normalize, worksheet, active };
   }
   return { create, normalize, validAttempt, answeredCount, partialAttempt, STORE, OLD, DAY, REVIEW_INTERVAL };

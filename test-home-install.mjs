@@ -27,7 +27,7 @@ function app({ua=ios,seed={},standalone=false,legacyStandalone=false,storageBloc
  w.HTMLDialogElement.prototype.close=function(){if(this.open){this.open=false;this.dispatchEvent(new w.Event('close'))}};
  w.URL.createObjectURL=blob=>{downloads.push(blob);return 'blob:progress'};w.URL.revokeObjectURL=()=>{};
  const ctx=dom.getInternalVMContext();
- for(const name of ['questions.js','learning-content.js','model.js','visuals.js','notebook-content.js','question-guides.js','home-install.js','app.js'])vm.runInContext(fs.readFileSync(path.join(root,name),'utf8'),ctx,{filename:name});
+ for(const name of ['questions.js','learning-content.js','cloud-record.js','model.js','visuals.js','notebook-content.js','question-guides.js','home-install.js','app.js'])vm.runInContext(fs.readFileSync(path.join(root,name),'utf8'),ctx,{filename:name});
  frames.splice(0).forEach(fn=>fn());
  const query=selector=>w.document.querySelector(selector);
  const click=selector=>{const target=query(selector);assert.ok(target,selector);assert.equal(target.disabled,false);target.click();assert.equal(errors.length,0,errors[0]?.message)};

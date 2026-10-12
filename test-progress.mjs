@@ -4,7 +4,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import {fileURLToPath} from 'node:url';
 const root=path.dirname(fileURLToPath(import.meta.url));
-const ctx={};vm.createContext(ctx);vm.runInContext(['questions.js','model.js'].map(f=>fs.readFileSync(path.join(root,f),'utf8')).join('\n')+'\nthis.api={KarimenModel,Q,WORKSHEETS,CONTENT_VERSION};',ctx);
+const ctx={crypto};vm.createContext(ctx);vm.runInContext(['questions.js','cloud-record.js','model.js'].map(f=>fs.readFileSync(path.join(root,f),'utf8')).join('\n')+'\nthis.api={KarimenModel,Q,WORKSHEETS,CONTENT_VERSION};',ctx);
 const {KarimenModel:M,Q,WORKSHEETS,CONTENT_VERSION}=ctx.api;
 const day=86400000, initialTime=Date.parse('2026-10-11T12:00:00Z');
 const toPlain=x=>JSON.parse(JSON.stringify(x));

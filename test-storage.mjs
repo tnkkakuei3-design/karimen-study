@@ -5,8 +5,8 @@ import { IDBFactory, IDBDatabase } from 'fake-indexeddb';
 import { JSDOM, VirtualConsole } from 'jsdom';
 
 const read = file => fs.readFileSync(new URL(file, import.meta.url), 'utf8');
-const ctx = vm.createContext({ setTimeout, clearTimeout });
-vm.runInContext(read('questions.js') + '\n' + read('model.js') + '\n' + read('progress-storage.js') + '\nthis.api={M:KarimenModel,S:KarimenStorage,Q,WORKSHEETS};', ctx);
+const ctx = vm.createContext({ setTimeout, clearTimeout, crypto });
+vm.runInContext(read('questions.js') + '\n' + read('cloud-record.js') + '\n' + read('model.js') + '\n' + read('progress-storage.js') + '\nthis.api={M:KarimenModel,S:KarimenStorage,Q,WORKSHEETS};', ctx);
 const { M, S, Q, WORKSHEETS } = ctx.api;
 const plain = value => JSON.parse(JSON.stringify(value));
 let nextId = 0;
@@ -156,7 +156,7 @@ async function startup(raw, shouldStart){
  w.scrollTo=()=>{};w.requestAnimationFrame=fn=>fn();w.setInterval=()=>0;
  w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
  if(raw!==null)w.localStorage.setItem(S.KEY,raw);
- for(const name of ['questions.js','learning-content.js','model.js','visuals.js','notebook-content.js','question-guides.js','progress-storage.js'])vm.runInContext(read(name),context);
+ for(const name of ['questions.js','learning-content.js','cloud-record.js','model.js','visuals.js','notebook-content.js','question-guides.js','progress-storage.js'])vm.runInContext(read(name),context);
  const script=w.document.querySelector('script[data-app-src]');
  Object.defineProperty(w.document,'currentScript',{value:script,configurable:true});
  let loaded=false;

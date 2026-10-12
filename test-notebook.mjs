@@ -4,8 +4,8 @@ import vm from 'node:vm';
 import { JSDOM, VirtualConsole } from 'jsdom';
 
 const read = name => fs.readFileSync(new URL(name, import.meta.url), 'utf8');
-const files = ['questions.js','learning-content.js','model.js','visuals.js','notebook-content.js','question-guides.js'];
-const ctx = vm.createContext({});
+const files = ['questions.js','learning-content.js','cloud-record.js','model.js','visuals.js','notebook-content.js','question-guides.js'];
+const ctx = vm.createContext({crypto});
 for (const name of files) vm.runInContext(read(name), ctx, { filename:name });
 const {Q,FIG,NOTES,QUESTION_GUIDES,NOTE_QUESTION_IDS} = vm.runInContext('({Q,FIG,NOTES,QUESTION_GUIDES,NOTE_QUESTION_IDS})', ctx);
 assert.equal(Q.length,500); assert.equal(NOTES.length,65); assert.equal(Object.keys(FIG).length,117);
