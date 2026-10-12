@@ -1,0 +1,315 @@
+{
+  "checkedOn": "2026-10-12",
+  "source": "User-provided meal voucher restaurant guide IMG_9613.jpeg",
+  "school": {
+    "name": "糸満自動車学校",
+    "address": "沖縄県糸満市字糸満2278番地",
+    "source": "https://www.itojikou.co.jp/gasshuku/access"
+  },
+  "shops": [
+    {
+      "number": 1,
+      "name": "センター食堂",
+      "address": "沖縄県糸満市字糸満1942-19",
+      "addressStatus": "phone_matched_secondary",
+      "notes": [
+        "店舗公式の住所確認は未取得。"
+      ],
+      "liveHoursVerified": false,
+      "sources": [
+        {
+          "url": "https://tabelog.com/okinawa/A4704/A470402/47020162/dtlmap/",
+          "type": "secondary_directory",
+          "notes": "電話一致。旧住所2276-2からの移転記載あり。1942-19を採用。"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "name": "海ぼうず",
+      "address": "沖縄県糸満市字糸満2250",
+      "addressStatus": "phone_matched_secondary",
+      "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.0544679097716!2d127.66208631543645!3d26.129766983471033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34e567bf2477cb9f:0x2798504fdbff2255!2z5rW344G844GG44Ga!5e0!3m2!1sja!2sjp!4v1570704761917!5m2!1sja!2sjp",
+      "embedSourceUrl": "https://www.okinawa41.go.jp/archives/29174",
+      "liveHoursVerified": false,
+      "sources": [
+        {
+          "url": "https://map.yahoo.co.jp/v3/place/8wLP8dEF2Uw",
+          "type": "secondary_directory",
+          "notes": "電話と住所一致。"
+        },
+        {
+          "url": "https://www.okinawa41.go.jp/archives/29174",
+          "type": "government_hosted_contributor_article",
+          "notes": "海ぼうずの実在Maps埋め込みを掲載。写真は投稿者tomoinsta20で再利用許諾未確認。"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "name": "きらきら",
+      "address": "沖縄県糸満市糸満1943-60",
+      "addressStatus": "name_location_matched_secondary_phone_not_found",
+      "notes": [
+        "ユーザーの追加スクリーンショットは同名の食堂。電話のWeb照合は未完了。"
+      ],
+      "liveHoursVerified": false,
+      "sources": [
+        {
+          "url": "https://tabelog.com/okinawa/A4704/A470402/47033114/",
+          "type": "secondary_directory",
+          "notes": "住所1943-60。提供電話番号の公開一致は取得できていない。"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "name": "きんた",
+      "address": null,
+      "addressStatus": "needs_confirmation_phone_mismatch",
+      "notes": [
+        "同一店確認まで候補住所・候補ピンを確定情報として表示しない。"
+      ],
+      "liveHoursVerified": false,
+      "sources": [
+        {
+          "url": "https://tabelog.com/okinawa/A4704/A470402/47005590/",
+          "type": "secondary_directory",
+          "notes": "同名の寿し居食家きんた＆民宿うえだ荘は住所989-61、電話098-995-3228。提供電話とは異なる。"
+        },
+        {
+          "url": "https://iroiro-okinawa.com/gourmet/bar/post-4637/",
+          "type": "primary_interview_media",
+          "notes": "店舗取材記事にGoogle Maps埋め込みあり。ただし紙面の電話との同一性は未確認。"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "name": "チキータ",
+      "address": "沖縄県糸満市字糸満989-60",
+      "addressStatus": "phone_matched_secondary",
+      "liveHoursVerified": false,
+      "sources": [
+        {
+          "url": "https://map.yahoo.co.jp/v3/place/pvyY4f30I3E",
+          "type": "secondary_directory",
+          "notes": "電話と住所一致。"
+        },
+        {
+          "url": "https://tabelog.com/okinawa/A4704/A470402/47008573/",
+          "type": "secondary_directory",
+          "notes": "電話一致。"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "name": "365",
+      "address": null,
+      "addressStatus": "not_found",
+      "notes": [
+        "提供電話の完全一致・店名表記違いを複数検索したが公開店舗情報を特定できず。",
+        "住所や店舗ピンを推測で補完しない。注文の9:30締切はユーザー提供紙面に記載あり。"
+      ],
+      "liveHoursVerified": false,
+      "sources": []
+    },
+    {
+      "number": 7,
+      "name": "まほろば",
+      "address": "沖縄県糸満市糸満2228",
+      "addressStatus": "official_registry_and_phone_matched",
+      "officialUrl": "https://www.instagram.com/syokukobo_mahoroba/",
+      "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.0739910419907!2d127.6618229116158!3d26.129130377027504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34e567b855e743af:0x741399137a08eb46!2z6aOf5bel5oi_44G-44G744KN44Gw!5e0!3m2!1sja!2sjp!4v1733458762026!5m2!1sja!2sjp",
+      "embedSourceUrl": "https://okinawashokuzainomise.kuwachii-okinawa.com/registered-shop/shop-2671/",
+      "notes": [
+        "休日が紙面・県認定一覧・食べログで異なるため現在営業中の計算をしない。",
+        "旧公式URL http://okinawa-mahoroba.com は取得失敗。"
+      ],
+      "liveHoursVerified": false,
+      "sources": [
+        {
+          "url": "https://eats-okinawa.jp/ja/spot/detail/467",
+          "type": "official_food_registry",
+          "notes": "電話一致・住所2228。"
+        },
+        {
+          "url": "https://okinawashokuzainomise.kuwachii-okinawa.com/registered-shop/shop-2671/",
+          "type": "prefectural_official_registry",
+          "notes": "県管理の認定店舗一覧。住所・公式Instagram・実在Maps埋め込み確認。"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "name": "リッツ",
+      "address": "沖縄県糸満市字糸満989-8 1F",
+      "addressStatus": "phone_matched_secondary",
+      "liveHoursVerified": false,
+      "sources": [
+        {
+          "url": "https://itp.ne.jp/zenkoku/okinawa/itomanshi/azaitoman/474373715182131120",
+          "type": "telephone_directory",
+          "notes": "電話と住所一致。"
+        },
+        {
+          "url": "https://tabelog.com/okinawa/A4704/A470402/47012641/",
+          "type": "secondary_directory",
+          "notes": "電話一致。"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "name": "糸満海人食堂",
+      "address": null,
+      "addressStatus": "needs_confirmation_closure_and_phone_conflict",
+      "notes": [
+        "紙面の電話は旧掲載と異なる。現在の店舗の閉店と断定はしない。",
+        "現住所・営業状況の確認前に旧ピンや旧写真を現在情報として採用しない。"
+      ],
+      "liveHoursVerified": false,
+      "sources": [
+        {
+          "url": "https://www.otv.co.jp/okitive/article/376/",
+          "type": "primary_interview_media",
+          "notes": "2021年取材の旧店舗住所989-88、電話098-911-7466。"
+        },
+        {
+          "url": "https://naoji.jp/shop/itoman.html",
+          "type": "official_business",
+          "notes": "新潟雪国ラーメンなおじ糸満店×糸満海人食堂は閉店した旨の公式告知。現在の紙面の店舗と同一運営か不明。"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "name": "こなや本家",
+      "address": "沖縄県糸満市字糸満502",
+      "addressStatus": "phone_matched_secondary",
+      "liveHoursVerified": false,
+      "sources": [
+        {
+          "url": "https://itp.ne.jp/zenkoku/okinawa/itomanshi/azaitoman/853276722674383001",
+          "type": "business_telephone_directory",
+          "notes": "電話と住所一致。店舗紹介・テイクアウト窓口の案内あり。"
+        },
+        {
+          "url": "https://map.yahoo.co.jp/v3/place/7-Pm1P10xmk",
+          "type": "secondary_directory",
+          "notes": "電話住所一致。"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "name": "よつばキッチン",
+      "address": "沖縄県糸満市糸満2224",
+      "addressStatus": "phone_matched_secondary",
+      "liveHoursVerified": false,
+      "sources": [
+        {
+          "url": "https://tabelog.com/okinawa/A4704/A470402/47033137/",
+          "type": "secondary_directory",
+          "notes": "電話住所一致。"
+        },
+        {
+          "url": "https://www.city.itoman.lg.jp/soshiki/35/2221.html",
+          "type": "municipal_official",
+          "notes": "地域の雑誌スポンサーとしてよつばキッチンの実在は確認。住所根拠ではない。"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "name": "セラミックアートカフェ イトマン",
+      "address": "沖縄県糸満市糸満989-56 1F",
+      "addressStatus": "official_site_identified_secondary_address",
+      "officialUrl": "https://ceramic-art-cafe-itoman.studio.site/",
+      "officialSocialUrl": "https://www.instagram.com/ceramic_art_cafe_itoman",
+      "notes": [
+        "紙面には陶芸体験ありと記載されるが体験の食券対象性は確認できない。",
+        "最新の営業形態は紙面と予約サイトで相違があり確認が必要。"
+      ],
+      "liveHoursVerified": false,
+      "sources": [
+        {
+          "url": "https://ceramic-art-cafe-itoman.studio.site/",
+          "type": "official_business",
+          "notes": "公式サイトタイトルと公開メタデータは確認。動的ページの住所本文は取得できず。"
+        },
+        {
+          "url": "https://tabelog.com/okinawa/A4704/A470402/47030866/dtlmap/",
+          "type": "secondary_directory",
+          "notes": "住所989-56、公式ホームページと公式Instagramへのリンクが記載。"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "name": "糸満市場 いとま〜る",
+      "address": "沖縄県糸満市字糸満989-83",
+      "addressStatus": "official_verified",
+      "officialUrl": "https://www.itoman-itomaru.okinawa/",
+      "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.0814061315573!2d127.6660044150284!3d26.12888858347142!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34e567b85876ac85:0x3f052d52e5e6676f!2z57O45rqA5biC5aC044GE44Go44G-44Cc44KL!5e0!3m2!1sja!2sjp!4v1684471900572!5m2!1sja!2sjp",
+      "embedSourceUrl": "https://www.city.itoman.lg.jp/site/kankou-navi/15756.html",
+      "liveHoursVerified": false,
+      "sources": [
+        {
+          "url": "https://www.itoman-itomaru.okinawa/shop/",
+          "type": "official_business",
+          "notes": "公式住所と電話。市場内店舗案内あり。"
+        },
+        {
+          "url": "https://www.city.itoman.lg.jp/site/kankou-navi/15756.html",
+          "type": "municipal_official",
+          "notes": "市公式住所・電話・実在Maps埋め込み確認。"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "name": "いちまん横丁",
+      "address": "沖縄県糸満市糸満989-90 金城アパート1F",
+      "addressStatus": "official_tourism_registry",
+      "notes": [
+        "観光サイトの地図iframeは第三者APIキー付きのためURLをコピーして転用しない。",
+        "紙面では各飲食店で食券利用可能。個々の利用条件は未確認。"
+      ],
+      "liveHoursVerified": false,
+      "sources": [
+        {
+          "url": "https://www.okinawastory.jp/gourmet/600011430",
+          "type": "official_tourism_registry",
+          "notes": "沖縄観光コンベンションビューロー掲載住所。公式リンク www.ichiman-yokocho.com は404。"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "name": "ゼロ番地",
+      "address": "沖縄県糸満市字糸満1953番地",
+      "addressStatus": "official_tourism_registry_phone_not_found",
+      "officialUrl": "https://www.instagram.com/kissaandbarzerobanchi/",
+      "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.088940654995!2d127.66393336227826!3d26.128642893247587!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34e5670007a90743:0x37c5b85c7b2205c8!2z5Zar6Iy2JkJBUiDjgrzjg63nlarlnLA!5e0!3m2!1sja!2sjp!4v1781005333722!5m2!1sja!2sjp",
+      "embedSourceUrl": "https://omalblog.com/2026/06/09/itoman-zerobanchi/",
+      "notes": [
+        "提供電話番号とのWeb一致は取得できず。地図の根拠は店舗公式でなく現地訪問ブログ。"
+      ],
+      "liveHoursVerified": false,
+      "sources": [
+        {
+          "url": "https://www.okinawastory.jp/news/tourism/4711",
+          "type": "official_tourism_registry",
+          "notes": "2026年の観光情報で住所1953と公式Instagram確認。"
+        },
+        {
+          "url": "https://omalblog.com/2026/06/09/itoman-zerobanchi/",
+          "type": "firsthand_blog",
+          "notes": "店名一致の実在Maps埋め込みあり。"
+        }
+      ]
+    }
+  ]
+}

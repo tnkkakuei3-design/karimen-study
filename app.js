@@ -47,13 +47,14 @@ function updateChrome() {
   document.body.classList.toggle('exam-active', focusedExam);
   for (const k of ['mock', 'learn', 'review']) { const b = $('tab-' + k); b.disabled = focusedExam && k !== 'mock'; b.setAttribute('aria-selected', String(k === tab)); b.tabIndex = k === tab ? 0 : -1; }
   $('review-dot').hidden = model.schedule().due.length === 0;
-  $('footer').hidden = locked || ['play','result','notes'].includes(view);
+  $('footer').hidden = locked || ['play','result','notes','town'].includes(view);
   $('migration-notice').hidden = locked || !state.notices.length || !['mock','learn','review'].includes(view);
   $('migration-notice').innerHTML = state.notices.map(t => `<p>${esc(t)}</p>`).join('') + '<button class="textbtn" data-action="dismiss-notice">確認しました</button>';
   window.KarimenHomeInstall?.sync();
 }
 function show(name, top = true) {
-  view = name; for (const k of ['mock','learn','review','play','result','notes','archive']) $(k).hidden = k !== name;
+  view = name; for (const k of ['mock','learn','review','play','result','notes','archive','town']) $(k).hidden = k !== name;
+  window.KarimenTown?.onView(name);
   updateTimer(); updateChrome(); if (top) { window.scrollTo({ top: 0, behavior:'instant' }); $('main').focus({ preventScroll: true }); }
 }
 function navigate(k) {
@@ -83,6 +84,7 @@ function renderMock() {
   $('mock').innerHTML = `<div class="home-intro"><div><h2>今日も、<br>一歩ずつ。</h2><p class="muted">${s?.mode === 'exam' ? '続きから、取り組もう。' : '50問・30分で、力だめし。'}</p></div><img class="home-character" src="./image-155cadc1029a.png" width="1400" height="792" alt="プーリーくんとよりともさん"></div><div class="page-heading mock-heading"><h3>教習問題ベースの模試</h3><p class="inline muted">10回・各50問 <span class="badge">毎回ランダム順</span></p></div>
     <div class="home-overview"><div class="achievement-progress"><div class="inline"><span><b>${passed}</b><small> / 10回 合格</small></span><small class="muted">達成率 ${passed * 10}%</small></div><div class="progress" role="progressbar" aria-label="模試の合格回数" aria-valuenow="${passed}" aria-valuemin="0" aria-valuemax="10"><i style="width:${passed * 10}%"></i></div></div></div>
     ${s?.mode === 'exam' ? entryCard('resume', `第${s.worksheet}回の続きへ`, `${s.answers.filter(a => a !== null).length} / 50問 回答済み · タイマー停止中`, 'play', 'mock') : ''}
+    ${window.KarimenTown?.teaser() || ''}
     ${filters('mock-filter', mockFilter, [['all','すべて'],['new','未受験'],['unpassed','未合格']])}
     <div class="mock-grid">${list.map(w => { const r = resultsFor(w.worksheet, 'mock'), on = s?.mode === 'exam' && s.worksheet === w.worksheet, score = r.best?.scoreSnapshot;
       return `<button class="set-card ${on ? 'in-progress' : ''} ${score === 50 ? 'perfect' : ''}" data-action="detail" data-set="${w.worksheet}" aria-label="第${w.worksheet}回 ${on ? '受験中' : r.last ? `前回${r.last.scoreSnapshot}点 最高${score}点` : '未受験'}"><span><b>第${w.worksheet}回</b>${r.last ? `<small>前回 ${r.last.scoreSnapshot}点 · ${r.last.scoreSnapshot >= 45 ? '合格' : '未合格'}</small><small>最高 ${score}点</small><small class="recent-mock">${recentMockSummary(r)}</small>` : `<span class="badge ${on ? 'blue' : ''}">${on ? '受験中' : '未受験'}</span>`}${on && r.last ? '<small>受験中</small>' : ''}</span>${score >= 45 ? flowerStamp(score === 50 ? '満点' : '合格') : `<span class="chevron">${icon('chevron')}</span>`}</button>`; }).join('')}</div>
@@ -151,7 +153,7 @@ function renderLearn() {
   const studyActions = `<div class="learn-actions${unfinished ? ' has-resume' : ''}" role="group" aria-label="学習を始める">${unfinished ? entryCard('resume', '途中から続ける', resumeSub, 'play', 'study') : ''}${entryCard('quick-study', '10問学ぶ', studySub, 'book')}</div>`;
   const cats = CATS.map(c => ({...c, list:categorized(c)})).filter(c => c.list.length).filter(c => categoryFilter === 'all' || (categoryFilter === 'new' ? c.list.some(q => !state.stats[q.id]?.total) : c.list.some(weak)));
   if (categorySort === 'weak') cats.sort(compareDifficulty);
-  $('learn').innerHTML = `<div class="page-heading character-heading"><div><h2>問題と図解で、理解を深める。</h2></div>${characterArt('D047','learn-guide')}</div>${studyActions}<dl class="learning-overview" aria-label="学習状況"><div><dt>回答済み</dt><dd>${answeredCount}<small> / ${Q.length}問</small></dd></div><div><dt>現在の正解率</dt><dd>${answeredCount ? pct(currentCorrect,answeredCount) : '—'}<small>${answeredCount ? '%' : ''}</small></dd></div><div><dt>要復習</dt><dd>${schedule.all.length}<small>問</small></dd></div></dl><p class="learning-metric-help muted">現在の正解率は、回答済みの各問題の直近の回答で計算します。</p><details class="learning-cumulative"><summary>累積の成績を見る</summary><p>累積正答率 ${totals.total ? pct(totals.correct,totals.total) + '%' : '—'} · 正解 ${totals.correct} / 回答 ${totals.total}回</p><p class="muted">解き直しを含む、これまでの全回答で集計しています。</p></details><div class="learn-switch" role="tablist" aria-label="学び方">${[['categories','分野から学ぶ'],['notes','図解ノート']].map(([key,label]) => `<button id="learn-tab-${key}" role="tab" aria-selected="${learnSection === key}" aria-controls="learn-${key}" tabindex="${learnSection === key ? 0 : -1}" data-action="learn-section" data-section="${key}">${label}</button>`).join('')}</div><section id="learn-categories" role="tabpanel" aria-labelledby="learn-tab-categories" ${learnSection !== 'categories' ? 'hidden' : ''}><p class="learn-count muted">共通の${bankCount}</p>${filters('category-filter', categoryFilter, [['all','すべて'],['new','未学習'],['weak','要復習']])}<div class="category-sort"><span class="muted">並び順</span>${filters('category-sort',categorySort,[['default','標準'],['weak','苦手順']])}</div><p class="learn-metric-note muted">正解率は回答済みの問題だけで計算。各問題の直近の回答を使います。${categorySort === 'weak' ? '5問以上回答した分野を優先し、回答の少ない分野・未学習は後ろに表示します。' : ''}</p><div class="category-grid">${cats.map(categoryCard).join('')}</div>${!cats.length ? '<div class="empty">この条件の分野はありません。</div>' : ''}<div class="info-strip">${icon('info')}<span>補足問題も500問に含まれます。各回を50問通して練習するときは、模試の詳細から始められます。</span></div></section><section id="learn-notes" role="tabpanel" aria-labelledby="learn-tab-notes" ${learnSection !== 'notes' ? 'hidden' : ''}></section>`;
+  $('learn').innerHTML = `<div class="page-heading character-heading"><div><h2>問題と図解で、理解を深める。</h2></div>${characterArt('D047','learn-guide')}</div>${studyActions}${window.KarimenTown?.teaser() || ''}<dl class="learning-overview" aria-label="学習状況"><div><dt>回答済み</dt><dd>${answeredCount}<small> / ${Q.length}問</small></dd></div><div><dt>現在の正解率</dt><dd>${answeredCount ? pct(currentCorrect,answeredCount) : '—'}<small>${answeredCount ? '%' : ''}</small></dd></div><div><dt>要復習</dt><dd>${schedule.all.length}<small>問</small></dd></div></dl><p class="learning-metric-help muted">現在の正解率は、回答済みの各問題の直近の回答で計算します。</p><details class="learning-cumulative"><summary>累積の成績を見る</summary><p>累積正答率 ${totals.total ? pct(totals.correct,totals.total) + '%' : '—'} · 正解 ${totals.correct} / 回答 ${totals.total}回</p><p class="muted">解き直しを含む、これまでの全回答で集計しています。</p></details><div class="learn-switch" role="tablist" aria-label="学び方">${[['categories','分野から学ぶ'],['notes','図解ノート']].map(([key,label]) => `<button id="learn-tab-${key}" role="tab" aria-selected="${learnSection === key}" aria-controls="learn-${key}" tabindex="${learnSection === key ? 0 : -1}" data-action="learn-section" data-section="${key}">${label}</button>`).join('')}</div><section id="learn-categories" role="tabpanel" aria-labelledby="learn-tab-categories" ${learnSection !== 'categories' ? 'hidden' : ''}><p class="learn-count muted">共通の${bankCount}</p>${filters('category-filter', categoryFilter, [['all','すべて'],['new','未学習'],['weak','要復習']])}<div class="category-sort"><span class="muted">並び順</span>${filters('category-sort',categorySort,[['default','標準'],['weak','苦手順']])}</div><p class="learn-metric-note muted">正解率は回答済みの問題だけで計算。各問題の直近の回答を使います。${categorySort === 'weak' ? '5問以上回答した分野を優先し、回答の少ない分野・未学習は後ろに表示します。' : ''}</p><div class="category-grid">${cats.map(categoryCard).join('')}</div>${!cats.length ? '<div class="empty">この条件の分野はありません。</div>' : ''}<div class="info-strip">${icon('info')}<span>補足問題も500問に含まれます。各回を50問通して練習するときは、模試の詳細から始められます。</span></div></section><section id="learn-notes" role="tabpanel" aria-labelledby="learn-tab-notes" ${learnSection !== 'notes' ? 'hidden' : ''}></section>`;
   if (learnSection === 'notes') renderNotes('learn-notes');
 }
 function reviewWait(at) {
@@ -528,4 +530,17 @@ document.addEventListener('keydown', e => {
   e.preventDefault();
   const key = e.key === 'Home' ? 'categories' : e.key === 'End' ? 'notes' : learnSection === 'notes' ? 'categories' : 'notes';
   $('learn-tab-' + key).click();
+});
+
+// The restaurant guide is independent of every study session and progress store.
+let townReturn = null;
+window.KarimenTown?.init({
+  canOpen: () => view !== 'play',
+  open: () => { if (view !== 'town') townReturn = { view, tab, scroll:window.scrollY }; show('town'); },
+  back: () => {
+    const previous = townReturn; townReturn = null;
+    if (previous && !['play','town'].includes(previous.view)) { tab=previous.tab; show(previous.view,false); window.scrollTo({top:previous.scroll,behavior:'instant'}); }
+    else navigate('learn');
+  },
+  notify: toast
 });
