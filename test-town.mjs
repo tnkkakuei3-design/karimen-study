@@ -209,4 +209,32 @@ a.w.KarimenTown.open('kirakira');await settle();
 assert.equal(a.all('.town-media-detail img').length,1);assert.equal(a.query('.town-media-detail img').src,'https://example.test/owner.jpg');
 assert.match(a.query('.town-photo-credit').textContent,/きらきら提供/);a.close();
 
-console.log('PASS: 14 shops with verified static JPEG assets and illustration labels, search/IME/filters, bookmarks/reload/failure, map fallback, direct links/history, unchanged study answers and paused mock timer, lazy photo provider/attribution/error fallback.');
+let clock=Date.parse('2026-10-13T05:00:00Z'),scheduleTick;
+a=app({configure(w){
+ const NativeDate=w.Date;
+ w.Date=class extends NativeDate{constructor(...args){super(...(args.length?args:[clock]));}static now(){return clock;}};
+ w.setInterval=(fn,delay)=>{if(delay===60000)scheduleTick=fn;return 1;};
+}});
+a.click('#mock [data-town-action="open"]');
+const orderedIds=()=>a.all('.town-card [data-town-action="shop"]').map(el=>el.dataset.id);
+function assertScheduleOrder(){
+ const priority={open:0,check:1,outside:2,closed:3};
+ const ids=orderedIds();
+ const expected=a.w.KarimenTownData.shops.filter(s=>ids.includes(s.id)).map(s=>({id:s.id,number:s.number,rank:priority[a.w.KarimenTown.scheduleStatus(s,new Date(clock)).kind]})).sort((x,y)=>x.rank-y.rank||x.number-y.number).map(s=>s.id);
+ assert.deepEqual(ids,[...expected]);
+}
+assertScheduleOrder();assert.equal(orderedIds()[0],'kirakira');
+const firstCard=a.query('.town-card'),originalPhoto=firstCard.querySelector('.town-media');
+clock=Date.parse('2026-10-13T10:00:00Z');scheduleTick();assertScheduleOrder();
+assert.equal(firstCard.querySelector('.town-media'),originalPhoto,'reordering preserves existing photo nodes');
+a.click('[data-town-action="filter"][data-value="cafe"]');assertScheduleOrder();
+a.click('[data-town-action="filter"][data-value="all"]');
+const beforeMap=orderedIds();a.click('[data-town-action="mode"][data-value="map"]');
+assert.deepEqual(a.all('.town-map-picker button').map(el=>el.dataset.id),beforeMap);
+a.click('[data-town-action="map-shop"][data-id="kirakira"]');const map=a.query('#town iframe');
+clock=Date.parse('2026-10-13T15:00:00Z');a.w.dispatchEvent(new a.w.Event('focus'));
+assert.equal(a.query('#town iframe'),map,'time refresh preserves the selected map');
+assert.equal(a.query('.town-map-picker [aria-pressed="true"]').dataset.id,'kirakira');
+a.click('[data-town-action="mode"][data-value="cards"]');assertScheduleOrder();a.close();
+
+console.log('PASS: 14 shops, scheduled-hours ordering and refresh, filters/maps, photos, bookmarks, unchanged study records.');

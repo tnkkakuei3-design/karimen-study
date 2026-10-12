@@ -111,6 +111,13 @@
       label.dataset.kind=status.kind;label.querySelector('strong').textContent=status.label;label.querySelector('span').textContent=status.note;
       const card=el.closest('.town-card');if(card)card.dataset.townState=status.kind;
     });
+    // Move existing nodes so loaded photos, map selection and controls are preserved.
+    const ordered=matches();
+    for(const [container,selector] of [['.town-grid','.town-card'],['.town-map-picker','button']]){
+      const holder=root().querySelector(container);if(!holder)continue;
+      const nodes=new Map([...holder.querySelectorAll(selector)].map(el=>[el.dataset.id||el.querySelector('[data-town-action="shop"]').dataset.id,el]));
+      ordered.forEach((shop,index)=>{const node=nodes.get(shop.id);if(node&&holder.children[index]!==node)holder.insertBefore(node,holder.children[index]||null);});
+    }
   }
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateSchedules();});
   window.addEventListener('focus',updateSchedules);
@@ -120,7 +127,10 @@
   }
   function matches() {
     const term = normalize(query);
-    return shops.filter(shop => (filter==='all' || (filter==='saved' ? saved.has(shop.id) : shop.tags.includes(filter))) && (!term || normalize([shop.name,shop.category,...shop.menus].join(' ')).includes(term)));
+    const now=new Date(),priority={open:0,check:1,outside:2,closed:3};
+    const rank=new Map(shops.map(shop=>[shop.id,priority[scheduleStatus(shop,now).kind]]));
+    return shops.filter(shop => (filter==='all' || (filter==='saved' ? saved.has(shop.id) : shop.tags.includes(filter))) && (!term || normalize([shop.name,shop.category,...shop.menus].join(' ')).includes(term)))
+      .sort((a,b)=>rank.get(a.id)-rank.get(b.id)||a.number-b.number);
   }
   function routeHash(id) { return id ? `#town/${encodeURIComponent(id)}` : '#town'; }
   function setRoute(id, replace=false) {
