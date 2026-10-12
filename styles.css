@@ -901,3 +901,9 @@ h2,h3{font-weight:700}
 .note-content>.fig{border-radius:10px;margin:16px 0 24px}
 .note-content .fig-top{background:transparent;border-bottom:1px solid var(--line);font-size:14px;font-weight:650;padding:10px 14px}
 .note-content .figk{font-size:14px;line-height:1.85}
+
+/* Keep secondary score explanations available without repeating the headline. */
+.result-score-details,.score-note{border-top:1px solid var(--line,#e3e8ee);padding:16px 0;margin-top:20px;}
+.result-score-details summary,.score-note summary{cursor:pointer;color:var(--muted,#64748b);font-weight:600;}
+.result-score-details .accuracy{margin:18px 0 0;}
+.result-score-details .comparison{margin-top:16px;}

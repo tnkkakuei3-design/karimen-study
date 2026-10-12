@@ -89,3 +89,8 @@
 
 /* Do not fill missing venue photographs with unrelated food imagery. */
 .town-photo-placeholder,.town-media-detail .town-photo-placeholder{aspect-ratio:auto;min-height:76px;padding:18px;flex-direction:row;gap:12px}.town-photo-placeholder>.icon,.town-media-detail .town-photo-placeholder>.icon{width:24px;height:24px}
+
+/* Put practical store information before the reference gallery. */
+.town-card-overlay{position:static;padding:14px 16px 0;}
+.town-card-copy{padding-top:12px;}
+.town-detail-heading+.town-hours{padding:0 0 20px;}
