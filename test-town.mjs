@@ -104,8 +104,10 @@ a.click('#tab-learn');a.click('[data-action="quick-study"]');a.click('[data-acti
 const playing=a.run('JSON.stringify(state)');a.w.KarimenTown.open('kirakira');
 assert.equal(a.query('#play').hidden,false);assert.equal(a.run('JSON.stringify(state)'),playing,'guide cannot interrupt an active question');
 a.click('[data-action="pause"]');const paused=a.run('JSON.stringify(state)');
-a.click('#learn [data-town-action="open"]');a.click('[data-town-action="save"][data-id="mahoroba"]');
-a.click('[data-town-action="close"]');assert.equal(a.query('#learn').hidden,false);
+assert.equal(a.query('#learn .town-teaser'),null,'learning screen has no restaurant promotion');
+a.click('#tab-mock');a.click('#mock [data-town-action="open"]');a.click('[data-town-action="save"][data-id="mahoroba"]');
+a.click('[data-town-action="close"]');assert.equal(a.query('#mock').hidden,false);
+a.click('#tab-learn');
 assert.equal(a.run('JSON.stringify(state)'),paused,'paused answer/session remains unchanged');
 a.click('[data-action="resume"][data-mode="study"]');assert.equal(a.query('#play').hidden,false);
 assert.equal(a.run('state.session.answers.filter(answer=>answer!==null).length'),1);a.close();
