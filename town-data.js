@@ -133,3 +133,67 @@ const townInstagram = {
   "15": "https://www.instagram.com/kissaandbarzerobanchi/"
 };
 for (const shop of window.KarimenTownData.shops) if (townInstagram[shop.number]) shop.instagram = townInstagram[shop.number];
+
+// Scheduled hours from the supplied guide; never a live opening-status claim.
+window.KarimenTownData.schedules = {
+ center:{hours:[420,1080],closed:[1],soldOut:true},
+ umibozu:{hours:[660,780],closed:[0,3,6],soldOut:true},
+ kirakira:{hours:[840,1260],closed:[0,3]},
+ kinta:{hours:[1080,1440],closed:[0],holidays:true},
+ chiquita:{hours:[540,1020],closed:[0],holidays:true},
+ mahoroba:{hours:[630,900],closed:[]},
+ ritz:{hours:[480,1170],sunday:[660,1080],closed:[]},
+ uminchu:{hours:[1020,1320],closed:[1,2,3],lastOrder:1260},
+ konaya:{hours:[1020,1440],sunday:[960,1380],closed:[4],lastWednesday:true},
+ yotsuba:{hours:[630,null],closed:[0,3,6],holidays:true,soldOut:true},
+ 'cafe-itoman':{uncertain:'営業曜日の記載に重複あり'},
+ itomaru:{uncertain:'施設内の店舗ごとに異なります'},
+ 'ichiman-yokocho':{uncertain:'店舗ごとの営業時間・不定休を確認'},
+ zero:{uncertain:'不定休のため来店前に確認'}
+};
+
+// Cabinet Office holiday CSV, retrieved 2026-10-12. Years outside this snapshot are unknown.
+window.KarimenTownData.holidays = {
+  "source": "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv",
+  "years": [
+    2026,
+    2027
+  ],
+  "dates": {
+    "2026-01-01": "元日",
+    "2026-01-12": "成人の日",
+    "2026-02-11": "建国記念の日",
+    "2026-02-23": "天皇誕生日",
+    "2026-03-20": "春分の日",
+    "2026-04-29": "昭和の日",
+    "2026-05-03": "憲法記念日",
+    "2026-05-04": "みどりの日",
+    "2026-05-05": "こどもの日",
+    "2026-05-06": "休日",
+    "2026-07-20": "海の日",
+    "2026-08-11": "山の日",
+    "2026-09-21": "敬老の日",
+    "2026-09-22": "休日",
+    "2026-09-23": "秋分の日",
+    "2026-10-12": "スポーツの日",
+    "2026-11-03": "文化の日",
+    "2026-11-23": "勤労感謝の日",
+    "2027-01-01": "元日",
+    "2027-01-11": "成人の日",
+    "2027-02-11": "建国記念の日",
+    "2027-02-23": "天皇誕生日",
+    "2027-03-21": "春分の日",
+    "2027-03-22": "休日",
+    "2027-04-29": "昭和の日",
+    "2027-05-03": "憲法記念日",
+    "2027-05-04": "みどりの日",
+    "2027-05-05": "こどもの日",
+    "2027-07-19": "海の日",
+    "2027-08-11": "山の日",
+    "2027-09-20": "敬老の日",
+    "2027-09-23": "秋分の日",
+    "2027-10-11": "スポーツの日",
+    "2027-11-03": "文化の日",
+    "2027-11-23": "勤労感謝の日"
+  }
+};

@@ -47,3 +47,15 @@
 .town-media-teaser .town-photo-credit summary{min-height:24px;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center}
 .town-media-teaser .town-photo-credit details[open]{font-size:10px;overflow-wrap:anywhere}
 .town-media-teaser .town-photo-credit details[open] summary{justify-content:flex-start}
+
+/* Neutral directory entry, readable schedule labels and photo-only dimming. */
+.town-directory-entry{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:transparent;border:0;padding:16px;color:var(--fg);min-height:86px;flex-wrap:wrap}
+.town-entry-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:var(--town-mint);color:var(--town-green);flex:none}
+.town-directory-entry>span:nth-child(2){flex:1;min-width:170px}.town-directory-entry strong{display:block;font-size:17px}.town-directory-entry small{display:block;font-size:12px;color:var(--muted);margin-top:5px}
+.town-entry-cta{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--town-green);min-height:32px}.town-entry-cta .icon{width:18px;height:18px}
+.town-hours{padding:0 16px 16px}.town-hours-status{display:flex;align-items:flex-start;gap:6px;flex-wrap:wrap;font-size:12px;margin:4px 0 12px}.town-hours-status strong{border-radius:6px;padding:4px 8px;background:var(--soft);color:var(--fg)}.town-hours-status span{padding:4px 0;color:var(--muted)}
+.town-hours-status[data-kind=open] strong{background:var(--town-mint);color:var(--town-green)}.town-hours-status[data-kind=check] strong{background:var(--town-warm);color:var(--town-warm-text)}
+.town-hours dl{margin:0;display:grid;gap:6px}.town-hours dl>div{display:grid;grid-template-columns:62px 1fr;gap:8px;font-size:12px;line-height:1.7}.town-hours dt{color:var(--muted)}.town-hours dd{margin:0;color:var(--fg)}
+.town-card[data-town-state=closed] .town-photo-frame img,.town-card[data-town-state=outside] .town-photo-frame img{filter:brightness(.58) saturate(.65)}
+.town-card[data-town-state=closed] .town-photo-placeholder,.town-card[data-town-state=outside] .town-photo-placeholder{filter:brightness(.75)}
+.town-hours-notice{font-size:12px;color:var(--muted);line-height:1.8;margin:10px 0 14px}.town-map-selected>.town-hours,.town-detail-section>.town-hours{padding:8px 0 12px}

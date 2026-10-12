@@ -43,14 +43,32 @@ const shops=a.w.KarimenTownData.shops;
 assert.equal(shops.length,14);assert.equal(new Set(shops.map(s=>s.id)).size,14);
 assert.deepEqual([...shops.map(s=>s.number)],[1,2,3,4,5,7,8,9,10,11,12,13,14,15]);
 assert.equal(a.query('#mock').hidden,false);assert.ok(a.query('#mock .town-teaser'));
-assert.notEqual(a.query('#mock .town-teaser-main').dataset.id,'365');
+assert.match(a.query('#mock .town-directory-entry').textContent,/全14件を見る/);
+assert.equal(a.query('#mock .town-teaser [data-town-action="shop"]'),null,'home links to all stores, not an individual recommendation');
 await settle();
-assert.ok(a.query('#mock .town-media-teaser img'),'home promotion includes a static image');
-assert.ok(a.query('#mock .town-photo-credit details'),'home photo credits can be opened');
+// Real calendar edge cases, JST conversion, and uncertain opening information.
+const status=(id,date)=>a.w.KarimenTown.scheduleStatus(shops.find(s=>s.id===id),new Date(date));
+assert.ok(shops.every(s=>a.w.KarimenTownData.schedules[s.id]));
+assert.equal(status('kirakira','2026-10-13T05:00:00Z').kind,'open'); // 14:00 JST
+assert.equal(status('kirakira','2026-10-13T12:00:00Z').kind,'outside');
+assert.equal(status('kirakira','2026-10-14T05:00:00Z').kind,'closed');
+assert.equal(status('kinta','2026-10-12T10:00:00Z').kind,'closed'); // Sports Day
+assert.equal(status('kinta','2026-10-13T14:59:00Z').kind,'open');
+assert.equal(status('kinta','2026-10-13T15:00:00Z').kind,'outside'); // midnight
+assert.equal(status('ritz','2026-10-18T01:00:00Z').kind,'outside'); // Sunday opens 11
+assert.equal(status('ritz','2026-10-18T02:00:00Z').kind,'open');
+assert.equal(status('konaya','2026-10-28T10:00:00Z').kind,'closed'); // last Wednesday
+assert.equal(status('konaya','2026-10-21T10:00:00Z').kind,'open');
+assert.match(status('konaya','2026-10-28T10:00:00Z').note,/10\/30/); // skip Thursday
+assert.equal(status('center','2026-10-13T03:00:00Z').kind,'check');
+assert.equal(status('yotsuba','2026-10-13T03:00:00Z').kind,'check');
+assert.equal(status('uminchu','2026-10-15T12:00:00Z').kind,'check');
+for(const id of ['zero','itomaru','ichiman-yokocho','cafe-itoman'])assert.equal(status(id,'2026-10-13T03:00:00Z').kind,'check');
+assert.equal(status('chiquita','2028-01-04T03:00:00Z').kind,'check','unknown holiday year never claims scheduled opening');
 const original=a.run('JSON.stringify(state)');
 a.click('#mock [data-town-action="open"]');
 assert.equal(a.query('#town').hidden,false);assert.equal(a.w.location.hash,'#town');
-assert.equal(a.all('.town-card').length,14);assert.equal(a.query('#town-title'),a.w.document.activeElement);
+assert.equal(a.all('.town-card').length,14);assert.equal(a.all('.town-card .town-hours').length,14);assert.equal(a.all('.town-card .town-hours dl').length,14);assert.equal(a.query('#town-title'),a.w.document.activeElement);
 assert.equal(a.query('script[src*="maps.googleapis.com"]'),null,'no API calls before provider configuration');
 await settle();
 assert.equal(a.all('.town-card .town-photo-gallery img').length,14,'all 14 cards include a real image file without an API');
@@ -101,6 +119,12 @@ for(let round=0;round<2;round++){
 }
 assert.equal(a.query('[data-town-action="map-shop"][data-id="365"]'),null);
 a.click('[data-town-action="close"]');assert.equal(a.query('#mock').hidden,false);assert.equal(a.w.location.hash,'');
+a.click('#mock [data-town-action="open"]');
+a.click('[data-town-action="filter"][data-value="cafe"]');
+a.click('[data-town-action="close"]');
+a.click('#mock [data-town-action="open"]');
+assert.equal(a.all('.town-card').length,14,'home entry always opens the full directory');
+a.click('[data-town-action="close"]');
 const remembered=a.snapshot();a.close();
 
 a=app({seed:remembered,hash:'#town/kirakira'});

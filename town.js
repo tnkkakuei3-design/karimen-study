@@ -65,8 +65,58 @@
     const glyph = shop.tags.includes('cafe') ? 'cafe' : shop.tags.includes('bakery') ? 'bag' : shop.facility ? 'shop' : 'food';
     return `<div class="town-media town-media-${kind}" data-town-photo="${shop.id}"><div class="town-photo-placeholder">${icon(glyph)}<span>${esc(shop.menus[0])}</span><small>お店の写真はGoogleマップで</small></div></div>`;
   }
+  const timeText = minutes => `${Math.floor(minutes/60)}:${String(minutes%60).padStart(2,'0')}`;
+  function scheduleStatus(shop, now=new Date()) {
+    const rule=data.schedules?.[shop.id];
+    const check=note=>({kind:'check',label:'営業状況は要確認',note});
+    if(!rule || rule.uncertain)return check(rule?.uncertain || '店舗にご確認ください');
+    const date=new Date(now.getTime()+9*60*60*1000);
+    const minutes=date.getUTCHours()*60+date.getUTCMinutes();
+    const holidayData=data.holidays;
+    const dayInfo=d=>{
+      const weekday=d.getUTCDay();
+      const lastWednesday=rule.lastWednesday&&weekday===3&&new Date(d.getTime()+7*86400000).getUTCMonth()!==d.getUTCMonth();
+      const holidayKnown=holidayData&&holidayData.years.includes(d.getUTCFullYear());
+      const holiday=holidayKnown&&Boolean(holidayData.dates[d.toISOString().slice(0,10)]);
+      return {closed:rule.closed.includes(weekday)||lastWednesday||(rule.holidays&&holiday),unknown:rule.holidays&&!holidayKnown,hours:weekday===0&&rule.sunday?rule.sunday:rule.hours};
+    };
+    const today=dayInfo(date);
+    const nextOpening=()=>{
+      for(let offset=0;offset<=7;offset++){
+        const d=new Date(date.getTime()+offset*86400000),info=dayInfo(d);
+        if(info.unknown)return '';
+        if(info.closed || (offset===0&&minutes>=info.hours[0]))continue;
+        const prefix=offset===0?'本日':offset===1?'明日':`${d.getUTCMonth()+1}/${d.getUTCDate()}`;
+        return `${prefix}${timeText(info.hours[0])}〜の予定`;
+      }
+      return '';
+    };
+    if(today.closed)return {kind:'closed',label:'本日定休日',note:nextOpening()};
+    if(today.unknown)return check('祝日の営業は店舗にご確認ください');
+    const [start,end]=today.hours;
+    if(minutes<start || (end!==null&&minutes>=end))return {kind:'outside',label:'営業時間外',note:nextOpening()};
+    if(rule.soldOut)return check('案内上は営業時間内・売り切れ次第終了');
+    if(rule.lastOrder&&minutes>=rule.lastOrder)return check('ラストオーダー時刻を過ぎています');
+    return {kind:'open',label:'営業予定',note:`案内上は${timeText(end)}まで`};
+  }
+  function scheduleSummary(shop) {
+    const status=scheduleStatus(shop);
+    return `<div class="town-hours" data-town-hours="${shop.id}"><div class="town-hours-status" data-kind="${status.kind}"><strong>${esc(status.label)}</strong><span>${esc(status.note)}</span></div><dl><div><dt>営業時間</dt><dd>${esc(shop.hours)}</dd></div><div><dt>定休日</dt><dd>${esc(shop.closed)}</dd></div></dl></div>`;
+  }
+  function updateSchedules(){
+    if(!isOpen())return;
+    root().querySelectorAll('[data-town-hours]').forEach(el=>{
+      const status=scheduleStatus(byId.get(el.dataset.townHours));
+      const label=el.querySelector('.town-hours-status');
+      label.dataset.kind=status.kind;label.querySelector('strong').textContent=status.label;label.querySelector('span').textContent=status.note;
+      const card=el.closest('.town-card');if(card)card.dataset.townState=status.kind;
+    });
+  }
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateSchedules();});
+  window.addEventListener('focus',updateSchedules);
+  window.setInterval(updateSchedules,60000);
   function card(shop) {
-    return `<article class="town-card">${media(shop)}<div class="town-card-overlay">${badge(shop)}${bookmarkButton(shop)}</div><button class="town-card-copy" data-town-action="shop" data-id="${shop.id}"><span><strong>${esc(shop.shortName || shop.name)}</strong><small>${esc(shop.category)}</small><span class="town-card-menu">${esc(shop.menus.slice(0,3).join('・'))}</span></span>${icon('arrow')}</button>${link(searchUrl(shop),`${icon('photo')}Googleマップで写真を見る ↗`,'town-photo-link')}</article>`;
+    return `<article class="town-card" data-town-state="${scheduleStatus(shop).kind}">${media(shop)}<div class="town-card-overlay">${badge(shop)}${bookmarkButton(shop)}</div><button class="town-card-copy" data-town-action="shop" data-id="${shop.id}"><span><strong>${esc(shop.shortName || shop.name)}</strong><small>${esc(shop.category)}</small><span class="town-card-menu">${esc(shop.menus.slice(0,3).join('・'))}</span></span>${icon('arrow')}</button>${scheduleSummary(shop)}${link(searchUrl(shop),`${icon('photo')}Googleマップで写真を見る ↗`,'town-photo-link')}</article>`;
   }
   function matches() {
     const term = normalize(query);
@@ -92,7 +142,7 @@
   }
   function backToList() { open(null); window.scrollTo({top:listScroll,behavior:'instant'}); document.querySelector(`[data-town-action="shop"][data-id="${mapShop}"]`)?.focus({preventScroll:true}); }
   function directory() {
-    return `<div class="town-topline"><button class="textbtn" data-town-action="close">${icon('back')}模試へ戻る</button><span class="town-pr">地域のお店紹介 · PR</span></div><div class="town-heading"><p class="town-eyebrow">ITOMAN LOCAL GUIDE</p><h2 id="town-title" tabindex="-1">食券で、どこ行こう？</h2><p>教習の合間に、まちのごはん。</p></div><div class="town-modes" role="group" aria-label="お店の探し方">${[['cards','photo','お店で探す'],['map','map','地図で探す']].map(([value,glyph,label])=>`<button data-town-action="mode" data-value="${value}" aria-pressed="${mode===value}">${icon(glyph)}${label}</button>`).join('')}</div><label class="town-search">${icon('search')}<span class="sr-only">店名やメニューで探す</span><input id="town-search" type="search" autocomplete="off" value="${esc(query)}" placeholder="店名・沖縄そば・カレーなど"></label><div class="town-filters" role="group" aria-label="お店の種類">${filters.map(([value,label])=>`<button data-town-action="filter" data-value="${value}" aria-pressed="${filter===value}">${label}</button>`).join('')}</div><p class="town-count" id="town-count"></p><div id="town-results"></div><div class="town-guide-note">${icon('ticket')}<div><strong>食券を持って、地域のお店へ。</strong><p>教習所の案内表にある、所在地を確認できた${shops.length}件の店舗・施設を紹介しています。対象メニュー・差額・利用時間は、お持ちの食券と各店でご確認ください。</p></div></div><details class="town-source-note"><summary>掲載情報・写真について</summary><p>食券対象・メニュー・営業時間は、教習所の店舗案内表をもとに掲載しています。臨時休業・売り切れ・内容変更は反映されないことがあります。</p><p>「料理イメージ」と表示した写真は、紹介する店舗の実際の料理写真ではありません。実店舗・施設の写真には撮影時期を添えています。写真は表示枠に合わせてトリミングしています。写真ごとの出典・撮影者・利用条件は、各写真と${link('./assets/town/SOURCES.json','写真の出典一覧')}から確認できます。</p><p>店舗情報を確認した日：2026年10月12日。学習の回答や成績を、お店やGoogleへ送信することはありません。</p><p>掲載写真はアプリと同じサイトから読み込みます。地図の表示や外部リンクの利用時には、Google等の外部サービスへの通信が発生します。${link('https://policies.google.com/privacy','Googleプライバシーポリシー')}・${link('https://www.google.com/intl/ja/help/terms_maps/','Googleマップ利用規約')}</p></details><p id="town-status" class="sr-only" role="status" aria-live="polite"></p>`;
+    return `<div class="town-topline"><button class="textbtn" data-town-action="close">${icon('back')}模試へ戻る</button><span class="town-pr">地域のお店紹介 · PR</span></div><div class="town-heading"><p class="town-eyebrow">ITOMAN LOCAL GUIDE</p><h2 id="town-title" tabindex="-1">食券で、どこ行こう？</h2><p>教習の合間に、まちのごはん。</p></div><div class="town-modes" role="group" aria-label="お店の探し方">${[['cards','photo','お店で探す'],['map','map','地図で探す']].map(([value,glyph,label])=>`<button data-town-action="mode" data-value="${value}" aria-pressed="${mode===value}">${icon(glyph)}${label}</button>`).join('')}</div><label class="town-search">${icon('search')}<span class="sr-only">店名やメニューで探す</span><input id="town-search" type="search" autocomplete="off" value="${esc(query)}" placeholder="店名・沖縄そば・カレーなど"></label><div class="town-filters" role="group" aria-label="お店の種類">${filters.map(([value,label])=>`<button data-town-action="filter" data-value="${value}" aria-pressed="${filter===value}">${label}</button>`).join('')}</div><p class="town-hours-notice">営業予定は教習所の案内表をもとに日本時間で表示しています。臨時休業・売り切れは来店前にご確認ください。</p><p class="town-count" id="town-count"></p><div id="town-results"></div><div class="town-guide-note">${icon('ticket')}<div><strong>食券を持って、地域のお店へ。</strong><p>教習所の案内表にある、所在地を確認できた${shops.length}件の店舗・施設を紹介しています。対象メニュー・差額・利用時間は、お持ちの食券と各店でご確認ください。</p></div></div><details class="town-source-note"><summary>掲載情報・写真について</summary><p>食券対象・メニュー・営業時間は、教習所の店舗案内表をもとに掲載しています。臨時休業・売り切れ・内容変更は反映されないことがあります。</p><p>「料理イメージ」と表示した写真は、紹介する店舗の実際の料理写真ではありません。実店舗・施設の写真には撮影時期を添えています。写真は表示枠に合わせてトリミングしています。写真ごとの出典・撮影者・利用条件は、各写真と${link('./assets/town/SOURCES.json','写真の出典一覧')}から確認できます。</p><p>店舗情報を確認した日：2026年10月12日。学習の回答や成績を、お店やGoogleへ送信することはありません。</p><p>掲載写真はアプリと同じサイトから読み込みます。地図の表示や外部リンクの利用時には、Google等の外部サービスへの通信が発生します。${link('https://policies.google.com/privacy','Googleプライバシーポリシー')}・${link('https://www.google.com/intl/ja/help/terms_maps/','Googleマップ利用規約')}</p></details><p id="town-status" class="sr-only" role="status" aria-live="polite"></p>`;
   }
   function embeddedMap(shop) {
     let src = safeUrl(shop.embedUrl || '');
@@ -106,7 +156,7 @@
   function mapResults(list) {
     if(!list.some(s=>s.id===mapShop))mapShop=(list.find(shop=>shop.embedUrl)||list[0]).id;
     const shop=byId.get(mapShop);
-    return `<div class="town-map-layout"><div class="town-map-picker" role="group" aria-label="地図に表示するお店">${list.map(s=>`<button data-town-action="map-shop" data-id="${s.id}" aria-pressed="${s.id===mapShop}"><span class="town-number">${s.number}</span>${esc(s.shortName||s.name)}</button>`).join('')}</div><div class="town-map-selected"><h3>${esc(shop.name)}</h3>${embeddedMap(shop)}<div class="town-map-actions"><button class="btn secondary" data-town-action="shop" data-id="${shop.id}">お店の詳細を見る ${icon('arrow')}</button>${link(routeUrl(shop),shop.address||mapPlaceId(shop)?'徒歩ルートを見る ↗':'お店の場所を探す ↗','textbtn')}</div></div></div>`;
+    return `<div class="town-map-layout"><div class="town-map-picker" role="group" aria-label="地図に表示するお店">${list.map(s=>`<button data-town-action="map-shop" data-id="${s.id}" aria-pressed="${s.id===mapShop}"><span class="town-number">${s.number}</span>${esc(s.shortName||s.name)}</button>`).join('')}</div><div class="town-map-selected"><h3>${esc(shop.name)}</h3>${scheduleSummary(shop)}${embeddedMap(shop)}<div class="town-map-actions"><button class="btn secondary" data-town-action="shop" data-id="${shop.id}">お店の詳細を見る ${icon('arrow')}</button>${link(routeUrl(shop),shop.address||mapPlaceId(shop)?'徒歩ルートを見る ↗':'お店の場所を探す ↗','textbtn')}</div></div></div>`;
   }
   function refreshResults() {
     const holder=document.getElementById('town-results'); if(!holder)return;
@@ -120,7 +170,7 @@
     const canRoute=Boolean(shop.address || mapPlaceId(shop));
     const addressSource=shop.source ? link(shop.source,'店舗の案内を確認 ↗','town-source-link') : '';
     const socialLink=safeUrl(shop.instagram) ? link(safeUrl(shop.instagram),'公式Instagramで写真を見る ↗','town-source-link') : '';
-    return `<div class="town-topline"><button class="textbtn" data-town-action="list">${icon('back')}お店一覧へ</button><span class="town-pr">地域のお店紹介 · PR</span></div><div class="town-detail-hero">${media(shop,'detail')}${bookmarkButton(shop)}</div><div class="town-detail-heading"><div><p class="town-eyebrow">${esc(shop.category)}</p><h2 id="town-title" tabindex="-1">${esc(shop.name)}</h2></div>${badge(shop)}</div>${link(searchUrl(shop),`${icon('photo')}Googleマップで写真・口コミを見る ↗`,'textbtn town-all-photos')}${socialLink}<div class="town-voucher-info">${icon('ticket')}<div><h3>食券が使えるお店です</h3><p>${shop.facility?'施設内の飲食店が対象です。':'教習所の食券対象店として案内されています。'} 対象メニュー・差額・利用時間は、お持ちの食券とお店でご確認ください。</p></div></div><section class="town-detail-section"><h3>お店のメニュー</h3><p class="town-section-sub">案内表に記載されているメニューです</p><ul class="town-menu-list">${shop.menus.map(menu=>`<li>${esc(menu)}</li>`).join('')}</ul><p class="town-menu-note">この一覧は、すべてのメニューが食券だけで注文できることを示すものではありません。</p></section><section class="town-detail-section"><h3>来店前にチェック</h3><dl class="town-details"><div><dt>営業時間</dt><dd>${esc(shop.hours)}</dd></div><div><dt>定休日</dt><dd>${esc(shop.closed)}</dd></div>${shop.phone?`<div><dt>電話</dt><dd><a href="tel:${shop.phone.replace(/-/g,'')}">${esc(shop.phone)}</a></dd></div>`:''}${shop.address?`<div><dt>住所</dt><dd>${esc(shop.address)}</dd></div>`:''}</dl>${shop.note?`<p class="town-store-note">${esc(shop.note)}</p>`:''}<p class="town-section-sub">営業時間・定休日は案内表の情報です。臨時休業や売り切れは、来店前にご確認ください。</p>${addressSource}</section><section class="town-detail-section"><h3>${icon('pin')}お店への行き方</h3>${embeddedMap(shop)}<p class="town-section-sub">${canRoute?'経路の出発点は糸満自動車学校です。Googleマップで現在地に変更できます。':'所在地を確認中です。店舗または教習所に場所をご確認ください。'}</p></section><div class="town-detail-actions">${link(routeUrl(shop),`${icon(canRoute?'walk':'search')}${canRoute?'徒歩ルートを見る':'場所を確認する'}`,'btn')}${shop.phone?`<a class="btn secondary" href="tel:${shop.phone.replace(/-/g,'')}">${icon('phone')}電話する</a>`:''}</div><p id="town-status" class="sr-only" role="status" aria-live="polite"></p>`;
+    return `<div class="town-topline"><button class="textbtn" data-town-action="list">${icon('back')}お店一覧へ</button><span class="town-pr">地域のお店紹介 · PR</span></div><div class="town-detail-hero">${media(shop,'detail')}${bookmarkButton(shop)}</div><div class="town-detail-heading"><div><p class="town-eyebrow">${esc(shop.category)}</p><h2 id="town-title" tabindex="-1">${esc(shop.name)}</h2></div>${badge(shop)}</div>${link(searchUrl(shop),`${icon('photo')}Googleマップで写真・口コミを見る ↗`,'textbtn town-all-photos')}${socialLink}<div class="town-voucher-info">${icon('ticket')}<div><h3>食券が使えるお店です</h3><p>${shop.facility?'施設内の飲食店が対象です。':'教習所の食券対象店として案内されています。'} 対象メニュー・差額・利用時間は、お持ちの食券とお店でご確認ください。</p></div></div><section class="town-detail-section"><h3>お店のメニュー</h3><p class="town-section-sub">案内表に記載されているメニューです</p><ul class="town-menu-list">${shop.menus.map(menu=>`<li>${esc(menu)}</li>`).join('')}</ul><p class="town-menu-note">この一覧は、すべてのメニューが食券だけで注文できることを示すものではありません。</p></section><section class="town-detail-section"><h3>来店前にチェック</h3><p class="town-hours-notice">教習所の案内表に基づく営業予定です。臨時休業・売り切れは来店前にご確認ください。</p>${scheduleSummary(shop)}<dl class="town-details">${shop.phone?`<div><dt>電話</dt><dd><a href="tel:${shop.phone.replace(/-/g,'')}">${esc(shop.phone)}</a></dd></div>`:''}${shop.address?`<div><dt>住所</dt><dd>${esc(shop.address)}</dd></div>`:''}</dl>${shop.note?`<p class="town-store-note">${esc(shop.note)}</p>`:''}<p class="town-section-sub">営業時間・定休日は案内表の情報です。臨時休業や売り切れは、来店前にご確認ください。</p>${addressSource}</section><section class="town-detail-section"><h3>${icon('pin')}お店への行き方</h3>${embeddedMap(shop)}<p class="town-section-sub">${canRoute?'経路の出発点は糸満自動車学校です。Googleマップで現在地に変更できます。':'所在地を確認中です。店舗または教習所に場所をご確認ください。'}</p></section><div class="town-detail-actions">${link(routeUrl(shop),`${icon(canRoute?'walk':'search')}${canRoute?'徒歩ルートを見る':'場所を確認する'}`,'btn')}${shop.phone?`<a class="btn secondary" href="tel:${shop.phone.replace(/-/g,'')}">${icon('phone')}電話する</a>`:''}</div><p id="town-status" class="sr-only" role="status" aria-live="polite"></p>`;
   }
   function render() {
     if(!root())return;
@@ -193,7 +243,7 @@
   document.addEventListener('click',event=>{
     const button=event.target.closest('[data-town-action]');if(!button||button.disabled)return;
     const action=button.dataset.townAction;
-    if(action==='open')open();
+    if(action==='open'){mode='cards';filter='all';query='';listScroll=0;open();}
     else if(action==='shop'){mapShop=button.dataset.id;open(button.dataset.id);}
     else if(action==='close')close();
     else if(action==='list')backToList();
@@ -219,10 +269,9 @@
     init(callbacks){api=callbacks;if(initDone)return;initDone=true;readRoute();if(!isOpen())activatePhotos(document.querySelector('main > section:not([hidden])')||document.createElement('div'));},
     onView(name){if(!initDone)return;if(name!=='town'){disconnectPhotos();if(location.hash==='#town'||location.hash.startsWith('#town/'))history.replaceState({...history.state,karimenTown:false},'',location.pathname+location.search);if(['mock','learn'].includes(name))activatePhotos(document.getElementById(name));}},
     teaser(){
-      const day=Number(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()).replace(/\D/g,''));
-      const pool=shops.filter(s=>!s.facility),shop=pool[day%pool.length];
-      return `<aside class="town-teaser" aria-label="地域のお店紹介"><div class="town-teaser-label"><span>${icon('food')}教習の合間に、まちのごはん</span><small>PR</small></div><div class="town-teaser-content"><div class="town-media town-media-teaser" data-town-photo="${shop.id}"><span class="town-teaser-symbol">${icon(shop.tags.includes('cafe')?'cafe':'food')}</span></div><button class="town-teaser-main" data-town-action="shop" data-id="${shop.id}"><span><span class="town-ticket">食券OK</span><strong>${esc(shop.shortName||shop.name)}</strong><small>${esc(shop.menus.slice(0,2).join('・'))}</small></span>${icon('arrow')}</button></div><button class="town-teaser-all" data-town-action="open">食券が使えるお店をすべて見る ${icon('arrow')}</button></aside>`;
+      return `<aside class="town-teaser" aria-label="地域のお店一覧"><div class="town-teaser-label"><span>${icon('food')}教習の合間に、まちのごはん</span><small>PR</small></div><button class="town-directory-entry" data-town-action="open"><span class="town-entry-icon">${icon('ticket')}</span><span><strong>食券が使えるお店</strong><small>営業時間・定休日・地図を確認</small></span><span class="town-entry-cta">全${shops.length}件を見る ${icon('arrow')}</span></button></aside>`;
     },
+    scheduleStatus,
     open,
     searchUrl, routeUrl,
   };
