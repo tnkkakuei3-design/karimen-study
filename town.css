@@ -38,3 +38,12 @@
 @media(prefers-reduced-motion:reduce){.town-photo-gallery{scroll-behavior:auto}}
 
 .town-all-photos+.town-source-link{margin:0 0 12px;display:flex}
+
+/* Static photos: visible image label and reusable-photo attribution. */
+.town-photo-frame{position:relative;overflow:hidden}
+.town-photo-kind{position:absolute;bottom:9px;right:9px;border-radius:5px;padding:3px 7px;background:rgba(255,255,255,.94);color:#243b44;font-size:11px;font-weight:700;line-height:1.5}
+.town-photo-caption{display:block;font-size:11px;margin-top:2px}
+.town-media-teaser .town-photo-kind{bottom:4px;right:3px;left:3px;text-align:center;font-size:9px;padding:2px 1px}
+.town-media-teaser .town-photo-credit summary{min-height:24px;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center}
+.town-media-teaser .town-photo-credit details[open]{font-size:10px;overflow-wrap:anywhere}
+.town-media-teaser .town-photo-credit details[open] summary{justify-content:flex-start}

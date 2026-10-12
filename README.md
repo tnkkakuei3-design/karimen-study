@@ -122,14 +122,16 @@ node test-progress.mjs
 
 ### 実店舗の写真
 
-今回の公開時点では、実店舗写真の自動表示は未接続です。写真はGoogleマップや確認できた公式Instagramへのリンクで確認できます。写真未設定時はメニュー名とアイコンを表示します。
+2026年10月12日の写真対応で、15件すべてに静的JPEGを配置しました。Google APIの設定は不要です。「いとま〜る」は実施設の写真2枚（2022年3月撮影）、その他14件は商用再利用可能な料理素材を「料理イメージ」と明示して使います。14件の実店舗・実メニュー写真を取得できたという意味ではありません。実店舗の写真は引き続きGoogleマップや公式Instagramへのリンクでも確認できます。
 
-`town-config.js` に以下のどちらかを設定すると、ホーム・一覧・詳細に写真を表示できます。
+画像12枚の作者・元ページ・ライセンス・検査値・店舗との対応は [写真の出典一覧](assets/town/SOURCES.json) に記録しています。公開されているJPEGをそのまま同梱し、画面では表示枠に合わせてトリミングします。撮影者と出典・ライセンスへのリンクは写真に併記し、小さなホームの写真では「写真の出典」を開くと確認できます。
 
-1. 店舗提供または利用許諾を確認した写真を `assets/town/` へ置き、`suppliedPhotos` にURL・代替テキスト・提供者名・許諾記録を登録する。
-2. Maps JavaScript API / Places API (New) を有効にした課金設定済みプロジェクトのブラウザ用キーと、各店を電話・所在地で照合したPlace IDを設定する。必要に応じてMaps Embed APIも有効にする。キーは公開サイトのHTTPSリファラーと使用APIで制限し、割り当て上限を設定する。
+`town-config.js` の店舗ごとの写真を、次の方法で実店舗写真へ差し替えられます。
 
-写真は表示される位置に来たときだけ取得します。Googleの写真にはGoogle Maps表記・撮影者の氏名とリンク・写真の提供元リンクを表示し、画像やPhoto URIをlocalStorage・IndexedDBに保存しません。取得失敗時はGoogleマップへのリンクを使えます。Places利用料金や利用条件は設定時に[Googleの公式資料](https://developers.google.com/maps/documentation/places/web-service/usage-and-billing)を確認してください。
+1. 店舗提供または利用許諾を確認した写真を `assets/town/` へ置き、`photos` にURL・代替テキスト・提供者名・許諾記録を登録し、`selection` の該当店に設定する。料理イメージではない写真は `kind: 'venue'` を使う。
+2. Maps JavaScript API / Places API (New) を有効にした課金設定済みプロジェクトのブラウザ用キーと、各店を電話・所在地で照合したPlace IDを設定する。必要に応じてMaps Embed APIも有効にする。キーは公開サイトのHTTPSリファラーと使用APIで制限し、割り当て上限を設定する。その店舗の静的写真の選択を空にするとGoogle連携に切り替わる。
+
+静的写真は同じ公開サイトから遅延読込みします。任意のGoogle連携を設定した場合も、写真は表示される位置に来たときだけ取得します。Googleの写真にはGoogle Maps表記・撮影者の氏名とリンク・写真の提供元リンクを表示し、画像やPhoto URIをlocalStorage・IndexedDBに保存しません。取得失敗時はGoogleマップへのリンクを使えます。Places利用料金や利用条件は設定時に[Googleの公式資料](https://developers.google.com/maps/documentation/places/web-service/usage-and-billing)を確認してください。
 
 `node test-town.mjs` は検索・日本語入力・お気に入りの再読込みと失敗・地図の代替リンク・直リンク・学習記録保護・写真プロバイダーの遅延読込みと出典表示を確認します。今回追加したガイドのブラウザ描画・スマートフォン実機・実際のPlaces API応答は未検証です。上記の既存画面の表示確認には、この追加画面を含みません。
 

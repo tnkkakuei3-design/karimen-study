@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
+import crypto from 'node:crypto';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 const require=createRequire(import.meta.url);
@@ -42,11 +43,29 @@ const shops=a.w.KarimenTownData.shops;
 assert.equal(shops.length,15);assert.equal(new Set(shops.map(s=>s.id)).size,15);
 assert.deepEqual([...shops.map(s=>s.number)],[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
 assert.equal(a.query('#mock').hidden,false);assert.ok(a.query('#mock .town-teaser'));
+await settle();
+assert.ok(a.query('#mock .town-media-teaser img'),'home promotion includes a static image');
+assert.ok(a.query('#mock .town-photo-credit details'),'home photo credits can be opened');
 const original=a.run('JSON.stringify(state)');
 a.click('#mock [data-town-action="open"]');
 assert.equal(a.query('#town').hidden,false);assert.equal(a.w.location.hash,'#town');
 assert.equal(a.all('.town-card').length,15);assert.equal(a.query('#town-title'),a.w.document.activeElement);
 assert.equal(a.query('script[src*="maps.googleapis.com"]'),null,'no API calls before provider configuration');
+await settle();
+assert.equal(a.all('.town-card .town-photo-gallery img').length,15,'all 15 cards include a real image file without an API');
+assert.equal(a.all('.town-card .town-photo-kind').length,14,'generic food imagery is explicitly labeled');
+assert.ok(a.all('.town-card .town-photo-credit').every(el=>el.querySelector('a[href*="creativecommons.org"]')),'photo licenses remain accessible');
+for(const [id,photos]of Object.entries(a.w.KarimenTownConfig.suppliedPhotos)){
+ assert.ok(photos.length>0,id);
+ for(const photo of photos){
+  assert.ok(photo.url.startsWith('./assets/town/'),'static image is served with the app');
+  const file=fs.readFileSync(path.join(root,photo.url));
+  assert.equal(file.subarray(0,2).toString('hex'),'ffd8','published photo is a JPEG');
+  assert.equal(crypto.createHash('sha256').update(file).digest('hex'),photo.sha256,'downloaded source image remains intact');
+  assert.ok(photo.credit&&photo.licenseUrl&&photo.sourceUrl);
+  if(id!=='itomaru'){assert.equal(photo.kind,'menu-illustration');assert.match(photo.alt,/イメージ/)}
+ }
+}
 a.click('[data-town-action="filter"][data-value="cafe"]');assert.equal(a.all('.town-card').length,3);
 a.click('[data-town-action="filter"][data-value="all"]');
 let input=a.query('#town-search');input.value='ｷﾗｷﾗ';input.dispatchEvent(new a.w.Event('input',{bubbles:true}));
@@ -125,4 +144,4 @@ a.w.KarimenTown.open('kirakira');await settle();
 assert.equal(a.all('.town-media-detail img').length,1);assert.equal(a.query('.town-media-detail img').src,'https://example.test/owner.jpg');
 assert.match(a.query('.town-photo-credit').textContent,/きらきら提供/);a.close();
 
-console.log('PASS: 15 shops, search/IME/filters, bookmarks/reload/failure, map fallback, direct links/history, unchanged study answers and paused mock timer, lazy photo provider/attribution/error fallback.');
+console.log('PASS: 15 shops with verified static JPEG assets and illustration labels, search/IME/filters, bookmarks/reload/failure, map fallback, direct links/history, unchanged study answers and paused mock timer, lazy photo provider/attribution/error fallback.');

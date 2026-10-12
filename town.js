@@ -90,7 +90,7 @@
   }
   function backToList() { open(null); window.scrollTo({top:listScroll,behavior:'instant'}); document.querySelector(`[data-town-action="shop"][data-id="${mapShop}"]`)?.focus({preventScroll:true}); }
   function directory() {
-    return `<div class="town-topline"><button class="textbtn" data-town-action="close">${icon('back')}学習へ戻る</button><span class="town-pr">地域のお店紹介 · PR</span></div><div class="town-heading"><p class="town-eyebrow">ITOMAN LOCAL GUIDE</p><h2 id="town-title" tabindex="-1">食券で、どこ行こう？</h2><p>教習の合間に、まちのごはん。</p></div><div class="town-modes" role="group" aria-label="お店の探し方">${[['cards','photo','お店で探す'],['map','map','地図で探す']].map(([value,glyph,label])=>`<button data-town-action="mode" data-value="${value}" aria-pressed="${mode===value}">${icon(glyph)}${label}</button>`).join('')}</div><label class="town-search">${icon('search')}<span class="sr-only">店名やメニューで探す</span><input id="town-search" type="search" autocomplete="off" value="${esc(query)}" placeholder="店名・沖縄そば・カレーなど"></label><div class="town-filters" role="group" aria-label="お店の種類">${filters.map(([value,label])=>`<button data-town-action="filter" data-value="${value}" aria-pressed="${filter===value}">${label}</button>`).join('')}</div><p class="town-count" id="town-count"></p><div id="town-results"></div><div class="town-guide-note">${icon('ticket')}<div><strong>食券を持って、地域のお店へ。</strong><p>教習所の案内表にある15件の店舗・施設を紹介しています。対象メニュー・差額・利用時間は、お持ちの食券と各店でご確認ください。</p></div></div><details class="town-source-note"><summary>掲載情報・写真について</summary><p>食券対象・メニュー・営業時間は、教習所の店舗案内表をもとに掲載しています。臨時休業・売り切れ・内容変更は反映されないことがあります。</p><p>実店舗の写真はGoogleマップのリンクから確認できます。アプリ内に写真を表示する場合も、提供元と撮影者を併記します。</p><p>店舗情報を確認した日：2026年10月12日。学習の回答や成績を、お店やGoogleへ送信することはありません。</p><p>地図・写真・外部リンクの利用にはGoogle等の外部サービスへの通信が発生します。${link('https://policies.google.com/privacy','Googleプライバシーポリシー')}・${link('https://www.google.com/intl/ja/help/terms_maps/','Googleマップ利用規約')}</p></details><p id="town-status" class="sr-only" role="status" aria-live="polite"></p>`;
+    return `<div class="town-topline"><button class="textbtn" data-town-action="close">${icon('back')}学習へ戻る</button><span class="town-pr">地域のお店紹介 · PR</span></div><div class="town-heading"><p class="town-eyebrow">ITOMAN LOCAL GUIDE</p><h2 id="town-title" tabindex="-1">食券で、どこ行こう？</h2><p>教習の合間に、まちのごはん。</p></div><div class="town-modes" role="group" aria-label="お店の探し方">${[['cards','photo','お店で探す'],['map','map','地図で探す']].map(([value,glyph,label])=>`<button data-town-action="mode" data-value="${value}" aria-pressed="${mode===value}">${icon(glyph)}${label}</button>`).join('')}</div><label class="town-search">${icon('search')}<span class="sr-only">店名やメニューで探す</span><input id="town-search" type="search" autocomplete="off" value="${esc(query)}" placeholder="店名・沖縄そば・カレーなど"></label><div class="town-filters" role="group" aria-label="お店の種類">${filters.map(([value,label])=>`<button data-town-action="filter" data-value="${value}" aria-pressed="${filter===value}">${label}</button>`).join('')}</div><p class="town-count" id="town-count"></p><div id="town-results"></div><div class="town-guide-note">${icon('ticket')}<div><strong>食券を持って、地域のお店へ。</strong><p>教習所の案内表にある15件の店舗・施設を紹介しています。対象メニュー・差額・利用時間は、お持ちの食券と各店でご確認ください。</p></div></div><details class="town-source-note"><summary>掲載情報・写真について</summary><p>食券対象・メニュー・営業時間は、教習所の店舗案内表をもとに掲載しています。臨時休業・売り切れ・内容変更は反映されないことがあります。</p><p>「料理イメージ」と表示した写真は、紹介する店舗の実際の料理写真ではありません。実店舗・施設の写真には撮影時期を添えています。写真は表示枠に合わせてトリミングしています。写真ごとの出典・撮影者・利用条件は、各写真と${link('./assets/town/SOURCES.json','写真の出典一覧')}から確認できます。</p><p>店舗情報を確認した日：2026年10月12日。学習の回答や成績を、お店やGoogleへ送信することはありません。</p><p>掲載写真はアプリと同じサイトから読み込みます。地図の表示や外部リンクの利用時には、Google等の外部サービスへの通信が発生します。${link('https://policies.google.com/privacy','Googleプライバシーポリシー')}・${link('https://www.google.com/intl/ja/help/terms_maps/','Googleマップ利用規約')}</p></details><p id="town-status" class="sr-only" role="status" aria-live="polite"></p>`;
   }
   function embeddedMap(shop) {
     let src = safeUrl(shop.embedUrl || '');
@@ -155,10 +155,12 @@
     })().catch(()=>[]));
     return photoRequests.get(shop.id);
   }
-  function photoCredit(photo) {
+  function photoCredit(photo, compact=false) {
     const authors=photo.google?photo.authors.map(author=>safeUrl(author.uri)?link(safeUrl(author.uri),esc(author.displayName||'撮影者')):esc(author.displayName||'撮影者')).join(' / '):esc(photo.credit);
     const source=safeUrl(photo.sourceUrl);
-    return `<figcaption class="town-photo-credit">${photo.google?'<span translate="no">Google Maps</span> · ':''}${authors}${source?` · ${link(source,'写真の提供元 ↗')}`:''}</figcaption>`;
+    const license=safeUrl(photo.licenseUrl);
+    const credit=`${photo.google?'<span translate="no">Google Maps</span> · ':''}${authors}${source?` · <a href="${esc(source)}" target="_blank" rel="noopener noreferrer" title="${esc(photo.title||'写真の出典')}">出典 ↗</a>`:''}${license?` · ${link(license,esc(photo.license))}`:''}${photo.caption?`<span class="town-photo-caption">${esc(photo.caption)}</span>`:''}`;
+    return `<figcaption class="town-photo-credit">${compact&&!photo.google?`<details><summary>写真の出典</summary>${credit}</details>`:credit}</figcaption>`;
   }
   async function fillMedia(el) {
     const shop=byId.get(el.dataset.townPhoto);if(!shop)return;
@@ -166,7 +168,7 @@
     if(!el.isConnected || !photos.length || (el.closest('#town')&&version!==requestVersion))return;
     const images=el.classList.contains('town-media-detail')?photos.slice(0,5):photos.slice(0,1);
     const fallback=el.innerHTML;
-    el.innerHTML=`<div class="town-photo-gallery" tabindex="${images.length>1?'0':'-1'}" ${images.length>1?'aria-label="お店の写真。横にスクロールできます"':''}>${images.map(p=>`<figure><img src="${esc(safeUrl(p.url))}" alt="${esc(p.alt)}" loading="lazy" decoding="async" width="960" height="640">${photoCredit(p)}</figure>`).join('')}</div>`;
+    el.innerHTML=`<div class="town-photo-gallery" tabindex="${images.length>1?'0':'-1'}" ${images.length>1?'aria-label="掲載写真。横にスクロールできます"':''}>${images.map(p=>`<figure><div class="town-photo-frame"><img src="${esc(safeUrl(p.url))}" alt="${esc(p.alt)}" loading="lazy" decoding="async" width="960" height="640">${p.kind==='menu-illustration'?'<span class="town-photo-kind">料理イメージ</span>':''}</div>${photoCredit(p,el.classList.contains('town-media-teaser'))}</figure>`).join('')}</div>`;
     el.classList.add('has-photo');
     el.querySelectorAll('img').forEach(img=>img.addEventListener('error',()=>{el.innerHTML=fallback;el.classList.remove('has-photo');},{once:true}));
   }
