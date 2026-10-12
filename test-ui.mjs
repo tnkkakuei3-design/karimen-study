@@ -18,7 +18,7 @@ function app(seed={}){
  w.HTMLElement.prototype.scrollIntoView=function(){};w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
  class ClockDate extends Date{constructor(...a){super(...(a.length?a:[clock.now]))}static now(){return clock.now}}
  w.Date=ClockDate;w.URL.createObjectURL=blob=>{downloads.push(blob);return 'blob:progress'};w.URL.revokeObjectURL=()=>{};
- const ctx=dom.getInternalVMContext();for(const name of ['questions.js','learning-content.js','model.js','visuals.js','app.js'])vm.runInContext(fs.readFileSync(path.join(root,name),'utf8'),ctx,{filename:name});
+ const ctx=dom.getInternalVMContext();for(const name of ['questions.js','learning-content.js','model.js','visuals.js','notebook-content.js','question-guides.js','app.js'])vm.runInContext(fs.readFileSync(path.join(root,name),'utf8'),ctx,{filename:name});
  const run=code=>vm.runInContext(code,ctx),query=selector=>w.document.querySelector(selector),all=selector=>[...w.document.querySelectorAll(selector)];
  const click=selector=>{const el=query(selector);assert.ok(el,`missing control: ${selector}`);assert.ok(!el.disabled,`disabled control: ${selector}`);el.click();if(errors.length)throw errors[0]};
  return {dom,w,clock,intervals,errors,downloads,run,query,all,click,close:()=>dom.window.close()};
@@ -37,7 +37,7 @@ a.click('[data-action="result-filter"][data-filter="all"]');assert.equal(a.all('
 a.click('#tab-learn');assert.equal(a.query('#learn').hidden,false);assert.equal(a.run('CATS.flatMap(categorized).length'),500);assert.equal(a.run('new Set(CATS.flatMap(categorized).map(q=>q.id)).size'),500);a.click('#learn .recommend');assert.equal(a.run('state.session.ids.length'),10);assert.equal(a.run('state.session.mode'),'drill');
 a.click('[data-action="answer"][data-value="true"]');assert.equal(a.all('#play .feedback').length,1);assert.ok(a.query('#play #next'));assert.equal(a.w.document.activeElement,a.query('#play .feedback'));assert.equal(a.query('#tabs').hidden,true);assert.equal(a.run('state.stats[state.session.ids[0]].total'),1);
 const id=a.run('state.session.ids[0]');a.run('renderPlay();renderPlay()');assert.equal(a.run(`state.stats[${id}].total`),1);
-a.click('[data-action="pause"]');a.run('openNotes()');assert.equal(a.all('#notes details.note').length,47);
+a.click('[data-action="pause"]');a.run('openNotes()');assert.equal(a.all('#notes details.note').length,65);
 assert.equal(a.query('#notes .section-character').getAttribute('src'),'./image-a5b30a44fd43.png');
 assert.match(a.query('#notes .section-character').alt,/ロボット教官/);
 // Reset must clear both search controls and restore the complete notebook without changing records.
@@ -45,7 +45,7 @@ const beforeNoteFilter=a.run('JSON.stringify(state)');
 a.query('#note-filter').value=a.query('#note-filter option:nth-child(2)').value;a.query('#note-filter').dispatchEvent(new a.w.Event('change',{bubbles:true}));
 a.query('#note-search').value='該当しない検索語__';a.query('#note-search').dispatchEvent(new a.w.Event('input',{bubbles:true}));
 assert.equal(a.all('#notes details.note').length,0);a.click('[data-action="note-reset"]');
-assert.equal(a.query('#note-search').value,'');assert.equal(a.query('#note-filter').value,'');assert.equal(a.all('#notes details.note').length,47);
+assert.equal(a.query('#note-search').value,'');assert.equal(a.query('#note-filter').value,'');assert.equal(a.all('#notes details.note').length,65);
 assert.equal(a.w.document.activeElement,a.query('#note-search'));assert.equal(a.run('JSON.stringify(state)'),beforeNoteFilter);
 for(const el of a.all('#notes details.note'))a.run(`populateNote(document.getElementById(${JSON.stringify(el.id)}))`);
 assert.equal(a.all('#notes .note-content').filter(el=>!el.innerHTML).length,0);assert.equal(a.run('NOTES.flatMap(noteIds).every(id=>id>=301&&id<=800)'),true);
@@ -160,13 +160,13 @@ const composingInput=a.query('#note-search');composingInput.focus();
 composingInput.dispatchEvent(new a.w.CompositionEvent('compositionstart',{bubbles:true}));
 for(const isComposing of [true,false]){
  composingInput.value='おうだん';composingInput.dispatchEvent(new a.w.InputEvent('input',{bubbles:true,isComposing,inputType:'insertCompositionText',data:'おうだん'}));
- assert.equal(a.query('#note-search'),composingInput);assert.equal(a.w.document.activeElement,composingInput);assert.equal(a.all('#notes details.note').length,47);
+ assert.equal(a.query('#note-search'),composingInput);assert.equal(a.w.document.activeElement,composingInput);assert.equal(a.all('#notes details.note').length,65);
 }
 composingInput.value='横断歩道';composingInput.dispatchEvent(new a.w.CompositionEvent('compositionend',{bubbles:true,data:'横断歩道'}));
-assert.equal(a.query('#note-search').value,'横断歩道');assert.ok(a.all('#notes details.note').length>0);assert.ok(a.all('#notes details.note').length<47);
+assert.equal(a.query('#note-search').value,'横断歩道');assert.ok(a.all('#notes details.note').length>0);assert.ok(a.all('#notes details.note').length<65);
 assert.equal(a.w.document.activeElement,a.query('#note-search'));assert.equal(a.run('JSON.stringify(state)'),beforeSearch);
 a.query('#note-search').value='検索結果なし__';a.query('#note-search').dispatchEvent(new a.w.InputEvent('input',{bubbles:true,inputType:'insertFromPaste'}));
-assert.equal(a.all('#notes details.note').length,0);a.click('[data-action="note-reset"]');assert.equal(a.all('#notes details.note').length,47);a.close();
+assert.equal(a.all('#notes details.note').length,0);a.click('[data-action="note-reset"]');assert.equal(a.all('#notes details.note').length,65);a.close();
 // Complete a genuine guided set through clicks; compare mock and guided achievements.
 a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-guided"]');
 for(let i=0;i<50;i++){const answer=a.run('activeQuestion(state.session.ids[state.session.index]).a');a.click(`[data-action="answer"][data-value="${answer}"]`);a.click('[data-action="next"]');}
@@ -349,9 +349,9 @@ assert.equal(a.errors.length,0);a.close();
 
 a=app();a.click('#tab-learn');
 assert.equal(a.all('.learn-switch [role="tab"]').length,2);
-a.click('#learn-tab-notes');assert.equal(a.query('#learn-notes').hidden,false);assert.equal(a.query('#learn-categories').hidden,true);assert.equal(a.all('#learn-notes details.note').length,47);
+a.click('#learn-tab-notes');assert.equal(a.query('#learn-notes').hidden,false);assert.equal(a.query('#learn-categories').hidden,true);assert.equal(a.all('#learn-notes details.note').length,65);
 assert.equal(a.all('#note-search').length,1);
-a.run("openNotes('n-hand')");assert.equal(a.all('#note-search').length,1);a.click('[data-action="note-return"]');assert.equal(a.all('#learn-notes details.note').length,47);
+a.run("openNotes('n-hand')");assert.equal(a.all('#note-search').length,1);a.click('[data-action="note-return"]');assert.equal(a.all('#learn-notes details.note').length,65);
 a.click('#learn-tab-categories');assert.equal(a.query('#learn-categories').hidden,false);assert.equal(a.all('#learn .notes-entry').length,0);
 a.close();
 

@@ -117,7 +117,15 @@ function originalQuestionArt(q,revealed=false,compact=false){
   return `<figure class="question-visual ${compact?'compact':''}" data-question-visual="${q.id}" data-revealed="${revealed}" data-image-origin="${m?'public-source':'provided'}"><div class="question-visual-head"><span>問題の図</span>${compact?'':`<button class="textbtn" data-action="question-zoom" data-id="${q.id}" data-revealed="${revealed}" aria-label="設問の図を拡大">拡大 ↗</button>`}</div><div class="sourced-pictures ${m?.layout||'single'}">${images.map((url,i)=>`<img src="${url}" alt="${esc(images.length===1?alt:i===0?alt:'組み合わせた図の2枚目')}" decoding="async">`).join('')}</div>${caption}</figure>`;
  }
  return `<figure class="question-visual ${compact?'compact':''}" data-question-visual="${q.id}" data-revealed="${revealed}"><div class="question-visual-head"><span>${['sign','aux'].includes(v.type)?'標識・マーク':v.type==='mark'?'路面の図':'手信号の図'}</span>${compact?'':`<button class="textbtn" data-action="question-zoom" data-id="${q.id}" data-revealed="${revealed}" aria-label="設問のイラストを拡大">拡大 ↗</button>`}</div>${sceneSVG(v)}${revealed?`<figcaption class="visual-answer"><b>${esc(v.name)}</b><p>${esc(v.tip)}</p></figcaption>`:''}</figure>`}
-function noteFor(q){return NOTES.find(n=>n.figs[0]===q.fig)||NOTES.find(n=>n.figs.includes(q.fig))}
+function notesFor(q){
+ const guide=QUESTION_GUIDES[q.id];
+ return guide?guide.noteIds.map(id=>NOTES.find(n=>n.id===id)).filter(Boolean):NOTES.filter(n=>n.figs.includes(q.fig));
+}
+function noteFor(q){return notesFor(q)[0]}
+function guideFigureFor(q){return QUESTION_GUIDES[q.id]?.figure||q.fig}
+function noteSearchText(n){
+ return [n.t,...n.pts,n.trap,...n.figs.flatMap(k=>{const f=FIG[k];return f?[f.t,FIGK[k]||'',...(f.cards||[]).flatMap(c=>[c.title,c.text]),...(f.table?.rows||[]).flat()]:[]})].join(' ').toLowerCase();
+}
 function sourceFor(q){
  if(q.sourceRef?.url)return q.sourceRef;
  if(q.visual==='aux-except')return REFS.special;
@@ -127,7 +135,19 @@ function sourceFor(q){
  const v=VISUALS[q.id];if(v)return {url:REFS.rules.url+'#page='+(v.type==='driver'?51:v.type==='police'?95:v.type==='aux'?109:97)};
  return REFS.rules;
 }
-function figHTML(k){const f=FIG[k];if(!f)return '';const id='arw-'+(++figureNumber);const b=carify(f.b).replaceAll('url(#arrow)',`url(#${id})`);return `<figure class="fig"><figcaption class="fig-top">${esc(f.t)} <button class="textbtn" data-action="figure-open" data-fig="${k}">拡大 ↗</button></figcaption><svg viewBox="0 0 380 ${f.h}" role="img" aria-label="${esc(f.t)}"><defs><marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#475b70" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>${b}</svg>${FIGK[k]?`<div class="figk"><b>覚えるポイント</b>${esc(FIGK[k])}</div>`:''}</figure>`}
+function figHTML(k){
+ const f=FIG[k];if(!f)return '';
+ let body;
+ if(f.cards){
+  body=`<div class="guide-cards">${f.cards.map(c=>`<div class="guide-card${c.wide?' guide-card-wide':''}"><img src="${esc(c.image)}" alt="${esc(c.alt)}" loading="lazy" decoding="async"><div class="guide-card-copy"><h4>${esc(c.title)}</h4><p>${esc(c.text)}</p>${c.source?`<a class="source-link guide-credit" href="${esc(c.source.url)}" target="_blank" rel="noopener">画像の出典 ↗<span class="sr-only">：${esc(c.source.title)}</span></a>`:''}</div></div>`).join('')}</div>`;
+ }else if(f.table){
+  body=`<div class="guide-table-wrap"><table class="guide-table"><caption class="sr-only">${esc(f.t)}</caption><thead><tr>${f.table.columns.map(c=>`<th scope="col">${esc(c)}</th>`).join('')}</tr></thead><tbody>${f.table.rows.map(row=>`<tr>${row.map((cell,i)=>i===0?`<th scope="row">${esc(cell)}</th>`:`<td>${esc(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+ }else{
+  const id='arw-'+(++figureNumber),b=carify(f.b).replaceAll('url(#arrow)',`url(#${id})`);
+  body=`<svg viewBox="0 0 380 ${f.h}" role="img" aria-label="${esc(f.t)}"><defs><marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#475b70" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>${b}</svg>`;
+ }
+ return `<figure class="fig" data-guide-figure="${esc(k)}" tabindex="-1"><figcaption class="fig-top"><span>${esc(f.t)}</span><button class="textbtn" data-action="figure-open" data-fig="${esc(k)}" aria-label="${esc(f.t)}を拡大">拡大 ↗</button></figcaption>${body}${FIGK[k]?`<div class="figk"><b>覚えるポイント</b>${esc(FIGK[k])}</div>`:''}${f.source?`<div class="guide-source"><a class="source-link" href="${esc(f.source.url)}" target="_blank" rel="noopener">${esc(f.source.title)} ↗</a></div>`:''}</figure>`;
+}
 function achievementFor(score,total,fullSet=true){
  if(total!==50||!fullSet)return {kind:score===total?'complete':'practice',title:score===total?'全問正解！':'おつかれさまでした',message:score===total?'その調子で、次の練習へ。':'間違えた問題から、少しずつ。'};
  if(score===50)return {kind:'perfect',title:'満点合格！',message:'50問すべて正解。よくできました！'};
@@ -146,5 +166,11 @@ function achievementHTML(score,total,animate=false,exam=false,fullSet=true){
  return `<section class="result-achievement ${a.kind} ${motion&&passed?'celebrate':''}" aria-label="${a.title}">${pieces}${passed?flowerStamp(a.kind==='perfect'?'満点':'合格'):`<span class="achievement-symbol" aria-hidden="true">${icon(a.kind==='complete'?'check':a.kind==='retry'?'flag':'book')}</span>`}<div class="achievement-copy"><h3>${a.title.split('！').map((part,i) => `<span>${esc(part)}${i === 0 && a.title.includes('！') ? '！' : ''}</span>`).join('')}</h3><p>${a.message}</p>${caption?`<small>${caption}</small>`:''}</div></section>`;
 }
 const NOTE_GROUPS={sign:['n-sign','n-close','n-zone','n-entry','n-aux-new'],signal:['n-time','n-sig','n-time2','n-ped','n-arrow','n-hand','n-police'],inter:['n-prio','n-right','n-emer','n-turn','n-yield','n-jam','n-round-new'],pass:['n-pass','n-left','n-meeting-new','n-cycle-new'],ped:['n-safe','n-tram','n-pedx'],speed:['n-dis','n-slow','n-speed','n-speed-new'],start:['n-at','n-at-new','n-start-new'],basic:['n-bus','n-veh','n-kari','n-lane','n-mind','n-waka','n-bus-new'],hazard:['n-hill','n-rail','n-rail2'],park:['n-dist','n-stop','n-road','n-fb']};
-function noteCategory(n){return CATS.find(c=>NOTE_GROUPS[c.k]?.includes(n.id))||{k:'other',label:'その他の基本',icon:'book'}}
-function noteThumbnail(n){const k=n.figs.find(k=>FIG[k]),f=FIG[k];if(!f)return `<span class="note-preview">${icon(noteCategory(n).icon)}</span>`;const id='thumb-'+n.id,b=carify(f.b).replaceAll('url(#arrow)',`url(#${id})`);return `<span class="note-preview" aria-hidden="true"><svg viewBox="0 0 380 ${f.h}" focusable="false"><defs><marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#475b70" stroke-width="1.5"/></marker></defs>${b}</svg></span>`}
+function noteCategory(n){return CATS.find(c=>n.category===c.k||NOTE_GROUPS[c.k]?.includes(n.id))||{k:'other',label:'その他の基本',icon:'book'}}
+function noteThumbnail(n){
+ const k=n.figs.find(k=>FIG[k]),f=FIG[k];
+ if(!f||f.table)return `<span class="note-preview" aria-hidden="true">${icon(noteCategory(n).icon)}</span>`;
+ if(f.cards)return `<span class="note-preview" aria-hidden="true"><img src="${esc(f.cards[0].image)}" alt="" loading="lazy" decoding="async"></span>`;
+ const id='thumb-'+n.id,b=carify(f.b).replaceAll('url(#arrow)',`url(#${id})`);
+ return `<span class="note-preview" aria-hidden="true"><svg viewBox="0 0 380 ${f.h}" focusable="false"><defs><marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#475b70" stroke-width="1.5"/></marker></defs>${b}</svg></span>`;
+}

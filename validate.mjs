@@ -6,13 +6,13 @@ import assert from 'node:assert/strict';
 import {fileURLToPath} from 'node:url';
 const root=path.dirname(fileURLToPath(import.meta.url));
 const read=f=>fs.readFileSync(path.join(root,f),'utf8');
-for(const f of ['questions.js','learning-content.js','model.js','visuals.js','app.js','progress-storage.js','startup.js'])new vm.Script(read(f),{filename:f});
+for(const f of ['questions.js','learning-content.js','model.js','visuals.js','notebook-content.js','question-guides.js','app.js','progress-storage.js','startup.js'])new vm.Script(read(f),{filename:f});
 const sandbox={};vm.createContext(sandbox);
-vm.runInContext(read('questions.js')+'\n'+read('learning-content.js')+'\nthis.data={Q,ARCHIVED_Q,BANK,WORKSHEETS,ADDED_ART,NOTES,FIG};',sandbox);
+vm.runInContext(read('questions.js')+'\n'+read('learning-content.js')+'\n'+read('visuals.js')+'\n'+read('notebook-content.js')+'\n'+read('question-guides.js')+'\nthis.data={Q,ARCHIVED_Q,BANK,WORKSHEETS,ADDED_ART,NOTES,FIG};',sandbox);
 const {Q,ARCHIVED_Q,BANK,WORKSHEETS,ADDED_ART,NOTES,FIG}=sandbox.data;
 assert.equal(Q.length,500);assert.equal(ARCHIVED_Q.length,408);assert.equal(BANK.length,908);assert.equal(new Set(BANK.map(q=>q.id)).size,908);
 assert.equal(Q.filter(q=>q.isReplacement).length,28);assert.equal(Q.filter(q=>q.isSupplemental).length,9);
-assert.equal(NOTES.length,47);
+assert.equal(NOTES.length,65);
 for(const [i,w] of WORKSHEETS.entries()){
  assert.equal(w.worksheet,i+1);assert.equal(w.orderedIds.length,50);assert.equal(new Set(w.orderedIds).size,50);
  for(const [j,id] of w.orderedIds.entries()){const q=Q.find(q=>q.id===id);assert.equal(q.worksheet,i+1);assert.equal(q.number,j+1);assert.equal(id,301+i*50+j);}
@@ -41,6 +41,6 @@ for(const id of imageAudit.replaced_question_ids){
  assert.equal(ADDED_ART[id][0].sha256,r.sha256);
 }
 for(const f of imageAudit.removed_provided_assets)assert.ok(!fs.existsSync(path.join(root,f)),`Removed photo still published: ${f}`);
-for(const f of ['index.html','app.js','visuals.js','learning-content.js','styles.css'])for(const m of read(f).matchAll(/\.\/(image-[a-z0-9]+\.(?:png|jpg|webp|gif))/g))assert.ok(fs.existsSync(path.join(root,m[1])),`Missing asset ${m[1]}`);
+for(const f of ['index.html','app.js','visuals.js','notebook-content.js','question-guides.js','learning-content.js','styles.css'])for(const m of read(f).matchAll(/\.\/(image-[a-z0-9]+\.(?:png|jpg|webp|gif))/g))assert.ok(fs.existsSync(path.join(root,m[1])),`Missing asset ${m[1]}`);
 for(const m of read('index.html').matchAll(/(?:src|href)="\.\/([^"?]+)(?:\?[^"?]+)?"/g))assert.ok(fs.existsSync(path.join(root,m[1])),`Missing entry ${m[1]}`);
-console.log(`PASS: 500 active / 408 archived; 10 ordered sets; 28 replacements; 9 supplemental; 104 added image questions / ${assets.size} verified assets; all 74 provided-photo questions replaced; 47 notes.`);
+console.log(`PASS: 500 active / 408 archived; 10 ordered sets; 28 replacements; 9 supplemental; 104 added image questions / ${assets.size} verified assets; all 74 provided-photo questions replaced; 65 notes; 500 explicit question guides.`);

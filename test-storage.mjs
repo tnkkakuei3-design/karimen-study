@@ -156,7 +156,7 @@ async function startup(raw, shouldStart){
  w.scrollTo=()=>{};w.requestAnimationFrame=fn=>fn();w.setInterval=()=>0;
  w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
  if(raw!==null)w.localStorage.setItem(S.KEY,raw);
- for(const name of ['questions.js','learning-content.js','model.js','visuals.js','progress-storage.js'])vm.runInContext(read(name),context);
+ for(const name of ['questions.js','learning-content.js','model.js','visuals.js','notebook-content.js','question-guides.js','progress-storage.js'])vm.runInContext(read(name),context);
  const script=w.document.querySelector('script[data-app-src]');
  Object.defineProperty(w.document,'currentScript',{value:script,configurable:true});
  let loaded=false;

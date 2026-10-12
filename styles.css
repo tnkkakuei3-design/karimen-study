@@ -158,6 +158,29 @@ summary::marker{color:var(--muted)}
 .fig>svg{display:block;width:100%;height:auto;background:white;color:#243b53}
 .figk{padding:12px 14px;font-size:13px;color:var(--muted)}
 .figk b{display:block;color:var(--fg);margin-bottom:3px}
+.fig[data-guide-figure]{scroll-margin-top:18px}
+.fig[data-guide-figure]:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.fig-top>span{min-width:0}
+.fig-top>.textbtn{flex-shrink:0;white-space:nowrap}
+.guide-cards{display:grid}
+.guide-card{display:grid;grid-template-columns:88px minmax(0,1fr);gap:14px;padding:18px 14px;align-items:start}
+.guide-card+.guide-card{border-top:1px solid var(--line)}
+.guide-card>img{display:block;width:88px;height:88px;object-fit:contain;background:#fff;border-radius:6px}
+.guide-card-copy h4{margin:0 0 8px;font-size:15px;line-height:1.6}
+.guide-card-copy p{margin:0;font-size:14px;line-height:1.8}
+.guide-credit{font-size:12px;margin-top:6px}
+.guide-card-wide{grid-template-columns:minmax(0,1fr)}
+.guide-card-wide>img{width:100%;height:auto;max-height:340px;object-fit:contain}
+.guide-source{padding:8px 14px;border-top:1px solid var(--line);font-size:12px}
+.guide-table-wrap{width:100%;overflow-x:auto}
+.guide-table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:14px;line-height:1.8}
+.guide-table th,.guide-table td{padding:12px;vertical-align:top;text-align:left;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+.guide-table thead{background:var(--soft)}
+.guide-table th:first-child{width:34%}
+.guide-table tbody th{font-weight:600}
+.guide-table tr:last-child>*{border-bottom:0}
+.note-preview>img{width:100%;height:100%;object-fit:contain;padding:5px}
+@media(max-width:380px){.guide-card{grid-template-columns:72px minmax(0,1fr);gap:10px;padding:16px 12px}.guide-card>img{width:72px;height:72px}.guide-card-wide{grid-template-columns:minmax(0,1fr)}.guide-card-wide>img{width:100%;height:auto}.guide-table th,.guide-table td{padding:10px}}
 .inline-figure>summary{font-size:14px}
 .result-label{font-size:18px}
 .result-hero{display:flex;justify-content:space-between;align-items:center;gap:12px}
