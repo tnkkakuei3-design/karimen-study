@@ -659,6 +659,21 @@ article.weak-topic>strong{font-size:18px}
 .review-row-status .icon{width:16px;height:16px}
 .review-again-card p{margin:0 0 8px;line-height:1.7}
 
+/* Keep recent performance primary; achievement stamps represent the best score. */
+#mock .set-card{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:8px;padding:14px 12px}
+.mock-card-heading{display:flex;align-items:center;justify-content:space-between;gap:4px;min-height:34px}
+#mock .mock-card-heading b{font-size:18px}
+#mock .mock-card-heading .flower-stamp{width:34px;height:34px;flex:none}
+.mock-latest{display:flex;align-items:baseline;gap:5px;flex-wrap:wrap}
+#mock .mock-latest strong{font-size:28px;line-height:1.2;font-weight:700;font-variant-numeric:tabular-nums}
+.mock-latest strong span{font-size:13px;margin-left:2px;font-weight:500}
+#mock .mock-outcome{font-size:12px}
+#mock .mock-outcome.is-pass{color:var(--ok)}
+#mock .mock-best{font-size:12px}
+.mock-unanswered{font-size:14px;color:var(--muted);padding:8px 0}
+#mock .in-progress .mock-best,#mock .in-progress .mock-unanswered{color:var(--blue)}
+#detail-content .recent-mock{font-size:14px!important;color:var(--muted)}
+
 /* Learning methods share one prominent entry point. */
 .learn-switch{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--line);background:transparent;margin:16px 0 12px}
 .learn-switch button{min-height:var(--control-height);border:0;border-bottom:3px solid transparent;border-radius:0;background:transparent;color:var(--muted);font-size:16px;font-weight:var(--control-weight);line-height:1.6;padding:10px 8px}
