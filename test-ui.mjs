@@ -54,7 +54,7 @@ a.click('#tab-review');assert.equal(a.query('#review').hidden,false);assert.ok(a
 // All 500 question texts and image bindings render through the common UI.
 a.run('state.session=null');let imageCount=0;
 for(let i=0;i<500;i++){
- a.run(`model.begin({ids:[Q[${i}].id],kind:'study'});renderPlay()`);
+ a.run(`state.session=null;model.begin({ids:[Q[${i}].id],kind:'study'});renderPlay()`);
  assert.equal(a.query('#question').textContent,a.run(`Q[${i}].q`));
  if(a.query('#play [data-question-visual]'))imageCount++;
  assert.equal(a.all('#play .visual-answer').length,0);
@@ -95,46 +95,25 @@ a.click('[data-action="jump"][data-index="49"]');a.click('#next');
 assert.equal(a.query('#confirm').open,true);assert.match(a.query('#confirm-message').textContent,/未回答が50問/);
 a.click('#confirm-no');assert.equal(a.run('state.session.index'),49);assert.equal(a.run('state.attempts.length'),0);
 a.click('#next');a.click('#confirm-yes');assert.equal(a.run('state.mockResults[1].best'),null);assert.equal(a.query('#result .accuracy strong').textContent,'—');assert.equal(a.all('#result .result-achievement').length,0);a.close();
-// Visible tabs during a suspended mock offer grading before leaving; cancellation preserves the attempt.
+// Switching tabs preserves the paused mock; browsing a different round cannot finish it.
 for(const target of ['learn','review']){
  a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
- a.click('[data-action="answer"][data-value="true"]');
- a.click('[data-action="pause"]');a.click('#confirm-yes');
+ a.click('[data-action="answer"][data-value="true"]');a.click('[data-action="pause"]');a.click('#confirm-yes');
  const pending=a.run('JSON.stringify(state.session)');
- assert.equal(a.query('#tab-learn').disabled,false);assert.equal(a.query('#tab-review').disabled,false);
- a.click('#tab-'+target);assert.equal(a.query('#confirm').open,true);
- assert.match(a.query('#confirm-title').textContent,/模試を途中終了して/);assert.match(a.query('#confirm-message').textContent,/未回答49問/);
- assert.equal(a.query('#'+target).hidden,true);assert.equal(a.run('state.attempts.length'),0);
- a.click('#confirm-no');assert.equal(a.run('JSON.stringify(state.session)'),pending);assert.equal(a.query('#mock').hidden,false);
- a.click('#tab-'+target);a.click('#confirm-yes');assert.equal(a.query('#'+target).hidden,false);
- assert.equal(a.run('state.session'),null);assert.equal(a.run('state.attempts.length'),1);
- assert.equal(a.run('state.attempts[0].answers[0]'),true);assert.equal(a.run('state.attempts[0].answers.filter(v=>v===null).length'),49);
+ a.click('#tab-'+target);assert.equal(a.query('#confirm').open,false);assert.equal(a.query('#'+target).hidden,false);
+ assert.equal(a.run('JSON.stringify(model.sessionFor("mock"))'),pending);assert.equal(a.run('state.attempts.length'),0);
  const persisted=a.w.localStorage.getItem('karimen-study-v4');a.close();a=app({'karimen-study-v4':persisted});
- a.click('#tab-'+target);assert.equal(a.query('#'+target).hidden,false);assert.equal(a.run('state.attempts.length'),1);a.close();
+ a.clock.now+=86400000;a.click('#tab-mock');a.click('#mock [data-action="resume"]');
+ assert.equal(a.run('state.session.answers[0]'),true);assert.equal(a.run('state.attempts.length'),0);
+ a.click('[data-action="pause"]');a.click('#confirm-yes');
+ a.click('[data-action="detail"][data-set="2"]');assert.equal(a.query('#detail-title').textContent,'第2回');
+ assert.equal(a.run('state.attempts.length'),0);a.click('#detail [data-action="start-mock"]');
+ assert.equal(a.query('#confirm').open,true);a.click('#confirm-no');assert.equal(a.run('model.sessionFor("mock").worksheet'),1);
+ a.click('[data-action="detail"][data-set="2"]');a.click('#detail [data-action="start-mock"]');a.click('#confirm-yes');
+ assert.equal(a.run('state.session.worksheet'),2);assert.equal(a.run('state.attempts.length'),1);
+ assert.equal(a.run('state.attempts[0].timeout'),false);assert.equal(a.run('state.attempts[0].answers[0]'),true);a.close();
 }
-// A suspended mock does not expire while browsing the list, even after a day.
-a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
-a.click('[data-action="pause"]');a.click('#confirm-yes');a.clock.now+=86400000;a.run('updateTimer()');
-a.click('#tab-learn');assert.equal(a.query('#confirm').open,true);assert.equal(a.run('state.attempts.length'),0);
-a.click('#confirm-yes');assert.equal(a.query('#learn').hidden,false);assert.equal(a.run('state.session'),null);
-assert.equal(a.run('state.attempts[0].timeout'),false);a.close();
-// Selecting a different mock round must honor the selected round and keep the current answers until confirmation.
-a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
-a.click('[data-action="answer"][data-value="true"]');a.click('[data-action="pause"]');a.click('#confirm-yes');
-const pausedMock=a.run('JSON.stringify(state.session)');
-a.click('[data-action="detail"][data-set="2"]');assert.equal(a.query('#confirm').open,true);
-assert.match(a.query('#confirm-title').textContent,/第2回/);assert.match(a.query('#confirm-message').textContent,/未回答49問/);
-a.click('#confirm-no');assert.equal(a.run('JSON.stringify(state.session)'),pausedMock);assert.equal(a.run('state.attempts.length'),0);
-a.click('[data-action="detail"][data-set="1"]');assert.equal(a.query('#play').hidden,false);assert.equal(a.query('#confirm').open,false);
-a.click('[data-action="pause"]');a.click('#confirm-yes');a.click('[data-action="detail"][data-set="2"]');a.click('#confirm-yes');
-assert.equal(a.query('#detail').open,true);assert.equal(a.query('#detail-title').textContent,'第2回');
-assert.equal(a.run('state.session'),null);assert.equal(a.run('state.attempts.length'),1);assert.equal(a.run('state.attempts[0].answers[0]'),true);
-a.click('#detail [data-action="start-mock"]');assert.equal(a.run('state.session.worksheet'),2);assert.equal(a.run('state.session.ids.every(id=>WORKSHEETS[1].orderedIds.includes(id))'),true);a.close();
-// Changing rounds after a long pause stays a manual finish; an active confirmation still expires once.
-a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
-a.click('[data-action="pause"]');a.click('#confirm-yes');a.clock.now+=86400000;
-a.click('[data-action="detail"][data-set="3"]');assert.equal(a.query('#confirm').open,true);a.click('#confirm-yes');assert.equal(a.query('#detail-title').textContent,'第3回');
-assert.equal(a.run('state.attempts.length'),1);assert.equal(a.run('state.attempts[0].timeout'),false);a.close();
+// Active grading confirmation still expires once.
 a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');a.click('[data-action="submit"]');
 a.clock.now=a.run('state.session.endAt');a.run('updateTimer()');assert.equal(a.query('#confirm').open,false);
 assert.equal(a.query('#result').hidden,false);assert.equal(a.run('state.attempts.length'),1);assert.equal(a.run('modalAction'),null);a.close();
@@ -405,7 +384,7 @@ for(const reviewState of ['none','due','waiting']){
 }
 // Study, guided practice and review each resume unchanged, including after reload.
 // Switching to ten new questions requires confirmation and retains the old answers.
-for(const kind of ['study','guided','review']){
+for(const kind of ['study','guided']){
  a=app();
  if(kind==='guided'){a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-guided"]');}
  else if(kind==='review'){
@@ -519,3 +498,33 @@ assert.ok(a.query('[data-action="review-ready"]'));assert.equal(a.query('.review
 assert.equal(a.run('JSON.stringify(state.stats)'),statsBeforeFocus);
 assert.equal(a.errors.length,0);a.close();
 console.log('PASS: first click after focus return, open notes, review controls, and due-review refresh without changing records.');
+
+// Each tab resumes its own saved mode, while insights distinguish recent performance and weak topics.
+{
+ a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
+ a.click('[data-action="answer"][data-value="true"]');a.clock.now+=5000;
+ a.click('[data-action="pause"]');a.click('#confirm-yes');a.click('#tab-learn');a.click('[data-action="quick-study"]');
+ a.click(`[data-action="answer"][data-value="${a.run('activeQuestion(state.session.ids[0]).a')}"]`);
+ a.click('[data-action="pause"]');
+ a.run("for(const q of Q.filter(q=>!model.sessionFor('study').ids.includes(q.id)).slice(-2))model.record(q.id,!q.a);model.save()");
+ a.click('#tab-review');a.click('[data-action="review-ready"]');
+ a.click(`[data-action="answer"][data-value="${a.run('activeQuestion(state.session.ids[0]).a')}"]`);a.click('[data-action="pause"]');
+ const saved=JSON.parse(a.run("JSON.stringify(Object.fromEntries(['mock','study','review'].map(k=>[k,model.sessionFor(k)])))"));
+ const data=a.w.localStorage.getItem('karimen-study-v4');a.close();a=app({'karimen-study-v4':data});
+ for(const [mode,tab] of [['study','learn'],['review','review'],['mock','mock']]){
+  a.click('#tab-'+tab);a.click(`#${tab} [data-action="resume"]`);
+  assert.equal(a.run('state.session.attemptId'),saved[mode].attemptId);
+  assert.deepEqual(JSON.parse(a.run('JSON.stringify(state.session.answers)')),saved[mode].answers);
+  if(mode==='mock')assert.equal(a.run('model.remaining()'),saved.mock.remainingMs);
+  a.click('[data-action="pause"]');if(mode==='mock')a.click('#confirm-yes');
+ }
+ assert.equal(a.run('state.attempts.length'),0);a.close();
+ a=app();a.run("for(const q of categorized(CATS[0]).slice(0,5))model.record(q.id,q.a);for(const q of categorized(CATS[1]).slice(0,5))model.record(q.id,!q.a);model.save()");
+ a.click('#tab-learn');a.click('[data-action="category-sort"][data-filter="weak"]');
+ assert.equal(a.query('.category-card').dataset.cat,a.run('CATS[1].k'));
+ a.click('[data-action="learn-section"][data-section="notes"]');assert.ok(a.query('.note-recommendations'));
+ const note=a.query('.note-recommendation').dataset.id;a.click('.note-recommendation');assert.equal(a.query('#'+note).open,true);
+ const recent=a.run("recentMockSummary({list:[{total:50,answers:Array(50).fill(true),scoreSnapshot:50},{total:50,answers:[true,...Array(49).fill(null)],scoreSnapshot:1},{total:50,answers:Array(50).fill(true),scoreSnapshot:40}]})");
+ assert.equal(recent,'直近2回：50点 → 40点');assert.equal(a.errors.length,0);a.close();
+}
+console.log('PASS: three-mode resume after reload, difficulty ordering, related-note navigation and recent full-mock scores.');

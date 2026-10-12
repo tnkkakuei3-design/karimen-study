@@ -8,6 +8,7 @@ const KarimenModel = (() => {
   const worksheet = n => WORKSHEETS.find(w => w.worksheet === Number(n));
   const fullWorksheet = (w, ids) => !!w && ids.length === 50 && new Set(ids).size === 50 && ids.every(id => w.orderedIds.includes(id));
   const questionSignature = id => { const q = active.get(id); return JSON.stringify([q.q, q.a, q.fig || null]); };
+  const sessionSlot = s => s?.mode === 'exam' || s === 'mock' ? 'mock' : s?.kind === 'review' || s === 'review' ? 'review' : 'study';
   const emptyArchive = () => ({ stats: {}, misses: {}, history: [], checks: {}, sessions: [], importSnapshots: [] });
   function normalizeArchive(raw) {
     const archive = { ...emptyArchive(), ...(object(raw) ? copy(raw) : {}) };
@@ -25,9 +26,9 @@ const KarimenModel = (() => {
     if (damaged) archive.unreadableArchive = copy(raw);
     return archive;
   }
-  const fresh = () => ({ kind: 'karimen-progress', version: 4, answerRevision: 3, statsPolicy: 1, reviewPolicy: 1, lastReviewOrder: [],
+  const fresh = () => ({ kind: 'karimen-progress', version: 5, answerRevision: 3, statsPolicy: 1, reviewPolicy: 1, lastReviewOrder: [],
     stats: {}, misses: {}, guidedResults: {}, mockResults: {}, attempts: [], completed: {},
-    session: null, lastResult: null, legacyArchive: emptyArchive(), notices: [],
+    session: null, suspended: {}, lastResult: null, legacyArchive: emptyArchive(), notices: [],
     theme: 'auto', sound: true, reduceMotion: false, limit: 10 });
   function records(raw) {
     const stats = {}, misses = {}, archivedStats = {}, archivedMisses = {};
@@ -76,7 +77,10 @@ const KarimenModel = (() => {
   function recordOutcome(state, id, ok, uncertain, at, interval = REVIEW_INTERVAL, immediateFirst = true) {
     const weak = (state.misses[id] || 0) > 0 || !!state.stats[id]?.reviewAt;
     const s = state.stats[id] || { total: 0, correct: 0, last: null, reviewAt: 0, reviewPass: 0, uncertain: false };
-    s.total++; s.correct += ok ? 1 : 0; s.last = ok; s.lastAt = at;
+    s.total++; s.correct += ok ? 1 : 0;
+    // A mock can be graded after a newer answer in another saved mode.
+    if (at < (s.lastAt || 0)) { state.stats[id] = s; return; }
+    s.last = ok; s.lastAt = at;
     if (!ok || uncertain) {
       state.misses[id] = Math.max(1, (state.misses[id] || 0) + (ok ? 0 : 1));
       s.reviewPass = 0; s.reviewAt = weak || !immediateFirst ? at + interval : at; s.uncertain = uncertain;
@@ -164,10 +168,10 @@ const KarimenModel = (() => {
       label: typeof s.label === 'string' ? s.label.slice(0, 120) : fullSet ? `第${w.worksheet}回・解説付き練習` : '引き継いだ学習' };
   }
   function normalize(raw) {
-    if (!object(raw) || ![2, 3, 4].includes(raw.version)) throw new Error('対応していない学習記録です。');
+    if (!object(raw) || ![2, 3, 4, 5].includes(raw.version)) throw new Error('対応していない学習記録です。');
     const s = fresh(), r = records(raw);
     Object.assign(s, settings(raw), { stats: r.stats, misses: r.misses });
-    if (raw.version === 4) {
+    if (raw.version >= 4) {
       s.legacyArchive = normalizeArchive(raw.legacyArchive);
       s.attempts = attemptHistory(raw).map(copy);
       s.guidedResults = sanitizeResults(raw.guidedResults,s.attempts,'guided'); s.mockResults = sanitizeResults(raw.mockResults,s.attempts,'mock');
@@ -208,11 +212,18 @@ const KarimenModel = (() => {
       s.legacyArchive.sessions.push(copy(raw.session));
       s.notices.push('以前の問題や内容版を含む途中記録は保管しました。設定から確認・書き出しできます。');
     }
-    if (raw.version === 4 && (Object.keys(r.archivedStats).length || Object.keys(r.archivedMisses).length)) {
+    for (const [slot, value] of Object.entries(object(raw.suspended) ? raw.suspended : {})) {
+      const saved = normalizeSession(value);
+      if (saved && ['mock','study','review'].includes(slot) && sessionSlot(saved) === slot && (!s.session || sessionSlot(s.session) !== slot) && !s.completed[saved.attemptId]) {
+        if (saved.mode === 'exam') Object.assign(saved,{remainingMs:number(saved.remainingMs,EXAM_DURATION),timerPaused:true,endAt:null,timerPolicy:1});
+        s.suspended[slot] = saved;
+      } else if (value) s.legacyArchive.sessions.push(copy(value));
+    }
+    if (raw.version >= 4 && (Object.keys(r.archivedStats).length || Object.keys(r.archivedMisses).length)) {
       s.legacyArchive.unrecognizedImport = copy(raw);
     }
     s.legacyArchive = normalizeArchive(s.legacyArchive);
-    if (raw.version === 4 && raw.statsPolicy !== 1) repairUnansweredStats(s);
+    if (raw.version >= 4 && raw.statsPolicy !== 1) repairUnansweredStats(s);
     if (raw.reviewPolicy !== 1) {
       for (const [id, stat] of Object.entries(s.stats)) {
         if (!stat.reviewAt && !s.misses[id]) continue;
@@ -287,6 +298,25 @@ const KarimenModel = (() => {
       const s = state.session; if (s?.mode !== 'exam' || s.timerPaused || conflicted) return;
       s.remainingMs = remaining(); s.timerPaused = true; s.endAt = null; return save();
     }
+    function sessionFor(kind) {
+      const slot = sessionSlot(kind);
+      return state.session && sessionSlot(state.session) === slot ? state.session : state.suspended[slot] || null;
+    }
+    function suspend() {
+      if (blocked) return false;
+      const s = state.session; if (!s) return true;
+      if (s.mode === 'exam') Object.assign(s,{remainingMs:remaining(),timerPaused:true,endAt:null});
+      state.suspended[sessionSlot(s)] = s; state.session = null;
+      return save();
+    }
+    function activate(kind) {
+      if (blocked) return false;
+      const slot = sessionSlot(kind), target = sessionFor(kind); if (!target) return false;
+      if (state.session === target) return true;
+      if (!suspend()) return false;
+      state.session = target; delete state.suspended[slot];
+      return save();
+    }
     function resumeTimer() {
       const s = state.session; if (s?.mode !== 'exam' || !s.timerPaused || conflicted) return;
       s.endAt = now() + s.remainingMs; s.timerPaused = false; return save();
@@ -297,19 +327,20 @@ const KarimenModel = (() => {
       const all = Q.filter(q => weak(q.id)).sort((a, b) => (state.stats[a.id]?.reviewAt || 0) - (state.stats[b.id]?.reviewAt || 0));
       return { all, due: all.filter(q => due(q.id, at)), later: all.filter(q => !due(q.id, at)) };
     }
-    function record(id, answer, uncertain = false) {
+    function record(id, answer, uncertain = false, answeredAt = now()) {
       if (blocked) return false;
       const q = active.get(id); if (!q || typeof answer !== 'boolean') return false;
-      const ok = answer === q.a, at = now();
+      const ok = answer === q.a, at = answeredAt;
       recordOutcome(state, id, ok, uncertain, at); return ok;
     }
     function begin({ ids, kind = 'study', worksheet: n = null, label = '10問の学習' }) {
       if (blocked) return null;
-      if (state.session?.mode === 'exam') throw new Error('進行中の模試があります。');
+      if (sessionFor(kind)) throw new Error('このモードの途中記録があります。再開するか、終了してから始めてください。');
       if (!ids.length || !ids.every(id => active.has(id)) || new Set(ids).size !== ids.length) throw new Error('出題する問題が見つかりません。');
       if (kind === 'review' && ids.some(id => weak(id) && !due(id))) throw new Error('次の復習時刻までお待ちください。');
       const w = worksheet(n), fullSet = fullWorksheet(w, ids);
       if (['mock', 'guided'].includes(kind) && !fullSet) throw new Error('この回の50問がそろっていません。');
+      if (!suspend()) return null;
       // Shuffle only a new mock or review. Persist the chosen order with its answers so
       // resume, import, grading and review all keep the same question mapping.
       const orderedIds = [...ids];
@@ -352,7 +383,7 @@ const KarimenModel = (() => {
         timeout: s.mode === 'exam' && (timeout || expired()), scoreSnapshot: s.ids.filter((id, i) => s.answers[i] === active.get(id).a).length };
       // Set the completion guard before any presentation, and persist all mutations together.
       state.completed[s.attemptId] = true;
-      if (s.mode === 'exam') s.ids.forEach((id, i) => record(id, s.answers[i], !!s.uncertain[i] || !!s.flags[i]));
+      if (s.mode === 'exam') s.ids.forEach((id, i) => record(id, s.answers[i], !!s.uncertain[i] || !!s.flags[i], s.answeredAt?.[i] || now()));
       if (['mock', 'guided'].includes(s.kind)) {
         const target = s.kind === 'mock' ? state.mockResults : state.guidedResults;
         const previous = target[s.worksheet] || { best: null, recent: [] };
@@ -376,12 +407,12 @@ const KarimenModel = (() => {
     }
     function reset() {
       if (blocked) return false;
-      if (state.session) throw new Error('途中の学習を終えてから初期化してください。');
+      if (state.session || Object.keys(state.suspended).length) throw new Error('途中の学習を終えてから初期化してください。');
       state = { ...fresh(), ...settings(state) }; return save();
     }
     save();
     return { get state() { return state; }, get error() { return error; }, get conflicted() { return conflicted; }, get readOnly() { return blocked; }, save, weak, due, schedule, record, begin, answer, finish, expired, remaining, pauseTimer, resumeTimer,
-      importData, reset, exportData: () => {
+      sessionFor, suspend, activate, importData, reset, exportData: () => {
         const out = { ...copy(state), exportedAt: new Date(now()).toISOString() };
         if (out.session?.mode === 'exam') Object.assign(out.session, { remainingMs: remaining(), timerPaused: true, endAt: null });
         return out;

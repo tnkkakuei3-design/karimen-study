@@ -555,6 +555,16 @@ body{-webkit-text-size-adjust:100%}
 .learning-metric-help{font-size:12px;line-height:1.6;margin:10px 0 6px}
 .learning-cumulative{font-size:12px;color:var(--muted);margin:0 0 16px}
 .learning-cumulative summary{cursor:pointer;padding:8px 0}
+.recent-mock{font-size:11px!important;line-height:1.6;overflow-wrap:anywhere}
+.category-sort{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 12px;font-size:12px}
+.category-sort .seg{margin:0}
+.note-recommendations{background:var(--soft);padding:14px;border-radius:12px;margin:0 0 18px}
+.note-recommendations h3{font-size:15px;margin:0 0 8px}
+.note-recommendation{display:flex;align-items:center;gap:8px;width:100%;min-height:48px;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--line);color:var(--fg);padding:10px 0}
+.note-recommendation:last-child{border-bottom:0}
+.note-recommendation span{flex:1;font-size:14px}
+.note-recommendation small{font-size:11px;white-space:nowrap;color:var(--muted)}
+.note-recommendation .icon{width:16px;height:16px;flex:none}
 .category-copy .category-coverage{font-size:11px;margin:8px 0 0}
 .category-copy .category-sample-note{font-size:11px;margin:3px 0 0;color:var(--muted)}
 .result-review-count{font-size:14px;line-height:1.7;margin:0 0 10px}

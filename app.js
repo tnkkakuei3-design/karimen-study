@@ -7,7 +7,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const byId = new Map(BANK.map(q => [q.id, q]));
 const progressStorage = window.KarimenProgressStorage || { getItem: k => window.localStorage.getItem(k), setItem: (k, v) => window.localStorage.setItem(k, v) };
 const model = KarimenModel.create({ storage: progressStorage });
-let state = model.state, tab = 'mock', view = 'mock', mockFilter = 'all', categoryFilter = 'all', learnSection = 'categories';
+let state = model.state, tab = 'mock', view = 'mock', mockFilter = 'all', categoryFilter = 'all', categorySort = 'default', learnSection = 'categories';
 let lastResult = null, reviewFilter = 'wrong', noteReturn = null, toastTimer = null, modalAction = null;
 let noteSearch = '', noteFilter = '', noteComposing = false, reviewMore = false, externalChange = false;
 let windowFocused = document.hasFocus(), pageActive = true, lastTimerCheckpoint = 0;
@@ -56,20 +56,9 @@ function show(name, top = true) {
   view = name; for (const k of ['mock','learn','review','play','result','notes','archive']) $(k).hidden = k !== name;
   updateTimer(); updateChrome(); if (top) { window.scrollTo({ top: 0, behavior:'instant' }); $('main').focus({ preventScroll: true }); }
 }
-function gradeBeforeLeaving(label, action) {
-  const s = state.session;
-  if (s?.mode !== 'exam') { action(); return; }
-  if (model.expired()) { finish(true); if (!state.session && !externalChange) action(); return; }
-  const left = s.answers.filter(a => a === null).length;
-  const actionLabel = left ? '途中終了して' : '採点して';
-  ask(`模試を${actionLabel}${label}へ進みますか？`, `第${s.worksheet}回の回答を保存して、${label}を開きます。${left ? `未回答${left}問は正答率・復習に含めず、合否は判定しません。` : '50問すべて回答済みです。採点して成績に記録します。'}続きから解く場合はキャンセルしてください。`, `${actionLabel}${label}へ`, () => {
-    if (state.session?.attemptId !== s.attemptId) return;
-    finish(false); if (!state.session && !externalChange) action();
-  });
-}
 function navigate(k) {
   if (!['mock','learn','review'].includes(k)) return;
-  if (state.session?.mode === 'exam' && k !== 'mock') { gradeBeforeLeaving(k === 'learn' ? '学習' : '復習', () => navigate(k)); return; }
+  if (state.session?.mode === 'exam' && k !== 'mock' && !model.suspend()) { updateChrome(); return; }
   tab = k; if (k === 'mock') renderMock(); if (k === 'learn') renderLearn(); if (k === 'review') renderReview(); show(k);
 }
 function resultsFor(n, kind, currentOnly = true) {
@@ -81,20 +70,24 @@ function resultsFor(n, kind, currentOnly = true) {
   return { list, last: scored.at(-1), best: [...scored].sort((a, b) => b.scoreSnapshot - a.scoreSnapshot)[0], partial: list.filter(partialAttempt) };
 }
 function filters(action, value, choices) { return `<div class="seg" role="group" aria-label="表示を絞り込む">${choices.map(([k, label]) => `<button data-action="${action}" data-filter="${k}" aria-pressed="${value === k}">${label}</button>`).join('')}</div>`; }
-function entryCard(action, title, description, glyph = 'play') {
-  return `<button class="recommend${action === 'resume' ? ' resume-card' : ''}" data-action="${action}">${icon(glyph)}<span class="recommend-copy"><strong>${esc(title)}</strong><small>${esc(description)}</small></span>${icon('chevron')}</button>`;
+function entryCard(action, title, description, glyph = 'play', mode = '') {
+  return `<button class="recommend${action === 'resume' ? ' resume-card' : ''}" data-action="${action}"${mode ? ` data-mode="${mode}"` : ''}>${icon(glyph)}<span class="recommend-copy"><strong>${esc(title)}</strong><small>${esc(description)}</small></span>${icon('chevron')}</button>`;
+}
+function recentMockSummary(r) {
+  const recent = r.list.filter(a => !partialAttempt(a)).slice(-3);
+  return recent.length ? `直近${recent.length}回：${recent.map(a => a.scoreSnapshot + '点').join(' → ')}` : '';
 }
 function renderMock() {
   const passed = WORKSHEETS.filter(w => (resultsFor(w.worksheet, 'mock').best?.scoreSnapshot ?? -1) >= 45).length;
-  const s = state.session, list = WORKSHEETS.filter(w => { const r = resultsFor(w.worksheet, 'mock'); return mockFilter === 'all' || (mockFilter === 'new' ? !r.last : (r.best?.scoreSnapshot ?? -1) < 45); });
+  const s = model.sessionFor('mock'), list = WORKSHEETS.filter(w => { const r = resultsFor(w.worksheet, 'mock'); return mockFilter === 'all' || (mockFilter === 'new' ? !r.last : (r.best?.scoreSnapshot ?? -1) < 45); });
   $('mock').innerHTML = `<div class="home-intro"><div><h2>今日も、<br>一歩ずつ。</h2><p class="muted">${s?.mode === 'exam' ? '続きから、取り組もう。' : '50問・30分で、力だめし。'}</p></div><img class="home-character" src="./image-155cadc1029a.png" width="1400" height="792" alt="プーリーくんとよりともさん"></div><div class="page-heading mock-heading"><h3>教習問題ベースの模試</h3><p class="inline muted">10回・各50問 <span class="badge">毎回ランダム順</span></p></div>
     <div class="home-overview"><div class="achievement-progress"><div class="inline"><span><b>${passed}</b><small> / 10回 合格</small></span><small class="muted">達成率 ${passed * 10}%</small></div><div class="progress" role="progressbar" aria-label="模試の合格回数" aria-valuenow="${passed}" aria-valuemin="0" aria-valuemax="10"><i style="width:${passed * 10}%"></i></div></div></div>
-    ${s?.mode === 'exam' ? entryCard('resume', `第${s.worksheet}回の続きへ`, `${s.answers.filter(a => a !== null).length} / 50問 回答済み · タイマー停止中`) : ''}
+    ${s?.mode === 'exam' ? entryCard('resume', `第${s.worksheet}回の続きへ`, `${s.answers.filter(a => a !== null).length} / 50問 回答済み · タイマー停止中`, 'play', 'mock') : ''}
     ${filters('mock-filter', mockFilter, [['all','すべて'],['new','未受験'],['unpassed','未合格']])}
     <div class="mock-grid">${list.map(w => { const r = resultsFor(w.worksheet, 'mock'), on = s?.mode === 'exam' && s.worksheet === w.worksheet, score = r.best?.scoreSnapshot;
-      return `<button class="set-card ${on ? 'in-progress' : ''} ${score === 50 ? 'perfect' : ''}" data-action="detail" data-set="${w.worksheet}" aria-label="第${w.worksheet}回 ${on ? '受験中' : r.last ? `前回${r.last.scoreSnapshot}点 最高${score}点` : '未受験'}"><span><b>第${w.worksheet}回</b>${r.last ? `<small>前回 ${r.last.scoreSnapshot}点</small><small>最高 ${score}点</small>` : `<span class="badge ${on ? 'blue' : ''}">${on ? '受験中' : '未受験'}</span>`}${on && r.last ? '<small>受験中</small>' : ''}</span>${score >= 45 ? flowerStamp(score === 50 ? '満点' : '合格') : `<span class="chevron">${icon('chevron')}</span>`}</button>`; }).join('')}</div>
+      return `<button class="set-card ${on ? 'in-progress' : ''} ${score === 50 ? 'perfect' : ''}" data-action="detail" data-set="${w.worksheet}" aria-label="第${w.worksheet}回 ${on ? '受験中' : r.last ? `前回${r.last.scoreSnapshot}点 最高${score}点` : '未受験'}"><span><b>第${w.worksheet}回</b>${r.last ? `<small>前回 ${r.last.scoreSnapshot}点 · ${r.last.scoreSnapshot >= 45 ? '合格' : '未合格'}</small><small>最高 ${score}点</small><small class="recent-mock">${recentMockSummary(r)}</small>` : `<span class="badge ${on ? 'blue' : ''}">${on ? '受験中' : '未受験'}</span>`}${on && r.last ? '<small>受験中</small>' : ''}</span>${score >= 45 ? flowerStamp(score === 50 ? '満点' : '合格') : `<span class="chevron">${icon('chevron')}</span>`}</button>`; }).join('')}</div>
     ${!list.length ? '<div class="empty"><h3>この条件の回はありません</h3><p>「すべて」から各回の記録を確認できます。</p></div>' : ''}
-    <p class="legacy-label">50問・30分。解説は採点後に表示します。以前の解説付き練習の記録は、各回の詳細に残っています。</p>`;
+    <p class="legacy-label">花丸・合格数は最高点の実績です。直近の成績には途中終了を含みません。50問・30分。解説は採点後に表示します。以前の解説付き練習の記録は、各回の詳細に残っています。</p>`;
 }
 function attemptRows(list, label) {
   return list.slice(-10).reverse().map(a => { const partial = partialAttempt(a), total = partial ? answeredCount(a) : a.total;
@@ -103,21 +96,17 @@ function attemptRows(list, label) {
 }
 function detail(n) {
   const w = model.worksheet(n); if (!w) return;
-  if (state.session?.mode === 'exam') {
-    if (state.session.worksheet === w.worksheet) resume();
-    else gradeBeforeLeaving(`第${w.worksheet}回`, () => detail(w.worksheet));
-    return;
-  }
+  const savedMock = model.sessionFor('mock');
+  if (savedMock?.worksheet === w.worksheet) { resume('mock'); return; }
   const mock = resultsFor(w.worksheet, 'mock'), guided = resultsFor(w.worksheet, 'guided', false);
   const olderMocks = resultsFor(w.worksheet, 'mock', false).list.filter(a => a.contentVersion !== w.contentVersion);
   $('detail-content').innerHTML = `<span class="badge">教習問題ベース</span><h2 id="detail-title">第${w.worksheet}回</h2><div class="details-list"><div><b>50問</b><span>毎回ランダムな順番で出題</span></div><div><b>30分</b><span>採点後に解説</span></div></div><p class="detail-pass">45点以上で、このアプリ内の合格です。</p><p class="detail-timer muted">${icon('clock')}中断中や別アプリを開いている間は、タイマーが止まります。</p><div class="stack"><button class="btn wide" data-action="start-mock" data-set="${w.worksheet}">30分模試を始める ${icon('arrow')}</button><button class="btn secondary wide" data-action="start-guided" data-set="${w.worksheet}">この回を解説付きで練習</button></div><details class="detail-rules"><summary>模試のルール・問題の内訳</summary><div class="detail-rules-body"><h3>出題の順番</h3><p>この回の50問を、開始するたびに並べ替えます。途中再開では同じ順番です。解説付き練習は教材の順番で進みます。</p><h3>途中終了・時間切れ</h3><p>途中終了は回答分だけで集計し、合否・最高点の対象外です。時間切れは50問で採点しますが、未回答は学習の正答率・復習に含めません。</p><h3>問題の内訳</h3><p>代替問題 ${w.replacementCount}問・補足問題 ${w.supplementalCount}問を含む50問です。</p></div></details><h3>30分模試の記録</h3>${mock.best ? `<p class="inline"><span class="badge ${mock.best.scoreSnapshot >= 45 ? 'success' : ''}">最高 ${mock.best.scoreSnapshot}点</span></p>${attemptRows(mock.list.filter(a => !partialAttempt(a)), '30分模試')}` : '<p class="muted">まだ受験していません。</p>'}${mock.partial.length ? `<h3>模試の途中終了</h3>${attemptRows(mock.partial, '30分模試')}` : ''}${guided.partial.length ? `<h3>練習の途中終了</h3>${attemptRows(guided.partial, '解説付き練習')}` : ''}${olderMocks.length ? `<h3>以前の内容版の模試記録</h3><p class="muted">当時の得点を保持しています。現在の内容版の合格数・最高点とは分けて表示します。</p>${attemptRows(olderMocks, '30分模試・以前の内容版')}` : ''}${guided.best ? `<h3>解説付き練習の記録</h3><div class="guided-record ${guided.best.scoreSnapshot === 50 ? 'perfect' : ''}">${guided.best.scoreSnapshot >= 45 ? flowerStamp(guided.best.scoreSnapshot === 50 ? '満点' : '合格') : ''}<div><strong>最高 ${guided.best.scoreSnapshot}点</strong><p class="muted">${guided.best.scoreSnapshot >= 45 ? '解説付き練習で合格の目安を達成' : '解説付き練習の成績'}</p></div></div>${attemptRows(guided.list.filter(a => !partialAttempt(a)), '解説付き練習')}<p class="muted">この成績は30分模試の合格数には含めません。</p>` : ''}`;
   $('detail').showModal();
 }
-function replaceStudy(action) {
-  if (state.session?.mode === 'exam') { resume(); return; }
-  const previous = state.session;
-  if (previous) ask('新しい学習を始めますか？', '途中の学習を終了して始めます。答えた問題の記録は残ります。続きから解く場合はキャンセルしてください。', '新しく始める', () => {
-    if (state.session?.attemptId !== previous.attemptId) return;
+function replaceStudy(action, kind = 'study') {
+  const previous = model.sessionFor(kind);
+  if (previous) ask('新しい学習を始めますか？', 'このモードの途中記録を終了して始めます。答えた問題は成績に残ります。他のモードの途中記録は残ります。続きから解く場合はキャンセルしてください。', '終了して新しく始める', () => {
+    if (model.sessionFor(kind)?.attemptId !== previous.attemptId || !model.activate(kind)) return;
     model.finish(); state = model.state;
     if (model.conflicted) { updateChrome(); return; }
     action();
@@ -126,9 +115,17 @@ function replaceStudy(action) {
 }
 function startSet(n, kind) {
   const w = model.worksheet(n); if (!w) return; $('detail').close();
-  replaceStudy(() => { model.begin({ ids:w.orderedIds, kind, worksheet:w.worksheet, label:`第${w.worksheet}回${kind === 'guided' ? '・解説付き練習' : ''}` }); state = model.state; tab = kind === 'mock' ? 'mock' : 'learn'; lastResult = null; renderPlay(); show('play'); focusQuestion(); });
+  replaceStudy(() => { if (!model.begin({ ids:w.orderedIds, kind, worksheet:w.worksheet, label:`第${w.worksheet}回${kind === 'guided' ? '・解説付き練習' : ''}` })) { updateChrome(); return; } state = model.state; tab = kind === 'mock' ? 'mock' : 'learn'; lastResult = null; renderPlay(); show('play'); focusQuestion(); }, kind);
 }
 function categorized(c) { return Q.filter(q => c.extra ? q.isSupplemental : !q.isSupplemental && c.topics.includes(q.topic)); }
+function categoryDifficulty(c) {
+  const answered = c.list.filter(q => state.stats[q.id]?.total > 0), count = answered.length;
+  return { bucket: count >= 5 ? 0 : count ? 1 : 2, rate: count ? answered.filter(q => state.stats[q.id].last === true).length / count : 1 };
+}
+function compareDifficulty(a,b) {
+  const x = categoryDifficulty(a), y = categoryDifficulty(b);
+  return x.bucket - y.bucket || x.rate - y.rate;
+}
 function categoryCard(c) {
   const answered = c.list.filter(q => state.stats[q.id]?.total > 0);
   const correct = answered.filter(q => state.stats[q.id].last === true).length;
@@ -143,17 +140,18 @@ function studySelection(list, count = 10) {
 }
 function startStudy(ids, label, kind = 'study') {
   const clean = [...new Set(ids)].filter(id => activeQuestion(id) && (kind !== 'review' || !model.weak(id) || model.due(id))); if (!clean.length) { toast(kind === 'review' ? '次の復習時刻までお待ちください。' : '対象の問題はありません。'); return; }
-  replaceStudy(() => { model.begin({ ids:clean, kind, label }); state = model.state; tab = kind === 'review' ? 'review' : 'learn'; lastResult = null; renderPlay(); show('play'); focusQuestion(); });
+  replaceStudy(() => { if (!model.begin({ ids:clean, kind, label })) { updateChrome(); return; } state = model.state; tab = kind === 'review' ? 'review' : 'learn'; lastResult = null; renderPlay(); show('play'); focusQuestion(); }, kind);
 }
 function renderLearn() {
-  const schedule = model.schedule(), session = state.session, unfinished = session?.mode === 'drill', freshCount = Q.filter(q => !state.stats[q.id]?.total).length;
+  const schedule = model.schedule(), session = model.sessionFor('study'), unfinished = !!session, freshCount = Q.filter(q => !state.stats[q.id]?.total).length;
   const answeredCount = Q.length - freshCount, totals = Q.reduce((sum,q) => { const s=state.stats[q.id]; sum.total += s?.total || 0; sum.correct += s?.correct || 0; return sum; }, {total:0,correct:0});
   const currentCorrect = Q.filter(q => state.stats[q.id]?.total > 0 && state.stats[q.id].last === true).length;
   const resumeSub = unfinished ? `${session.label} · ${session.answers.filter(a => a !== null).length} / ${session.ids.length}問 回答済み` : '';
   const studySub = freshCount ? 'まだ学んでいない問題を優先' : '模試と同じ500問から出題';
-  const studyActions = `<div class="learn-actions${unfinished ? ' has-resume' : ''}" role="group" aria-label="学習を始める">${unfinished ? entryCard('resume', '途中から続ける', resumeSub) : ''}${entryCard('quick-study', '10問学ぶ', studySub, 'book')}</div>`;
+  const studyActions = `<div class="learn-actions${unfinished ? ' has-resume' : ''}" role="group" aria-label="学習を始める">${unfinished ? entryCard('resume', '途中から続ける', resumeSub, 'play', 'study') : ''}${entryCard('quick-study', '10問学ぶ', studySub, 'book')}</div>`;
   const cats = CATS.map(c => ({...c, list:categorized(c)})).filter(c => c.list.length).filter(c => categoryFilter === 'all' || (categoryFilter === 'new' ? c.list.some(q => !state.stats[q.id]?.total) : c.list.some(weak)));
-  $('learn').innerHTML = `<div class="page-heading character-heading"><div><h2>問題と図解で、理解を深める。</h2></div>${characterArt('D047','learn-guide')}</div>${studyActions}<dl class="learning-overview" aria-label="学習状況"><div><dt>回答済み</dt><dd>${answeredCount}<small> / ${Q.length}問</small></dd></div><div><dt>現在の正解率</dt><dd>${answeredCount ? pct(currentCorrect,answeredCount) : '—'}<small>${answeredCount ? '%' : ''}</small></dd></div><div><dt>要復習</dt><dd>${schedule.all.length}<small>問</small></dd></div></dl><p class="learning-metric-help muted">現在の正解率は、回答済みの各問題の直近の回答で計算します。</p><details class="learning-cumulative"><summary>累積の成績を見る</summary><p>累積正答率 ${totals.total ? pct(totals.correct,totals.total) + '%' : '—'} · 正解 ${totals.correct} / 回答 ${totals.total}回</p><p class="muted">解き直しを含む、これまでの全回答で集計しています。</p></details><div class="learn-switch" role="tablist" aria-label="学び方">${[['categories','分野から学ぶ'],['notes','図解ノート']].map(([key,label]) => `<button id="learn-tab-${key}" role="tab" aria-selected="${learnSection === key}" aria-controls="learn-${key}" tabindex="${learnSection === key ? 0 : -1}" data-action="learn-section" data-section="${key}">${label}</button>`).join('')}</div><section id="learn-categories" role="tabpanel" aria-labelledby="learn-tab-categories" ${learnSection !== 'categories' ? 'hidden' : ''}><p class="learn-count muted">共通の${bankCount}</p>${filters('category-filter', categoryFilter, [['all','すべて'],['new','未学習'],['weak','要復習']])}<p class="learn-metric-note muted">正解率は回答済みの問題だけで計算。各問題の直近の回答を使います。</p><div class="category-grid">${cats.map(categoryCard).join('')}</div>${!cats.length ? '<div class="empty">この条件の分野はありません。</div>' : ''}<div class="info-strip">${icon('info')}<span>補足問題も500問に含まれます。各回を50問通して練習するときは、模試の詳細から始められます。</span></div></section><section id="learn-notes" role="tabpanel" aria-labelledby="learn-tab-notes" ${learnSection !== 'notes' ? 'hidden' : ''}></section>`;
+  if (categorySort === 'weak') cats.sort(compareDifficulty);
+  $('learn').innerHTML = `<div class="page-heading character-heading"><div><h2>問題と図解で、理解を深める。</h2></div>${characterArt('D047','learn-guide')}</div>${studyActions}<dl class="learning-overview" aria-label="学習状況"><div><dt>回答済み</dt><dd>${answeredCount}<small> / ${Q.length}問</small></dd></div><div><dt>現在の正解率</dt><dd>${answeredCount ? pct(currentCorrect,answeredCount) : '—'}<small>${answeredCount ? '%' : ''}</small></dd></div><div><dt>要復習</dt><dd>${schedule.all.length}<small>問</small></dd></div></dl><p class="learning-metric-help muted">現在の正解率は、回答済みの各問題の直近の回答で計算します。</p><details class="learning-cumulative"><summary>累積の成績を見る</summary><p>累積正答率 ${totals.total ? pct(totals.correct,totals.total) + '%' : '—'} · 正解 ${totals.correct} / 回答 ${totals.total}回</p><p class="muted">解き直しを含む、これまでの全回答で集計しています。</p></details><div class="learn-switch" role="tablist" aria-label="学び方">${[['categories','分野から学ぶ'],['notes','図解ノート']].map(([key,label]) => `<button id="learn-tab-${key}" role="tab" aria-selected="${learnSection === key}" aria-controls="learn-${key}" tabindex="${learnSection === key ? 0 : -1}" data-action="learn-section" data-section="${key}">${label}</button>`).join('')}</div><section id="learn-categories" role="tabpanel" aria-labelledby="learn-tab-categories" ${learnSection !== 'categories' ? 'hidden' : ''}><p class="learn-count muted">共通の${bankCount}</p>${filters('category-filter', categoryFilter, [['all','すべて'],['new','未学習'],['weak','要復習']])}<div class="category-sort"><span class="muted">並び順</span>${filters('category-sort',categorySort,[['default','標準'],['weak','苦手順']])}</div><p class="learn-metric-note muted">正解率は回答済みの問題だけで計算。各問題の直近の回答を使います。${categorySort === 'weak' ? '5問以上回答した分野を優先し、回答の少ない分野・未学習は後ろに表示します。' : ''}</p><div class="category-grid">${cats.map(categoryCard).join('')}</div>${!cats.length ? '<div class="empty">この条件の分野はありません。</div>' : ''}<div class="info-strip">${icon('info')}<span>補足問題も500問に含まれます。各回を50問通して練習するときは、模試の詳細から始められます。</span></div></section><section id="learn-notes" role="tabpanel" aria-labelledby="learn-tab-notes" ${learnSection !== 'notes' ? 'hidden' : ''}></section>`;
   if (learnSection === 'notes') renderNotes('learn-notes');
 }
 function reviewWait(at) {
@@ -171,11 +169,11 @@ function reviewSignature(due) { return new Date().toDateString() + '|' + due.map
 function renderReview() {
   const { all, due, later } = model.schedule();
   displayedReviewSignature = reviewSignature(due);
-  const session = state.session, unfinished = session?.kind === 'review';
+  const session = model.sessionFor('review'), unfinished = !!session;
   const completed = !unfinished && !all.length && completedReviewToday();
   const reviewArt = all.length || unfinished ? 'D051' : completed ? 'D011' : 'D012';
   $('review').innerHTML = `<div class="page-heading character-heading"><div><h2>復習</h2><p class="muted">${completed ? '今日の復習は完了です。' : '初回はすぐに。次は30分あけて。'}</p></div>${characterArt(reviewArt,'review-guide')}</div>
-    ${unfinished ? entryCard('resume', '途中の復習を続ける', `途中の復習があります · ${session.answers.filter(a => a !== null).length} / ${session.ids.length}問 回答済み`) : ''}
+    ${unfinished ? entryCard('resume', '途中の復習を続ける', `途中の復習があります · ${session.answers.filter(a => a !== null).length} / ${session.ids.length}問 回答済み`, 'play', 'review') : ''}
     <section class="review-now-card" aria-labelledby="review-now-title"><h3 id="review-now-title">今すぐ復習</h3><p class="review-now-count">${due.length}<small>問</small></p>${due.length ? `<button class="btn wide" data-action="review-ready">${due.length}問を復習する ${icon('arrow')}</button>` : `<p class="muted">${unfinished ? '未回答の問題は「途中の復習を続ける」から確認できます。' : all.length ? '今すぐの復習は完了です。' : '今すぐ復習する問題はありません。'}${later.length ? ` 次は${reviewWaitHTML(state.stats[later[0].id]?.reviewAt)}です。` : ''}</p>`}</section>
     <section class="review-timing${later.length ? '' : ' is-empty'}" aria-labelledby="review-later-title"><div class="review-timing-heading"><h3 id="review-later-title">${icon('clock')}次の復習待ち</h3><p class="review-wait-count">${later.length}<small>問</small></p></div>${later.length ? `<p class="review-next-time">最短 ${reviewWaitHTML(state.stats[later[0].id]?.reviewAt)}</p><p class="hintline">30分たつと「今すぐ復習」に移ります。待機中の問題は解けません。</p>` : ''}</section>
     ${all.length ? `<div class="section-heading"><h3>復習する問題</h3><small>${all.length}問</small></div>${[...due,...later].slice(0,reviewMore ? all.length : 10).map(q => reviewRow(q,!model.due(q.id))).join('')}${all.length > 10 && !reviewMore ? '<button class="textbtn wide" data-action="review-more">すべての問題を見る</button>' : ''}` : `<div class="empty"><p>間違い・自信なしの問題がここに集まります。</p><button class="btn secondary" data-action="tab" data-tab="learn">学習へ進む ${icon('arrow')}</button></div>`}
@@ -262,7 +260,7 @@ function updateTimer() {
   const sec = Math.ceil(model.remaining() / 1000), el = $('timer');
   if (el) { el.textContent = `残り ${Math.floor(sec / 60)}:${String(sec % 60).padStart(2,'0')}${s.timerPaused ? ' · 停止中' : ''}`; el.classList.toggle('low', sec <= 300); }
 }
-function resume() { if (!state.session) return navigate(tab); tab = state.session.mode === 'exam' ? 'mock' : state.session.kind === 'review' ? 'review' : 'learn'; lastResult = null; renderPlay(); if (state.session) show('play'); }
+function resume(mode) { if (mode && !model.activate(mode)) { updateChrome(); return; } if (!state.session) return navigate(tab); tab = state.session.mode === 'exam' ? 'mock' : state.session.kind === 'review' ? 'review' : 'learn'; lastResult = null; renderPlay(); if (state.session) show('play'); }
 function reviewItem(id, value, i, uncertain = false) {
   const q = byId.get(id); if (!q) return `<p class="muted">問題ID ${esc(id)}の旧記録は書き出しに含まれています。</p>`;
   const ok = value === q.a;
@@ -345,8 +343,9 @@ function renderNotes(target = view === 'learn' && learnSection === 'notes' ? 'le
   if (target === 'learn-notes') $('notes').innerHTML = '';
   else if ($('learn-notes')) $('learn-notes').innerHTML = '';
   const search = noteSearch.trim().toLowerCase(), visible = NOTES.filter(n => (!search || noteSearchText(n).includes(search)) && (!noteFilter || noteCategory(n).k === noteFilter)).sort((a,b) => Number(noteIds(b).length > 0) - Number(noteIds(a).length > 0));
+  const recommendations = !search && !noteFilter ? NOTES.map(n => ({n, count:noteIds(n).filter(id => model.weak(id)).length})).filter(x => x.count).sort((a,b) => b.count - a.count).slice(0,3) : [];
   const groups = [...CATS,{k:'other',label:'その他の基本',icon:'book'}].map(c => ({...c,notes:visible.filter(n => noteCategory(n).k === c.k)})).filter(c => c.notes.length);
-  $(target).innerHTML = `${target === 'notes' ? `<button class="btn secondary compact" data-action="note-return">${icon('back')}${noteReturn?.view === 'play' ? '解いていた問題に戻る' : noteReturn?.view === 'result' ? '結果に戻る' : '学習に戻る'}</button><div class="page-heading notes-heading"><div><h2>図解ノート</h2><p class="muted">要点をつかんで、問題で確かめよう。</p></div><img class="section-character" src="./image-a5b30a44fd43.png" width="332" height="380" alt="DON!DON!ドライブのロボット教官" loading="lazy" decoding="async"></div>` : '<p class="muted learn-notes-intro">重要なポイントを、図で整理。</p>'}<div class="toolbar"><label class="sr-only" for="note-search">図解ノートを検索</label><input id="note-search" type="search" placeholder="例：横断歩道、徐行" value="${esc(noteSearch)}"><label class="sr-only" for="note-filter">分野</label><select id="note-filter"><option value="">全分野</option>${CATS.map(c => `<option value="${c.k}" ${noteFilter === c.k ? 'selected' : ''}>${esc(c.extra ? '補足' : c.label)}</option>`).join('')}</select></div><p class="muted">${visible.length} / ${NOTES.length}テーマ</p><div class="note-groups">${groups.map(c => `<section class="note-group"><h3 class="note-group-title">${icon(c.icon)}${esc(c.extra ? '補足' : c.label)}<small>${c.notes.length}テーマ</small></h3><div class="note-grid">${c.notes.map(n => `<details class="note" id="${n.id}" data-note="${n.id}"><summary>${noteThumbnail(n)}<span class="note-summary-copy"><strong>${esc(n.t)}</strong><small>図解 ${n.figs.length}点 · 要点 ${n.pts.length}つ</small><small>${noteIds(n).length ? `対応 ${noteIds(n).length}問` : '参考ノート'}</small></span></summary><div class="note-content"></div></details>`).join('')}</div></section>`).join('') || '<div class="empty note-empty"><p>見つかりませんでした。別の言葉で探してください。</p><button class="textbtn" data-action="note-reset">検索と分野をリセット</button></div>'}</div>`;
+  $(target).innerHTML = `${target === 'notes' ? `<button class="btn secondary compact" data-action="note-return">${icon('back')}${noteReturn?.view === 'play' ? '解いていた問題に戻る' : noteReturn?.view === 'result' ? '結果に戻る' : '学習に戻る'}</button><div class="page-heading notes-heading"><div><h2>図解ノート</h2><p class="muted">要点をつかんで、問題で確かめよう。</p></div><img class="section-character" src="./image-a5b30a44fd43.png" width="332" height="380" alt="DON!DON!ドライブのロボット教官" loading="lazy" decoding="async"></div>` : '<p class="muted learn-notes-intro">重要なポイントを、図で整理。</p>'}${recommendations.length ? `<section class="note-recommendations"><h3>今の苦手に関連する図解</h3>${recommendations.map(({n,count}) => `<button class="note-recommendation" data-action="note" data-id="${n.id}"><span>${esc(n.t)}</span><small>要復習 ${count}問</small>${icon('chevron')}</button>`).join('')}</section>` : ''}<div class="toolbar"><label class="sr-only" for="note-search">図解ノートを検索</label><input id="note-search" type="search" placeholder="例：横断歩道、徐行" value="${esc(noteSearch)}"><label class="sr-only" for="note-filter">分野</label><select id="note-filter"><option value="">全分野</option>${CATS.map(c => `<option value="${c.k}" ${noteFilter === c.k ? 'selected' : ''}>${esc(c.extra ? '補足' : c.label)}</option>`).join('')}</select></div><p class="muted">${visible.length} / ${NOTES.length}テーマ</p><div class="note-groups">${groups.map(c => `<section class="note-group"><h3 class="note-group-title">${icon(c.icon)}${esc(c.extra ? '補足' : c.label)}<small>${c.notes.length}テーマ</small></h3><div class="note-grid">${c.notes.map(n => `<details class="note" id="${n.id}" data-note="${n.id}"><summary>${noteThumbnail(n)}<span class="note-summary-copy"><strong>${esc(n.t)}</strong><small>図解 ${n.figs.length}点 · 要点 ${n.pts.length}つ</small><small>${noteIds(n).length ? `対応 ${noteIds(n).length}問` : '参考ノート'}</small></span></summary><div class="note-content"></div></details>`).join('')}</div></section>`).join('') || '<div class="empty note-empty"><p>見つかりませんでした。別の言葉で探してください。</p><button class="textbtn" data-action="note-reset">検索と分野をリセット</button></div>'}</div>`;
 }
 function populateNote(el) {
   if (el.dataset.loaded) return; const n = NOTES.find(n => n.id === el.dataset.note); if (!n) return;
@@ -366,8 +365,8 @@ function openNotes(id = null, figure = null) {
   }
 }
 function settings() {
-  const exam = state.session?.mode === 'exam';
-  $('settings-content').innerHTML = `<div class="settings-group"><h3>画面の明るさ</h3><div class="seg">${[['auto','自動'],['light','ライト'],['dark','ダーク']].map(([k,t]) => `<button data-action="theme" data-value="${k}" aria-pressed="${state.theme === k}">${t}</button>`).join('')}</div></div><div class="settings-group"><h3>効果音</h3><div class="seg">${[[true,'オン'],[false,'オフ']].map(([v,t]) => `<button data-action="sound" data-value="${v}" aria-pressed="${state.sound === v}">${t}</button>`).join('')}</div><p class="muted">学習で答えたときに鳴ります。模試中は鳴りません。</p></div><div class="settings-group"><label class="confidence-control"><input id="reduce-motion" type="checkbox" ${state.reduceMotion ? 'checked' : ''}>動きを抑える</label><p class="muted">端末の「視差効果を減らす」設定にも対応します。</p><button class="textbtn" data-action="preview" data-score="45">花丸の見本を見る ${icon('arrow')}</button></div><div class="settings-group"><h3>学習記録の保存</h3><p class="muted">回答・成績・復習予定は自動で保存します。同じ端末・ブラウザでのサイト更新後も、そのまま続けられます。</p><p id="save-status" role="status"></p><details><summary>予備の書き出し・読み込み</summary><p class="muted">通常の更新では操作不要です。別の端末へ記録を渡す場合などに使用できます。</p><div class="btnrow"><button class="btn secondary" data-action="export">書き出す</button><button class="btn secondary" data-action="import" ${exam ? 'disabled' : ''}>読み込む</button></div></details></div><div class="settings-group"><button class="textbtn" data-action="archive" ${exam ? 'disabled' : ''}>以前の学習記録を見る ${icon('arrow')}</button><p class="muted">旧50問練習、判定A〜C、以前の問題の回答を保管しています。</p></div><div class="settings-group"><button class="textbtn danger" data-action="reset" ${state.session ? 'disabled' : ''}>現在の学習記録を初期化する</button>${state.session ? '<p class="muted">途中の学習を終えると初期化できます。</p>' : ''}</div>`;
+  const exam = state.session?.mode === 'exam', hasSessions = !!state.session || Object.keys(state.suspended).length > 0;
+  $('settings-content').innerHTML = `<div class="settings-group"><h3>画面の明るさ</h3><div class="seg">${[['auto','自動'],['light','ライト'],['dark','ダーク']].map(([k,t]) => `<button data-action="theme" data-value="${k}" aria-pressed="${state.theme === k}">${t}</button>`).join('')}</div></div><div class="settings-group"><h3>効果音</h3><div class="seg">${[[true,'オン'],[false,'オフ']].map(([v,t]) => `<button data-action="sound" data-value="${v}" aria-pressed="${state.sound === v}">${t}</button>`).join('')}</div><p class="muted">学習で答えたときに鳴ります。模試中は鳴りません。</p></div><div class="settings-group"><label class="confidence-control"><input id="reduce-motion" type="checkbox" ${state.reduceMotion ? 'checked' : ''}>動きを抑える</label><p class="muted">端末の「視差効果を減らす」設定にも対応します。</p><button class="textbtn" data-action="preview" data-score="45">花丸の見本を見る ${icon('arrow')}</button></div><div class="settings-group"><h3>学習記録の保存</h3><p class="muted">回答・成績・復習予定は自動で保存します。同じ端末・ブラウザでのサイト更新後も、そのまま続けられます。</p><p id="save-status" role="status"></p><details><summary>予備の書き出し・読み込み</summary><p class="muted">通常の更新では操作不要です。別の端末へ記録を渡す場合などに使用できます。</p><div class="btnrow"><button class="btn secondary" data-action="export">書き出す</button><button class="btn secondary" data-action="import" ${exam ? 'disabled' : ''}>読み込む</button></div></details></div><div class="settings-group"><button class="textbtn" data-action="archive" ${exam ? 'disabled' : ''}>以前の学習記録を見る ${icon('arrow')}</button><p class="muted">旧50問練習、判定A〜C、以前の問題の回答を保管しています。</p></div><div class="settings-group"><button class="textbtn danger" data-action="reset" ${hasSessions ? 'disabled' : ''}>現在の学習記録を初期化する</button>${hasSessions ? '<p class="muted">各モードの途中の学習を終えると初期化できます。</p>' : ''}</div>`;
   $('settings-content').insertAdjacentHTML('afterbegin', window.KarimenHomeInstall?.settingsMarkup() || '');
   if (!$('settings').open) $('settings').showModal(); updateChrome();
 }
@@ -405,11 +404,12 @@ document.addEventListener('click', e => {
   if (model.readOnly && !['settings','close-settings','export','archive','tab','close-detail','close-figure','close-preview'].includes(a)) { toast(model.error); return; }
   if (a === 'tab') navigate(b.dataset.tab);
   else if (a === 'mock-filter') { mockFilter = b.dataset.filter; renderMock(); }
+  else if (a === 'category-sort') { categorySort = b.dataset.filter; renderLearn(); }
   else if (a === 'category-filter') { categoryFilter = b.dataset.filter; renderLearn(); }
   else if (a === 'detail') detail(Number(b.dataset.set));
   else if (a === 'close-detail') $('detail').close();
   else if (a === 'start-mock' || a === 'start-guided') startSet(Number(b.dataset.set),a === 'start-mock' ? 'mock' : 'guided');
-  else if (a === 'resume') resume();
+  else if (a === 'resume') resume(b.dataset.mode);
   else if (a === 'quick-study') startStudy(studySelection(Q), '10問の学習');
   else if (a === 'category') { const c = CATS.find(c => c.k === b.dataset.cat); if (c) { let list = categorized(c); if (categoryFilter === 'new') list = list.filter(q => !state.stats[q.id]?.total); if (categoryFilter === 'weak') list = list.filter(weak); startStudy(studySelection(list), c.extra ? '補足の学習' : c.label, categoryFilter === 'weak' ? 'review' : 'study'); } }
   else if (a === 'due') startStudy(model.schedule().due.slice(0,10).map(q => q.id),'今日の復習','review');

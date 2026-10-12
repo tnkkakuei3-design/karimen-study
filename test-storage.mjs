@@ -62,7 +62,7 @@ adapter=await open(options);model=makeModel(adapter);await saved(adapter,model);
 assert.equal(model.state.session.index,7);adapter.close();
 
 // Neither unreadable data nor a future schema may be replaced by an empty record.
-for(const raw of ['{broken',JSON.stringify({kind:'karimen-progress',version:5,stats:{301:{total:99}}})]){
+for(const raw of ['{broken',JSON.stringify({kind:'karimen-progress',version:6,stats:{301:{total:99}}})]){
  const o=setup();o.storage.setItem(S.KEY,raw);
  await assert.rejects(open(o));assert.equal(o.storage.getItem(S.KEY),raw);
 }
@@ -173,3 +173,17 @@ async function startup(raw, shouldStart){
 }
 await startup(legacyInput,true);await startup('{invalid',false);
 console.log('PASS: automatic update/resume, two-store recovery, checksum rejection, future schema protection, quota fallback, unavailable storage, startup order, stale tabs, explicit reset and persistence policy.');
+
+// Automatic database recovery retains all three independent unfinished modes.
+{
+ const o=setup();let backup=await open(o), m=makeModel(backup);
+ m.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});m.answer(true);
+ m.begin({ids:[601,602],kind:'study'});m.answer(true);
+ m.begin({ids:[701,702],kind:'review'});m.answer(false);
+ await saved(backup,m);const snapshot=plain(m.state);backup.close();
+ o.storage.map.clear();backup=await open({...o,build:'updated'});m=makeModel(backup);
+ assert.deepEqual(plain(m.state),snapshot);
+ for(const kind of ['mock','study','review'])assert.ok(m.sessionFor(kind));
+ assert.equal(m.sessionFor('mock').timerPaused,true);backup.close();
+}
+console.log('PASS: all three saved modes recover automatically from the database backup.');

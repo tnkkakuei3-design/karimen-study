@@ -111,7 +111,7 @@ a=app({version:3,stats:{301:{total:1,correct:1}},misses:{}});const old=a.storage
 const corrupt=new Map([[M.STORE,'{invalid']]);a=app(null,corrupt);assert.equal(a.model.state.legacyArchive.corruptRaw,'{invalid');assert.ok([...corrupt.keys()].some(k=>k.startsWith(M.STORE+'-recovery-')));
 assert.equal(a.model.readOnly,true);assert.equal(a.model.save(),false);assert.equal(corrupt.get(M.STORE),'{invalid');
 assert.equal(a.model.begin({ids:[301]}),null);assert.equal(a.model.reset(),false);
-const future=JSON.stringify({kind:'karimen-progress',version:5,stats:{301:{total:20,correct:17}}});
+const future=JSON.stringify({kind:'karimen-progress',version:6,stats:{301:{total:20,correct:17}}});
 const futureStore=new Map([[M.STORE,future]]),futureModel=app(null,futureStore).model;
 assert.equal(futureModel.readOnly,true);assert.equal(futureModel.save(),false);assert.equal(futureStore.get(M.STORE),future);
 const brokenStore={getItem:k=>k===M.STORE?'{invalid':null,setItem:()=>{throw Error('quota')}};const blocked=M.create({storage:brokenStore,now:()=>initialTime});assert.equal(blocked.save(),false);assert.match(blocked.error,/上書きを止め/);
@@ -235,3 +235,33 @@ a.model.state.session={attemptId:'old-review',kind:'review',mode:'drill',ids:[30
 const locked=JSON.stringify(a.model.state);
 assert.equal(a.model.answer(Q.find(q=>q.id===301).a),false);assert.equal(JSON.stringify(a.model.state),locked);
 a.clock.now+=30*60*1000;assert.equal(a.model.answer(Q.find(q=>q.id===301).a),true);assert.equal(a.model.weak(301),false);
+
+// Independent mode slots survive migration, reload, import and delayed mock grading.
+{
+ const t=app();t.model.begin({ids:WORKSHEETS[0].orderedIds,kind:'mock',worksheet:1});
+ const mockId=t.model.state.session.ids[0],q=Q.find(q=>q.id===mockId);
+ t.model.answer(!q.a);t.clock.now+=15000;
+ t.model.begin({ids:[mockId,302].filter((id,i,all)=>all.indexOf(id)===i),kind:'study'});
+ t.model.answer(q.a);
+ const studyId=t.model.state.session.attemptId;
+ t.model.record(799,!Q.find(q=>q.id===799).a);
+ t.model.begin({ids:[799,800],kind:'review'});
+ const reviewId=t.model.state.session.attemptId,remaining=t.model.sessionFor('mock').remainingMs;
+ assert.equal(remaining,30*60*1000-15000);assert.equal(t.model.state.attempts.length,0);
+ assert.throws(()=>t.model.reset(),/途中/);
+ const exported=t.model.exportData();assert.equal(exported.version,5);
+ const loaded=t.create();assert.equal(loaded.sessionFor('study').attemptId,studyId);
+ assert.equal(loaded.sessionFor('review').attemptId,reviewId);assert.equal(loaded.sessionFor('mock').remainingMs,remaining);
+ loaded.activate('mock');assert.equal(loaded.state.session.timerPaused,true);loaded.finish();
+ assert.equal(loaded.state.stats[mockId].last,true);assert.equal(loaded.state.stats[mockId].total,2);
+ assert.equal(loaded.sessionFor('study').attemptId,studyId);assert.equal(loaded.sessionFor('review').attemptId,reviewId);
+ const imported=app();imported.model.importData(exported);
+ assert.equal(imported.model.sessionFor('mock').remainingMs,remaining);
+ assert.equal(imported.model.sessionFor('study').attemptId,studyId);assert.equal(imported.model.sessionFor('review').attemptId,reviewId);
+ const older={...exported,version:4,suspended:undefined};const migrated=M.normalize(older);
+ assert.equal(migrated.version,5);assert.equal(migrated.session.attemptId,reviewId);
+ const damaged=toPlain(exported);damaged.suspended.study.contentVersion='changed';damaged.suspended.study.questionSignatures={};
+ const protectedState=M.normalize(damaged);assert.equal(protectedState.suspended.study,undefined);
+ assert.equal(protectedState.legacyArchive.sessions.at(-1).attemptId,studyId);assert.ok(protectedState.suspended.mock);
+}
+console.log('PASS: independent saved modes, v4 migration, reload/import, preserved timer and answer chronology.');
