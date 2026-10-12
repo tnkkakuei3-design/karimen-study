@@ -533,3 +533,29 @@ console.log('PASS: first click after focus return, open notes, review controls, 
  assert.equal(recent,'直近2回：50点 → 40点');assert.equal(a.errors.length,0);a.close();
 }
 console.log('PASS: three-mode resume after reload, difficulty ordering, related-note navigation and recent full-mock scores.');
+// Review status follows real answers, including the immediate first retry and uncertainty.
+{
+ const a=app();
+ const begin="model.begin({ids:[Q[0].id],kind:'review'})";
+ a.run("model.begin({ids:[Q[0].id],kind:'study'});model.answer(!Q[0].a);model.finish();renderReview()");
+ assert.match(a.query('.review-progress').textContent,/卒業まで正解あと2回/);
+ assert.equal(a.query('.review-row').disabled,false);
+ assert.match(a.run('reviewSchedule(Q[0])'),/今すぐ復習できます/);
+ assert.doesNotMatch(a.run('reviewSchedule(Q[0])'),/リセット/);
+ a.run(`${begin};model.answer(Q[0].a);model.finish();renderReview()`);
+ assert.match(a.query('.review-progress').textContent,/正解あと1回/);
+ assert.equal(a.query('.review-row').disabled,true);
+ assert.match(a.query('.review-row-status').textContent,/あと30分/);
+ assert.ok(a.query('.review-row-status .icon'));
+ a.clock.now+=30*60000;
+ a.run(`${begin};model.answer(!Q[0].a);model.finish();renderReview()`);
+ assert.match(a.run('reviewSchedule(Q[0])'),/不正解のため、卒業に向けた正解回数をリセット/);
+ assert.match(a.query('.review-progress').textContent,/正解あと2回/);
+ a.clock.now+=30*60000;
+ a.run(`${begin};model.answer(Q[0].a,true);model.finish()`);
+ assert.match(a.run('reviewSchedule(Q[0])'),/自信なしのため/);
+ for(let i=0;i<2;i++){a.clock.now+=30*60000;a.run(`${begin};model.answer(Q[0].a);model.finish()`);}
+ assert.equal(a.run('reviewSchedule(Q[0])'),'');
+ assert.equal(a.errors.length,0);a.close();
+}
+console.log('PASS: review status for first error, correct retry, reset, uncertainty and graduation.');

@@ -654,6 +654,10 @@ article.weak-topic>strong{font-size:18px}
 @media(max-width:374px){.review-now-card,.review-timing,.review-again-card{padding:16px}.review-again-card h3{font-size:16px}}
 
 .review-row:disabled{opacity:1;cursor:default;color:var(--muted);background:var(--soft)}
+.review-row .review-progress{margin-top:4px;color:var(--fg)}
+.review-row .review-row-status{display:inline-flex;align-items:center;gap:4px;flex-shrink:0;white-space:nowrap}
+.review-row-status .icon{width:16px;height:16px}
+.review-again-card p{margin:0 0 8px;line-height:1.7}
 
 /* Learning methods share one prominent entry point. */
 .learn-switch{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--line);background:transparent;margin:16px 0 12px}

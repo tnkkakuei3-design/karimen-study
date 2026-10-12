@@ -165,7 +165,7 @@ function reviewWaitHTML(at) {
 }
 function reviewRow(q, early = false) {
   const s = state.stats[q.id], left = Math.max(1, 2 - (s?.reviewPass || 0));
-  return `<button class="review-row" data-action="review-one" data-id="${q.id}" ${early ? 'disabled' : ''}>${icon('book')}<span class="row-copy"><strong>${esc(q.topic)}${q.isSupplemental ? '・補足' : ''}</strong><small>第${q.worksheet}回・問${q.number}</small>${early ? `<small>次の復習まで ${reviewWaitHTML(s.reviewAt)}</small>` : ''}</span><span class="badge ${early ? '' : 'blue'}">あと${left}回</span>${icon('chevron')}</button>`;
+  return `<button class="review-row" data-action="review-one" data-id="${q.id}" ${early ? 'disabled' : ''}>${icon('book')}<span class="row-copy"><strong>${esc(q.topic)}${q.isSupplemental ? '・補足' : ''}</strong><small>第${q.worksheet}回・問${q.number}</small><small class="review-progress">卒業まで正解あと${left}回</small></span><span class="review-row-status badge ${early ? '' : 'blue'}">${early ? `${icon('clock')}<span class="sr-only">次の復習まで</span>${reviewWaitHTML(s.reviewAt)}` : '今すぐ'}</span>${early ? '' : icon('chevron')}</button>`;
 }
 function reviewSignature(due) { return new Date().toDateString() + '|' + due.map(q => q.id).join(','); }
 function renderReview() {
@@ -196,7 +196,11 @@ function explanationExtras(q, withNote = true) {
 function reviewSchedule(q) {
   if (!weak(q)) return '';
   const stat = state.stats[q.id];
-  return `<section class="review-schedule-note review-again-card"><h3>次の復習：${reviewWaitHTML(stat?.reviewAt)}</h3><small>卒業まであと${Math.max(1,2-(stat?.reviewPass||0))}回。復習後は30分あけて、もう一度取り組みましょう。</small></section>`;
+  const left = Math.max(1, 2 - (stat?.reviewPass || 0));
+  const waiting = stat?.reviewAt > Date.now();
+  const reset = waiting && !stat?.reviewPass && (stat?.last === false || stat?.uncertain);
+  const message = reset ? `${stat?.uncertain ? '自信なしのため' : '不正解のため'}、卒業に向けた正解回数をリセットしました。` : '';
+  return `<section class="review-schedule-note review-again-card"><h3>次の復習：${reviewWaitHTML(stat?.reviewAt)}</h3>${message ? `<p>${message}</p>` : ''}<small>卒業まで正解あと${left}回。${waiting ? '表示の時間が過ぎたら、もう一度挑戦しましょう。' : '今すぐ復習できます。'}自信をもって答えられた正解が対象です。</small></section>`;
 
 }
 function explanation(q, answer, withNote = true) {
