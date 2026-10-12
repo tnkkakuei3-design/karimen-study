@@ -1,3 +1,5 @@
+> Retired: migration notices and transfer controls have been removed at the owner’s request. The legacy route returns to the same-site home without accessing stored records. The following is historical documentation.
+
 # Cloudflare progress transfer
 
 Production source: https://tnkkakuei3-design.github.io/karimen-study/migration.html
