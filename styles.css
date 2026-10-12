@@ -714,6 +714,31 @@ article.weak-topic>strong{font-size:18px}
  .learning-overview dt,.learning-overview small{font-size:13px}
 }
 
+/* Compact study overview: keep explanatory detail available without delaying categories. */
+#learn .character-heading{margin-bottom:10px;min-height:48px}
+#learn .character-heading h2{font-size:23px;line-height:1.35}
+#learn .learn-guide{width:40px;height:50px}
+#learn .learn-actions{margin-bottom:10px}
+#learn .recommend[data-action="quick-study"]{background:var(--action-bg);color:var(--action-fg);border-color:transparent;border-left:0;min-height:64px;padding:10px 14px}
+#learn .recommend[data-action="quick-study"] .icon,#learn .recommend[data-action="quick-study"] small{color:inherit}
+#learn .learning-cumulative{margin:0;font-size:13px}
+#learn .learning-cumulative>summary{min-height:44px;display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:6px 0;color:var(--blue);font-weight:650;list-style:none}
+#learn .learning-cumulative>summary::-webkit-details-marker{display:none}
+#learn .learning-cumulative>summary:after{content:'＋'}
+#learn .learning-cumulative[open]>summary:after{content:'−'}
+#learn .learning-cumulative p{margin:0 0 10px}
+#learn .learn-switch{margin:0 0 10px}
+.learn-controls{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:0 0 12px}
+.learn-controls>.seg{margin:0;gap:4px;flex-wrap:nowrap;min-width:0}
+.learn-controls .seg button{padding:8px 10px;font-size:13px;white-space:nowrap}
+.category-sort-control{flex:none}
+.category-sort-control select{min-height:44px;max-width:94px;font-size:13px;padding:8px 6px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg)}
+#learn .category-card{gap:8px;padding:14px 12px}
+#learn .category-copy>strong{min-height:0}
+#learn .category-copy small{margin:4px 0}
+@media(max-width:359px){.learn-controls{flex-wrap:wrap}.learn-controls .seg button{padding-inline:9px}#learn .character-heading h2{font-size:21px}}
+@media(min-width:650px){#learn .character-heading h2{font-size:26px}.learn-controls{justify-content:flex-start;gap:16px}.learn-controls .seg button{padding-inline:16px}}
+
 /* A single optional invitation; learning controls remain available. */
 .shell{padding-top:env(safe-area-inset-top)}
 .install-icon{flex:none;object-fit:cover;background:#066be9;border-radius:14px}

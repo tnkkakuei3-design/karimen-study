@@ -520,7 +520,12 @@ console.log('PASS: first click after focus return, open notes, review controls, 
  }
  assert.equal(a.run('state.attempts.length'),0);a.close();
  a=app();a.run("for(const q of categorized(CATS[0]).slice(0,5))model.record(q.id,q.a);for(const q of categorized(CATS[1]).slice(0,5))model.record(q.id,!q.a);model.save()");
- a.click('#tab-learn');a.click('[data-action="category-sort"][data-filter="weak"]');
+ a.click('#tab-learn');
+ assert.equal(a.query('.learning-cumulative').open,false);
+ assert.equal(a.query('.learning-cumulative summary').textContent,'成績の詳細');
+ assert.equal(a.query('.learning-metric-help'),null);
+ a.query('#category-sort').value='weak';
+ a.query('#category-sort').dispatchEvent(new a.w.Event('change',{bubbles:true}));
  assert.equal(a.query('.category-card').dataset.cat,a.run('CATS[1].k'));
  a.click('[data-action="learn-section"][data-section="notes"]');assert.ok(a.query('.note-recommendations'));
  const note=a.query('.note-recommendation').dataset.id;a.click('.note-recommendation');assert.equal(a.query('#'+note).open,true);
