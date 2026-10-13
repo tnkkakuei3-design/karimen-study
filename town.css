@@ -77,3 +77,11 @@
 @media(max-width:649px){.town-grid{grid-template-columns:1fr}.town-heading h2{font-size:25px}.town-detail-heading h2{font-size:25px}.town-map-layout{display:flex;flex-direction:column;gap:14px}.town-map-picker{display:flex;overflow-x:auto;width:100%;max-height:none;padding:3px 3px 9px;gap:4px}.town-map-picker button{flex-shrink:0;max-width:200px}.town-map-selected{width:100%}.town-map-frame{height:280px}.town-detail-actions{bottom:calc(74px + env(safe-area-inset-bottom))}.town-detail-actions>.btn{padding:10px 12px}.town-teaser{margin:16px 0 20px}}
 @media(max-width:380px){.town-heading{gap:8px}.town-heading h2{font-size:23px}.town-character{width:44px;height:44px}.town-directory-entry{gap:8px;flex-wrap:wrap}.town-entry-meta{margin-left:auto}.town-entry-cta{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.town-photo-gallery{scroll-behavior:auto}}
+
+/* Existing guide character restored to voucher guidance and saved empty state. */
+.town-voucher-info{display:flex;align-items:center;gap:14px;padding:20px 0;border-top:1px solid var(--line)}
+.town-voucher-info>.town-character{width:64px;height:64px}
+.town-voucher-info>div{min-width:0}
+.town-voucher-info h3{font-size:15px;margin:0 0 6px}
+.town-voucher-info p{font-size:13px;line-height:1.8;color:var(--muted);margin:0}
+.town-empty>.town-character{width:80px;height:80px}

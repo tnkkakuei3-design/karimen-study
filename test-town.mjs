@@ -78,6 +78,9 @@ assert.equal(a.query('#town').hidden,false);assert.equal(a.w.location.hash,'#tow
 assert.equal(a.all('.town-card').length,14);assert.equal(a.all('.town-card .town-hours').length,14);assert.equal(a.all('.town-card .town-hours dl').length,14);assert.equal(a.query('#town-title'),a.w.document.activeElement);
 assert.equal(a.query('#town-title').textContent,'食券が使えるお店');
 assert.equal(a.all('#town .town-character').length,1,'one small header character, not repeated promotional blocks');
+a.click('[data-town-action="filter"][data-value="saved"]');
+assert.equal(a.all('.town-empty .town-character').length,1,'saved empty state restores the existing guide');
+a.click('[data-town-action="reset"]');
 assert.equal(a.all('.town-card .town-ticket,.town-guide-note,.town-voucher-info').length,0,'no repeated voucher badges or coloured promo panels');
 assert.doesNotMatch(a.query('#town').textContent,/どこ行こう|まちのごはん|食券を持って、地域のお店へ/);
 assert.ok(a.query('.town-pr').textContent.includes('PR'),'promotional disclosure is retained');
@@ -121,9 +124,9 @@ assert.equal(a.all('.town-media-detail img').length,3);a.w.KarimenTown.open();aw
 // Each detail view must show only that store's configured, intact photographs.
 for(const shop of shops){
  a.w.KarimenTown.open(shop.id);await settle();
- assert.equal(a.all('.town-voucher-info,.town-character').length,0,'details keep store facts rather than repeated guide mascots');
+ assert.equal(a.all('.town-voucher-info .town-character').length,1,'each store retains its voucher guide character');
  assert.equal(a.all('.town-save').length,1,'the save action remains available beside the store title');
- assert.ok(a.query('.town-menu-note').textContent.includes('差額'),'voucher limitations are retained');
+ assert.ok(a.query('.town-voucher-info').textContent.includes('差額'),'voucher limitations are retained');
  const expected=[...(a.w.KarimenTownConfig.suppliedPhotos[shop.id]||[])];
  assert.deepEqual(a.all('.town-media-detail img').map(img=>img.src),expected.map(p=>new URL(p.url,a.w.location.href).href),shop.id);
  if(!expected.length)assert.ok(a.query('.town-photo-placeholder'),shop.id);

@@ -199,7 +199,7 @@
     const holder=document.getElementById('town-results'); if(!holder)return;
     disconnectPhotos(); const list=matches();
     document.getElementById('town-count').textContent=`${list.length}件の店舗・施設${filter==='saved'?' · この端末に保存':''}`;
-    holder.innerHTML=list.length ? (mode==='cards'?`<div class="town-grid">${list.map(card).join('')}</div>`:mapResults(list)) : `<div class="town-empty">${icon(filter==='saved'?'save':'search')}<h3>${filter==='saved'?'保存したお店はありません':'該当するお店がありません'}</h3><p>${filter==='saved'?'店名横のしおりから保存できます。':'店名や検索条件を変更してください。'}</p><button class="btn secondary" data-town-action="reset">すべてのお店を見る</button></div>`;
+    holder.innerHTML=list.length ? (mode==='cards'?`<div class="town-grid">${list.map(card).join('')}</div>`:mapResults(list)) : `<div class="town-empty">${filter==='saved'?townCharacter():icon('search')}<h3>${filter==='saved'?'保存したお店はありません':'該当するお店がありません'}</h3><p>${filter==='saved'?'店名横のしおりから保存できます。':'店名や検索条件を変更してください。'}</p><button class="btn secondary" data-town-action="reset">すべてのお店を見る</button></div>`;
     activatePhotos(holder);
     announce(`${list.length}件のお店を表示しています`);
   }
@@ -212,9 +212,10 @@
       ${scheduleSummary(shop)}<p class="town-hours-notice">案内表に基づく営業予定です。臨時休業・売り切れは各店へ。</p>
       <div class="town-detail-hero">${media(shop,'detail')}</div>
       ${link(searchUrl(shop),'Googleマップの写真・口コミ ↗','textbtn town-all-photos')}${socialLink}
-      <section class="town-detail-section"><h3>主なメニュー</h3><ul class="town-menu-list">${shop.menus.map(menu=>`<li>${esc(menu)}</li>`).join('')}</ul><p class="town-menu-note">教習所の案内表より。食券の対象・差額・利用時間は各店でご確認ください。</p></section>
+      <section class="town-detail-section"><h3>主なメニュー</h3><ul class="town-menu-list">${shop.menus.map(menu=>`<li>${esc(menu)}</li>`).join('')}</ul><p class="town-menu-note">教習所の案内表より。</p></section>
       <section class="town-detail-section"><h3>店舗情報</h3><dl class="town-details">${shop.phone?`<div><dt>電話</dt><dd><a href="tel:${shop.phone.replace(/-/g,'')}">${esc(shop.phone)}</a></dd></div>`:''}${shop.address?`<div><dt>住所</dt><dd>${esc(shop.address)}</dd></div>`:''}</dl>${shop.note?`<p class="town-store-note">${esc(shop.note)}</p>`:''}${addressSource}</section>
       <section class="town-detail-section"><h3>地図・行き方</h3>${embeddedMap(shop)}<p class="town-section-sub">${canRoute?'徒歩ルートの出発地：糸満自動車学校':'所在地は店舗または教習所にご確認ください。'}</p></section>
+      <div class="town-voucher-info">${townCharacter()}<div><h3>食券のご利用について</h3><p>${shop.facility?'施設内の飲食店が対象です。':''}対象メニュー・差額・利用時間は各店でご確認ください。</p></div></div>
       <div class="town-detail-actions">${link(routeUrl(shop),`${icon(canRoute?'walk':'search')}${canRoute?'徒歩ルートを見る':'場所を確認する'}`,'btn')}${shop.phone?`<a class="btn secondary" href="tel:${shop.phone.replace(/-/g,'')}">${icon('phone')}電話する</a>`:''}</div><p id="town-status" class="sr-only" role="status" aria-live="polite"></p>`;
   }
   function render() {
