@@ -44,7 +44,8 @@ assert.equal(shops.length,14);assert.equal(new Set(shops.map(s=>s.id)).size,14);
 assert.deepEqual([...shops.map(s=>s.number)],[1,2,3,4,5,7,8,9,10,11,12,13,14,15]);
 assert.equal(a.query('#mock').hidden,false);assert.ok(a.query('#mock .town-teaser'));
 assert.match(a.query('#mock .town-directory-entry').textContent,/全14件を見る/);
-assert.equal(a.query('#mock .town-teaser [data-town-action="shop"]'),null,'home links to all stores, not an individual recommendation');
+const homePick=a.query('#mock [data-recommended-shop]');
+if(homePick)assert.equal(a.w.KarimenTown.scheduleStatus(shops.find(s=>s.id===homePick.dataset.recommendedShop)).kind,'open');
 await settle();
 // Real calendar edge cases, JST conversion, and uncertain opening information.
 const status=(id,date)=>a.w.KarimenTown.scheduleStatus(shops.find(s=>s.id===id),new Date(date));
@@ -267,6 +268,18 @@ a=app({configure(w){
  w.Date=class extends NativeDate{constructor(...args){super(...(args.length?args:[clock]));}static now(){return clock;}};
  w.setInterval=(fn,delay)=>{if(delay===60000)scheduleTick=fn;return 1;};
 }});
+const checkHome=()=>{
+ const pick=a.query('#mock [data-recommended-shop]');
+ const eligible=a.w.KarimenTownData.shops.filter(s=>a.w.KarimenTown.scheduleStatus(s,new Date(clock)).kind==='open');
+ assert.equal(Boolean(pick),eligible.length>0);
+ if(pick){assert.ok(eligible.some(s=>s.id===pick.dataset.recommendedShop));const photo=pick.querySelector('img');if(photo)assert.ok(a.w.KarimenTownConfig.suppliedPhotos[pick.dataset.recommendedShop].some(p=>new URL(p.url,a.w.location.href).href===photo.src));}
+};
+const recordsBefore=a.snapshot();
+checkHome();
+for(const time of ['2026-10-13T15:00:00Z','2026-10-14T05:00:00Z','2026-10-13T05:00:00Z']){clock=Date.parse(time);scheduleTick();checkHome();}
+assert.deepEqual(a.snapshot(),recordsBefore);
+a.click('#mock .town-home-shop');assert.ok(a.query('#town .town-detail-heading'));
+a.click('#tab-mock');checkHome();
 a.click('#mock [data-town-action="open"]');
 const orderedIds=()=>a.all('.town-card [data-town-action="shop"]').map(el=>el.dataset.id);
 function assertScheduleOrder(){

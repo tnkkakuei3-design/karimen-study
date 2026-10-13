@@ -4,6 +4,12 @@
 #town{padding-bottom:20px}#town a.btn{text-decoration:none}#town .icon{flex:none}#town h2:focus{outline:none}#town .btn{min-height:48px}
 #town button:focus-visible,.town-directory-entry:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 .town-pr{font-size:11px;font-weight:400;color:var(--muted)}
+.town-home-pick{padding:16px 0 12px;border-bottom:1px solid var(--line)}
+.town-home-label{font-size:14px;font-weight:650;color:var(--town-green);margin-bottom:10px}.town-home-label span{font-size:11px;font-weight:400;color:var(--muted);margin-left:6px}
+.town-home-shop{display:flex;align-items:center;gap:12px;width:100%;border:0;background:transparent;padding:0;min-height:80px;text-align:left;color:var(--fg)}
+.town-home-shop>img{width:104px;height:80px;object-fit:cover;border-radius:5px;flex:none}.town-home-shop>span{flex:1;min-width:0}.town-home-shop strong{display:block;font-size:18px}.town-home-shop small{display:block;font-size:12px;color:var(--muted);margin-top:3px}.town-home-shop .town-home-hours{color:var(--town-green)}.town-home-shop>.icon:last-child{width:18px;color:var(--blue)}
+.town-home-note,.town-home-empty{font-size:11px;color:var(--muted);line-height:1.7}.town-home-empty{padding:12px 0 0}.town-home-pick>.town-photo-credit{font-size:10px;padding:5px 0}.town-home-shop:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+@media(max-width:374px){.town-home-shop>img{width:84px;height:72px}.town-home-shop{gap:9px}.town-home-shop strong{font-size:16px}}
 
 /* The home entry is a utility link, not a second promotional hero. */
 .town-teaser{margin:20px 0 22px;border-block:1px solid var(--line)}

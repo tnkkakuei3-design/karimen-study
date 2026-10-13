@@ -111,6 +111,7 @@
     return `<div class="town-hours" data-town-hours="${shop.id}"><div class="town-hours-status" data-kind="${status.kind}"><strong>${esc(status.label)}</strong><span>${esc(status.note)}</span></div><dl><div><dt>営業時間</dt><dd>${esc(shop.hours)}</dd></div><div><dt>定休日</dt><dd>${esc(shop.closed)}</dd></div></dl></div>`;
   }
   function updateSchedules(){
+    refreshHomeRecommendation();
     if(!isOpen())return;
     root().querySelectorAll('[data-town-hours]').forEach(el=>{
       const status=scheduleStatus(byId.get(el.dataset.townHours));
@@ -131,6 +132,23 @@
   window.setInterval(updateSchedules,60000);
   function card(shop) {
     return `<article class="town-card" data-town-state="${scheduleStatus(shop).kind}"><div class="town-card-head"><button class="town-card-copy" data-town-action="shop" data-id="${shop.id}"><span><strong>${esc(shop.shortName || shop.name)}</strong><small>${esc(shop.category)}</small></span>${icon('arrow')}</button>${bookmarkButton(shop)}</div><p class="town-card-menu">${esc(shop.menus.slice(0,3).join('・'))}</p>${scheduleSummary(shop)}${media(shop)}<div class="town-card-foot">${shop.facility?'<span>食券は施設内の飲食店で利用可</span>':'<span></span>'}${link(searchUrl(shop),'Googleマップ ↗','town-photo-link')}</div></article>`;
+  }
+  function homeRecommendation() {
+    const now=new Date();
+    const available=shops.filter(shop=>scheduleStatus(shop,now).kind==='open');
+    if(!available.length)return '<p class="town-home-empty">現在、営業時間内と確認できるお店はありません。</p>';
+    const day=Math.floor((now.getTime()+9*3600000)/86400000);
+    const shop=available[day%available.length],status=scheduleStatus(shop,now),photo=suppliedPhotos(shop)[0];
+    return `<div class="town-home-pick" data-recommended-shop="${shop.id}"><p class="town-home-label">営業時間内のおすすめ <span>案内表の予定</span></p><button class="town-home-shop" data-town-action="shop" data-id="${shop.id}">${photo?`<img src="${esc(photo.url)}" alt="${esc(photo.alt)}" width="104" height="80" loading="lazy" decoding="async">`:icon('food')}<span><strong>${esc(shop.shortName||shop.name)}</strong><small>${esc(shop.menus.slice(0,2).join('・'))}</small><small class="town-home-hours">${esc(status.note)}</small></span>${icon('arrow')}</button>${photo?photoCredit(photo,true).replace('<figcaption','<div').replace('</figcaption>','</div>'):''}<p class="town-home-note">臨時休業・売り切れは各店へご確認ください。</p></div>`;
+  }
+  function refreshHomeRecommendation(){
+    const holder=document.querySelector('#mock:not([hidden]) .town-home-recommendation');
+    if(!holder)return;
+    const content=homeRecommendation();
+    if(holder.dataset.signature===content)return;
+    const restoreFocus=holder.contains(document.activeElement);
+    holder.innerHTML=content;holder.dataset.signature=content;
+    if(restoreFocus)(holder.querySelector('button')||holder.closest('.town-teaser').querySelector('.town-directory-entry')).focus({preventScroll:true});
   }
   function matches() {
     const term = normalize(query);
@@ -331,9 +349,9 @@
   window.addEventListener('popstate',readRoute);
   window.KarimenTown = {
     init(callbacks){api=callbacks;if(initDone)return;initDone=true;readRoute();if(!isOpen())activatePhotos(document.querySelector('main > section:not([hidden])')||document.createElement('div'));},
-    onView(name){if(!initDone)return;if(name!=='town'){disconnectPhotos();if(location.hash==='#town'||location.hash.startsWith('#town/'))history.replaceState({...history.state,karimenTown:false},'',location.pathname+location.search);if(['mock','learn'].includes(name))activatePhotos(document.getElementById(name));}},
+    onView(name){if(!initDone)return;if(name!=='town'){disconnectPhotos();if(location.hash==='#town'||location.hash.startsWith('#town/'))history.replaceState({...history.state,karimenTown:false},'',location.pathname+location.search);if(['mock','learn'].includes(name))activatePhotos(document.getElementById(name));if(name==='mock')refreshHomeRecommendation();}},
     teaser(){
-      return `<aside class="town-teaser" aria-label="地域のお店一覧"><button class="town-directory-entry" data-town-action="open"><span class="town-entry-icon">${icon('ticket')}</span><span><strong>食券が使えるお店</strong><small>営業時間・定休日・地図</small></span><span class="town-entry-meta"><small class="town-pr">PR</small><span class="town-entry-cta">全${shops.length}件を見る ${icon('arrow')}</span></span></button></aside>`;
+      return `<aside class="town-teaser" aria-label="地域のお店一覧"><div class="town-home-recommendation">${homeRecommendation()}</div><button class="town-directory-entry" data-town-action="open"><span class="town-entry-icon">${icon('ticket')}</span><span><strong>食券が使えるお店</strong><small>営業時間・定休日・地図</small></span><span class="town-entry-meta"><small class="town-pr">PR</small><span class="town-entry-cta">全${shops.length}件を見る ${icon('arrow')}</span></span></button></aside>`;
     },
     scheduleStatus,
     open,
