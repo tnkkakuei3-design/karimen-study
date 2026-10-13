@@ -75,6 +75,12 @@ const original=a.run('JSON.stringify(state)');
 a.click('#mock [data-town-action="open"]');
 assert.equal(a.query('#town').hidden,false);assert.equal(a.w.location.hash,'#town');
 assert.equal(a.all('.town-card').length,14);assert.equal(a.all('.town-card .town-hours').length,14);assert.equal(a.all('.town-card .town-hours dl').length,14);assert.equal(a.query('#town-title'),a.w.document.activeElement);
+assert.equal(a.query('#town-title').textContent,'食券が使えるお店');
+assert.equal(a.all('#town .town-character').length,1,'one small header character, not repeated promotional blocks');
+assert.equal(a.all('.town-card .town-ticket,.town-guide-note,.town-voucher-info').length,0,'no repeated voucher badges or coloured promo panels');
+assert.doesNotMatch(a.query('#town').textContent,/どこ行こう|まちのごはん|食券を持って、地域のお店へ/);
+assert.ok(a.query('.town-pr').textContent.includes('PR'),'promotional disclosure is retained');
+assert.equal(a.query('[data-town-action="mode"][data-value="cards"]').textContent.trim(),'一覧');
 assert.equal(a.query('script[src*="maps.googleapis.com"]'),null,'no API calls before provider configuration');
 await settle();
 assert.equal(a.all('.town-card .town-photo-placeholder').length,1,'only the unverified cafe photo remains unpublished');
@@ -82,6 +88,11 @@ assert.equal(a.all('.town-card .town-photo-gallery img').length,21,'cards show u
 assert.equal(a.all('.town-card .town-photo-kind').length,0,'no generic food imagery is displayed');
 assert.ok(a.all('.town-card .town-photo-credit').every(el=>el.querySelector('a[target="_blank"]')),'every photo retains its source');
 assert.equal(a.all('[data-town-photo="itomaru"] .town-photo-credit a[href*="creativecommons.org"]').length,3,'existing photo licences remain accessible');
+a.click('[data-town-photo="kinta"] .town-more-photos');
+assert.match(a.query('.town-expanded-photo').src,/venue-kinta-4\.jpg$/,'additional photos open directly without leaving the app');
+a.click('[data-photo-close]');
+// Compact strips have no page counter; scrolling them must not throw.
+a.query('.town-media-card .town-photo-gallery').dispatchEvent(new a.w.Event('scroll'));
 for(const [id,photos]of Object.entries(a.w.KarimenTownConfig.suppliedPhotos)){
  assert.ok(photos.length>0,id);
  for(const photo of photos){
@@ -109,6 +120,9 @@ assert.equal(a.all('.town-media-detail img').length,3);a.w.KarimenTown.open();aw
 // Each detail view must show only that store's configured, intact photographs.
 for(const shop of shops){
  a.w.KarimenTown.open(shop.id);await settle();
+ assert.equal(a.all('.town-voucher-info,.town-character').length,0,'details keep store facts rather than repeated guide mascots');
+ assert.equal(a.all('.town-save').length,1,'the save action remains available beside the store title');
+ assert.ok(a.query('.town-menu-note').textContent.includes('差額'),'voucher limitations are retained');
  const expected=[...(a.w.KarimenTownConfig.suppliedPhotos[shop.id]||[])];
  assert.deepEqual(a.all('.town-media-detail img').map(img=>img.src),expected.map(p=>new URL(p.url,a.w.location.href).href),shop.id);
  if(!expected.length)assert.ok(a.query('.town-photo-placeholder'),shop.id);
