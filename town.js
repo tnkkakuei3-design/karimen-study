@@ -298,7 +298,7 @@
     loadedPhotos.set(el,photos);
     const fallback=el.innerHTML;
     const galleryHelp=el.classList.contains('town-media-card')
-      ? (photos.length>images.length?`<button class="town-more-photos" data-town-action="photo" data-photo-index="${images.length}">ほか${photos.length-images.length}枚の写真を見る</button>`:'')
+      ? `<div class="town-gallery-help"><span>写真をタップで拡大${images.length>1?' · 横スワイプで次へ':''}</span></div>` + (photos.length>images.length?`<button class="town-more-photos" data-town-action="photo" data-photo-index="${images.length}">ほか${photos.length-images.length}枚の写真を見る</button>`:'')
       : `<div class="town-gallery-help"><span class="town-photo-counter">${images.length>1?`1 / ${images.length}`:''}</span><span>写真をタップで拡大${images.length>1?' · 横スワイプで次へ':''}</span></div>`;
     el.innerHTML=`<div class="town-photo-gallery" tabindex="${images.length>1?'0':'-1'}" ${images.length>1?'aria-label="掲載写真。横にスクロールできます"':''}>${images.map((p,i)=>`<figure><button class="town-photo-frame town-photo-open" data-town-action="photo" data-photo-index="${i}" aria-label="${esc(shop.name)}の写真${i+1}を拡大"><img src="${esc(safeUrl(p.url))}" alt="${esc(p.alt)}" loading="lazy" decoding="async" width="960" height="640"></button>${photoCredit(p)}</figure>`).join('')}</div>${galleryHelp}`;
     el.classList.add('has-photo');

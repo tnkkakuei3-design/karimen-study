@@ -205,7 +205,8 @@ assert.equal(a.run('model.weak(710)'),true);assert.equal(a.errors.length,0);a.cl
  metrics.querySelector('summary').click();
  assert.equal(metrics.open,true);
  assert.equal(a.run('state.session'),null);
- assert.ok(metrics.querySelector('.category-accuracy'));
+ assert.ok(a.query('.category-entry .category-accuracy'));
+ assert.equal(metrics.querySelector('.category-accuracy'),null);
  a.click('.category-entry');
  assert.equal(a.query('#play').hidden,false);
  a.close();
@@ -251,8 +252,8 @@ assert.equal(a.run('model.weak(710)'),true);assert.equal(a.errors.length,0);a.cl
  a.run("lastResult=model.finish();renderResult();show('result')");
  assert.ok(a.query('.result-actions').compareDocumentPosition(a.query('.result-weak')) & 4);
  assert.deepEqual(JSON.parse(a.run('JSON.stringify(resultWeakGroups(lastResult).map(g=>[g.correct,g.answered]))')),[[1,2],[3,5]]);
- assert.equal(a.all('.weak-topic')[0].querySelector('strong').textContent,'正解率 50%');
- assert.equal(a.all('.weak-topic')[1].querySelector('strong').textContent,'正解率 60%');
+ assert.equal(a.all('.weak-topic')[0].querySelector('.topic-summary .topic-accuracy').textContent,'正解率 50%');
+ assert.equal(a.all('.weak-topic')[1].querySelector('.topic-summary .topic-accuracy').textContent,'正解率 60%');
  assert.equal(a.all('.topic-sample-note').length,1);
  assert.match(a.query('#result-review-plan').textContent,/不正解・自信なし 4問/);
  assert.match(a.query('#result-review-plan').textContent,/今すぐ2問を復習する.*復習待ち2問/);

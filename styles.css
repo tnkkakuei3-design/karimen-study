@@ -909,8 +909,11 @@ h2,h3{font-weight:700}
 .result-score-details .comparison{margin-top:16px;}
 
 /* Keep choices readable; secondary statistics are available on demand. */
-#learn .category-card{display:block;padding:0 14px;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0}
-.category-entry{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;padding:16px 0 8px;min-height:94px;border:0;background:transparent;text-align:left;color:var(--fg)}
+#learn .category-card{display:block;padding:0;background:transparent;border:0;border-radius:0}
+.category-entry{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;padding:14px;min-height:94px;border:1px solid var(--line);border-radius:10px;background:var(--surface);text-align:left;color:var(--fg)}
+.category-entry:hover{border-color:var(--blue)}
+.category-entry:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.category-entry .category-accuracy{display:block;margin-top:8px}
 .category-entry>.icon{grid-column:1;grid-row:1;width:27px;height:27px;color:var(--fg)}
 .category-entry>.card-chevron{grid-column:2;grid-row:1}
 .category-entry>.category-copy{grid-column:1/-1;grid-row:2}
