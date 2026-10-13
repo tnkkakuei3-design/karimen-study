@@ -37,7 +37,7 @@ for(const [score,total,expected] of [[44,50,'D013'],[45,50,'D004'],[49,50,'D004'
  assert.ok(a.query('#result .result-character').getAttribute('src').includes(expected));
 }
 a.run("openNotes('n-hand')");assert.equal(a.query('#n-hand .caution-guide').getAttribute('src'),'./assets/characters/D042.png');
-a.run("openNotes('n-speed')");assert.equal(a.all('#n-speed .caution-guide').length,0);
+a.run("openNotes('n-speed')");assert.equal(a.query('#n-speed .caution-guide').getAttribute('src'),'./assets/characters/D042.png');
 a.run("state.misses={};state.stats={301:{total:2,correct:1,last:true},999:{total:100,correct:100,last:true}};renderLearn()");
 assert.deepEqual(a.all('.learning-overview dd').map(e=>e.textContent.trim()),['1 / 500問','100%','0問']);
 a.run("startStudy([301],'表示確認');model.answer(activeQuestion(301).a);renderPlay()");
