@@ -94,7 +94,7 @@
         if(info.unknown)return '';
         if(info.closed || (offset===0&&minutes>=info.hours[0]))continue;
         const prefix=offset===0?'本日':offset===1?'明日':`${d.getUTCMonth()+1}/${d.getUTCDate()}`;
-        return `${prefix}${timeText(info.hours[0])}〜の予定`;
+        return `${prefix} ${timeText(info.hours[0])}〜の予定`;
       }
       return '';
     };

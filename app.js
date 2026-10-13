@@ -171,11 +171,29 @@ function compareDifficulty(a,b) {
   const x = categoryDifficulty(a), y = categoryDifficulty(b);
   return x.bucket - y.bucket || x.rate - y.rate;
 }
+function categoryReviewState(c) {
+  const ids = c.list.filter(weak).map(q => q.id);
+  const {ready, waiting} = reviewAvailability(ids);
+  const at = waiting.length ? Math.min(...waiting.map(id => state.stats[id].reviewAt)) : 0;
+  const label = ids.length ? (ready.length ? `要復習 ${ids.length}問 · 今すぐ ${ready.length}問` : `復習待ち ${waiting.length}問`) : '';
+  return {disabled: categoryFilter === 'weak' && ids.length > 0 && !ready.length,
+    html: label + (waiting.length ? `<span class="category-wait-time">${ready.length ? '待機中 ' + waiting.length + '問 · ' : ''}最短 ${reviewWaitHTML(at)}</span>` : '')};
+}
+function refreshCategoryReview() {
+  if (view !== 'learn' || learnSection !== 'categories') return;
+  for (const card of $('learn').querySelectorAll('.category-card')) {
+    const c = CATS.find(c => c.k === card.dataset.cat); if (!c) continue;
+    const status = categoryReviewState({...c,list:categorized(c)});
+    card.querySelector('.category-entry').disabled = status.disabled;
+    const badge = card.querySelector('.category-review-badge');
+    if (badge.innerHTML !== status.html) badge.innerHTML = status.html;
+  }
+}
 function categoryCard(c) {
   const answered = c.list.filter(q => state.stats[q.id]?.total > 0);
   const correct = answered.filter(q => state.stats[q.id].last === true).length;
-  const accuracy = pct(correct, answered.length), weakCount = c.list.filter(weak).length;
-  return `<article class="category-card" data-cat="${c.k}"><button class="category-entry" data-action="category" data-cat="${c.k}">${icon(c.icon)}<span class="category-copy"><strong>${esc(c.extra ? '補足の学習' : c.label)}</strong><span class="category-accuracy">${answered.length ? `正解率 <b>${accuracy}<span>%</span></b>` : '未学習'}</span><small class="category-coverage">学習進捗 ${answered.length} / ${c.list.length}問</small>${weakCount ? `<span class="category-review-badge">要復習 ${weakCount}問</span>` : ''}</span><span class="card-chevron">${icon('chevron')}</span></button><details class="category-metrics"><summary>成績を見る</summary><small class="category-answer-count">${answered.length ? `正解 ${correct} / 回答済み ${answered.length}問` : `回答済み 0 / ${c.list.length}問`}</small><span class="progress" aria-hidden="true"><i style="width:${accuracy}%"></i></span>${answered.length > 0 && answered.length < 5 ? '<small class="category-sample-note">まだ回答少なめ（5問未満）</small>' : ''}</details></article>`;
+  const accuracy = pct(correct, answered.length), review = categoryReviewState(c);
+  return `<article class="category-card" data-cat="${c.k}"><button class="category-entry" data-action="category" data-cat="${c.k}" ${review.disabled ? 'disabled' : ''}>${icon(c.icon)}<span class="category-copy"><strong>${esc(c.extra ? '補足の学習' : c.label)}</strong><span class="category-accuracy">${answered.length ? `正解率 <b>${accuracy}<span>%</span></b>` : '未学習'}</span><small class="category-coverage">学習進捗 ${answered.length} / ${c.list.length}問</small><span class="category-review-badge">${review.html}</span></span><span class="card-chevron">${icon('chevron')}</span></button><details class="category-metrics"><summary>成績を見る</summary><small class="category-answer-count">${answered.length ? `正解 ${correct} / 回答済み ${answered.length}問` : `回答済み 0 / ${c.list.length}問`}</small><span class="progress" aria-hidden="true"><i style="width:${accuracy}%"></i></span>${answered.length > 0 && answered.length < 5 ? '<small class="category-sample-note">まだ回答少なめ（5問未満）</small>' : ''}</details></article>`;
 }
 function studySelection(list, count = 10) {
   const pending = shuffle(list.filter(q => !state.stats[q.id]?.total)), other = shuffle(list.filter(q => state.stats[q.id]?.total));
@@ -295,7 +313,7 @@ function submit() {
 }
 function finish(timeout = false) {
   if (!state.session || externalChange) return;
-  closeDialogs(); lastResult = model.finish(timeout); state = model.state; reviewFilter = 'wrong';
+  closeDialogs(); lastResult = model.finish(timeout); state = model.state; reviewFilter = defaultResultFilter(lastResult);
   tab = lastResult.mode === 'mock' ? 'mock' : lastResult.mode === 'review' ? 'review' : 'learn';
   renderResult(true); show('result'); $('result-title')?.focus({preventScroll:true});
 }
@@ -372,6 +390,22 @@ function resultComparison(r) {
   const previous = list.slice(0,index), highest = previous.length ? Math.max(...previous.map(a => a.scoreSnapshot)) : null;
   return { previousScore: previous.at(-1)?.scoreSnapshot ?? null, bestScore: Math.max(r.scoreSnapshot,highest ?? 0), newBest: highest !== null && r.scoreSnapshot > highest };
 }
+function defaultResultFilter(r) {
+  if (!r) return 'all';
+  if (r.ids.some((id,i) => typeof r.answers[i] === 'boolean' && byId.has(id) && r.answers[i] !== byId.get(id).a)) return 'wrong';
+  if (r.ids.some((id,i) => typeof r.answers[i] === 'boolean' && (r.flags?.[i] || r.uncertain?.[i]))) return 'uncertain';
+  return 'all';
+}
+function resultReviewProgress(r) {
+  if (r.mode !== 'review' && r.kind !== 'review') return '';
+  const answered = r.ids.filter((id,i) => typeof r.answers[i] === 'boolean');
+  if (!answered.length) return '';
+  const pending = answered.filter(id => model.weak(id));
+  if (!pending.length) return '<p class="notice">今回復習した問題は卒業しました。</p>';
+  const at = Math.min(...pending.map(id => state.stats[id].reviewAt));
+  const counts = [1,2].map(left => { const n = pending.filter(id => Math.max(0,2-(state.stats[id].reviewPass||0)) === left).length; return n ? `あと${left}回の正解で卒業：${n}問` : ''; }).filter(Boolean);
+  return `<div class="notice"><p>次の復習：${reviewWaitHTML(at)}（${pending.length}問）</p><p>${counts.join(' ／ ')}</p></div>`;
+}
 function renderResult(animate = false) {
   const r = lastResult; if (!r) return;
   const unanswered = r.ids.filter((id,i) => r.answers[i] === null), partial = partialAttempt(r), total = partial ? answeredCount(r) : r.total;
@@ -382,7 +416,7 @@ function renderResult(animate = false) {
   const resultArt = !answeredCount(r) ? null : !partial && r.total > 0 && r.scoreSnapshot === r.total ? 'D006' : !partial && r.total === 50 && r.scoreSnapshot >= 45 ? 'D004' : 'D013';
   const comparison = resultComparison(r);
   const diff = comparison.previousScore === null || comparison.previousScore === undefined ? null : r.scoreSnapshot - comparison.previousScore;
-  $('result').innerHTML = `<div class="playhead"><button class="btn secondary compact" data-action="tab" data-tab="${tab}">${icon('back')}一覧へ</button><span class="muted">${dateLabel(r.completedAt)}</span></div><article class="result-card"><h2 class="result-label" id="result-title" tabindex="-1">${esc(label)}の結果</h2><div class="result-hero"><div><div class="score">${total ? `${r.scoreSnapshot}<small>/ ${total}問</small>` : '回答なし'}</div></div>${resultArt ? characterArt(resultArt, `result-character${resultArt === 'D013' ? ' result-character-solo' : ''}`) : ''}</div>${r.timeout ? '<p class="muted">制限時間になったため50問で採点しました。未回答は0点ですが、学習の正答率・復習には含めません。</p>' : ''}${partial ? `<div class="notice partial-result">途中終了 · ${total} / ${r.total}問に回答。未回答${unanswered.length}問は正答率・復習に含めません。${r.worksheet ? '合否・最高点の対象外です。' : ''}</div>` : achievementHTML(r.scoreSnapshot, r.total, animate, r.mode === 'mock', ['mock','guided'].includes(r.mode))}${practice50 ? '<p class="muted">解説付き練習の成績です。30分模試とは別の記録になります。</p>' : ''}<details class="result-score-details"><summary>成績の詳細</summary><p class="accuracy">${partial ? '回答した問題の正答率' : '正答率'} <strong>${total ? `${pct(r.scoreSnapshot,total)}<small>%</small>` : '—'}</strong></p>${['mock','guided'].includes(r.mode) && !outdated && !partial ? `<div class="comparison"><div><span>${diff === null ? '前回との比較' : '前回 ' + comparison.previousScore + '点から'}</span><b>${diff === null ? '<small>はじめての記録</small>' : diff === 0 ? '±0点' : (diff > 0 ? '+' : '') + diff + '点'}</b></div><div><span>${comparison.newBest ? '最高点を更新' : '今回までの最高点'}</span><b>${comparison.bestScore ?? r.scoreSnapshot}<small> / 50点</small></b></div></div>` : ''}</details>${outdated ? '<div class="notice">得点は当時の保存値です。下の解説は現在の内容で、当時の採点と異なる場合があります。</div>' : ''}<div class="result-actions">${resultReviewIds(r).length ? `<div id="result-review-plan">${resultReviewPlan(r)}</div>` : `<button class="btn" data-action="tab" data-tab="${tab}">${tab === 'mock' ? '模試一覧へ' : '学習を続ける'} ${icon('arrow')}</button>`}${canRetry && unanswered.length ? `<button class="btn secondary" data-action="result-unanswered">未回答の${unanswered.length}問を学ぶ ${icon('book')}</button>` : ''}${r.worksheet && canRetry ? `<button class="btn secondary" data-action="start-guided" data-set="${r.worksheet}">この回を解説付きで練習</button>` : ''}${resultReviewIds(r).length ? `<button class="btn secondary" data-action="tab" data-tab="${tab}">${icon('back')}一覧へ戻る</button>` : ''}</div>${groups.length ? `<section class="result-weak"><h3>分野別の成績</h3><p class="muted">回答済みの問題を、正解率の低い順に表示。</p><div class="weak-topics">${groups.map(resultTopicCard).join('')}</div></section>` : ''}</article><div class="section-heading"><h3>回答を振り返る</h3></div>${filters('result-filter', reviewFilter, [['wrong','間違い'],['unanswered','未回答'],['uncertain','自信なし'],['all','すべて']])}${r.ids.map((id,i) => ({id,i})).filter(({id,i}) => reviewFilter === 'all' || (reviewFilter === 'unanswered' ? r.answers[i] === null : typeof r.answers[i] === 'boolean' && (reviewFilter === 'uncertain' ? r.flags?.[i] || r.uncertain?.[i] : byId.has(id) && r.answers[i] !== byId.get(id).a))).map(({id,i}) => reviewItem(id,r.answers[i],i,r.flags?.[i] || r.uncertain?.[i])).join('') || '<div class="empty">該当する問題はありません。「すべて」で全回答を確認できます。</div>'}`;
+  $('result').innerHTML = `<div class="playhead"><button class="btn secondary compact" data-action="tab" data-tab="${tab}">${icon('back')}一覧へ</button><span class="muted">${dateLabel(r.completedAt)}</span></div><article class="result-card"><h2 class="result-label" id="result-title" tabindex="-1">${esc(label)}の結果</h2><div class="result-hero"><div><div class="score">${total ? `${r.scoreSnapshot}<small>/ ${total}問</small>` : '回答なし'}</div></div>${resultArt ? characterArt(resultArt, `result-character${resultArt === 'D013' ? ' result-character-solo' : ''}`) : ''}</div>${r.timeout ? '<p class="muted">制限時間になったため50問で採点しました。未回答は0点ですが、学習の正答率・復習には含めません。</p>' : ''}${partial ? `<div class="notice partial-result">途中終了 · ${total} / ${r.total}問に回答。未回答${unanswered.length}問は正答率・復習に含めません。${r.worksheet ? '合否・最高点の対象外です。' : ''}</div>` : achievementHTML(r.scoreSnapshot, r.total, animate, r.mode === 'mock', ['mock','guided'].includes(r.mode))}${practice50 ? '<p class="muted">解説付き練習の成績です。30分模試とは別の記録になります。</p>' : ''}<details class="result-score-details"><summary>成績の詳細</summary><p class="accuracy">${partial ? '回答した問題の正答率' : '正答率'} <strong>${total ? `${pct(r.scoreSnapshot,total)}<small>%</small>` : '—'}</strong></p>${['mock','guided'].includes(r.mode) && !outdated && !partial ? `<div class="comparison"><div><span>${diff === null ? '前回との比較' : '前回 ' + comparison.previousScore + '点から'}</span><b>${diff === null ? '<small>はじめての記録</small>' : diff === 0 ? '±0点' : (diff > 0 ? '+' : '') + diff + '点'}</b></div><div><span>${comparison.newBest ? '最高点を更新' : '今回までの最高点'}</span><b>${comparison.bestScore ?? r.scoreSnapshot}<small> / 50点</small></b></div></div>` : ''}</details>${outdated ? '<div class="notice">得点は当時の保存値です。下の解説は現在の内容で、当時の採点と異なる場合があります。</div>' : ''}${resultReviewProgress(r)}<div class="result-actions">${resultReviewIds(r).length ? `<div id="result-review-plan">${resultReviewPlan(r)}</div>` : `<button class="btn" data-action="tab" data-tab="${tab}">${tab === 'mock' ? '模試一覧へ' : tab === 'review' ? '復習一覧へ' : '学習を続ける'} ${icon('arrow')}</button>`}${canRetry && unanswered.length ? `<button class="btn secondary" data-action="result-unanswered">未回答の${unanswered.length}問を学ぶ ${icon('book')}</button>` : ''}${r.worksheet && canRetry ? `<button class="btn secondary" data-action="start-guided" data-set="${r.worksheet}">この回を解説付きで練習</button>` : ''}${resultReviewIds(r).length ? `<button class="btn secondary" data-action="tab" data-tab="${tab}">${icon('back')}一覧へ戻る</button>` : ''}</div>${groups.length ? `<section class="result-weak"><h3>分野別の成績</h3><p class="muted">回答済みの問題を、正解率の低い順に表示。</p><div class="weak-topics">${groups.map(resultTopicCard).join('')}</div></section>` : ''}</article><div class="section-heading"><h3>回答を振り返る</h3></div>${filters('result-filter', reviewFilter, [['wrong','間違い'],['unanswered','未回答'],['uncertain','自信なし'],['all','すべて']])}${r.ids.map((id,i) => ({id,i})).filter(({id,i}) => reviewFilter === 'all' || (reviewFilter === 'unanswered' ? r.answers[i] === null : typeof r.answers[i] === 'boolean' && (reviewFilter === 'uncertain' ? r.flags?.[i] || r.uncertain?.[i] : byId.has(id) && r.answers[i] !== byId.get(id).a))).map(({id,i}) => reviewItem(id,r.answers[i],i,r.flags?.[i] || r.uncertain?.[i])).join('') || '<div class="empty">該当する問題はありません。「すべて」で全回答を確認できます。</div>'}`;
   const plan = $('result-review-plan');
   if (plan) { const {ready,waiting} = reviewAvailability(resultReviewIds(r)); plan.dataset.availability = ready.join(',') + '|' + waiting.join(','); }
 }
@@ -441,12 +475,22 @@ function preview(score) {
   $('achievement-preview').querySelectorAll('[data-action="preview"]').forEach(b => b.setAttribute('aria-pressed',String(Number(b.dataset.score) === n)));
   if (!$('achievement-preview').open) $('achievement-preview').showModal();
 }
+function resetFigureZoom() {
+  $('figure-content').style.zoom = '1';
+  $('figure-content').style.width = '100%';
+}
+function setFigureZoom(percent) {
+  const width = $('figure-dialog').querySelector('.figure-scroll').clientWidth;
+  if (width) $('figure-content').style.width = width + 'px';
+  $('figure-content').style.zoom = String(percent / 100);
+}
+window.addEventListener('resize', () => { if ($('figure-dialog').open) setFigureZoom(Number($('figure-zoom').value)); });
 function openQuestionArt(id, revealed) {
   const q = byId.get(id); if (!q) return;
   if (state.session?.mode === 'exam') revealed = false;
-  $('figure-content').innerHTML = questionArt(q,revealed,true); $('figure-zoom').value = '100'; $('figure-content').style.width = '100%'; $('figure-dialog').showModal();
+  $('figure-content').innerHTML = questionArt(q,revealed,true); $('figure-zoom').value = '100'; resetFigureZoom(); $('figure-dialog').showModal();
 }
-function openFigure(k) { if (state.session?.mode === 'exam' || !FIG[k]) return; $('figure-content').innerHTML = figHTML(k); $('figure-content').style.width = '100%'; $('figure-zoom').value = '100'; $('figure-dialog').showModal(); }
+function openFigure(k) { if (state.session?.mode === 'exam' || !FIG[k]) return; $('figure-content').innerHTML = figHTML(k); resetFigureZoom(); $('figure-zoom').value = '100'; $('figure-dialog').showModal(); }
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-action]'); if (!b || b.disabled || externalChange) return;
   const a = b.dataset.action, s = state.session;
@@ -460,7 +504,7 @@ document.addEventListener('click', e => {
   else if (a === 'start-mock' || a === 'start-guided') startSet(Number(b.dataset.set),a === 'start-mock' ? 'mock' : 'guided');
   else if (a === 'resume') resume(b.dataset.mode);
   else if (a === 'quick-study') startStudy(studySelection(Q), '10問の学習');
-  else if (a === 'category') { const c = CATS.find(c => c.k === b.dataset.cat); if (c) { let list = categorized(c); if (categoryFilter === 'new') list = list.filter(q => !state.stats[q.id]?.total); if (categoryFilter === 'weak') list = list.filter(weak); startStudy(studySelection(list), c.extra ? '補足の学習' : c.label, categoryFilter === 'weak' ? 'review' : 'study'); } }
+  else if (a === 'category') { const c = CATS.find(c => c.k === b.dataset.cat); if (c) { let list = categorized(c); if (categoryFilter === 'new') list = list.filter(q => !state.stats[q.id]?.total); if (categoryFilter === 'weak') list = list.filter(q => weak(q) && model.due(q.id)); startStudy(studySelection(list), c.extra ? '補足の学習' : c.label, categoryFilter === 'weak' ? 'review' : 'study'); } }
   else if (a === 'due') startStudy(model.schedule().due.slice(0,10).map(q => q.id),'今日の復習','review');
   else if (a === 'review-ready') startStudy(model.schedule().due.map(q => q.id),'今すぐ復習','review');
   else if (a === 'review-one') { const q = activeQuestion(b.dataset.id); if (q && model.due(q.id)) startStudy([q.id],'今すぐ復習','review'); }
@@ -478,7 +522,7 @@ document.addEventListener('click', e => {
   else if (a === 'result-topic' && lastResult) { const group = resultWeakGroups(lastResult).find(g => g.k === b.dataset.cat); if (group) startStudy(reviewAvailability(group.ids).ready,group.label + 'の復習','review'); }
   else if (a === 'result-retry' && lastResult) startStudy(reviewAvailability(resultReviewIds(lastResult)).ready,'不正解・自信なしの復習','review');
   else if (a === 'result-unanswered' && lastResult) startStudy(lastResult.ids.filter((id,i) => activeQuestion(id) && lastResult.answers[i] === null),'未回答の問題');
-  else if (a === 'stored-result') { if (s?.mode === 'exam') return; const r = findAttempt(b.dataset.id); if (r) { $('detail').close(); lastResult = r; reviewFilter = 'wrong'; tab = r.mode === 'mock' ? 'mock' : 'learn'; renderResult(); show('result'); } }
+  else if (a === 'stored-result') { if (s?.mode === 'exam') return; const r = findAttempt(b.dataset.id); if (r) { $('detail').close(); lastResult = r; reviewFilter = defaultResultFilter(r); tab = r.mode === 'mock' ? 'mock' : 'learn'; renderResult(); show('result'); } }
   else if (a === 'learn-section') { learnSection = b.dataset.section; renderLearn(); $('learn-tab-' + learnSection).focus({preventScroll:true}); }
   else if (a === 'notes') openNotes();
   else if (a === 'note') openNotes(b.dataset.id,b.dataset.fig);
@@ -523,7 +567,7 @@ document.addEventListener('compositionend', e => {
   if (e.target.id === 'note-search') { noteComposing = false; searchNotes(e.target); }
 });
 document.addEventListener('input', e => {
-  if (e.target.id === 'figure-zoom') $('figure-content').style.width = e.target.value + '%';
+  if (e.target.id === 'figure-zoom') setFigureZoom(Number(e.target.value));
   if (e.target.id === 'note-search' && !noteComposing && !e.isComposing) searchNotes(e.target);
 });
 $('confirm-yes').addEventListener('click', () => { const action = modalAction; modalAction = null; $('confirm').close(); if (!externalChange) action?.(); });
@@ -561,6 +605,7 @@ function refreshReviewSchedule() {
   });
   if (view === 'play' && state.session?.kind === 'review' && $('play').querySelector('[data-review-at]') && !$('play').querySelector('[data-action="answer"]') && state.session.answers[state.session.index] === null && model.due(state.session.ids[state.session.index])) renderPlay();
   refreshResultReview();
+  refreshCategoryReview();
   if (view !== 'review') return;
   const signature = reviewSignature(model.schedule().due);
   if (signature !== displayedReviewSignature) {

@@ -575,3 +575,29 @@ console.log('PASS: three-mode resume after reload, difficulty ordering, related-
  assert.equal(a.errors.length,0);a.close();
 }
 console.log('PASS: review status for first error, correct retry, reset, uncertainty and graduation.');
+
+// Review cards communicate cooldown before a click and unlock without reloading.
+{
+ const a=app();
+ const id=a.run('categorized(CATS[0])[0].id');
+ a.run(`model.record(${id},!activeQuestion(${id}).a);model.record(${id},!activeQuestion(${id}).a);model.save()`);
+ a.click('#tab-learn');a.click('[data-action="category-filter"][data-filter="weak"]');
+ assert.equal(a.query('.category-entry').disabled,true);
+ assert.match(a.query('.category-review-badge').textContent,/復習待ち 1問.*あと30分/);
+ a.clock.now+=30*60*1000;a.run('refreshReviewSchedule()');
+ assert.equal(a.query('.category-entry').disabled,false);
+ a.click('.category-entry');
+ a.run('model.answer(activeQuestion(state.session.ids[0]).a);finish()');
+ assert.match(a.query('#result').textContent,/次の復習：あと30分.*あと1回の正解で卒業：1問/);
+ assert.equal(a.run('reviewFilter'),'all');
+ assert.match(a.query('.result-actions').textContent,/復習一覧へ/);
+ a.close();
+}
+// The initial result view shows flags when there are no wrong answers.
+{
+ const a=app();
+ a.run('model.begin({ids:[Q[0].id],kind:"study"});model.answer(Q[0].a,true);finish()');
+ assert.equal(a.run('reviewFilter'),'uncertain');
+ assert.equal(a.all('#result details.review-item').length,1);
+ a.close();
+}

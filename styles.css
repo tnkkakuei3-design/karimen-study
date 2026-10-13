@@ -145,10 +145,10 @@ summary::marker{color:var(--muted)}
 .question-visual-head,.fig-top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 14px;font-size:13px;font-weight:650;background:var(--bg)}
 .question-visual-head .textbtn,.fig-top .textbtn{flex-shrink:0}
 .sourced-pictures{display:flex;align-items:center;justify-content:center;gap:12px;padding:18px;background:#fff}
-.sourced-pictures img{display:block;max-width:100%;max-height:300px;width:auto;height:auto;object-fit:contain}
+.sourced-pictures img{display:block;max-width:100%;max-height:300px;width:100%;height:300px;object-fit:contain}
 .sourced-pictures.paired img{max-width:46%}
 .sourced-pictures.stacked{flex-direction:column}
-.sourced-pictures.stacked img+img{max-height:75px}
+.sourced-pictures.stacked img+img{height:75px;max-height:75px}
 .question-visual>svg{display:block;width:100%;max-height:300px;background:white}
 .visual-answer{padding:14px;font-size:14px;border-top:1px solid var(--line)}
 .visual-answer p{margin-top:4px}
@@ -269,7 +269,7 @@ to{opacity:0;transform:translateY(160px) rotate(var(--spin))}
 .figure-toolbar label{display:flex;gap:6px;align-items:center;min-width:0;font-size:13px}
 .figure-toolbar input{width:130px;max-width:36vw;min-height:44px}
 .figure-scroll{overflow:auto;max-height:70dvh}
-.figure-dialog .sourced-pictures img{width:auto;max-height:none}
+.figure-dialog .sourced-pictures img{width:auto;height:auto;max-height:none}
 .figure-dialog .sourced-pictures.single img{max-width:100%;width:100%}
 .figure-dialog .question-visual .textbtn,.figure-dialog .fig-top .textbtn{display:none}
 .toast{position:fixed;z-index:60;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translateX(-50%);max-width:calc(100% - 32px);width:max-content;padding:12px 20px;border-radius:12px;background:#163753;color:#fff;font-size:14px;box-shadow:0 4px 20px #0003}
@@ -909,8 +909,8 @@ h2,h3{font-weight:700}
 .result-score-details .comparison{margin-top:16px;}
 
 /* Keep choices readable; secondary statistics are available on demand. */
-#learn .category-card{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:0;background:transparent;border:0;border-radius:0}
-.category-entry{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;align-content:start;flex:1;gap:12px;width:100%;padding:14px;min-height:94px;border:1px solid var(--line);border-radius:10px;background:var(--surface);text-align:left;color:var(--fg)}
+#learn .category-card{display:grid;grid-template-rows:subgrid;grid-row:span 2;align-items:stretch;gap:0;padding:0;background:transparent;border:0;border-radius:0}
+.category-entry{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;align-content:start;gap:12px;width:100%;padding:14px;min-height:94px;border:1px solid var(--line);border-radius:10px;background:var(--surface);text-align:left;color:var(--fg)}
 .category-entry:hover{border-color:var(--blue)}
 .category-entry:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 .category-entry .category-accuracy{display:block;min-height:24px;margin-top:8px}
@@ -944,3 +944,11 @@ h2,h3{font-weight:700}
 #mock>.seg button,#result>.seg button,.learn-controls>.seg button{border:0;border-bottom:2px solid transparent;border-radius:0;background:transparent;padding:8px 4px;font-weight:500}
 #mock>.seg button[aria-pressed=true],#result>.seg button[aria-pressed=true],.learn-controls>.seg button[aria-pressed=true]{border-bottom-color:var(--blue);color:var(--blue)}
 @media(max-width:374px){#learn .category-card{padding-inline:6px}.category-entry{min-height:100px}#learn .category-entry .category-copy>strong{font-size:14px}.weak-topic{gap:0 6px}.weak-topic>.textbtn{font-size:13px}}
+
+/* SVG coordinates are authored for a 380-unit canvas, not body typography. */
+.fig svg .th,.note-preview svg .th{font-size:14px;font-weight:600;fill:#243b53}
+.fig svg .ts,.note-preview svg .ts{font-size:11px;font-weight:400;fill:#243b53}
+.category-entry:disabled{opacity:1;color:var(--muted);background:var(--pale);cursor:default}
+.category-entry:disabled .card-chevron{visibility:hidden}
+.category-entry .category-review-badge{display:block;min-height:2.8em;line-height:1.4}
+.category-entry .category-wait-time{display:block;font-weight:400;color:var(--muted)}
