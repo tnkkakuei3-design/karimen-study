@@ -28,15 +28,18 @@ const a=app();
 a.run("navigate('learn')");assert.equal(a.query('#learn .placement-character').getAttribute('src'),'./assets/characters/D047.png');
 a.run("navigate('review')");assert.equal(a.query('#review .placement-character').getAttribute('src'),'./assets/characters/D012.png');
 a.run("model.record(301,!activeQuestion(301).a);state.stats[301].reviewAt=Date.now()-1;renderReview()");assert.equal(a.query('#review .placement-character').getAttribute('src'),'./assets/characters/D051.png');
+a.run("model.begin({ids:[301],kind:'review'});model.answer(activeQuestion(301).a);model.finish();renderReview()");assert.equal(a.query('#review .placement-character').getAttribute('src'),'./assets/characters/D051.png');
+a.clock.now+=30*60*1000;
 a.run("model.begin({ids:[301],kind:'review'});model.answer(activeQuestion(301).a);model.finish();renderReview()");assert.match(a.query('#review').textContent,/今日の復習は完了/);assert.equal(a.query('#review .placement-character').getAttribute('src'),'./assets/characters/D011.png');
-a.clock.now+=86400000;a.run('state.stats[301].reviewAt=Date.now()+86400000;renderReview()');assert.equal(a.query('#review .placement-character').getAttribute('src'),'./assets/characters/D012.png');
-for(const [score,total,expected] of [[44,50,'image-155cadc1029a'],[45,50,'D004'],[49,50,'D004'],[50,50,'D006'],[9,10,'image-155cadc1029a'],[10,10,'D006']]){
- a.run(`lastResult={ids:[],answers:[],total:${total},scoreSnapshot:${score},mode:'study',completedAt:Date.now(),contentVersion:CONTENT_VERSION};renderResult()`);
+a.clock.now+=86400000;a.run('renderReview()');assert.equal(a.query('#review .placement-character').getAttribute('src'),'./assets/characters/D012.png');
+for(const [score,total,expected] of [[44,50,'D013'],[45,50,'D004'],[49,50,'D004'],[50,50,'D006'],[9,10,'D013'],[10,10,'D006']]){
+ a.run(`lastResult={ids:Q.slice(0,${total}).map(q=>q.id),answers:Q.slice(0,${total}).map((q,i)=>i<${score}?q.a:!q.a),total:${total},scoreSnapshot:${score},mode:'study',completedAt:Date.now(),contentVersion:CONTENT_VERSION};renderResult()`);
  assert.ok(a.query('#result .result-character').getAttribute('src').includes(expected));
 }
 a.run("openNotes('n-hand')");assert.equal(a.query('#n-hand .caution-guide').getAttribute('src'),'./assets/characters/D042.png');
+a.run("openNotes('n-speed')");assert.equal(a.all('#n-speed .caution-guide').length,0);
 a.run("state.misses={};state.stats={301:{total:2,correct:1,last:true},999:{total:100,correct:100,last:true}};renderLearn()");
-assert.deepEqual(a.all('.learning-overview dd').map(e=>e.textContent.trim()),['1 / 500問','50%','0問']);
+assert.deepEqual(a.all('.learning-overview dd').map(e=>e.textContent.trim()),['1 / 500問','100%','0問']);
 a.run("startStudy([301],'表示確認');model.answer(activeQuestion(301).a);renderPlay()");
 assert.equal(a.all('.learning-next-bar #next').length,1);
 a.close();console.log('PASS: selected assets, completion vs waiting vs unregistered, next-day reset, 44/45/49/50 and 9/10 results, note caution.');

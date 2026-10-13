@@ -196,6 +196,21 @@ assert.match(a.query('.answer-uncertain').textContent,/復習に残しました/
 assert.equal(a.run('model.weak(710)'),true);assert.equal(a.errors.length,0);a.close();
 // Category accuracy uses the latest answer to each attempted question, never the entire bank or repeat count.
 {
+ a=app();a.click('#tab-review');
+ assert.equal(a.all('#review .review-now-card,#review .review-timing').length,0);
+ assert.equal(a.all('#review .empty').length,1);
+ a.click('#tab-learn');
+ const metrics=a.query('.category-metrics');
+ assert.equal(metrics.open,false);
+ metrics.querySelector('summary').click();
+ assert.equal(metrics.open,true);
+ assert.equal(a.run('state.session'),null);
+ assert.ok(metrics.querySelector('.category-accuracy'));
+ a.click('.category-entry');
+ assert.equal(a.query('#play').hidden,false);
+ a.close();
+}
+{
  a=app();a.click('#tab-learn');
  assert.ok(a.all('.category-accuracy').every(el=>el.textContent==='未学習'));
  assert.ok(a.all('.category-card .progress i').every(el=>el.style.width==='0%'));
