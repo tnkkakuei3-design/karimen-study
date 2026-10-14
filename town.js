@@ -64,7 +64,7 @@
   }
   function badge(shop) { if(shop.voucherStatus==='unconfirmed')return '<span class="town-ticket town-ticket-unconfirmed">食券対応は店舗へ確認</span>'; return `<span class="town-ticket">${shop.facility ? '施設内の飲食店で食券利用可' : '食券利用可'}</span>`; }
   function media(shop, kind='card') {
-    if(shop.parentId && !suppliedPhotos(shop).length)return `<div class="town-photo-source">${icon('photo')}${link(shop.source,'料理写真・メニューを見る ↗')}</div>`;
+    if(shop.parentId && !suppliedPhotos(shop).length)return `<div class="town-photo-source">${icon('photo')}${link(shop.photoSource || shop.source,'料理写真・メニューを見る ↗')}</div>`;
     const glyph = shop.tags.includes('cafe') ? 'cafe' : shop.tags.includes('bakery') ? 'bag' : shop.facility ? 'shop' : 'food';
     return `<div class="town-media town-media-${kind}" data-town-photo="${shop.id}"><div class="town-photo-placeholder">${icon(glyph)}<small>店舗写真は未掲載です</small></div></div>`;
   }

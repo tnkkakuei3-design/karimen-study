@@ -511,3 +511,10 @@ marketGuide.note = '教習所の案内では市場内の飲食店が対象です
 const ceramicCafe = window.KarimenTownData.shops.find(s => s.id === 'cafe-itoman');
 Object.assign(ceramicCafe, {shortName:'セラミックアートカフェ イトマン',aliases:['Ceramic Art Cafe Itoman','カフェイトマン'],category:'カフェ・沖縄料理',menus:['イナムドゥチ','タコライス','カレーライス'],price:'掲載例：タコライス880円／イナムドゥチ1,100円',priceSource:'https://www.098markets.net/about-cafe/',menuSourceNote:'店舗公式サイトより。価格は掲載時点の参考です。',hours:'営業案内に複数の記載があるため店舗へ確認',closed:'店舗へ確認',source:'https://www.098markets.net/about-cafe/',note:'陶芸体験もできるカフェ。市場とは別の店舗です。営業時間は公式内にも複数の記載があります。'});
 window.KarimenTownData.schedules['cafe-itoman'] = {uncertain:'営業時間・営業日は店舗へ確認'};
+
+marketGuide.menuSourceNote = '市場内店舗の公開メニューより。';
+const marketPhotoSources = {
+ 'itomaru-chef-vegeta':'https://www.otv.co.jp/okitive/article/90482/',
+ 'itomaru-fullhouse':'https://tabelog.com/okinawa/A4704/A470402/47033757/'
+};
+for (const shop of window.KarimenTownData.marketShops) shop.photoSource = marketPhotoSources[shop.id] || shop.source;
