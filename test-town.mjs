@@ -113,7 +113,7 @@ for(const media of a.all('.town-media-card.has-photo')){
  assert.equal(media.querySelector('.town-gallery-help').textContent.includes('横スワイプ'),media.querySelectorAll('figure').length>1);
 }
 assert.equal(a.all('.town-card .town-photo-placeholder').length,0,'all listed shops have selected photos');
-assert.equal(a.all('.town-card .town-photo-gallery img').length,22,'cards show up to three actual venue photos');
+assert.equal(a.all('.town-card .town-photo-gallery img').length,23,'cards show up to three actual venue photos');
 assert.equal(a.all('.town-card .town-photo-kind').length,0,'no generic food imagery is displayed');
 assert.ok(a.all('.town-card .town-photo-credit').every(el=>el.querySelector('a[target="_blank"]')),'every photo retains its source');
 assert.equal(a.all('[data-town-photo="itomaru"] .town-photo-credit a[href*="creativecommons.org"]').length,3,'existing photo licences remain accessible');
