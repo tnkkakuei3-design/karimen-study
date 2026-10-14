@@ -1,0 +1,1073 @@
+{
+  "checkedOn": "2026-10-15",
+  "method": "Google Maps visible listing and expanded weekly hours; 23 matched businesses; no live-open guarantee.",
+  "shops": {
+    "center": {
+      "googleName": "センター食堂",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=17618366668158956659",
+      "fields": {
+        "hours": "7:00〜17:00（売り切れ次第終了）",
+        "closed": "月曜日"
+      },
+      "weekly": [
+        [
+          [
+            420,
+            1020
+          ]
+        ],
+        [],
+        [
+          [
+            420,
+            1020
+          ]
+        ],
+        [
+          [
+            420,
+            1020
+          ]
+        ],
+        [
+          [
+            420,
+            1020
+          ]
+        ],
+        [
+          [
+            420,
+            1020
+          ]
+        ],
+        [
+          [
+            420,
+            1020
+          ]
+        ]
+      ]
+    },
+    "umibozu": {
+      "googleName": "海ぼうず",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=2853118667862778453",
+      "fields": {
+        "hours": "11:00〜14:00（売り切れ次第終了）",
+        "closed": "水・土・日曜日"
+      },
+      "weekly": [
+        [],
+        [
+          [
+            660,
+            840
+          ]
+        ],
+        [
+          [
+            660,
+            840
+          ]
+        ],
+        [],
+        [
+          [
+            660,
+            840
+          ]
+        ],
+        [
+          [
+            660,
+            840
+          ]
+        ],
+        []
+      ]
+    },
+    "kirakira": {
+      "googleName": "きらきら",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=18138892008727694494",
+      "fields": {
+        "hours": "14:00〜21:00",
+        "closed": "水・土・日曜日"
+      },
+      "weekly": [
+        [],
+        [
+          [
+            840,
+            1260
+          ]
+        ],
+        [
+          [
+            840,
+            1260
+          ]
+        ],
+        [],
+        [
+          [
+            840,
+            1260
+          ]
+        ],
+        [
+          [
+            840,
+            1260
+          ]
+        ],
+        []
+      ]
+    },
+    "kinta": {
+      "googleName": "きんた",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=11024758514874683227",
+      "fields": {
+        "phone": "098-995-3228"
+      },
+      "hoursNote": "Googleマップに営業時間の掲載なし。営業時間・定休日は教習所の案内表。"
+    },
+    "chiquita": {
+      "googleName": "チキータ",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=4608055576618688795",
+      "fields": {},
+      "weekly": [
+        [],
+        [
+          [
+            540,
+            1020
+          ]
+        ],
+        [
+          [
+            540,
+            1020
+          ]
+        ],
+        [
+          [
+            540,
+            1020
+          ]
+        ],
+        [
+          [
+            540,
+            1020
+          ]
+        ],
+        [
+          [
+            540,
+            1020
+          ]
+        ],
+        [
+          [
+            540,
+            1020
+          ]
+        ]
+      ],
+      "hoursNote": "祝日休みは教習所の案内表。"
+    },
+    "mahoroba": {
+      "googleName": "食工房まほろば",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=8364197241887976262",
+      "fields": {
+        "name": "食工房まほろば",
+        "hours": "月〜水・金 10:30〜15:00／土・日 10:30〜17:00",
+        "closed": "木曜日"
+      },
+      "weekly": [
+        [
+          [
+            630,
+            1020
+          ]
+        ],
+        [
+          [
+            630,
+            900
+          ]
+        ],
+        [
+          [
+            630,
+            900
+          ]
+        ],
+        [
+          [
+            630,
+            900
+          ]
+        ],
+        [],
+        [
+          [
+            630,
+            900
+          ]
+        ],
+        [
+          [
+            630,
+            1020
+          ]
+        ]
+      ]
+    },
+    "ritz": {
+      "googleName": "リッツ・パンとケーキのお店",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=16326251258402519037",
+      "fields": {
+        "name": "リッツ・パンとケーキのお店",
+        "address": "沖縄県糸満市糸満989-8 フォーションビル"
+      },
+      "weekly": [
+        [
+          [
+            660,
+            1080
+          ]
+        ],
+        [
+          [
+            480,
+            1170
+          ]
+        ],
+        [
+          [
+            480,
+            1170
+          ]
+        ],
+        [
+          [
+            480,
+            1170
+          ]
+        ],
+        [
+          [
+            480,
+            1170
+          ]
+        ],
+        [
+          [
+            480,
+            1170
+          ]
+        ],
+        [
+          [
+            480,
+            1170
+          ]
+        ]
+      ]
+    },
+    "uminchu": {
+      "googleName": "糸満海人食堂",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=6703247325810295586",
+      "fields": {
+        "phone": "098-911-7466",
+        "note": "",
+        "hours": "17:00〜21:00",
+        "closed": "月曜日"
+      },
+      "weekly": [
+        [
+          [
+            1020,
+            1260
+          ]
+        ],
+        [],
+        [
+          [
+            1020,
+            1260
+          ]
+        ],
+        [
+          [
+            1020,
+            1260
+          ]
+        ],
+        [
+          [
+            1020,
+            1260
+          ]
+        ],
+        [
+          [
+            1020,
+            1260
+          ]
+        ],
+        [
+          [
+            1020,
+            1260
+          ]
+        ]
+      ]
+    },
+    "konaya": {
+      "googleName": "こなや本家",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=277980487656512941",
+      "fields": {
+        "hours": "月〜水・金・土 17:00〜24:00／日 15:00〜23:00",
+        "closed": "木曜日・毎月末の水曜日（案内表）"
+      },
+      "weekly": [
+        [
+          [
+            900,
+            1380
+          ]
+        ],
+        [
+          [
+            1020,
+            1440
+          ]
+        ],
+        [
+          [
+            1020,
+            1440
+          ]
+        ],
+        [
+          [
+            1020,
+            1440
+          ]
+        ],
+        [],
+        [
+          [
+            1020,
+            1440
+          ]
+        ],
+        [
+          [
+            1020,
+            1440
+          ]
+        ]
+      ],
+      "hoursNote": "毎月末の水曜休みは教習所の案内表。"
+    },
+    "yotsuba": {
+      "googleName": "よつばキッチン",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=11607675422554993634",
+      "fields": {
+        "hours": "10:30〜13:30（売り切れ次第終了）"
+      },
+      "weekly": [
+        [],
+        [
+          [
+            630,
+            810
+          ]
+        ],
+        [
+          [
+            630,
+            810
+          ]
+        ],
+        [],
+        [
+          [
+            630,
+            810
+          ]
+        ],
+        [
+          [
+            630,
+            810
+          ]
+        ],
+        []
+      ],
+      "hoursNote": "祝日休み・売り切れ次第終了は教習所の案内表。"
+    },
+    "cafe-itoman": {
+      "googleName": "Ceramic Art Cafe Itoman",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=2923301630253285552",
+      "fields": {
+        "phone": "080-9856-7209",
+        "note": "陶芸体験もできるカフェ。市場とは別の店舗です。",
+        "hours": "10:00〜17:00",
+        "closed": "月・木曜日"
+      },
+      "weekly": [
+        [
+          [
+            600,
+            1020
+          ]
+        ],
+        [],
+        [
+          [
+            600,
+            1020
+          ]
+        ],
+        [
+          [
+            600,
+            1020
+          ]
+        ],
+        [],
+        [
+          [
+            600,
+            1020
+          ]
+        ],
+        [
+          [
+            600,
+            1020
+          ]
+        ]
+      ]
+    },
+    "itomaru": {
+      "googleName": "糸満市場いとま〜る",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=4541085633340663663",
+      "fields": {
+        "name": "糸満市場いとま〜る"
+      },
+      "weekly": [
+        [
+          [
+            540,
+            1080
+          ]
+        ],
+        [
+          [
+            540,
+            1080
+          ]
+        ],
+        [
+          [
+            540,
+            1080
+          ]
+        ],
+        [
+          [
+            540,
+            1080
+          ]
+        ],
+        [
+          [
+            540,
+            1080
+          ]
+        ],
+        [
+          [
+            540,
+            1080
+          ]
+        ],
+        [
+          [
+            540,
+            1080
+          ]
+        ]
+      ]
+    },
+    "ichiman-yokocho": {
+      "googleName": "いちまん横丁",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=14223587569544822736",
+      "fields": {
+        "hours": "施設 15:00〜翌1:00（各店で異なります）",
+        "closed": "施設は定休日の登録なし（各店へ確認）"
+      },
+      "weekly": [
+        [
+          [
+            900,
+            1500
+          ]
+        ],
+        [
+          [
+            900,
+            1500
+          ]
+        ],
+        [
+          [
+            900,
+            1500
+          ]
+        ],
+        [
+          [
+            900,
+            1500
+          ]
+        ],
+        [
+          [
+            900,
+            1500
+          ]
+        ],
+        [
+          [
+            900,
+            1500
+          ]
+        ],
+        [
+          [
+            900,
+            1500
+          ]
+        ]
+      ]
+    },
+    "zero": {
+      "googleName": "喫茶&BAR ゼロ番地",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=4018820949840365000",
+      "fields": {
+        "name": "喫茶&BAR ゼロ番地",
+        "hours": "月〜金 11:30〜24:00／土・日 12:00〜翌2:00",
+        "closed": "Googleマップに定休日の登録なし"
+      },
+      "weekly": [
+        [
+          [
+            720,
+            1560
+          ]
+        ],
+        [
+          [
+            690,
+            1440
+          ]
+        ],
+        [
+          [
+            690,
+            1440
+          ]
+        ],
+        [
+          [
+            690,
+            1440
+          ]
+        ],
+        [
+          [
+            690,
+            1440
+          ]
+        ],
+        [
+          [
+            690,
+            1440
+          ]
+        ],
+        [
+          [
+            720,
+            1560
+          ]
+        ]
+      ],
+      "hoursNote": "昼・夜の提供メニューと中休みは店舗へ確認。"
+    },
+    "itomaru-knowry": {
+      "googleName": "Knowry's Fried Fish",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=2667753529834807503",
+      "fields": {
+        "name": "Knowry's Fried Fish"
+      },
+      "weekly": [
+        [
+          [
+            690,
+            1260
+          ]
+        ],
+        [
+          [
+            690,
+            1260
+          ]
+        ],
+        [
+          [
+            690,
+            1260
+          ]
+        ],
+        [],
+        [
+          [
+            690,
+            1260
+          ]
+        ],
+        [
+          [
+            690,
+            1260
+          ]
+        ],
+        [
+          [
+            690,
+            1260
+          ]
+        ]
+      ]
+    },
+    "itomaru-minatomachi": {
+      "googleName": "港町パーラー",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=17563875919216926015",
+      "fields": {
+        "name": "港町パーラー",
+        "closed": "Googleマップに定休日の登録なし"
+      },
+      "weekly": [
+        [
+          [
+            660,
+            900
+          ]
+        ],
+        [
+          [
+            660,
+            900
+          ]
+        ],
+        [
+          [
+            660,
+            900
+          ]
+        ],
+        [
+          [
+            660,
+            900
+          ]
+        ],
+        [
+          [
+            660,
+            900
+          ]
+        ],
+        [
+          [
+            660,
+            900
+          ]
+        ],
+        [
+          [
+            660,
+            900
+          ]
+        ]
+      ],
+      "hoursNote": "市場公式には火曜休みの記載あり。火曜日は来店前に確認。"
+    },
+    "itomaru-fullhouse": {
+      "googleName": "THE BURGER STADIUM FULL HOUSE",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=6800332294988217986",
+      "fields": {
+        "phone": "090-7585-0307",
+        "hours": "火〜金 11:00〜15:00／土 11:00〜20:00",
+        "closed": "日・月曜日"
+      },
+      "weekly": [
+        [],
+        [],
+        [
+          [
+            660,
+            900
+          ]
+        ],
+        [
+          [
+            660,
+            900
+          ]
+        ],
+        [
+          [
+            660,
+            900
+          ]
+        ],
+        [
+          [
+            660,
+            900
+          ]
+        ],
+        [
+          [
+            660,
+            1200
+          ]
+        ]
+      ]
+    },
+    "itomaru-gajimaru": {
+      "googleName": "琉球半身揚げ がじまるや〜",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=14437186541887702173",
+      "fields": {
+        "phone": "098-800-2937",
+        "name": "琉球半身揚げ がじまるや〜",
+        "hours": "11:00〜21:00（売り切れ次第終了）"
+      },
+      "weekly": [
+        [
+          [
+            660,
+            1260
+          ]
+        ],
+        [],
+        [
+          [
+            660,
+            1260
+          ]
+        ],
+        [
+          [
+            660,
+            1260
+          ]
+        ],
+        [
+          [
+            660,
+            1260
+          ]
+        ],
+        [
+          [
+            660,
+            1260
+          ]
+        ],
+        [
+          [
+            660,
+            1260
+          ]
+        ]
+      ]
+    },
+    "itomaru-manjuen": {
+      "googleName": "万寿園",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=8991389386691169069",
+      "fields": {
+        "hours": "11:00〜17:00",
+        "closed": "月・火曜日"
+      },
+      "weekly": [
+        [
+          [
+            660,
+            1020
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            660,
+            1020
+          ]
+        ],
+        [
+          [
+            660,
+            1020
+          ]
+        ],
+        [
+          [
+            660,
+            1020
+          ]
+        ],
+        [
+          [
+            660,
+            1020
+          ]
+        ]
+      ]
+    },
+    "itomaru-naminami": {
+      "googleName": "沖縄のスパイスカレー スパイスキッチンナミナミ spice Kitchen naminami",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=3141744819438493155",
+      "fields": {
+        "closed": "火・木・日曜日"
+      },
+      "weekly": [
+        [],
+        [
+          [
+            660,
+            900
+          ]
+        ],
+        [],
+        [
+          [
+            660,
+            900
+          ]
+        ],
+        [],
+        [
+          [
+            660,
+            900
+          ]
+        ],
+        [
+          [
+            660,
+            900
+          ]
+        ]
+      ]
+    },
+    "itomaru-lazy-pub": {
+      "googleName": "LAZY_PUB",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=9584425969512097449",
+      "fields": {
+        "name": "LAZY_PUB",
+        "shortName": "LAZY_PUB",
+        "phone": "080-9851-5749",
+        "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る D4",
+        "hours": "11:00〜15:00／18:00〜22:00"
+      },
+      "weekly": [
+        [
+          [
+            660,
+            900
+          ],
+          [
+            1080,
+            1320
+          ]
+        ],
+        [
+          [
+            660,
+            900
+          ],
+          [
+            1080,
+            1320
+          ]
+        ],
+        [
+          [
+            660,
+            900
+          ],
+          [
+            1080,
+            1320
+          ]
+        ],
+        [],
+        [
+          [
+            660,
+            900
+          ],
+          [
+            1080,
+            1320
+          ]
+        ],
+        [
+          [
+            660,
+            900
+          ],
+          [
+            1080,
+            1320
+          ]
+        ],
+        [
+          [
+            660,
+            900
+          ],
+          [
+            1080,
+            1320
+          ]
+        ]
+      ]
+    },
+    "itomaru-chef-vegeta": {
+      "googleName": "シェフ＆ベジタ",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=3009075444600748749",
+      "fields": {},
+      "weekly": [
+        [],
+        [
+          [
+            660,
+            1020
+          ]
+        ],
+        [
+          [
+            660,
+            1020
+          ]
+        ],
+        [
+          [
+            660,
+            1020
+          ]
+        ],
+        [
+          [
+            660,
+            1020
+          ]
+        ],
+        [
+          [
+            660,
+            1020
+          ]
+        ],
+        [
+          [
+            660,
+            1020
+          ]
+        ]
+      ]
+    },
+    "itomaru-machigwa": {
+      "googleName": "町小 まちぐゎぁ",
+      "googleCheckedOn": "2026-10-15",
+      "googleSourceUrl": "https://www.google.com/maps?cid=4833090588919273832",
+      "fields": {
+        "name": "町小 まちぐゎぁ",
+        "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る D6",
+        "hours": "月〜金 11:00〜17:00／土 11:00〜16:30（売り切れ次第終了）",
+        "closed": "日曜日"
+      },
+      "weekly": [
+        [],
+        [
+          [
+            660,
+            1020
+          ]
+        ],
+        [
+          [
+            660,
+            1020
+          ]
+        ],
+        [
+          [
+            660,
+            1020
+          ]
+        ],
+        [
+          [
+            660,
+            1020
+          ]
+        ],
+        [
+          [
+            660,
+            1020
+          ]
+        ],
+        [
+          [
+            660,
+            990
+          ]
+        ]
+      ]
+    }
+  }
+}
