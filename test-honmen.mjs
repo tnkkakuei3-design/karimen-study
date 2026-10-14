@@ -84,7 +84,7 @@ w.matchMedia=()=>({matches:false,addEventListener(){}});
 w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;};
 Object.defineProperty(w,'indexedDB',{value:new IDBFactory()});
 w.localStorage.setItem('karimen-study-v4','keep-this-existing-progress');
-for(const file of ['questions.js','ui.js','model.js','storage.js','app.js'])vm.runInContext(await read('./honmen/'+file),dom.getInternalVMContext());
+for(const script of w.document.querySelectorAll('script[src]')){const file=script.getAttribute('src').split('?')[0];vm.runInContext(await read(file),dom.getInternalVMContext());}
 assert.equal(await w.HonmenReady,true,w.document.getElementById('startup-status').textContent);
 const doc=w.document,app=w.HonmenApp;
 const click=selector=>{const el=doc.querySelector(selector);assert.ok(el,'missing '+selector);assert.ok(!el.disabled,'disabled '+selector);el.click();};
@@ -102,11 +102,11 @@ click('[data-h="tab"][data-tab="learn"]');click('[data-h="hazard"]');assert.equa
 const current=app.model.state.sessions.study,q=app.model.byId.get(current.ids[0]);
 q.answer.forEach((v,i)=>click(`#play [data-h="answer"][data-part="${i}"][data-value="${v}"]`));
 assert.ok(!doc.querySelector('#play .feedback'));click('[data-h="commit"]');assert.match(doc.querySelector('#play .feedback').textContent,/正解です・2点/);
-assert.equal(doc.querySelectorAll('#play [data-h="answer"]:disabled').length,6);
+assert.equal(doc.querySelectorAll('#play [data-h="answer"]').length,0,'answered practice shows feedback instead of duplicate answer controls');
 click('[data-h="figure"]');assert.ok(doc.getElementById('figure-dialog').open);click('[data-h="close-figure"]');
 click('[data-h="pause"]');await settle();click('[data-h="settings"]');
-const theme=doc.getElementById('theme');theme.value='dark';theme.dispatchEvent(new w.Event('change',{bubbles:true}));assert.equal(doc.documentElement.dataset.theme,'dark');
-click('[data-h="reset"]');click('[data-h="confirm-reset"]');await settle();assert.equal(Object.keys(app.model.state.stats).length,0);assert.equal(w.localStorage.getItem('karimen-study-v4'),'keep-this-existing-progress');
+click('[data-h="theme"][data-value="dark"]');assert.equal(doc.documentElement.dataset.theme,'dark');
+assert.ok(doc.querySelector('[data-h="reset"]').disabled,'unfinished work protects reset');click('[data-h="close"]');click('[data-h="resume"][data-slot="study"]');click('[data-h="finish"]');click('[data-h="confirm-finish"]');click('[data-h="settings"]');click('[data-h="reset"]');click('[data-h="confirm-reset"]');await settle();assert.equal(Object.keys(app.model.state.stats).length,0);assert.equal(w.localStorage.getItem('karimen-study-v4'),'keep-this-existing-progress');
 const ids=[...doc.querySelectorAll('[id]')].map(el=>el.id);assert.equal(new Set(ids).size,ids.length);
 await app.storage.flush();app.storage.close();dom.window.close();
 console.log('Honmen tests passed: weighted grading, boundaries, timer, resumes, spaced review, storage recovery/isolation, stale tabs, import protection, and UI flows.');

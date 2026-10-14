@@ -16,7 +16,7 @@
   <title>仮免ドリル</title>
   <link rel="stylesheet" href="./styles.css?v=20261013-audit-v48">
   <link rel="stylesheet" href="./town.css?v=20261015-market-v2">
-  <link rel="stylesheet" href="./course-switch.css?v=honmen-1">
+  <link rel="stylesheet" href="./course-switch.css?v=unified-1">
 </head>
 <body>
   <a class="skip-link" href="#main">本文へ</a>
@@ -26,6 +26,7 @@
       <button class="iconbtn" id="settings-button" data-action="settings" aria-label="表示・学習記録の設定"></button>
     </header>
     <nav class="course-switch" aria-label="試験の種類"><a href="./index.html" aria-current="page">仮免 <small>50問・30分</small></a><a href="./honmen.html">本免 <small>95問・50分</small></a></nav>
+    <button type="button" class="course-town-entry" data-town-action="open"><span><strong>食券が使えるお店</strong><small>飲食店一覧・営業時間・定休日・地図</small></span><span class="course-town-entry-meta"><small>PR</small><span aria-hidden="true">›</span></span></button>
     <div class="storage-warning" id="storage-warning" role="alert" hidden></div>
     <div class="notice" id="startup-status" role="status" hidden>学習記録を確認しています…</div>
     <div id="migration-notice" class="notice" hidden></div>
@@ -78,7 +79,7 @@
   <script defer src="./progress-storage.js?v=20261012-progress-v36"></script>
   <script defer src="./town-data.js?v=20261015-google-hours-v1"></script>
   <script defer src="./town-config.js?v=20261015-cafe-food-v1"></script>
-  <script defer src="./town.js?v=20261015-google-hours-v1"></script>
-  <script defer src="./startup.js?v=20261012-progress-v35" data-build="20261012-cloud-v1" data-app-src="./app.js?v=20261013-audit-v48"></script>
+  <script defer src="./town.js?v=unified-1"></script>
+  <script defer src="./startup.js?v=20261012-progress-v35" data-build="20261012-cloud-v1" data-app-src="./app.js?v=unified-1"></script>
 </body>
 </html>

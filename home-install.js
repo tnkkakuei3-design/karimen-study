@@ -47,8 +47,8 @@
   function openGuide() {
     if (!context.canGuide()) return;
     dismiss();
-    returnToSettings = $('settings').open;
-    if (returnToSettings) $('settings').close();
+    returnToSettings = ($('settings') || $('h-dialog')).open;
+    if (returnToSettings) ($('settings') || $('h-dialog')).close();
     platform = isIOS() || !/Android/i.test(navigator.userAgent) ? 'ios' : 'android';
     renderGuide();
     $('home-install-close').textContent = returnToSettings ? '設定に戻る' : '閉じる';

@@ -12,8 +12,9 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
   <link rel="icon" type="image/png" href="./assets/icons/karimen-192.png">
   <link rel="stylesheet" href="./styles.css?v=20261013-audit-v48">
-  <link rel="stylesheet" href="./course-switch.css?v=honmen-1">
-  <link rel="stylesheet" href="./honmen/app.css?v=honmen-town-1">
+  <link rel="stylesheet" href="./course-switch.css?v=unified-1">
+  <link rel="stylesheet" href="./honmen/app.css?v=unified-1">
+  <link rel="stylesheet" href="./town.css?v=20261015-market-v2">
 </head>
 <body class="honmen-app">
   <a class="skip-link" href="#main">本文へ</a>
@@ -23,7 +24,7 @@
       <button class="iconbtn" id="settings-button" data-h="settings" aria-label="表示・本免の学習記録" disabled></button>
     </header>
     <nav class="course-switch" aria-label="試験の種類"><a href="./index.html">仮免 <small>50問・30分</small></a><a href="./honmen.html" aria-current="page">本免 <small>95問・50分</small></a></nav>
-    <a class="h-town-entry" href="./#town"><span><strong>食券が使えるお店</strong><small>飲食店一覧・営業時間・定休日・地図</small></span><span class="h-town-entry-meta"><small>PR</small><span aria-hidden="true">›</span></span></a>
+    <button type="button" class="course-town-entry" data-town-action="open"><span><strong>食券が使えるお店</strong><small>飲食店一覧・営業時間・定休日・地図</small></span><span class="course-town-entry-meta"><small>PR</small><span aria-hidden="true">›</span></span></button>
     <div id="startup-status" class="notice" role="status">本免の学習記録を確認しています…</div>
     <div id="storage-warning" class="storage-warning" role="alert" hidden></div>
     <main id="main" tabindex="-1" inert>
@@ -31,6 +32,7 @@
       <section id="learn" role="tabpanel" aria-labelledby="tab-learn" hidden></section>
       <section id="review" role="tabpanel" aria-labelledby="tab-review" hidden></section>
       <section id="play" aria-label="本免の問題と解説" hidden></section>
+      <section id="town" hidden aria-label="食券で、まちのごはん"></section>
       <section id="result" aria-label="本免の学習結果" hidden></section>
     </main>
     <footer id="footer" class="footer">
@@ -45,13 +47,31 @@
   </nav>
   <dialog id="h-dialog" class="modal" aria-labelledby="h-dialog-title"><h2 id="h-dialog-title"></h2><div id="h-dialog-body"></div><button class="btn secondary wide h-dialog-close" data-h="close">閉じる</button></dialog>
   <dialog id="figure-dialog" class="figure-dialog" aria-label="問題の図を拡大"><div class="figure-toolbar"><label>倍率 <input id="figure-zoom" type="range" min="100" max="250" step="25" value="100" aria-label="図の拡大率"></label><button class="btn secondary" data-h="close-figure">閉じる</button></div><p class="muted">拡大後は上下・左右にスクロールできます。</p><div class="figure-scroll"><div id="figure-content"></div></div></dialog>
+  <aside id="home-install-prompt" class="install-prompt" aria-labelledby="home-install-prompt-title" hidden>
+    <div class="install-prompt-heading"><img class="install-icon" src="./assets/icons/karimen-192.png" width="54" height="54" alt="" decoding="async"><div><h2 id="home-install-prompt-title">ホーム画面から、すぐに学習</h2><p>次回からアイコンをタップして開けます。</p></div></div>
+    <div class="install-prompt-actions"><button class="btn" data-install-action="guide">追加方法を見る</button><button class="btn secondary" data-install-action="dismiss">あとで</button></div>
+  </aside>
+  <dialog id="home-install-guide" class="modal install-guide" aria-labelledby="home-install-guide-title">
+    <div class="install-guide-heading"><img class="install-icon" src="./assets/icons/karimen-192.png" width="64" height="64" alt=""><div><p class="install-app-name">仮免ドリル</p><h2 id="home-install-guide-title" tabindex="-1">ホーム画面に追加</h2></div></div>
+    <div id="home-install-guide-body"></div>
+    <button id="home-install-close" class="btn secondary wide" data-install-action="close">閉じる</button>
+  </dialog>
   <input id="import-file" type="file" accept=".json,application/json" hidden>
   <div id="toast" class="toast" role="status" hidden></div>
   <noscript><p>このドリルはJavaScriptを使用します。ブラウザのJavaScriptを有効にしてください。</p></noscript>
   <script defer src="./honmen/questions.js?v=honmen-1"></script>
-  <script defer src="./honmen/ui.js?v=honmen-1"></script>
-  <script defer src="./honmen/model.js?v=honmen-1"></script>
+  <script defer src="./questions.js?v=20261012-images-reviewed-v2"></script>
+  <script defer src="./learning-content.js?v=20261013-finish-v43"></script>
+  <script defer src="./visuals.js?v=20261013-final-v44"></script>
+  <script defer src="./notebook-content.js?v=20261012-notebook-v35"></script>
+  <script defer src="./honmen/notes.js?v=unified-1"></script>
+  <script defer src="./honmen/sound.js?v=unified-1"></script>
+  <script defer src="./home-install.js?v=unified-1"></script>
+  <script defer src="./town-data.js?v=20261015-google-hours-v1"></script>
+  <script defer src="./town-config.js?v=20261015-cafe-food-v1"></script>
+  <script defer src="./town.js?v=unified-1"></script>
+  <script defer src="./honmen/model.js?v=unified-1"></script>
   <script defer src="./honmen/storage.js?v=honmen-1"></script>
-  <script defer src="./honmen/app.js?v=honmen-1"></script>
+  <script defer src="./honmen/app.js?v=unified-1"></script>
 </body>
 </html>

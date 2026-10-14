@@ -96,6 +96,7 @@ function updateChrome() {
   window.KarimenHomeInstall?.sync();
 }
 function show(name, top = true) {
+  document.body.classList.toggle('town-active',name==='town');
   view = name; for (const k of ['mock','learn','review','play','result','notes','archive','town']) $(k).hidden = k !== name;
   window.KarimenTown?.onView(name);
   updateTimer(); updateChrome(); if (top) { window.scrollTo({ top: 0, behavior:'instant' }); $('main').focus({ preventScroll: true }); }
@@ -127,7 +128,6 @@ function renderMock() {
   $('mock').innerHTML = `<div class="home-intro"><div><h2>模試を選ぶ</h2><p class="muted">${s?.mode === 'exam' ? '中断した模試を再開できます。' : '50問・30分。45問正解で合格。'}</p></div><img class="home-character" src="./image-155cadc1029a.png" width="1400" height="792" alt="プーリーくんとよりともさん"></div><div class="page-heading mock-heading"><p class="inline muted">10回・各50問 <span class="badge">毎回ランダム順</span></p></div>
     <div class="home-overview"><div class="achievement-progress"><div class="inline"><span><b>${passed}</b><small> / 10回 合格</small></span><small class="muted">達成率 ${passed * 10}%</small></div><div class="progress" role="progressbar" aria-label="模試の合格回数" aria-valuenow="${passed}" aria-valuemin="0" aria-valuemax="10"><i style="width:${passed * 10}%"></i></div></div></div>
     ${s?.mode === 'exam' ? entryCard('resume', `第${s.worksheet}回の続きへ`, `${s.answers.filter(a => a !== null).length} / 50問 回答済み · タイマー停止中`, 'play', 'mock') : ''}
-    ${window.KarimenTown?.teaser() || ''}
     ${filters('mock-filter', mockFilter, [['all','すべて'],['new','未受験'],['unpassed','未合格']])}
     <div class="mock-grid">${list.map(w => { const r = resultsFor(w.worksheet, 'mock'), on = s?.mode === 'exam' && s.worksheet === w.worksheet, score = r.best?.scoreSnapshot;
       return `<button class="set-card ${on ? 'in-progress' : ''} ${score === 50 ? 'perfect' : ''}" data-action="detail" data-set="${w.worksheet}" aria-label="第${w.worksheet}回 ${on ? '受験中 ' : ''}${r.last ? `直近${r.last.scoreSnapshot}点 ${r.last.scoreSnapshot >= 45 ? '合格' : '未合格'} 最高${score}点` : '未受験'}"><span class="mock-card-heading"><b>第${w.worksheet}回</b>${score >= 45 ? flowerStamp(score === 50 ? '満点' : '合格') : `<span class="chevron">${icon('chevron')}</span>`}</span>${r.last ? `<span class="mock-latest"><small>直近</small><strong>${r.last.scoreSnapshot}<span>点</span></strong><small class="mock-outcome ${r.last.scoreSnapshot >= 45 ? 'is-pass' : ''}">${r.last.scoreSnapshot >= 45 ? '合格' : '未合格'}</small></span><small class="mock-best">最高 ${score}点${on ? ' · 受験中' : ''}</small>` : `<span class="mock-unanswered">${on ? '受験中' : '未受験'}</span>`}</button>`; }).join('')}</div>

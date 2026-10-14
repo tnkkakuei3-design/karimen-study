@@ -33,6 +33,8 @@
           !a.keys.every(k => Array.isArray(k) && [1,3].includes(k.length) && k.every(bool)) ||
           !a.answers.every((v, i) => Array.isArray(v) && v.length === a.keys[i].length && v.every(x => x === null || bool(x))))
         throw new Error('本免の途中記録を確認できません。元の記録は保持しています。');
+      if (a.uncertain == null) a.uncertain = a.ids.map(() => false);
+      if (!Array.isArray(a.uncertain) || a.uncertain.length !== a.ids.length || !a.uncertain.every(bool)) throw new Error('自信の記録を確認できません。');
       if (session && (!Number.isInteger(a.index) || a.index < 0 || a.index >= a.ids.length || !finite(a.remainingMs) ||
           a.remainingMs > DURATION || !Array.isArray(a.flags) || a.flags.length !== a.ids.length || !a.flags.every(bool) ||
           !Array.isArray(a.committed) || a.committed.length !== a.ids.length || !a.committed.every(bool) ||
@@ -70,13 +72,13 @@
         state = draft; raw = next; error = ''; return true;
       } catch (e) { error = e.message || '記録を保存できませんでした。空き容量を確認してください。'; return false; }
     }
-    function outcome(s, id, ok, at) {
+    function outcome(s, id, ok, at, uncertain=false) {
       const p = s.stats[id] || {total:0, correct:0, last:false, lastAt:0, reviewAt:0, passes:0, misses:0};
       p.total++; if (ok) p.correct++;
       if (at < p.lastAt) { s.stats[id] = p; return; }
       const weak = p.misses > 0 || p.reviewAt > 0;
-      p.last = ok; p.lastAt = at;
-      if (!ok) { p.misses++; p.passes = 0; p.reviewAt = weak ? at + INTERVAL : at; }
+      p.last = ok; p.lastAt = at; p.uncertain = uncertain;
+      if (!ok || uncertain) { p.misses++; p.passes = 0; p.reviewAt = weak ? at + INTERVAL : at; }
       else if (weak && at >= p.reviewAt) {
         p.passes++; p.reviewAt = at + INTERVAL;
         if (p.passes >= 2) { p.misses = 0; p.reviewAt = 0; p.passes = 0; }
@@ -92,9 +94,9 @@
       const correctness = a.keys.map((k,i) => answered(a.answers[i]) ? correct(k,a.answers[i]) : null);
       const score = a.keys.reduce((n,k,i) => n + (correctness[i] === true ? weight(k) : 0),0);
       const maxScore = a.keys.reduce((n,k) => n + weight(k),0);
-      if (a.mode === 'mock') a.ids.forEach((id,i) => { if (correctness[i] !== null) outcome(s,id,correctness[i],a.answerAt[i] || now()); });
+      if (a.mode === 'mock') a.ids.forEach((id,i) => { if (correctness[i] !== null) outcome(s,id,correctness[i],a.answerAt[i] || now(),!!a.flags[i] || !!a.uncertain?.[i]); });
       const record = {id:a.id, mode:a.mode, set:a.set, label:a.label, contentVersion:a.contentVersion,
-        ids:a.ids, answers:a.answers, keys:a.keys, correctness, score, maxScore, answered:count,
+        ids:a.ids, answers:a.answers, keys:a.keys, flags:a.flags, uncertain:a.uncertain, correctness, score, maxScore, answered:count,
         partial:count < a.ids.length && !timeout, timeout, completedAt:now()};
       s.attempts.push(record); s.attempts = s.attempts.slice(-60); s.sessions[slot] = null;
       if (record.mode==='mock'&&!record.partial) {
@@ -133,7 +135,7 @@
         const at = now();
         const ok = transaction(s => { s.sessions[slot] = {id:'h-'+at+'-'+random().toString(36).slice(2), mode,set,label,contentVersion,
           ids:list,answers:list.map(id=>Array(arity(byId.get(id))).fill(null)),keys:list.map(id=>keyFor(byId.get(id))),
-          signatures:list.map(id=>signature(byId.get(id))),flags:list.map(()=>false),committed:list.map(()=>false),
+          signatures:list.map(id=>signature(byId.get(id))),flags:list.map(()=>false),uncertain:list.map(()=>false),committed:list.map(()=>false),
           answerAt:list.map(()=>0),index:0,remainingMs:DURATION,startedAt:at}; });
         if (ok) { running=slot; tickAt=at; } return ok;
       },
@@ -157,15 +159,16 @@
           if(row.mode==='mock'&&row.remainingMs===0){grade(s,slot,true);return;}
           row.answers[index][part]=value;row.answerAt[index]=at;
           // Ordinary practice gives immediate feedback; hazards require an explicit submit.
-          if(row.mode!=='mock'&&row.keys[index].length===1){row.committed[index]=true;outcome(s,row.ids[index],correct(row.keys[index],row.answers[index]),at);}
+          if(row.mode!=='mock'&&row.keys[index].length===1){row.committed[index]=true;outcome(s,row.ids[index],correct(row.keys[index],row.answers[index]),at,!!row.uncertain?.[index]);}
         });
         if(ok){tickAt=at;if(!state.sessions[slot])running=null;} return ok;
       },
       commitHazard(slot,index) {
         const a=state.sessions[slot];
         if(!a||a.mode==='mock'||a.committed[index]||!answered(a.answers[index])||!validSession(slot))return false;
-        return transaction(s=>{const row=s.sessions[slot];row.committed[index]=true;outcome(s,row.ids[index],correct(row.keys[index],row.answers[index]),now());});
+        return transaction(s=>{const row=s.sessions[slot];row.committed[index]=true;outcome(s,row.ids[index],correct(row.keys[index],row.answers[index]),now(),!!row.uncertain?.[index]);});
       },
+      confidence(slot,index,value) { const a=state.sessions[slot];if(!a||!bool(value)||!Number.isInteger(index)||index<0||index>=a.ids.length||a.committed[index])return false;return transaction(s=>{s.sessions[slot].uncertain ||= a.ids.map(()=>false);s.sessions[slot].uncertain[index]=value;}); },
       move(slot,index) { const a=state.sessions[slot];if(!a||!Number.isInteger(index)||index<0||index>=a.ids.length)return false;return transaction(s=>{s.sessions[slot].index=index;}); },
       flag(slot,index) { const a=state.sessions[slot];if(!a||!Number.isInteger(index)||index<0||index>=a.ids.length)return false;return transaction(s=>{s.sessions[slot].flags[index]=!s.sessions[slot].flags[index];}); },
       finish(slot,timeout=false) {
