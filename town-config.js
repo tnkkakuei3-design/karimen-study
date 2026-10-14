@@ -336,6 +336,150 @@ window.KarimenTownConfig = Object.freeze({
         "title": "ゼロ番地の写真掲載ページ",
         "sha256": "040c6b6ed915c9f7756aa148121b9f135aab55e0c9ec82e9c102e1ac71540303"
       }
+    ],
+    "itomaru-knowry": [
+      {
+        "url": "./assets/town/market-knowry.jpg",
+        "shopId": "itomaru-knowry",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "フィッシュ＆チップス",
+        "caption": "フィッシュ＆チップス",
+        "credit": "掲載元：糸満市場いとま〜る公式",
+        "sourceUrl": "https://www.itoman-itomaru.okinawa/",
+        "title": "フィッシュ＆チップス",
+        "sha256": "206c5d7e5dae2a6ed8d83e348c18f80444002704634890cdfd833832b08e9c90"
+      }
+    ],
+    "itomaru-gajimaru": [
+      {
+        "url": "./assets/town/market-gajimaru.jpg",
+        "shopId": "itomaru-gajimaru",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "鶏の半身揚げ",
+        "caption": "鶏の半身揚げ",
+        "credit": "掲載元：糸満市場いとま〜る公式",
+        "sourceUrl": "https://www.itoman-itomaru.okinawa/",
+        "title": "鶏の半身揚げ",
+        "sha256": "b3f98d261cfbe2cdf372c30bb72bbe242f08fcb3002f34deb8c417aa8870e089"
+      }
+    ],
+    "itomaru-naminami": [
+      {
+        "url": "./assets/town/market-naminami.jpg",
+        "shopId": "itomaru-naminami",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "スパイスカレー",
+        "caption": "スパイスカレー",
+        "credit": "掲載元：糸満市場いとま〜る公式",
+        "sourceUrl": "https://www.itoman-itomaru.okinawa/shop/food/",
+        "title": "スパイスカレー",
+        "sha256": "bcffc073cd321ae4c8088149f5bf30a7695bda7eb4241f8b71b64e1f4e207dee"
+      }
+    ],
+    "itomaru-lazy-pub": [
+      {
+        "url": "./assets/town/market-lazy-pub.jpg",
+        "shopId": "itomaru-lazy-pub",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "ケバブ",
+        "caption": "ケバブ",
+        "credit": "掲載元：糸満市場いとま〜る公式",
+        "sourceUrl": "https://www.itoman-itomaru.okinawa/shop/food/",
+        "title": "ケバブ",
+        "sha256": "c9fb7d8e817eaebb643418329bebbe0568903686c2403ce704a2be00fb2590db"
+      }
+    ],
+    "itomaru-minatomachi": [
+      {
+        "url": "./assets/town/market-minatomachi.jpg",
+        "shopId": "itomaru-minatomachi",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "海鮮丼",
+        "caption": "海鮮丼",
+        "credit": "掲載元：糸満市場いとま〜る公式",
+        "sourceUrl": "https://www.itoman-itomaru.okinawa/shop/food/",
+        "title": "海鮮丼",
+        "sha256": "39a20f7ba24816adc60b3cc0549eede0d068d628d8eb810bb4a64f75c595c9f2"
+      }
+    ],
+    "itomaru-manjuen": [
+      {
+        "url": "./assets/town/market-manjuen.jpg",
+        "shopId": "itomaru-manjuen",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "ラーメン",
+        "caption": "ラーメン",
+        "credit": "掲載元：食べログ",
+        "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033118/",
+        "title": "ラーメン",
+        "sha256": "29ae4fc1ecf83f307783cd261ec00730190d808e0d1841a3f197ea295a62b548"
+      }
+    ],
+    "itomaru-fullhouse": [
+      {
+        "url": "./assets/town/market-fullhouse.jpg",
+        "shopId": "itomaru-fullhouse",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "チーズバーガー",
+        "caption": "チーズバーガー",
+        "credit": "掲載元：食べログ",
+        "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033757/",
+        "title": "チーズバーガー",
+        "sha256": "39c303b69af5996fe4100088e8fbfbdebf321b5e1a6c0f1c42dcaff19a95bff4"
+      }
+    ],
+    "itomaru-chef-vegeta": [
+      {
+        "url": "./assets/town/market-chef-vegeta.jpg",
+        "shopId": "itomaru-chef-vegeta",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "スープと酵素玄米",
+        "caption": "スープと酵素玄米",
+        "credit": "掲載元：OKITIVE／フードライター山内朝美",
+        "sourceUrl": "https://www.otv.co.jp/okitive/article/90482/",
+        "title": "スープと酵素玄米",
+        "sha256": "92cb19735e66e8945aa15a10f2e8feb978ed1c7c0861bd336fc88f050d06a262"
+      }
+    ],
+    "itomaru-machigwa": [
+      {
+        "url": "./assets/town/market-machigwa.jpg",
+        "shopId": "itomaru-machigwa",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "沖縄そば・天ぷらセット",
+        "caption": "沖縄そば・天ぷらセット",
+        "credit": "掲載元：omalblog",
+        "sourceUrl": "https://omalblog.com/2026/08/02/itoman-machigwa-2/",
+        "title": "沖縄そば・天ぷらセット",
+        "sha256": "603a2cfcb66e7d560b5ba1330470cf68fa2bc050fd7568334671f3c79c303c0b"
+      }
     ]
   }
 });
