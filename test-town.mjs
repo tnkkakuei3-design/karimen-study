@@ -66,9 +66,9 @@ assert.equal(status('yotsuba','2026-10-13T03:00:00Z').kind,'check');
 assert.equal(status('uminchu','2026-10-15T12:00:00Z').kind,'check');
 for(const id of ['zero','itomaru','ichiman-yokocho','cafe-itoman'])assert.equal(status(id,'2026-10-13T03:00:00Z').kind,'check');
 assert.equal(status('chiquita','2028-01-04T03:00:00Z').kind,'check','unknown holiday year never claims scheduled opening');
-for(const id of ['cafe-itoman','itomaru','zero'])assert.equal(status(id,'2026-10-12T18:10:00Z').kind,'outside','03:10 JST must be outside listed hours even when days are uncertain');
+for(const id of ['itomaru','zero'])assert.equal(status(id,'2026-10-12T18:10:00Z').kind,'outside','03:10 JST must be outside listed hours even when days are uncertain');
 assert.equal(status('cafe-itoman','2026-10-17T08:30:00Z').kind,'check','Saturday 17:30 is inside possible hours');
-assert.equal(status('cafe-itoman','2026-10-13T08:30:00Z').kind,'outside','weekday 17:30 is outside hours');
+assert.equal(status('cafe-itoman','2026-10-13T08:30:00Z').kind,'check','conflicting official hours must not imply closure');
 assert.equal(status('zero','2026-10-13T08:00:00Z').kind,'outside','between lunch and dinner');
 assert.equal(status('zero','2026-10-13T10:00:00Z').kind,'check','dinner hours still need day confirmation');
 assert.match(read('town.css'),/data-town-state=open/,'only scheduled-open photos remain undimmed');
@@ -106,7 +106,7 @@ for(const [id,photos]of Object.entries(a.w.KarimenTownConfig.suppliedPhotos)){
  for(const photo of photos){
   assert.ok(photo.url.startsWith('./assets/town/'),'static image is served with the app');
   const file=fs.readFileSync(path.join(root,photo.url));
-  assert.equal(file.subarray(0,2).toString('hex'),'ffd8','published photo is a JPEG');
+  assert.ok(['ffd8','8950'].includes(file.subarray(0,2).toString('hex')),'published photo is JPEG or PNG');
   assert.equal(crypto.createHash('sha256').update(file).digest('hex'),photo.sha256,'downloaded source image remains intact');
   assert.ok(photo.credit&&photo.sourceUrl);
   if(photo.permission)assert.ok(photo.licenseUrl);
@@ -266,7 +266,7 @@ assert.ok(a.query('.town-all-photos'));a.close();
 
 a=app({configure(w){w.KarimenTownConfig={suppliedPhotos:{kirakira:[{url:'javascript:alert(1)',credit:'Bad',permission:'owner-provided'},{kind:'venue',shopId:'kirakira',url:'https://example.test/owner.jpg',alt:'店舗提供の料理写真',credit:'きらきら提供',permission:'owner-provided'}]}};}});
 a.w.KarimenTown.open('kirakira');await settle();
-assert.equal(a.all('.town-media-detail img').length,1);assert.equal(a.query('.town-media-detail img').src,'https://example.test/owner.jpg');
+assert.equal(a.all('.town-media-detail img').length,1); assert.equal(a.query('.town-media-detail img').src,'https://example.test/owner.jpg');
 assert.match(a.query('.town-photo-credit').textContent,/きらきら提供/);a.close();
 
 let clock=Date.parse('2026-10-13T05:00:00Z'),scheduleTick;
@@ -288,7 +288,7 @@ assert.deepEqual(a.snapshot(),recordsBefore);
 a.click('#mock .town-home-shop');assert.ok(a.query('#town .town-detail-heading'));
 a.click('#tab-mock');checkHome();
 a.click('#mock [data-town-action="open"]');
-const orderedIds=()=>a.all('.town-card [data-town-action="shop"]').map(el=>el.dataset.id);
+const orderedIds=()=>a.all('.town-card .town-card-copy').map(el=>el.dataset.id);
 function assertScheduleOrder(){
  const priority={open:0,check:1,outside:2,closed:3};
  const ids=orderedIds();
@@ -309,6 +309,36 @@ assert.equal(a.query('#town iframe'),map,'time refresh preserves the selected ma
 assert.equal(a.query('.town-map-picker [aria-pressed="true"]').dataset.id,'kirakira');
 a.click('[data-town-action="mode"][data-value="cards"]');assertScheduleOrder();
 assert.equal(a.all('.town-card[data-town-state="open"]').length,0,'no bright scheduled-open cards at midnight');
-assert.equal(a.query('[data-town-hours="cafe-itoman"]').closest('.town-card').dataset.townState,'outside');a.close();
+assert.equal(a.query('[data-town-hours="cafe-itoman"]').closest('.town-card').dataset.townState,'check');a.close();
 
 console.log('PASS: 14 shops, scheduled-hours ordering and refresh, filters/maps, photos, bookmarks, unchanged study records.');
+
+// Market drilldown, direct links, saved child stores and search keep study records intact.
+a=app({hash:'#town/itomaru',seed:{'karimen-progress-v1':'{"untouched":true}'}});
+const beforeMarket=a.snapshot();
+assert.equal(a.all('.town-tenant').length,9);
+const tenants=[...a.w.KarimenTownData.marketShops];
+assert.equal(new Set(tenants.map(s=>s.id)).size,9);
+for(const tenant of tenants){
+ a.w.KarimenTown.open(tenant.id);await settle();
+ assert.equal(a.query('#town-title').textContent,tenant.name);
+ assert.match(a.query('.town-ticket').textContent,/店舗へ確認/);
+ assert.match(a.query('.town-voucher-info').textContent,/未確認/);
+ assert.ok(new URL(a.query('.town-detail-actions a').href).searchParams.get('destination').includes(tenant.name));
+ assert.ok(a.query('.town-details').textContent.includes(tenant.price));
+ assert.equal(a.all('.town-media-detail img').length,(a.w.KarimenTownConfig.suppliedPhotos[tenant.id]||[]).length);
+ if(!(a.w.KarimenTownConfig.suppliedPhotos[tenant.id]||[]).length)assert.ok(a.query('.town-photo-source a'));
+ a.click('.town-topline [data-town-action="shop"]');
+ assert.equal(a.w.location.hash,'#town/itomaru');
+}
+assert.deepEqual(a.snapshot(),beforeMarket);
+a.w.KarimenTown.open('itomaru-knowry');a.click('.town-save');a.w.KarimenTown.open();a.click('[data-town-action="filter"][data-value="saved"]');
+assert.ok(a.query('[data-town-action="shop"][data-id="itomaru-knowry"]'));
+a.click('[data-town-action="filter"][data-value="all"]');
+const marketSearch=a.query('#town-search');marketSearch.value='ゆし豆腐';marketSearch.dispatchEvent(new a.w.Event('input',{bubbles:true}));
+assert.ok(a.query('[data-town-action="shop"][data-id="itomaru-machigwa"]'));
+marketSearch.value='Ceramic Art Cafe Itoman';marketSearch.dispatchEvent(new a.w.Event('input',{bubbles:true}));
+assert.ok(a.query('[data-town-action="shop"][data-id="cafe-itoman"]'));
+a.close();
+a=app({hash:'#town/itomaru-machigwa'});assert.match(a.query('#town-title').textContent,/町小/);a.close();
+console.log('PASS: 9 nested market restaurants, eligibility, photos, search, saved shops and navigation.');

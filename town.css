@@ -85,3 +85,11 @@
 .town-voucher-info h3{font-size:15px;margin:0 0 6px}
 .town-voucher-info p{font-size:13px;line-height:1.8;color:var(--muted);margin:0}
 .town-empty>.town-character{width:80px;height:80px}
+
+/* Individual restaurants stay grouped under their market. */
+.town-market-directory{padding-top:8px}.town-market-directory h3{display:flex;align-items:center;gap:10px}.town-market-directory h3 span{font-size:13px;color:var(--muted);font-weight:500}
+.town-tenant-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.town-tenant{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface,#fff)}
+.town-tenant-link{display:flex;flex-direction:column;gap:7px;width:100%;text-align:left;border:0;background:transparent;padding:16px;color:inherit;cursor:pointer;font:inherit}.town-tenant-link strong{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:17px}.town-tenant-link strong .icon{flex:none;width:18px}.town-tenant-link>span:not(.town-tenant-type){font-size:13px}.town-tenant-type{font-size:12px;color:var(--muted)}.town-tenant-link small{font-size:12px;color:var(--muted);line-height:1.6}.town-tenant .town-media{margin:0;border-radius:0}.town-tenant .town-photo-frame{aspect-ratio:16/10}.town-tenant .town-photo-credit{padding:8px 12px}.town-ticket-unconfirmed{background:#f2f2ef;color:#555}.town-market-entry{font-weight:700}.town-tenant-link:focus-visible{outline:3px solid var(--accent,#17816b);outline-offset:-3px}
+@media(max-width:600px){.town-tenant-grid{grid-template-columns:1fr}.town-tenant-link{padding:14px}}
+
+.town-photo-source{display:flex;align-items:center;gap:8px;padding:14px;font-size:13px;border-top:1px solid var(--line);color:var(--muted)}.town-photo-source a{color:inherit}.town-photo-source .icon{width:18px;flex:none}

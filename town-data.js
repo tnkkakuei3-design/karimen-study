@@ -197,3 +197,317 @@ window.KarimenTownData.holidays = {
     "2027-11-23": "勤労感謝の日"
   }
 };
+
+// Individual market restaurants: public sources do not establish voucher eligibility.
+window.KarimenTownData.marketShops = [
+  {
+    "id": "itomaru-knowry",
+    "parentId": "itomaru",
+    "number": "13-1",
+    "name": "Knowry’s Fried Fish",
+    "shortName": "ノウリーズ フライドフィッシュ",
+    "category": "魚料理",
+    "tags": [
+      "meal",
+      "market",
+      "lunch"
+    ],
+    "menus": [
+      "深海サメのフライ",
+      "フィッシュ＆チップス",
+      "メカジキのソテー"
+    ],
+    "hours": "11:30〜21:00（L.O.20:00）",
+    "closed": "水曜日",
+    "phone": "090-5080-2592",
+    "source": "https://knowrysfriedfish.owst.jp/",
+    "price": "料理例：メカジキのソテー 1,350円",
+    "priceSource": "https://knowrysfriedfish.owst.jp/foods",
+    "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る A1",
+    "voucherStatus": "unconfirmed",
+    "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
+    "checkedOn": "2026-10-15",
+    "note": ""
+  },
+  {
+    "id": "itomaru-minatomachi",
+    "parentId": "itomaru",
+    "number": "13-2",
+    "name": "港町パーラー きんしろ鮮魚",
+    "shortName": "港町パーラー",
+    "category": "海鮮丼",
+    "tags": [
+      "meal",
+      "market",
+      "lunch"
+    ],
+    "menus": [
+      "海鮮丼",
+      "マグロ丼"
+    ],
+    "hours": "11:00〜15:00（売り切れ次第終了）",
+    "closed": "火曜日・不定休あり",
+    "phone": "098-901-5733",
+    "source": "https://www.itoman-itomaru.okinawa/shop/food/",
+    "price": "海鮮丼の掲載例：1,000〜1,300円",
+    "priceSource": "https://www.itoman-itomaru.okinawa/shop/food/",
+    "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る",
+    "voucherStatus": "unconfirmed",
+    "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
+    "checkedOn": "2026-10-15",
+    "note": ""
+  },
+  {
+    "id": "itomaru-fullhouse",
+    "parentId": "itomaru",
+    "number": "13-3",
+    "name": "THE BURGER STADIUM FULL HOUSE",
+    "shortName": "FULL HOUSE",
+    "category": "ハンバーガー",
+    "tags": [
+      "meal",
+      "market",
+      "lunch"
+    ],
+    "menus": [
+      "ハンバーガー",
+      "ポテト・ドリンク付きセット"
+    ],
+    "hours": "11:00〜18:00（L.O.17:00）",
+    "closed": "不定休",
+    "phone": "",
+    "source": "https://www.itoman-itomaru.okinawa/",
+    "price": "来店前にメニューで確認",
+    "priceSource": "",
+    "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る D3",
+    "voucherStatus": "unconfirmed",
+    "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
+    "checkedOn": "2026-10-15",
+    "note": ""
+  },
+  {
+    "id": "itomaru-gajimaru",
+    "parentId": "itomaru",
+    "number": "13-4",
+    "name": "琉球半身揚げ がじまるや～",
+    "shortName": "がじまるや～",
+    "category": "鶏料理",
+    "tags": [
+      "meal",
+      "market",
+      "lunch"
+    ],
+    "menus": [
+      "鶏の半身揚げ"
+    ],
+    "hours": "11:00〜18:00（売り切れ次第終了）",
+    "closed": "月曜日",
+    "phone": "",
+    "source": "https://www.itoman-itomaru.okinawa/shop/food/",
+    "price": "来店前にメニューで確認",
+    "priceSource": "",
+    "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る",
+    "voucherStatus": "unconfirmed",
+    "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
+    "checkedOn": "2026-10-15",
+    "note": ""
+  },
+  {
+    "id": "itomaru-manjuen",
+    "parentId": "itomaru",
+    "number": "13-5",
+    "name": "万寿園",
+    "shortName": "万寿園",
+    "category": "ラーメン・餃子",
+    "tags": [
+      "meal",
+      "market",
+      "lunch"
+    ],
+    "menus": [
+      "味噌ラーメン",
+      "塩ラーメン",
+      "チャーハン",
+      "餃子"
+    ],
+    "hours": "11:00〜17:00（市場公式掲載）",
+    "closed": "月曜／月・火曜の記載があるため要確認",
+    "phone": "",
+    "source": "https://www.itoman-itomaru.okinawa/shop/food/",
+    "price": "掲載例：チャーハン650円／ラーメン700円",
+    "priceSource": "https://www.itoman-itomaru.okinawa/shop/food/",
+    "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る",
+    "voucherStatus": "unconfirmed",
+    "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
+    "checkedOn": "2026-10-15",
+    "note": ""
+  },
+  {
+    "id": "itomaru-naminami",
+    "parentId": "itomaru",
+    "number": "13-6",
+    "name": "spice kitchen naminami",
+    "shortName": "naminami（ナミナミ）",
+    "category": "スパイスカレー",
+    "tags": [
+      "meal",
+      "market",
+      "lunch"
+    ],
+    "menus": [
+      "スパイスカレー",
+      "日替わりカレー"
+    ],
+    "hours": "11:00〜15:00（L.O.14:30）",
+    "closed": "不定休",
+    "phone": "080-7532-7133",
+    "source": "https://okinawa-naminami.com/",
+    "price": "来店前にメニューで確認",
+    "priceSource": "",
+    "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る",
+    "voucherStatus": "unconfirmed",
+    "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
+    "checkedOn": "2026-10-15",
+    "note": ""
+  },
+  {
+    "id": "itomaru-lazy-pub",
+    "parentId": "itomaru",
+    "number": "13-7",
+    "name": "LAZY PUB",
+    "shortName": "LAZY PUB",
+    "category": "ケバブ・ライス料理",
+    "tags": [
+      "meal",
+      "market",
+      "lunch"
+    ],
+    "menus": [
+      "ケバブ",
+      "チキンオーバーライス"
+    ],
+    "hours": "11:00〜15:00／18:00〜21:00（夜L.O.20:30）",
+    "closed": "水曜日",
+    "phone": "",
+    "source": "https://www.itoman-itomaru.okinawa/shop/food/",
+    "price": "来店前にメニューで確認",
+    "priceSource": "",
+    "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る",
+    "voucherStatus": "unconfirmed",
+    "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
+    "checkedOn": "2026-10-15",
+    "note": ""
+  },
+  {
+    "id": "itomaru-chef-vegeta",
+    "parentId": "itomaru",
+    "number": "13-8",
+    "name": "シェフ＆ベジタ",
+    "shortName": "シェフ＆ベジタ",
+    "category": "スープ・玄米",
+    "tags": [
+      "meal",
+      "market",
+      "lunch"
+    ],
+    "menus": [
+      "ヌチグスイスープ",
+      "酵素玄米"
+    ],
+    "hours": "11:00〜17:00",
+    "closed": "日曜日",
+    "phone": "090-2514-1749",
+    "source": "https://www.itoman-itomaru.okinawa/",
+    "price": "セット1,000円（2025年12月取材時）",
+    "priceSource": "https://www.otv.co.jp/okitive/article/90482/",
+    "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る",
+    "voucherStatus": "unconfirmed",
+    "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
+    "checkedOn": "2026-10-15",
+    "note": ""
+  },
+  {
+    "id": "itomaru-machigwa",
+    "parentId": "itomaru",
+    "number": "13-9",
+    "name": "町小（まちぐゎぁ）",
+    "shortName": "町小（まちぐゎぁ）",
+    "category": "沖縄そば・天ぷら",
+    "tags": [
+      "meal",
+      "market",
+      "lunch"
+    ],
+    "menus": [
+      "沖縄そば",
+      "ゆし豆腐そば",
+      "天ぷら"
+    ],
+    "hours": "11:00〜17:00（売り切れ・早仕舞いあり）",
+    "closed": "不定休",
+    "phone": "",
+    "source": "https://omalblog.com/2026/08/02/itoman-machigwa-2/",
+    "price": "そば・天ぷらセット1,400円（2026年8月掲載）",
+    "priceSource": "https://omalblog.com/2026/08/02/itoman-machigwa-2/",
+    "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る",
+    "voucherStatus": "unconfirmed",
+    "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
+    "checkedOn": "2026-10-15",
+    "note": "フードコート奥、総合案内所の隣。"
+  }
+];
+Object.assign(window.KarimenTownData.schedules, {
+  "itomaru-knowry": {
+    "hours": [
+      690,
+      1260
+    ],
+    "closed": [
+      3
+    ],
+    "lastOrder": 1200
+  },
+  "itomaru-minatomachi": {
+    "uncertain": "不定休・売り切れは店舗へ確認"
+  },
+  "itomaru-fullhouse": {
+    "uncertain": "不定休のため店舗へ確認"
+  },
+  "itomaru-gajimaru": {
+    "hours": [
+      660,
+      1080
+    ],
+    "closed": [
+      1
+    ],
+    "soldOut": true
+  },
+  "itomaru-manjuen": {
+    "uncertain": "定休日の記載が異なるため店舗へ確認"
+  },
+  "itomaru-naminami": {
+    "uncertain": "不定休のため店舗へ確認"
+  },
+  "itomaru-lazy-pub": {
+    "uncertain": "昼・夜の営業予定は店舗へ確認"
+  },
+  "itomaru-chef-vegeta": {
+    "hours": [
+      660,
+      1020
+    ],
+    "closed": [
+      0
+    ]
+  },
+  "itomaru-machigwa": {
+    "uncertain": "不定休・早仕舞いは店舗へ確認"
+  }
+});
+const marketGuide = window.KarimenTownData.shops.find(s => s.id === 'itomaru');
+marketGuide.menus = ['海鮮丼','沖縄そば','ハンバーガー','カレー','ラーメン'];
+marketGuide.note = '教習所の案内では市場内の飲食店が対象です。個店の対応・対象メニュー・差額は注文前に確認してください。';
+const ceramicCafe = window.KarimenTownData.shops.find(s => s.id === 'cafe-itoman');
+Object.assign(ceramicCafe, {shortName:'セラミックアートカフェ イトマン',aliases:['Ceramic Art Cafe Itoman','カフェイトマン'],category:'カフェ・沖縄料理',menus:['イナムドゥチ','タコライス','カレーライス'],price:'掲載例：タコライス880円／イナムドゥチ1,100円',priceSource:'https://www.098markets.net/about-cafe/',menuSourceNote:'店舗公式サイトより。価格は掲載時点の参考です。',hours:'営業案内に複数の記載があるため店舗へ確認',closed:'店舗へ確認',source:'https://www.098markets.net/about-cafe/',note:'陶芸体験もできるカフェ。市場とは別の店舗です。営業時間は公式内にも複数の記載があります。'});
+window.KarimenTownData.schedules['cafe-itoman'] = {uncertain:'営業時間・営業日は店舗へ確認'};
