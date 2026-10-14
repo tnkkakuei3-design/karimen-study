@@ -1,0 +1,50 @@
+{
+  "scope": "原資料の解答記号とsourceAnswerの独立照合、および全クロップと問題本文の対応確認。法令の正否の検証は対象外。",
+  "reviewer": "transcribe_7_8",
+  "sourceAnswerSheets": [
+    "050_IMG_9745.jpeg",
+    "051_IMG_9744.jpeg",
+    "062_IMG_9733.jpeg",
+    "063_IMG_9732.jpeg"
+  ],
+  "questionCount": 190,
+  "answerSymbolsChecked": 210,
+  "answerSheetCount": 4,
+  "imageCropsChecked": 46,
+  "contactSheetsChecked": 4,
+  "differences": [],
+  "sets": [
+    {
+      "set": 4,
+      "records": 95,
+      "answerSymbols": 105,
+      "imageCount": 23,
+      "independentSourceKeyBoolean": "110011101101001101010110110101101010010010110100001110110010010100100100111101100111110111",
+      "independentSourceKeyHazard": [
+        "111",
+        "110",
+        "011",
+        "110",
+        "100"
+      ],
+      "dataSha256": "07141bad335775b1b3bde1562e05739f4dd36b90c8f686e940b90966cc95caa7"
+    },
+    {
+      "set": 5,
+      "records": 95,
+      "answerSymbols": 105,
+      "imageCount": 23,
+      "independentSourceKeyBoolean": "001000100100110001011011010001101000111110111111110000100011111101000100011100101001011010",
+      "independentSourceKeyHazard": [
+        "101",
+        "111",
+        "011",
+        "010",
+        "000"
+      ],
+      "dataSha256": "646243668efdd6105ae10d415c5635ff031f33fd86b23011f039ee4b2a654a6c"
+    }
+  ],
+  "result": "pass",
+  "imageReview": "46点すべてで問題本文・危険予測文と画像の対応を確認。別問題の画像の混入や意味に必要な図版の欠けを認めず。写真由来のぼけ・反射は残る。"
+}

@@ -1,0 +1,395 @@
+[
+  {
+    "id": "h2-033",
+    "answer": false,
+    "explanation": "一般道路で一律60km/hではありません。2026年9月1日から中央線等のない生活道路は30km/hです。中央線や車両通行帯がある一般道路等では60km/hで、標識等による指定速度がある場合はその速度に従います。",
+    "reason": "2026年9月1日施行の生活道路の法定速度改正。原資料の正解trueはsourceAnswerに保持。",
+    "sourceUrls": [
+      "https://www.pref.yamagata.jp/800032/houteihikisage.html"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h4-066",
+    "answer": false,
+    "explanation": "踏みごたえが柔らかければ効きがよい、とはいえません。踏みごたえが普段と違う場合はブレーキの異常を疑い、点検整備が必要です。",
+    "reason": "転記された正解trueが安全知識と矛盾。原資料の正解欄も再確認が必要。",
+    "sourceUrls": [
+      "https://www.mlit.go.jp/jidosha/anzen/02maintenance/daily_check.html"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h10-021",
+    "answer": false,
+    "explanation": "保管場所標章の制度と表示義務は2025年4月1日に廃止されました。保管場所の確保や必要な車庫証明の手続は引き続き必要です。",
+    "reason": "保管場所標章の表示義務廃止。",
+    "sourceUrls": [
+      "https://www.police.pref.osaka.lg.jp/ochikakunokeisatsusho/keisatsushobetsujoho/12/2/koutuuka/20600.html"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h2-085",
+    "answer": false,
+    "explanation": "高速自動車国道でも自動車専用道路でも、二輪免許の期間3年以上・20歳以上などの条件を満たせば二人乗りができます。ただし二人乗り通行禁止区間を除きます。",
+    "reason": "正解falseを維持し、両方禁止との旧式解説を防ぐ。",
+    "sourceUrls": [
+      "https://www.keishicho.metro.tokyo.lg.jp/kotsu/jikoboshi/highway/regu2seat_bike.html"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h2-087",
+    "reason": "車両ごとの指定値を無視して一律増圧しないよう条件を明記。",
+    "explanation": "高速走行前に空気圧を点検し、車両の取扱説明書や指定値に従って調整します。空気圧不足はスタンディングウェーブ現象や破損につながります。",
+    "sourceUrls": [
+      "https://jaf.or.jp/common/kuruma-qa/category-inspection/subcategory-everyday/faq101"
+    ],
+    "status": "ready",
+    "answer": true,
+    "text": "タイヤの空気圧が低い状態で高速走行を続けると、スタンディングウェーブ現象が起きるおそれがあるので、走行前に点検し、車両の取扱説明書や指定値に従って調整する。"
+  },
+  {
+    "id": "h4-087",
+    "reason": "転記された正解が問題文と矛盾。原解答欄の再照合要。",
+    "explanation": "AT車でもセレクターの位置を確かめることが必要です。ペダルだけに注意すればよいという記述は誤りです。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready",
+    "answer": false
+  },
+  {
+    "id": "h4-088",
+    "reason": "転記された正解が問題文と矛盾。原解答欄の再照合要。",
+    "explanation": "駐車ブレーキがかかり、セレクターがPであることを確認してブレーキペダルを踏み、始動します。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready",
+    "answer": true
+  },
+  {
+    "id": "h10-062",
+    "reason": "準中型追加後は最大積載量3000kgだけで中型必須とは判定不可。",
+    "explanation": "最大積載量3tの車は、車両総重量などの条件によって準中型免許で運転できます。積載量だけで中型免許が必須とはいえません。",
+    "sourceUrls": [
+      "https://www.keishicho.metro.tokyo.lg.jp/menkyo/menkyo/chugata.html"
+    ],
+    "status": "ready",
+    "answer": false
+  },
+  {
+    "id": "h10-054",
+    "reason": "義務の有無を問う文と実施行為を問う文が混同されているため明確化。",
+    "explanation": "交差点やその付近以外では、道路の左側に寄って進路を譲ります。一時停止が常に義務になるわけではありません。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready",
+    "answer": false,
+    "text": "交差点やその付近以外の道路でも、緊急自動車が近づいてきたときは、必ず一時停止しなければならない。"
+  },
+  {
+    "id": "h10-056",
+    "reason": "長めの停車と駐車を明確に区別するため条件補足。",
+    "explanation": "長めの停車ではNにして駐車ブレーキをかけるなど、誤発進を防ぎます。駐車するときはPにし、車両の取扱説明書に従います。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready",
+    "answer": true,
+    "text": "AT車でエンジンをかけたまま長めの停車をするときは、セレクターをNにし、駐車ブレーキをかけるなどして誤発進を防ぐ。"
+  },
+  {
+    "id": "h10-070",
+    "reason": "登坂でアクセルだけでよいとの一律記述は後退事故につながる。",
+    "explanation": "急な上り坂ではクリープだけで後退を防げないことがあります。駐車ブレーキ等を使い、安全確認のうえ発進します。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready",
+    "answer": false,
+    "text": "AT車は、どのような上り坂でも、駐車ブレーキなどを使わずアクセルペダルを踏むだけで安全に発進できる。"
+  },
+  {
+    "id": "h10-030",
+    "reason": "原文と原解説に不整合があり、そのまま正誤を決めない。",
+    "explanation": "問題文と解説の対応を確認できるまで公開対象から外します。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "hold"
+  },
+  {
+    "id": "h10-079",
+    "reason": "夜間大型車の距離判断の一般化について根拠不足。",
+    "explanation": "車種と距離判断を一律に断定する根拠を確認できるまで公開対象から外します。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "hold"
+  },
+  {
+    "id": "h8-090",
+    "reason": "時速80メートルは単位の誤植。",
+    "explanation": "雨天やタイヤ摩耗時は制動距離が長くなります。乾いた路面と同じ車間距離で十分とはいえません。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready",
+    "answer": false,
+    "text": "高速道路での安全な車間距離は、路面が雨に濡れタイヤがすり減っている場合でも、時速80キロメートルなら80メートルあれば十分である。"
+  },
+  {
+    "id": "h3-032",
+    "answer": false,
+    "explanation": "二輪車も一般道路で一律60km/hではありません。2026年9月1日から中央線等のない生活道路は30km/hです。中央線等のある一般道路などでは60km/hで、指定速度があればその速度に従います。",
+    "reason": "生活道路の法定速度改正。",
+    "sourceUrls": [
+      "https://www.pref.yamagata.jp/800032/houteihikisage.html"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h4-083",
+    "text": "高速道路で故障し動けなくなったときは、レッカー車を呼ぶなどして移動する。クラッチを踏まずに始動できる装置のMT車で、周囲の安全が確保できる場合に限り、低速ギアに入れてセルモーターで路肩などに移動できることがある。",
+    "answer": true,
+    "explanation": "セルモーターで移動できるのは一部のMT車です。踏切では列車に知らせる措置を急ぎ、無理な再始動を繰り返さないでください。",
+    "reason": "クラッチスタートシステム搭載車除外を明示。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h8-089",
+    "text": "踏切などでエンストしたとき、AT車やクラッチを踏まないと始動しないMT車では使えないが、その装置がないMT車では低速ギアに入れ、クラッチを踏まずセルモーターで動かす方法もある。",
+    "answer": true,
+    "explanation": "セルモーターで移動できるのは一部のMT車です。踏切では列車に知らせる措置を急ぎ、無理な再始動を繰り返さないでください。",
+    "reason": "クラッチスタートシステム搭載車除外を明示。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h10-060",
+    "answer": false,
+    "text": "踏切の手前では止まれる速度で進めばよく、一時停止する必要はない。",
+    "explanation": "踏切では原則として直前で一時停止し、安全を確認します。踏切の信号機に従う場合には停止せず通過できる例外があります。",
+    "reason": "原文は減速行為自体を誤りと読めるため、一時停止不要という誤りを明示。原資料の×を保持。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h3-067",
+    "text": "夜間は昼間より歩行者や自転車などが見えにくく、発見が遅れやすいので、同じ道路でも見通しに応じて速度を落として運転する。",
+    "answer": true,
+    "explanation": "夜間の安全速度は視界や交通状況で変わります。昼間より必ず20％減という一律の法定基準ではありません。",
+    "reason": "固定20％の数値を法定義務と誤認させないよう明確化。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h9-003",
+    "text": "夜間は昼間より歩行者や自転車などが見えにくく、発見が遅れやすいので、同じ道路でも見通しに応じて速度を落として運転する。",
+    "answer": true,
+    "explanation": "夜間の安全速度は視界や交通状況で変わります。昼間より必ず20％減という一律の法定基準ではありません。",
+    "reason": "固定20％の数値を法定義務と誤認させないよう明確化。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h7-070",
+    "text": "長時間運転するときは、疲れる前に休憩をとり、少なくとも2時間に1回程度は休むようにする。",
+    "answer": true,
+    "explanation": "疲労や眠気を感じたら2時間を待たず、安全な場所で休みます。",
+    "reason": "休憩の安全上の目安を一律の法的義務と混同しない表現へ。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h7-064",
+    "text": "大型・中型・準中型・普通自動車などの荷物は、車体の前後それぞれから、車長の10分の1を超えてはみ出さないように積まなければならない。",
+    "answer": true,
+    "explanation": "はみ出しは前後それぞれ車長の1/10以内です。積載物全体の長さは車長の1.2倍までという別の制限もあります。",
+    "reason": "2022年改正後の総長制限と前後のはみ出し制限を区別。",
+    "sourceUrls": [
+      "https://www.police.pref.osaka.lg.jp/kotsu/kaisei/13056.html"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h7-054",
+    "text": "踏切でエンストしたとき、AT車やクラッチを踏まないと始動しないMT車では使えないが、その装置がないMT車では低速ギアに入れセルモーターで移動できる場合もある。",
+    "answer": true,
+    "explanation": "踏切では列車に異常を知らせる措置を急ぎます。セルモーター移動ができるのは一部の車で、無理な始動を繰り返してはいけません。",
+    "reason": "クラッチスタート装置・AT車を除く条件を補足。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h7-078",
+    "text": "高速道路に信号機があり赤信号が点灯している場合は、その信号に従って停止する。",
+    "answer": true,
+    "explanation": "赤信号の原因を工事と決めつけず、信号と現場の指示に従います。",
+    "reason": "赤信号の原因を工事と断定する不要条件を除去。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h7-082",
+    "text": "水たまりやぬかるみを通るときは、人や物に泥水をはねないよう、必要に応じて徐行するなど十分に速度を落とす。",
+    "answer": true,
+    "explanation": "時速10km以下なら必ず安全とは限りません。歩行者との距離や水たまりの状態に応じて慎重に通ります。",
+    "reason": "固定10km/hの十分条件を避ける。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h3-078",
+    "text": "普通自動車の積載物の高さは、三輪車・660cc以下の車や公安委員会が別に定めた場合などを除き、地上3.8メートル以下である。",
+    "answer": true,
+    "explanation": "普通自動車でも車種等で例外があります。三輪車・660cc以下の普通自動車は原則2.5mです。",
+    "reason": "車種例外を明記。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h8-018",
+    "text": "普通自動車の積載物の高さは、三輪車・660cc以下の車や公安委員会が別に定めた場合などを除き、地上3.8メートル以下である。",
+    "answer": true,
+    "explanation": "普通自動車でも車種等で例外があります。三輪車・660cc以下の普通自動車は原則2.5mです。",
+    "reason": "車種例外を明記。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h7-087",
+    "text": "高速自動車国道では、構造上または性能上、時速50キロメートル以上を出せない自動車は通行できない。",
+    "answer": true,
+    "explanation": "自動車専用道路も含む「高速道路」全体へ一律に当てはめないでください。",
+    "reason": "高速自動車国道と自動車専用道路を区別。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h9-023",
+    "text": "自動二輪車や一般原付の乗車用ヘルメットは、PSCマークやJISマークなどの安全性を確認し、あごひもを確実に締めて正しく着用する。",
+    "answer": true,
+    "explanation": "PSCは消費生活用製品安全法の技術基準適合を示す表示です。装飾用ヘルメットではなく乗車用を選びます。",
+    "reason": "旧PS表記を現行PSC表記へ。",
+    "sourceUrls": [
+      "https://www.meti.go.jp/policy/consumer/seian/shouan/act_outline.html"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h9-025",
+    "text": "大型二輪免許と普通二輪免許を受けていた期間が通算1年未満の者は、側車付きのものを除き、一般道路でも自動二輪車で二人乗りをしてはならない。",
+    "answer": true,
+    "explanation": "二輪免許の通算期間を確認します。高速道路では20歳以上・通算3年以上という追加条件があります。",
+    "reason": "通算免許歴と側車例外を明示。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h9-061",
+    "reason": "淡青色の排気を正常とする一律記述は現代車にそのまま適用できない。車種条件・原典確認が必要。",
+    "explanation": "車種による排気色の違いを確認できるまで公開対象から外します。",
+    "sourceUrls": [
+      "https://www.mlit.go.jp/jidosha/anzen/02maintenance/daily_check.html"
+    ],
+    "status": "hold"
+  },
+  {
+    "id": "h8-023",
+    "text": "前後輪が連動しない一般的なMT二輪車では、右手のブレーキレバーで前輪、右足のペダルで後輪のブレーキを別々に操作する。",
+    "answer": true,
+    "explanation": "スクーターや前後連動ブレーキの車種では操作方法が異なります。自分の車両の取扱説明書を確認してください。",
+    "reason": "車種によるブレーキ構造差を限定条件で明確化。",
+    "sourceUrls": [
+      "https://global.honda/jp/tech/Advanced_Brake_System/"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h10-031",
+    "text": "前後輪が連動しない二輪車で後輪ブレーキだけを急に強くかけると、後輪がロックして滑るおそれがある。",
+    "answer": true,
+    "explanation": "前後輪のブレーキを適切に組み合わせ、車両に合った操作をします。連動ブレーキやABSの有無で作動は異なります。",
+    "reason": "フットブレーキは前輪に作用しないとの一律断定を避ける。",
+    "sourceUrls": [
+      "https://global.honda/jp/tech/Advanced_Brake_System/"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h5-009",
+    "text": "交差点の手前で後方から緊急自動車が近づいたときは、道路の左側に寄りさえすれば、一時停止しなくてもよい。",
+    "answer": false,
+    "explanation": "交差点やその付近では、交差点を避け、左側に寄って一時停止し進路を譲ります。",
+    "reason": "単に進路を譲った行為が誤りとの誤解を防ぎ、一時停止不要を明示。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h5-051",
+    "text": "道路の中央から左側部分の幅が7メートルある道路では、見通しがよければ、追越しのため中央から右側部分にはみ出してもよい。",
+    "answer": false,
+    "explanation": "左側部分が6m以上ある道路では、追越しのため右側部分にはみ出すことはできません。",
+    "reason": "原文は右側はみ出し条件欠落で追越し自体を誤りにしていたため明確化。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h5-041",
+    "text": "二輪車は自分の体格や技量に合ったものを選び、小さい車種から段階的に慣れていくのがよい。",
+    "answer": true,
+    "explanation": "小型から順に免許を取る法的義務があるわけではありません。無理のない車種で運転に慣れるという安全上の心得です。",
+    "reason": "二輪免許の旧称「中型」を現行一般表現へ。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready"
+  },
+  {
+    "id": "h9-078",
+    "text": "普通自動車の積載物の高さは、三輪車・660cc以下の車や公安委員会が別に定めた場合などを除き、地上3.8メートル以下である。",
+    "answer": true,
+    "explanation": "車種や指定による例外があります。荷台からでなく地上から測ります。",
+    "reason": "高さの例外を補足。",
+    "sourceUrls": [
+      "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+    ],
+    "status": "ready"
+  }
+]

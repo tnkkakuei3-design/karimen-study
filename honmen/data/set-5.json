@@ -1,0 +1,1898 @@
+[
+  {
+    "id": "h5-001",
+    "set": 5,
+    "number": 1,
+    "type": "boolean",
+    "text": "同じ距離であっても、小型車は近く、大型車は遠くに感じ、同じ速度で走っても、夜間は昼間より速く感じる。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "同じ距離では大型車は近く、小型車は遠くに感じます。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "061_IMG_9734.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-002",
+    "set": 5,
+    "number": 2,
+    "type": "boolean",
+    "text": "駐車場や車庫などの出入り口から3メートル以内の場所には駐車してはならないが、自宅の出入り口であれば、3メートル以内であっても駐車する事が出来る。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "自宅の出入口でも3メートル以内は駐車禁止です。",
+    "category": "駐停車",
+    "sourceImages": [
+      "061_IMG_9734.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [
+      "問5と内容重複"
+    ],
+    "status": "needs-review"
+  },
+  {
+    "id": "h5-003",
+    "set": 5,
+    "number": 3,
+    "type": "boolean",
+    "text": "二輪車は、走行中にブレーキをかけると、重心は前に移動する。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "制動すると荷重が前方へ移ります。",
+    "category": "二輪車",
+    "sourceImages": [
+      "061_IMG_9734.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-004",
+    "set": 5,
+    "number": 4,
+    "type": "boolean",
+    "text": "高速道路で故障したときは、本線車道の左端に止めた方がよい。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "本線車道を避け、路肩などのできるだけ安全な場所に止めます。",
+    "category": "高速道路",
+    "sourceImages": [
+      "061_IMG_9734.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-005",
+    "set": 5,
+    "number": 5,
+    "type": "boolean",
+    "text": "駐車場や車庫などの出入り口から3メートル以内の場所には駐車してはならないが、自宅の出入り口であれば3メートル以内であっても駐車することができる。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "自宅でも出入口から3メートル以内は駐車禁止です。",
+    "category": "駐停車",
+    "sourceImages": [
+      "061_IMG_9734.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [
+      "問2と内容重複"
+    ],
+    "status": "needs-review"
+  },
+  {
+    "id": "h5-006",
+    "set": 5,
+    "number": 6,
+    "type": "boolean",
+    "text": "マフラーが故障して大きな排気音が出ても、運転上、危険とはいえないから運転は禁止されていない。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "大きな排気音が出る整備不良車の運転は禁止されています。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "061_IMG_9734.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-007",
+    "set": 5,
+    "number": 7,
+    "type": "boolean",
+    "text": "この標識は、前方に逆Y字型合流交通ありという意味である。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "合流交通ありを示す警戒標識です。",
+    "category": "標識・標示",
+    "sourceImages": [
+      "061_IMG_9734.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": "honmen/assets/h5-007.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-008",
+    "set": 5,
+    "number": 8,
+    "type": "boolean",
+    "text": "信号が、黄色の点滅をしている場合は、車は停止線を越えて進行してはならない。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "黄色の点滅では他の交通に注意して進めます。",
+    "category": "信号・合図",
+    "sourceImages": [
+      "061_IMG_9734.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": "honmen/assets/h5-008.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-009",
+    "set": 5,
+    "number": 9,
+    "type": "boolean",
+    "text": "交差点の手前で、後ろから緊急自動車が接近してきたときは、道路の左側に寄って進路を譲った。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "交差点を避け、左側に寄って一時停止します。",
+    "category": "交差点・通行",
+    "sourceImages": [
+      "061_IMG_9734.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-010",
+    "set": 5,
+    "number": 10,
+    "type": "boolean",
+    "text": "原動機付自転車に、荷台がついているものであっても、重量制限は30kgを超えてはならない。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "一般原動機付自転車の積載重量は30kgまでです。",
+    "category": "二輪車",
+    "sourceImages": [
+      "061_IMG_9734.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [
+      "数値部分に反射。一般原付の範囲を確認"
+    ],
+    "status": "needs-review"
+  },
+  {
+    "id": "h5-011",
+    "set": 5,
+    "number": 11,
+    "type": "boolean",
+    "text": "この標示は、前方の交差する道路に対して、優先道路であることを示している。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "前方優先道路を示し、交差する道路の方が優先です。",
+    "category": "標識・標示",
+    "sourceImages": [
+      "060_IMG_9735.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": "honmen/assets/h5-011.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-012",
+    "set": 5,
+    "number": 12,
+    "type": "boolean",
+    "text": "ブレーキの点検は、高速運転しながら点検した方がよい。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "安全な場所で低速で点検します。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "060_IMG_9735.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-013",
+    "set": 5,
+    "number": 13,
+    "type": "boolean",
+    "text": "この標識は、直進と左折はできるが、右折はできない。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "指定方向外進行禁止の標識で、直進と左折を指定しています。",
+    "category": "標識・標示",
+    "sourceImages": [
+      "060_IMG_9735.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": "honmen/assets/h5-013.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-014",
+    "set": 5,
+    "number": 14,
+    "type": "boolean",
+    "text": "二輪車の積載の幅の制限は、左右にそれぞれ0.15メートルまでは、はみ出してもよい。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "積載装置から左右それぞれ15センチメートル以内が限度です。",
+    "category": "二輪車",
+    "sourceImages": [
+      "060_IMG_9735.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [
+      "積載装置の幅基準であることを補足"
+    ],
+    "status": "needs-review"
+  },
+  {
+    "id": "h5-015",
+    "set": 5,
+    "number": 15,
+    "type": "boolean",
+    "text": "高速道路を運転中、疲れを感じたので、十分な幅のある路側帯に入って休憩した。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "休憩はサービスエリアやパーキングエリアでとります。",
+    "category": "高速道路",
+    "sourceImages": [
+      "060_IMG_9735.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-016",
+    "set": 5,
+    "number": 16,
+    "type": "boolean",
+    "text": "大型特殊免許では、大型特殊自動車、普通自動車、小型特殊自動車、原動機付自転車が運転できる。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "大型特殊免許だけでは普通自動車を運転できません。",
+    "category": "免許・心得",
+    "sourceImages": [
+      "060_IMG_9735.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-017",
+    "set": 5,
+    "number": 17,
+    "type": "boolean",
+    "text": "道路の中央線寄りを進行中、後方から緊急自動車が接近してきたが、交差点ではなかったのでそのまま進行した。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "交差点以外でも左側に寄って進路を譲ります。",
+    "category": "交差点・通行",
+    "sourceImages": [
+      "060_IMG_9735.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-018",
+    "set": 5,
+    "number": 18,
+    "type": "boolean",
+    "text": "今から車を運転しようとする人に酒をすすめてはいけない。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "運転する人に酒をすすめてはいけません。",
+    "category": "免許・心得",
+    "sourceImages": [
+      "060_IMG_9735.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-019",
+    "set": 5,
+    "number": 19,
+    "type": "boolean",
+    "text": "交通が混雑していたので、原動機付自転車で路側帯を走行した。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "一般原動機付自転車は路側帯を走行できません。",
+    "category": "交差点・通行",
+    "sourceImages": [
+      "060_IMG_9735.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [
+      "一般原付と特定小型原付の適用範囲確認"
+    ],
+    "status": "needs-review"
+  },
+  {
+    "id": "h5-020",
+    "set": 5,
+    "number": 20,
+    "type": "boolean",
+    "text": "道路のまがり角は、追い越しが禁止されている。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "道路の曲がり角付近は追越し禁止です。",
+    "category": "交差点・通行",
+    "sourceImages": [
+      "060_IMG_9735.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-021",
+    "set": 5,
+    "number": 21,
+    "type": "boolean",
+    "text": "二輪車でカーブを曲がるときは、ハンドルを切るのでなく、車体を傾けることによって自然に曲がるような要領で曲がる。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "車体を適切に傾けて曲がります。",
+    "category": "二輪車",
+    "sourceImages": [
+      "060_IMG_9735.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-022",
+    "set": 5,
+    "number": 22,
+    "type": "boolean",
+    "text": "バス運行時間中の停留所の標示板から10メートル以内の場所は、駐車禁止の場所ではあるが、停車は禁止されていない。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "運行時間中は駐車も停車も禁止です。",
+    "category": "駐停車",
+    "sourceImages": [
+      "060_IMG_9735.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-023",
+    "set": 5,
+    "number": 23,
+    "type": "boolean",
+    "text": "この標示は、規制標示が表示する交通規制の区間の終りを示している。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "規制区間の終わりを示す標示です。",
+    "category": "標識・標示",
+    "sourceImages": [
+      "059_IMG_9736.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": "honmen/assets/h5-023.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-024",
+    "set": 5,
+    "number": 24,
+    "type": "boolean",
+    "text": "二輪車の運転は、身体で安定を保ちながら走り、停止をすれば安定を失うという点では、四輪車とは違った運転技術が必要である。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "二輪車はバランスを保つため、四輪車とは異なる技術が必要です。",
+    "category": "二輪車",
+    "sourceImages": [
+      "059_IMG_9736.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-025",
+    "set": 5,
+    "number": 25,
+    "type": "boolean",
+    "text": "警笛鳴らせの標識のないところでも、見通しの悪い交差点を通行するときや、追越しをするときは、警音器を鳴らさなければならない。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "標識などで指定された場合や危険防止のためやむを得ない場合を除き、鳴らしてはいけません。",
+    "category": "信号・合図",
+    "sourceImages": [
+      "059_IMG_9736.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-026",
+    "set": 5,
+    "number": 26,
+    "type": "boolean",
+    "text": "乾燥した路面であっても、前の車との車間距離は、通常の停止距離よりも長めにとって運転するのがよい。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "前車の急停止にも備え、十分な車間距離をとります。",
+    "category": "速度・車間距離",
+    "sourceImages": [
+      "059_IMG_9736.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-027",
+    "set": 5,
+    "number": 27,
+    "type": "boolean",
+    "text": "運転免許証は大切なものであるから、家に保管してコピーを持つようにする。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "運転時は有効な免許証を携帯する必要があり、コピーでは代用できません。",
+    "category": "免許・心得",
+    "sourceImages": [
+      "059_IMG_9736.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-028",
+    "set": 5,
+    "number": 28,
+    "type": "boolean",
+    "text": "列車が過ぎ去った直後、踏切り内で故障したが、次の列車がくるまで時間があるので、列車の運転手に知らせるよりも早く移動させたほうがよい。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "まず列車に危険を知らせます。",
+    "category": "交差点・通行",
+    "sourceImages": [
+      "059_IMG_9736.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-029",
+    "set": 5,
+    "number": 29,
+    "type": "boolean",
+    "text": "この標識のある場所では、徐行すればそのまま通行してもよい。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "徐行するだけでなく、安全確認も必要です。",
+    "category": "標識・標示",
+    "sourceImages": [
+      "059_IMG_9736.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": "honmen/assets/h5-029.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-030",
+    "set": 5,
+    "number": 30,
+    "type": "boolean",
+    "text": "二段階右折する原動機付自転車は、右折する場所へ直進するまで、右へ方向指示器を出さなければならない。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "二段階右折でも右折の合図をして交差点の向こうまで進みます。",
+    "category": "信号・合図",
+    "sourceImages": [
+      "059_IMG_9736.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-031",
+    "set": 5,
+    "number": 31,
+    "type": "boolean",
+    "text": "総排気量660ccの普通貨物自動車に荷物を積むときの高さは、地上から2.5メートル以下である。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "軽自動車の積載物の高さは地上から2.5メートルまでです。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "059_IMG_9736.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [
+      "積載制限現行規定確認"
+    ],
+    "status": "needs-review"
+  },
+  {
+    "id": "h5-032",
+    "set": 5,
+    "number": 32,
+    "type": "boolean",
+    "text": "酒を飲んでも酔っていないと判断したときは、運転してもよい。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "酔いの自覚にかかわらず飲酒後は運転してはいけません。",
+    "category": "免許・心得",
+    "sourceImages": [
+      "059_IMG_9736.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-033",
+    "set": 5,
+    "number": 33,
+    "type": "boolean",
+    "text": "駐車禁止の場所で、人の乗り降りのための停車は駐車違反にならない。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "人の乗降のための停止は停車です。駐停車禁止場所とは区別します。",
+    "category": "駐停車",
+    "sourceImages": [
+      "059_IMG_9736.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-034",
+    "set": 5,
+    "number": 34,
+    "type": "boolean",
+    "text": "交差点で左折しようと思ったが、道不案内なので、直前で左折をやめた。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "直前の急な進路変更は事故につながるため避けます。",
+    "category": "交差点・通行",
+    "sourceImages": [
+      "059_IMG_9736.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-035",
+    "set": 5,
+    "number": 35,
+    "type": "boolean",
+    "text": "二輪車は、四輪車の運転者から、距離は実際より近く、速度は実際より速く判断されやすい。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "二輪車は実際より遠く、遅いと見られがちです。",
+    "category": "二輪車",
+    "sourceImages": [
+      "059_IMG_9736.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-036",
+    "set": 5,
+    "number": 36,
+    "type": "boolean",
+    "text": "この標識は、自動二輪車の通行止めを表しているので、原動機付自転車は対象にならない。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "二輪の自動車と一般原動機付自転車が対象です。",
+    "category": "標識・標示",
+    "sourceImages": [
+      "058_IMG_9737.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": "honmen/assets/h5-036.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-037",
+    "set": 5,
+    "number": 37,
+    "type": "boolean",
+    "text": "走行中タイヤがパンクしたときは、しっかりハンドルを握り、車体を真っ直ぐに保ち、速度が落ちてきたら、断続的にブレーキを踏んで止めるのがよい。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "急操作を避け、進路を保ちながら減速して止めます。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "058_IMG_9737.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-038",
+    "set": 5,
+    "number": 38,
+    "type": "boolean",
+    "text": "大型免許で、回送するバスを運転することができる。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "旅客運送目的でない回送は第一種の大型免許で運転できます。",
+    "category": "免許・心得",
+    "sourceImages": [
+      "058_IMG_9737.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-039",
+    "set": 5,
+    "number": 39,
+    "type": "boolean",
+    "text": "大型貨物自動車の積み荷の高さは、地上から3.8メートルまで積むことができる。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "通常の積載物の高さの上限は地上3.8メートルです。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "058_IMG_9737.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [
+      "高さ指定道路などの例外補足"
+    ],
+    "status": "needs-review"
+  },
+  {
+    "id": "h5-040",
+    "set": 5,
+    "number": 40,
+    "type": "boolean",
+    "text": "タイヤがすりへっていると、路面とタイヤとの摩擦抵抗が小さくなり、制動距離は長くなるが、空走距離には影響しない。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "摩擦が影響するのは制動距離で、空走距離ではありません。",
+    "category": "速度・車間距離",
+    "sourceImages": [
+      "058_IMG_9737.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-041",
+    "set": 5,
+    "number": 41,
+    "type": "boolean",
+    "text": "二輪免許は、小型・中型・大型と順序よく受けたほうがよい。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "扱いやすい小型から経験を積み、段階的に大きな車へ進むと安全です。",
+    "category": "二輪車",
+    "sourceImages": [
+      "058_IMG_9737.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [
+      "小型・中型・大型という旧呼称。制度上段階取得の義務はない"
+    ],
+    "status": "needs-review"
+  },
+  {
+    "id": "h5-042",
+    "set": 5,
+    "number": 42,
+    "type": "boolean",
+    "text": "「初心者マーク」をつけている車を追い越したり、追い抜いたりすることは禁止されている。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "禁止されるのは幅寄せや無理な割り込みで、適法な追越し自体ではありません。",
+    "category": "免許・心得",
+    "sourceImages": [
+      "058_IMG_9737.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-043",
+    "set": 5,
+    "number": 43,
+    "type": "boolean",
+    "text": "自動二輪車でエンジンブレーキを使用するときは、ギヤをいきなり高速からローに入れると危険だから順序よくシフトダウンした方がよい。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "急な低速ギアへの変更を避け、速度に合わせて段階的に操作します。",
+    "category": "二輪車",
+    "sourceImages": [
+      "058_IMG_9737.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-044",
+    "set": 5,
+    "number": 44,
+    "type": "boolean",
+    "text": "歩行者横断禁止の道路を、道路左側から園児二人が横断しはじめたので一時停止し、注意を与えて横断をやめさせた。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "横断禁止場所でも歩行者の安全を守るため停止します。",
+    "category": "歩行者保護",
+    "sourceImages": [
+      "058_IMG_9737.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-045",
+    "set": 5,
+    "number": 45,
+    "type": "boolean",
+    "text": "車両通行帯が黄色の線で区画されているところでは、緊急自動車が接近してきたとき、この黄線を越えて、進路を変更してもよい。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "緊急自動車に進路を譲るための進路変更は例外です。",
+    "category": "交差点・通行",
+    "sourceImages": [
+      "058_IMG_9737.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-046",
+    "set": 5,
+    "number": 46,
+    "type": "boolean",
+    "text": "この標識のある道路から信号機のある交差点を原動機付自転車が右折するときは、できるだけ道路の中央に寄り、交差点の中心の内側を徐行する。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "原動機付自転車の右折方法（小回り）を指定する標識です。",
+    "category": "標識・標示",
+    "sourceImages": [
+      "058_IMG_9737.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": "honmen/assets/h5-046.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-047",
+    "set": 5,
+    "number": 47,
+    "type": "boolean",
+    "text": "けん引するための構造装置のある車で、けん引されるための構造装置のある車をけん引するときは高速道路を通行することができる。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "専用のけん引構造装置を備えた車両同士であれば高速道路を通行できます。",
+    "category": "高速道路",
+    "sourceImages": [
+      "058_IMG_9737.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-048",
+    "set": 5,
+    "number": 48,
+    "type": "boolean",
+    "text": "人の形の記号のある信号は、歩行者に対するものですが、自転車もその信号機に「歩行者・自転車専用」と表示されている場合は、その信号機の信号に従わなければならない。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "歩行者・自転車専用の表示があれば自転車も従います。",
+    "category": "信号・合図",
+    "sourceImages": [
+      "057_IMG_9738.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": "honmen/assets/h5-048.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-049",
+    "set": 5,
+    "number": 49,
+    "type": "boolean",
+    "text": "この標示は、前方に横断歩道や自転車横断帯があることを示している。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "ひし形は前方の横断歩道などを知らせる標示です。",
+    "category": "標識・標示",
+    "sourceImages": [
+      "057_IMG_9738.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": "honmen/assets/h5-049.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-050",
+    "set": 5,
+    "number": 50,
+    "type": "boolean",
+    "text": "乗車人員は、大人1人に対して、12才未満の子供は1.5人として計算する。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "定員計算では12歳未満の子供3人を大人2人として扱います。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "057_IMG_9738.jpeg",
+      "051_IMG_9744.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-051",
+    "set": 5,
+    "number": 51,
+    "type": "boolean",
+    "text": "中央線から左側部分の幅7メートルの見通しのよい道路で、車を追い越した。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "左側部分が6メートル以上の場合は右側部分にはみ出して追い越せません。",
+    "category": "交差点・通行",
+    "sourceImages": [
+      "057_IMG_9738.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [
+      "印刷本文に右側にはみ出す条件がなく、手書きで右側にはみ出す旨の補足がある。条件不足のまま原正答×で出題しないこと"
+    ],
+    "status": "needs-review"
+  },
+  {
+    "id": "h5-052",
+    "set": 5,
+    "number": 52,
+    "type": "boolean",
+    "text": "急いでいるタクシーは、車両通行帯の線にまたがって通行してもよい。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "急いでいても通行帯をまたいで走行してはいけません。",
+    "category": "交差点・通行",
+    "sourceImages": [
+      "057_IMG_9738.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-053",
+    "set": 5,
+    "number": 53,
+    "type": "boolean",
+    "text": "この標識は、歩行者は通行できるが、車は通行できないという意味である。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "通行止めは歩行者も対象です。",
+    "category": "標識・標示",
+    "sourceImages": [
+      "057_IMG_9738.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": "honmen/assets/h5-053.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-054",
+    "set": 5,
+    "number": 54,
+    "type": "boolean",
+    "text": "オートマチック車で踏切りを通過するときは、L（ローギア）で一気に通過するのがよい。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "通常はDレンジで安全を確認し、落ち着いて通過します。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "057_IMG_9738.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-055",
+    "set": 5,
+    "number": 55,
+    "type": "boolean",
+    "text": "夜間見通しの悪い交差点やカーブなどの手前では、前照灯を上向きに切り替えるか点滅して、他の車や歩行者に注意をうながす。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "見通しの悪い場所では前照灯を活用して接近を知らせます。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "057_IMG_9738.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [
+      "前照灯上下切替による接近通知の表現をレビュー"
+    ],
+    "status": "needs-review"
+  },
+  {
+    "id": "h5-056",
+    "set": 5,
+    "number": 56,
+    "type": "boolean",
+    "text": "この絵の矢印の方向から進行する車は、青信号と同じである。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "腕を垂直に上げた警察官の正面・背面に対面する交通は赤信号と同じです。",
+    "category": "信号・合図",
+    "sourceImages": [
+      "057_IMG_9738.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": "honmen/assets/h5-056.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-057",
+    "set": 5,
+    "number": 57,
+    "type": "boolean",
+    "text": "この標識のある道路で、原動機付自転車は通行することができる。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "二輪の自動車と一般原動機付自転車は通行できません。",
+    "category": "標識・標示",
+    "sourceImages": [
+      "057_IMG_9738.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": "honmen/assets/h5-057.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-058",
+    "set": 5,
+    "number": 58,
+    "type": "boolean",
+    "text": "普通第一種免許では、故障して回送しているタクシーでも運転することができない。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "旅客運送目的でない回送なら普通第一種免許で運転できます。",
+    "category": "免許・心得",
+    "sourceImages": [
+      "057_IMG_9738.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-059",
+    "set": 5,
+    "number": 59,
+    "type": "boolean",
+    "text": "時速60キロメートル／毎時でコンクリートの壁に激突した場合は、ビルの5階程度から落ちた場合と同じ程度の衝撃力をうける。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "60km/hでの衝突は約14メートルからの落下に相当します。",
+    "category": "速度・車間距離",
+    "sourceImages": [
+      "056_IMG_9739.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-060",
+    "set": 5,
+    "number": 60,
+    "type": "boolean",
+    "text": "車両通行帯のないトンネルでは、自動車や原動機付自転車を追い越すため、進路を変えたり、その横をとおりすぎたりしてはならない。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "車両通行帯のないトンネルでは追越しは禁止です。",
+    "category": "交差点・通行",
+    "sourceImages": [
+      "056_IMG_9739.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-061",
+    "set": 5,
+    "number": 61,
+    "type": "boolean",
+    "text": "高速道路で、夜間故障して駐車するときは、停止表示器材を置き、非常点滅表示灯や駐車灯などをつける。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "停止表示器材と灯火で後続車に知らせ、安全な場所に避難します。",
+    "category": "高速道路",
+    "sourceImages": [
+      "056_IMG_9739.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-062",
+    "set": 5,
+    "number": 62,
+    "type": "boolean",
+    "text": "交差点を直進しようとする二輪車は、対向する右折四輪車が、距離や速度をまちがえて判断しているかもしれないので、四輪車の動向に注意しなければならない。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "二輪車は距離や速度を見誤られやすいため、対向右折車に注意します。",
+    "category": "二輪車",
+    "sourceImages": [
+      "056_IMG_9739.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-063",
+    "set": 5,
+    "number": 63,
+    "type": "boolean",
+    "text": "この標識は、地上から3.3メートルをこえて荷物を積んだ車は通行できないことを表している。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "積載物を含む高さが3.3メートルを超える車は通れません。",
+    "category": "標識・標示",
+    "sourceImages": [
+      "056_IMG_9739.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": "honmen/assets/h5-063.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-064",
+    "set": 5,
+    "number": 64,
+    "type": "boolean",
+    "text": "日常点検をしていても、高速道路にはいる直前にあらためて燃料、冷却水、エンジンオイルの量等を点検しなければならない。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "高速道路に入る前には燃料や油脂類などを改めて点検します。",
+    "category": "高速道路",
+    "sourceImages": [
+      "056_IMG_9739.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-065",
+    "set": 5,
+    "number": 65,
+    "type": "boolean",
+    "text": "道路の左側端に駐車したとき、車の右側に2.5メートル以上の余地をあけていれば駐車してもよい。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "原則として右側に3.5メートル以上の余地が必要です。",
+    "category": "駐停車",
+    "sourceImages": [
+      "056_IMG_9739.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-066",
+    "set": 5,
+    "number": 66,
+    "type": "boolean",
+    "text": "トンネルの中や濃い霧の中などで、50メートル先が見えないような場所を通行するときは、昼間でも灯火をつけるべきである。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "見通しの悪い場所では昼間でも灯火をつけます。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "056_IMG_9739.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-067",
+    "set": 5,
+    "number": 67,
+    "type": "boolean",
+    "text": "止まっている大型自動車の横を子供が通って行くのが見えたが、出てくる気配がないので、一気に通過した。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "子供の飛び出しを予測し、徐行や一時停止で備えます。",
+    "category": "歩行者保護",
+    "sourceImages": [
+      "056_IMG_9739.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-068",
+    "set": 5,
+    "number": 68,
+    "type": "boolean",
+    "text": "警察官が、進めの指示をしているときでも、一時停止の標識に従わなければならない。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "警察官の指示に従います。",
+    "category": "信号・合図",
+    "sourceImages": [
+      "056_IMG_9739.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-069",
+    "set": 5,
+    "number": 69,
+    "type": "boolean",
+    "text": "スーパーの駐車場から出る時「止まれ」の標識があったが、係員の誘導があったので、一時停止せず走行した。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "係員の誘導があっても一時停止の標識に従います。",
+    "category": "信号・合図",
+    "sourceImages": [
+      "056_IMG_9739.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-070",
+    "set": 5,
+    "number": 70,
+    "type": "boolean",
+    "text": "オートマチック車で駐車するときは、ハンドブレーキをかけ、チェンジレバーは地形に関係なくPの位置に入れておく。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "駐車ブレーキをかけ、Pレンジに入れます。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "055_IMG_9740.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-071",
+    "set": 5,
+    "number": 71,
+    "type": "boolean",
+    "text": "路線バスなどの優先通行帯を通行中、後方から通園バスが接近してきたが、通行帯を出なかった。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "通学・通園バスが来た場合も速やかに優先通行帯を出ます。",
+    "category": "交差点・通行",
+    "sourceImages": [
+      "055_IMG_9740.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": "honmen/assets/h5-071.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-072",
+    "set": 5,
+    "number": 72,
+    "type": "boolean",
+    "text": "後退するときは、後方確認などで注意を要するので、合図は面倒だからしなくてもよい。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "後退するときも合図が必要です。",
+    "category": "信号・合図",
+    "sourceImages": [
+      "055_IMG_9740.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-073",
+    "set": 5,
+    "number": 73,
+    "type": "boolean",
+    "text": "雪が降って道路に積もり、道路が見えにくい場合は、電柱を目標に走行した方がよい。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "積雪路はできるだけわだちをたどり、慎重に走行します。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "055_IMG_9740.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-074",
+    "set": 5,
+    "number": 74,
+    "type": "boolean",
+    "text": "雨の中を高速で走行するとスリップを起こしたり、タイヤが浮いてハンドルやブレーキが効かなくなる。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "雨天に高速で走るとハイドロプレーニング現象などが起こる危険があります。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "055_IMG_9740.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-075",
+    "set": 5,
+    "number": 75,
+    "type": "boolean",
+    "text": "検査標章は自動車の検査に合格すると、前面ガラスの内側に前方から見やすいようにはりつけて表示する。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "検査標章は定められた位置に、外から見やすく表示します。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "055_IMG_9740.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [
+      "検査標章貼付位置の2023改正を補足"
+    ],
+    "status": "needs-review"
+  },
+  {
+    "id": "h5-076",
+    "set": 5,
+    "number": 76,
+    "type": "boolean",
+    "text": "夜間対向車のライトがまぶしいとき、視点をやや左前方に移した方がよい。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "対向車のライトを直視せず、視線をやや左前方へ移します。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "055_IMG_9740.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-077",
+    "set": 5,
+    "number": 77,
+    "type": "boolean",
+    "text": "見通しの悪い踏切りでは、一時停止をすべきだが、見通しがよいため徐行で通った。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "見通しがよくても原則として踏切の手前で一時停止します。",
+    "category": "交差点・通行",
+    "sourceImages": [
+      "055_IMG_9740.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-078",
+    "set": 5,
+    "number": 78,
+    "type": "boolean",
+    "text": "この標識は、右方屈曲ありの意味である。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "右方屈折ありを示し、屈曲とは異なります。",
+    "category": "標識・標示",
+    "sourceImages": [
+      "055_IMG_9740.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": "honmen/assets/h5-078.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-079",
+    "set": 5,
+    "number": 79,
+    "type": "boolean",
+    "text": "車が停止するときの合図の時期は、停止しようとするときである。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "停止の合図は停止しようとするときに行います。",
+    "category": "信号・合図",
+    "sourceImages": [
+      "055_IMG_9740.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-080",
+    "set": 5,
+    "number": 80,
+    "type": "boolean",
+    "text": "ディスクブレーキにサビがつかないように時々注油するとよい。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "ブレーキへの注油は効きを悪くするため、してはいけません。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "055_IMG_9740.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-081",
+    "set": 5,
+    "number": 81,
+    "type": "boolean",
+    "text": "高速道路では、荷物を積んだトラックなど、速度の遅い車は、登坂車線を利用する。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "上り坂で速度の落ちる車は登坂車線を利用します。",
+    "category": "高速道路",
+    "sourceImages": [
+      "055_IMG_9740.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-082",
+    "set": 5,
+    "number": 82,
+    "type": "boolean",
+    "text": "ブレーキはブレーキ灯と連動しており、ブレーキペダルを断続的に踏むと後続車が迷惑するので避けたほうがよい。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "早めの断続的な制動は後続車へ減速を知らせ、追突防止に役立ちます。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "054_IMG_9741.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-083",
+    "set": 5,
+    "number": 83,
+    "type": "boolean",
+    "text": "道路上で故障した場合、後方から進行してくる車は故障車とわかっているのだから、停止表示器材などおかなくてもよい。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "停止表示器材などで後続車に故障・停止を知らせます。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "054_IMG_9741.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-084",
+    "set": 5,
+    "number": 84,
+    "type": "boolean",
+    "text": "この標示は、歩行者と軽車両は通行できるが、路側帯に入っての車の駐車や停車が禁止されている。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "駐停車禁止路側帯です。歩行者と軽車両は通行できます。",
+    "category": "標識・標示",
+    "sourceImages": [
+      "054_IMG_9741.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": "honmen/assets/h5-084.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-085",
+    "set": 5,
+    "number": 85,
+    "type": "boolean",
+    "text": "道路標識のないところは、自分で安全であると判断すれば何キロで走ってもよい。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "標識がなくても法定最高速度を守る必要があります。",
+    "category": "速度・車間距離",
+    "sourceImages": [
+      "054_IMG_9741.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [
+      "2026年一般道法定速度改正に対応した解説要"
+    ],
+    "status": "needs-review"
+  },
+  {
+    "id": "h5-086",
+    "set": 5,
+    "number": 86,
+    "type": "boolean",
+    "text": "車が左折する場合、前方の信号（ア）が青色であれば、左折方向の信号（イ）が赤であっても左折することができる。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "自分に対面する信号に従って左折します。",
+    "category": "信号・合図",
+    "sourceImages": [
+      "054_IMG_9741.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": "honmen/assets/h5-086.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-087",
+    "set": 5,
+    "number": 87,
+    "type": "boolean",
+    "text": "対向車と正面衝突のおそれがあるときは、警音器を鳴らすと同時にブレーキをかけ、ハンドルを左に切り、できるだけ左側によける。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "減速して危険を知らせ、できるだけ左側へ避けます。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "054_IMG_9741.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-088",
+    "set": 5,
+    "number": 88,
+    "type": "boolean",
+    "text": "優先道路を通行しているときは、優先道路と交差する道路から出てくる車は、必ず停止するので、交差点であっても一気に速度を落とさず通過する。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "相手が止まるとは限らないので、安全確認し危険に備えます。",
+    "category": "交差点・通行",
+    "sourceImages": [
+      "054_IMG_9741.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-089",
+    "set": 5,
+    "number": 89,
+    "type": "boolean",
+    "text": "自動車（小型特殊自動車を除く）や原動機付自転車は、自賠責保険か責任共済に加入していない者は運転してはならない。",
+    "answer": true,
+    "sourceAnswer": true,
+    "explanation": "対象車両は自賠責保険または共済に加入していなければ運行できません。",
+    "category": "免許・心得",
+    "sourceImages": [
+      "054_IMG_9741.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [
+      "原文は加入していない「者」だが車両を指す文脈。原文誤記確認"
+    ],
+    "status": "needs-review"
+  },
+  {
+    "id": "h5-090",
+    "set": 5,
+    "number": 90,
+    "type": "boolean",
+    "text": "気温が低い時に、水をまくと滑りやすいが、ほこりがたつので水はまいたほうがよい。",
+    "answer": false,
+    "sourceAnswer": false,
+    "explanation": "低温時の散水は凍結の危険があるため避けます。",
+    "category": "運転・点検",
+    "sourceImages": [
+      "054_IMG_9741.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": null,
+    "imageAlt": "",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-091",
+    "set": 5,
+    "number": 91,
+    "type": "hazard",
+    "text": "30km/hで進行しています。どのようなことに注意して運転しますか。",
+    "answer": [
+      true,
+      false,
+      true
+    ],
+    "sourceAnswer": [
+      true,
+      false,
+      true
+    ],
+    "statements": [
+      "自転車も子供も自車の接近に気付いていないかもしれないので、急な動きに備えていつでも止まれるよう速度を落とす。",
+      "自転車と子供の横を同時に通過すると危険なので、今のうちに加速して自転車を追い越す。",
+      "このまま進行すると自転車や子供の急な動きに対処できないので、速度を落とし、子供の横を通過するまで自転車の後ろを間隔を保って走行する。"
+    ],
+    "explanation": "自転車や子供の急な動きに備えて減速し、安全な間隔を保ちます。",
+    "category": "危険予測",
+    "sourceImages": [
+      "053_IMG_9742.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": "honmen/assets/h5-091.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-092",
+    "set": 5,
+    "number": 92,
+    "type": "hazard",
+    "text": "25km/hで進行しています。どのようなことに注意して運転しますか。",
+    "answer": [
+      true,
+      true,
+      true
+    ],
+    "sourceAnswer": [
+      true,
+      true,
+      true
+    ],
+    "statements": [
+      "歩行者は自車の接近に気付いていないかもしれないので、速度を落としてその動きに注意する。",
+      "歩行者に水や泥をはねないように、速度を落として通過する。",
+      "右側の子供がふざけていて自車の前に飛び出してくるかもしれないので、いつでも止まれる速度で通過する。"
+    ],
+    "explanation": "歩行者の動き、泥はね、子供の飛び出しに備えて速度を落とします。",
+    "category": "危険予測",
+    "sourceImages": [
+      "053_IMG_9742.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": "honmen/assets/h5-092.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-093",
+    "set": 5,
+    "number": 93,
+    "type": "hazard",
+    "text": "60km/hで進行しています。高速道路の本線車道に合流するとき、どのようなことに注意して運転しますか。",
+    "answer": [
+      false,
+      true,
+      true
+    ],
+    "sourceAnswer": [
+      false,
+      true,
+      true
+    ],
+    "statements": [
+      "すぐ右側の本線車道に車の切れ目があるので、機会を逃さずただちに合流する。",
+      "本線車道後方に車が接近しているので、その車の後ろに合流できるように速度を調節する。",
+      "ミラーの死角に車がいるかもしれないので、目視による安全確認をしてから合流する。"
+    ],
+    "explanation": "接近する本線車を妨げず、目視で死角も確かめて合流します。",
+    "category": "危険予測",
+    "sourceImages": [
+      "053_IMG_9742.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": "honmen/assets/h5-093.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-094",
+    "set": 5,
+    "number": 94,
+    "type": "hazard",
+    "text": "30km/hで進行しています。交差点を右折するとき、どのようなことに注意して運転しますか。",
+    "answer": [
+      false,
+      true,
+      false
+    ],
+    "sourceAnswer": [
+      false,
+      true,
+      false
+    ],
+    "statements": [
+      "前方の四輪車は横断歩道上の歩行者よりも先に左折すると思うので、このまま走行する。",
+      "原付が左折する四輪車をよけて右に出てくるかもしれないので、速度を落としてその動きに注意する。",
+      "原付は四輪車が停止したらその後ろに停止すると思うので、右側に出て右折する。"
+    ],
+    "explanation": "前車が歩行者のため停止することや、原付が右へ出ることを予測して減速します。",
+    "category": "危険予測",
+    "sourceImages": [
+      "052_IMG_9743.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": "honmen/assets/h5-094.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  },
+  {
+    "id": "h5-095",
+    "set": 5,
+    "number": 95,
+    "type": "hazard",
+    "text": "30km/hで進行しています。どのようなことに注意して運転しますか。",
+    "answer": [
+      false,
+      false,
+      false
+    ],
+    "sourceAnswer": [
+      false,
+      false,
+      false
+    ],
+    "statements": [
+      "対向車が来た際に急ハンドルで避けると危険なので、できるだけ道路の左端に寄って走行する。",
+      "他の車が通った跡は雪が固まって滑りやすいので、積雪している部分を走行する。",
+      "自車はスタッドレスタイヤを装着しており、その上タイヤチェーンも装着しているので、普通の路面状態のときと同じように運転する。"
+    ],
+    "explanation": "積雪路ではできるだけわだちを走り、冬用タイヤやチェーンがあっても速度を落として慎重に運転します。",
+    "category": "危険予測",
+    "sourceImages": [
+      "052_IMG_9743.jpeg",
+      "050_IMG_9745.jpeg"
+    ],
+    "image": "honmen/assets/h5-095.jpg",
+    "imageAlt": "問題の図",
+    "reviewNotes": [],
+    "status": "ready"
+  }
+]

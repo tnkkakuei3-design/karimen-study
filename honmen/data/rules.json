@@ -1,0 +1,79 @@
+[
+  {
+    "id": "exam",
+    "title": "本免学科の構成",
+    "summary": "文章90問各1点、危険予測5問各2点。危険予測は3肢全部正解のみ得点。100点満点90点以上合格。",
+    "url": "https://www.police.pref.miyagi.jp/menkyo/siken/siken_shiteisotufutuu.html",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "exam-time",
+    "title": "本免学科の時間",
+    "summary": "普通免許の学科試験は95問・50分。",
+    "url": "https://www.police.pref.osaka.lg.jp/tetsuduki/untenmenkyo/juken/choku/3709.html",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "speed-2026",
+    "title": "生活道路の法定速度",
+    "summary": "2026年9月1日から中央線等のない生活道路の自動車の法定速度は30km/h。中央線・車両通行帯のある道路、往復分離道路等は60km/h。指定速度があれば指定に従う。",
+    "url": "https://www.pref.yamagata.jp/800032/houteihikisage.html",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "moped-2025",
+    "title": "新基準原付",
+    "summary": "2025年4月1日から従来の50cc以下に加え、125cc以下かつ最高出力4.0kW以下の二輪車が一般原付に追加。すべての125cc車が原付になるわけではない。",
+    "url": "https://www.npa.go.jp/bureau/traffic/menkyo/menkyo_nirinsha.html",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "truck-speed-2024",
+    "title": "貨物車の高速道路速度",
+    "summary": "2024年4月1日から大型貨物・特定中型貨物の高速自動車国道での法定最高速度は90km/h。トレーラ、大型特殊、三輪自動車は80km/hのまま。指定速度と適用道路の条件に注意。",
+    "url": "https://www.npa.go.jp/bureau/traffic/highway/index.html",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "load-2022",
+    "title": "積載寸法",
+    "summary": "2022年5月13日から対象自動車の積載物の長さ・幅は車体の1.2倍まで、前後それぞれ車長の1/10、左右それぞれ車幅の1/10以内のはみ出し。二輪等へ一律適用しない。",
+    "url": "https://www.police.pref.osaka.lg.jp/kotsu/kaisei/13056.html",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "license-2017",
+    "title": "準中型区分",
+    "summary": "2017年3月12日に準中型免許新設。旧普通免許の5t未満・積載3t未満の経過措置を新規普通免許と混同しない。",
+    "url": "https://www.keishicho.metro.tokyo.lg.jp/menkyo/menkyo/chugata.html",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "motorcycle-passenger",
+    "title": "二輪高速二人乗り",
+    "summary": "大型二輪又は普通二輪免許の期間3年以上かつ20歳以上。通行禁止指定区間は別にある。",
+    "url": "https://www.keishicho.metro.tokyo.lg.jp/kotsu/jikoboshi/highway/regu2seat_bike.html",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "bicycle-passing-2026",
+    "title": "自転車等の側方通過",
+    "summary": "2026年4月1日から自動車等が自転車等の右側を通過（追越しを除く）する際、十分な間隔がなければ間隔に応じた安全な速度。固定数値を一律の法定義務としない。",
+    "url": "https://www.police.pref.osaka.lg.jp/kotsu/kaisei/23662.html",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "bicycle-ticket-2026",
+    "title": "自転車の青切符",
+    "summary": "2026年4月1日から16歳以上の自転車運転者が交通反則通告制度の対象。",
+    "url": "https://www.npa.go.jp/bureau/traffic/bicycle/info.html",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "age-2026",
+    "title": "普通・準中型の受験年齢",
+    "summary": "2026年4月1日から普通・準中型の仮免取得と本免試験受験は17歳6か月から。本免許取得可能年齢18歳とは区別。",
+    "url": "https://www.keishicho.metro.tokyo.lg.jp/menkyo/oshirase/exam_age.html",
+    "checkedAt": "2026-10-14"
+  }
+]

@@ -1,0 +1,4562 @@
+[
+  {
+    "id": "h10-001",
+    "textAndAnswerSha256": "1a44aa8aeafff24448070c63d2d9d57b3633866a312b9d220cb791ce223b4703",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-002",
+    "textAndAnswerSha256": "31f08f6ce23a47e1041208830afdfae6560d713995c45c589308a854cd082ec0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-003",
+    "textAndAnswerSha256": "0f46ca012d806dddd76dc50ac55200a78859996ce57aa0a520b53cd408956300",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-004",
+    "textAndAnswerSha256": "9e0fd4fcd23f8ca545b73c8ae57f4cb7e5500749f41a33f650f1e913b79eaf13",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-005",
+    "textAndAnswerSha256": "7c996d1e0ba4cb0034731331200890326c0fd20a4df5cb3a398f05ee7b3e9abc",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-006",
+    "textAndAnswerSha256": "a09d8f947481fef9d68bdf219e70705ab5164020e5e966f5c34f339583125481",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-007",
+    "textAndAnswerSha256": "ee61ffe02cf9ba9d4d94656e10beec86603b5f09e7f1c73e636695d7fef16c65",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-008",
+    "textAndAnswerSha256": "9a9d07be3208b976fc6b447ac39be8c9db5463d7c9f137f4f797c3298daeb289",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-009",
+    "textAndAnswerSha256": "1cb07cd4bf376b11a53653047ffbc00e84c3bab1b98112b4e111bf81ce672a22",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-010",
+    "textAndAnswerSha256": "158448a5f8d2610a7efcaf4f075fbe1a0a12bd92923502947d3897e1b97de735",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-011",
+    "textAndAnswerSha256": "21636adf2d6a7e311f1c28ed1a9cabec533532d623d799fcc92f5023ac865189",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-012",
+    "textAndAnswerSha256": "83199cc9d1bf4d9250adf04c0fa241a3a26cca3811e05594daa7640d9a9020e7",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-013",
+    "textAndAnswerSha256": "0d5f43747864b7c9445c553fca474af8d48eefaa9e1eb20e2b5882801018723b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-014",
+    "textAndAnswerSha256": "3d98779d5e36db9961b02acb4070389317a6172c425a082f16df43bf471fbb71",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-015",
+    "textAndAnswerSha256": "8a2adc29805bed0983bb50a32b14df973232b877bf4b0e428b41966750d6abf7",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-016",
+    "textAndAnswerSha256": "d1e2ca625bf7c957c95fb88a3d324b8e1b1723dff837d007420584969a94091f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-017",
+    "textAndAnswerSha256": "eec36c42f4cbc774a835362f5e1b3e64d51438c42884a8eb00048f17f2ca1cb2",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-018",
+    "textAndAnswerSha256": "5d6a36051fd98166cfe930e3c9561a5e7cff01636460b5d8c760421cb1809028",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-019",
+    "textAndAnswerSha256": "e656eab27749bedd342bdcec9846b54e8f3e1a1f65bf72fee849973777a657ee",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-020",
+    "textAndAnswerSha256": "3f6841abed8e149b0f1cb48f5097ca70838beecd8922e70dbe966ac03d065704",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-021",
+    "textAndAnswerSha256": "fe4b28c47ab04b6eaad3f1c383c88a71d84b1e7bbbfc38f849a5695713f7f48d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-022",
+    "textAndAnswerSha256": "ae81a88d3490ef70c1685531c00b00ace131f590bed1694047b16c0c8ca3b461",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-023",
+    "textAndAnswerSha256": "16053b9ed244477fcbecb96f89dcda8759afce8ff5cd90eb94d723a77ddab699",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-024",
+    "textAndAnswerSha256": "b9924d4c450f411a4408f90d278b8b677f5c356881de922a0f53189f8fc9d988",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-025",
+    "textAndAnswerSha256": "e59809926d06c905014c040026e3823705f2f234ca07644c1ddcb374367cfa44",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-026",
+    "textAndAnswerSha256": "30626da89db804a2e336fe2ec3393da97c050ad8b3cb7801cdf10d6bdfcc4114",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-027",
+    "textAndAnswerSha256": "5826aed06bf1b3abe364146db1c32b5bdf9ce3f51d973377d7fff51fb35cbfc8",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-028",
+    "textAndAnswerSha256": "17bb6ccd066dad6ce8b07eb4daff9ac4f3b59b8109aff9bd6d9b823e02caf1bf",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-029",
+    "textAndAnswerSha256": "7a50b3132714694d5e96d50bacebbf6cf6f371584f6d06946817fa6ccdf55788",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-030",
+    "textAndAnswerSha256": "13ca3e2e75c858492a08ce3b0025da7aeb4e7e9fc1abc9cbf79ba4dfca7befcf",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-031",
+    "textAndAnswerSha256": "b8fc9523609f5d3dd33aa1eb616d17326310bade627a356b7fd2a485d9510dea",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-032",
+    "textAndAnswerSha256": "fe262f061831ced4ce5d1e2eebdc10637e934001b222b0b69865d722caad3f5d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-033",
+    "textAndAnswerSha256": "12ba209d343da98a4d01d950d8c3678e7a6ec547662072da94a5dd2558fb31a4",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-034",
+    "textAndAnswerSha256": "f75f834db586024e740470ca8244eb15d7812ea648c1d7fac472d962979a7bb3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-035",
+    "textAndAnswerSha256": "757f61229165cd7c16ef86f3fe12c7a38c529f8833c545cabaa8de2cf79cab60",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-036",
+    "textAndAnswerSha256": "fcc63735fd17be9c4c7799a95741393b9fff370beec8e949d693e6599c38af79",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-037",
+    "textAndAnswerSha256": "7d155449c93ddd20356caec6ebf5a2aba45c96d431fea4862ed8d3a2a023752f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-038",
+    "textAndAnswerSha256": "b770467cd2c69cbbfc04a559de9075567ce4e78cc72d8e64e85693bb7d9da344",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-039",
+    "textAndAnswerSha256": "c9414cf9f6324a2a518d7a361b6ce7b801101e3feb32823d2705d23324d3403e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-040",
+    "textAndAnswerSha256": "3c035ddc79f7392870d4b25e07aae1a9d7ce5bcc5beb61db085b8115c9fd2876",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-041",
+    "textAndAnswerSha256": "c995ea670f3010641d6c32cdc42b026bd7b45ceac3efba8b488a5331e618865e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-042",
+    "textAndAnswerSha256": "edd29aafba681196ef60e2b5d2463d1991018fea152be6be1fe76f5767c5195d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-043",
+    "textAndAnswerSha256": "7b4b424a443633d230d71a97f01ef3559abf97741c9f76f9cd26ed6e1d731d19",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-044",
+    "textAndAnswerSha256": "31f391feb86faaff449e619a27f11ab865018a3f42b36b49a831e8f8e2ff59c0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-045",
+    "textAndAnswerSha256": "f2da5ef01a8b7606b927fab4c95706a94f5960115537f42dcb7746538388cc2a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-046",
+    "textAndAnswerSha256": "0be8ddd11a88fce1d4b4a7560505a7d701f131e7b4c347f9b099542d37542c73",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-047",
+    "textAndAnswerSha256": "d3d36fc7a8f1f8e38350eb7e442d9acdb60f072bb2be571d94be4393f54eaaef",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-048",
+    "textAndAnswerSha256": "f29f282e942328112c0e5cf8ba3981c54cc4563450863ecbd72f313d99628d3e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-049",
+    "textAndAnswerSha256": "2a3edd72ac27f3898bf8c4f4132717ea98c6779bf5c54cc6fe27099d3dc715ef",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-050",
+    "textAndAnswerSha256": "6f028c55702a276c481d7aa33ceaec81a6e32697ca7782eac78666b72c659297",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-051",
+    "textAndAnswerSha256": "8c1c7384859dba87ecc7c2e7d8ba46f40557a0bec112b911a694b0dd60ea1eb1",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-052",
+    "textAndAnswerSha256": "50cff06ce7d32c524a8e41cb71475d54bfc737cdda1cefd207a181725399323f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-053",
+    "textAndAnswerSha256": "a896471b689cc10cfb7415d81305979f91292a5cddc1dfd9fac8380bdb86b886",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-054",
+    "textAndAnswerSha256": "ca01670489411aaf244a9cdf11915c4bdb9923416187b7611fd8b56841399aa6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-055",
+    "textAndAnswerSha256": "2479375e7f7660f9e1c0113684521b03de721e5a158cc37196c890d47623f8cb",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-056",
+    "textAndAnswerSha256": "50293478176f7736a0401ed7bcb995bb63e02fc22ffbf885a58388ec5fff2178",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-057",
+    "textAndAnswerSha256": "b10354b37e83b8c7707c653a314c6313352b3f654a916bf28f4cf53121960ffb",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-058",
+    "textAndAnswerSha256": "4c114cba715a07370f34fea989b0e4c952116cbadf282e5185f69b31e397a995",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-059",
+    "textAndAnswerSha256": "ddc9269f2f7b438eeac1ec965a8f93b3572e8ca453f806a2c9710d227a5dd029",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-060",
+    "textAndAnswerSha256": "73bfa576e872337c2540de77c9eaf9ef35c0b3dab7cc42ce708ce826be8a623d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-061",
+    "textAndAnswerSha256": "3f100ce6aa817593ccda9b34903c8e1ccaa946e53591d5d650e2b4ae707dbbe7",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-062",
+    "textAndAnswerSha256": "ed4f4ac4c41ae0a6c01b88ed80e10b5e17dafc22e72a210ecdd764330a46c5d5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-063",
+    "textAndAnswerSha256": "a6929ddafb719fefaf01075eeb342190928c05471697c04b54d6141c773f8b42",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-064",
+    "textAndAnswerSha256": "d3f2675710b95c4ef6652f35e52999690e1eee991727eac5b02ea630d07e7f2d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-065",
+    "textAndAnswerSha256": "c8cccf4cac91dd36abf1d8e9b930614507d6843923d15ee39fcc5fda036edd72",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-066",
+    "textAndAnswerSha256": "bb2162695ecc91f5c89274ca0469ae4f2cc8a3cd7a079d32b1647a83244724a3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-067",
+    "textAndAnswerSha256": "a818f9cb63d992a8bad715d1e5e43f9214e16101eb02781f3fdcfd3a19f69028",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-068",
+    "textAndAnswerSha256": "2e6f33bc757b5d82b6b004fdebfe188f4ced35e532fd1d7be6e399990128ea2e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-069",
+    "textAndAnswerSha256": "c908562d9852c2815fac2c0d62980f04303113bd9df403cb912bfe1905e68506",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-070",
+    "textAndAnswerSha256": "7c34327fabbba5f24e709e0981d8d2b78319ed7400b47101a21f09ddee519f02",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-071",
+    "textAndAnswerSha256": "d7c9954ca9390e638985af82630a182dc4e0fe6838f03c3f7d77744e408c32fa",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-072",
+    "textAndAnswerSha256": "f6f841bb782f80b3ae1d63509bf486205f6693e271a7a6fe520226dd3d75e5a9",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-073",
+    "textAndAnswerSha256": "778926e5d16629db2e4e17c375b5774408eead6716dfa9a684471d13dc4f0e8a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-074",
+    "textAndAnswerSha256": "ca8859ccc7ea97bbe327b7654f85591f72ea60869ffc0dc4b6a655a961582411",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-075",
+    "textAndAnswerSha256": "2fa27cb154e09382250ab806b3f5bf25069980d8c0436def797488a0cce11613",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-076",
+    "textAndAnswerSha256": "8a9ea4b0e2d21a523d5ef2af6b8588ff4ea45bd0ffe6a16ede386fd4c1544a78",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-077",
+    "textAndAnswerSha256": "33c9cf00da5bf72e2d8cfae79ee68cc5c82a7ba23eff6f7b3f3ae158e939434d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-078",
+    "textAndAnswerSha256": "048cdc06268e24ebeceac408faffdc471f9221a58b204b31620989718a751e62",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-079",
+    "textAndAnswerSha256": "8bf3c48f91b94191659e9699e50cb47a9e0681140696798a2063b5ccf700517a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-080",
+    "textAndAnswerSha256": "705338c9f65e87e2a9d32ec3043c3546ce733b904f4115ca22d4f5091fc3edab",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-081",
+    "textAndAnswerSha256": "b6e0359d679eef7634dbed62dc12dc80e80831d108bc3636f35b37f5ed5acd20",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-082",
+    "textAndAnswerSha256": "2d26d0bee70d6d8d37adc682c48bc1bb706c90071a75103dfd86737922935449",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-083",
+    "textAndAnswerSha256": "60351e91b89d3005d5152ba38818b7f5a80695b289456d96d37382316ee21c0a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-084",
+    "textAndAnswerSha256": "15576b19aee26bfd22db4269e179152f5496b075f724f1ded8162cb2639a2b20",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-085",
+    "textAndAnswerSha256": "b856189a7dcb94d81c96832c6f841f6bbe851180a5425258b5c8ce523d548bd2",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-086",
+    "textAndAnswerSha256": "778942905bf236e6f02a9f535eb1d5cdd126ab4593c40e47e4ebd2ce920ad7b2",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-087",
+    "textAndAnswerSha256": "a3331694c6b4df16881b6d0623eb61aad263cb2a7da2b08c1aaa83a8baf3f811",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-088",
+    "textAndAnswerSha256": "950e7479a984438965c5325cedafea6f0879028762d15d7dc95392195bf7be57",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-089",
+    "textAndAnswerSha256": "f6515eb3af75d2288f0f52cef7876aeb5b8d1d2b7194a7cbc50c024e72826836",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-090",
+    "textAndAnswerSha256": "d2adee562aab8de611d95476bd8b4f5c25ed0565c5fe92eebb3cc5ce43860317",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-091",
+    "textAndAnswerSha256": "e5e1fb4b21bfce1b636e046ab3d1c1c670be7e243ad73caa0bcfd0ed8505d993",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-092",
+    "textAndAnswerSha256": "763cb896386b3803cb086bf0a216a9de2a0498abf2056c59f015da701142919e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-093",
+    "textAndAnswerSha256": "ccc2c347ab735c4c5ca9cc9399ebc213b7be2265a82a7139771bdd2fb224738a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-094",
+    "textAndAnswerSha256": "7f1e3cb752d460f4f8ffbab6ccaad05e7b3e95687be3d3cce1f303e123c31f88",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h10-095",
+    "textAndAnswerSha256": "1a815a05874db0bfce81ae11aae0383255ce69d3a173cbf22b1b964cd8833cfc",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-001",
+    "textAndAnswerSha256": "21640418e925d1ea5f906daf48191c08577fa0ea5dbf1942e3e0b5403f92caa5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-002",
+    "textAndAnswerSha256": "ad049e001cceb6d50334b54ca15ec0d0ac9a83c815192d6975d5df122c9a996d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-003",
+    "textAndAnswerSha256": "78634175d2548bd8af2988d5abbfb7397e17dcd1240c67b251cc92fb46dfd1c7",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-004",
+    "textAndAnswerSha256": "cb7732745a86634d575ba9f1ec69df85593a22a0144d7a82295c482a9c05f32e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-005",
+    "textAndAnswerSha256": "e5c5979a0ee9402e2e9b7c580a022e5d6a237ef844475eda8bb510d5ab01ff71",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-006",
+    "textAndAnswerSha256": "678462cb81884b00c2221eb16be51969d7272280fe7d9d279b4d8aa62e790fd4",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-007",
+    "textAndAnswerSha256": "409af295f2aa4901dc8ace247c21ff1666f69cdc1e7c8ed046824784cbb9b023",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-008",
+    "textAndAnswerSha256": "b2af7bc8b6f1143c2a08e2e2e2c5e50f7523f5d9ef04f1aa5066d5d0bf9a80cd",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-009",
+    "textAndAnswerSha256": "62596507d0355e2e1f53c8fb1f77d5436a9ee9889e371cfdfa8afbe22a0d15df",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-010",
+    "textAndAnswerSha256": "4c780543f2fca7a8aa3fddb9fc4a6178857e1762be7d69aa234bdde848150f93",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-011",
+    "textAndAnswerSha256": "e37699e6c3144cb7be3feabbd44014b49e9235db1c3f6b36a2db1f640db3626f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-012",
+    "textAndAnswerSha256": "84933bda78a598e14d0312809acde470b21e48bce86f458c0c62222128909e5d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-013",
+    "textAndAnswerSha256": "d0a2e94f46fcf73e6241ac97d229005e260149ac25e524e8d04c260b5b2ab15a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-014",
+    "textAndAnswerSha256": "586b400a019860e9b769415853d888de349c726fa773d172c74e40a45b3f01ce",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-015",
+    "textAndAnswerSha256": "42c22dbccc4bf58ef124d53d960c2060149ca46b89c01c4d60ae2f51cc6b5800",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-016",
+    "textAndAnswerSha256": "d05e8e22f7e283c26071c365afab233b5c3191c0355e23e8735a250afd75bc35",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-017",
+    "textAndAnswerSha256": "632af1696c4b5bfbf88337ca3a142bfe38b21ab2104ec676866481106bf28fba",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-018",
+    "textAndAnswerSha256": "d47239ccc23f9c14d0b7b7483b6eb5dde631726fbd87108a44bd79b8fb03ac98",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-019",
+    "textAndAnswerSha256": "c7d94dd85613f31feb2f0abc5e0d26ef3689719a7f9f279675e0273fe93daec2",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-020",
+    "textAndAnswerSha256": "c7832fea318b448f5d3eb329042ce8388d962d33c6ac09cc3acb6de6285bc3f7",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-021",
+    "textAndAnswerSha256": "e02eaff1fc0b842c94afe3956e7ed912c44206a03f8f33cbdc1dee80ece7889f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-022",
+    "textAndAnswerSha256": "22be10ef58dc7019f89439bff73bd582c220f83c44dbbd5c4c33e8540def3202",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-023",
+    "textAndAnswerSha256": "2a88e4540533fefa5a22f4fc1b8d776b11765e37fa7c7f5702cd86888fd02ba6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-024",
+    "textAndAnswerSha256": "ca8f991924a0e02bb1d0f53b58921fb5d07df02c74500b3dca49668e6ca23ac4",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-025",
+    "textAndAnswerSha256": "04bd7927d1fc16eecf1279d0ff384856d21d83a1407cb9f5cf63f7cbc86179f9",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-026",
+    "textAndAnswerSha256": "3335d1d5023d93b77b0005ca8ca01ea46964cea72e7788f33711983f66c56c86",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-027",
+    "textAndAnswerSha256": "d989e37c36185971cedeb3c7a0d9b24b42528890918e48491070c736c753b7b5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-028",
+    "textAndAnswerSha256": "9500e41f586df782515fb03cc090951340ebba38eef64fcfcfd1b9f68a363a28",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-029",
+    "textAndAnswerSha256": "fde0fdf190636fc14b37c520d107a79fe832458bc0046ca479a086dce546c2ca",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-030",
+    "textAndAnswerSha256": "d4016573703a010dc16a5d82837e010291407d8d2635fe2642404c8f92a28f43",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-031",
+    "textAndAnswerSha256": "82272db98ec85d535e3c8925e68f00b7f170c47ed990130c8d098c9179e54495",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-032",
+    "textAndAnswerSha256": "ed1afae02f9d874f0725eccaf103320a7a014be17f3d89a3adc59d4a06cc2698",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-033",
+    "textAndAnswerSha256": "586e6804897e00a37b1aa528d8d64bca2f35890895a0d6579d3bff8c1e6c4964",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-034",
+    "textAndAnswerSha256": "4b27fd26ab9193275fdc9a6c2fde96e82c1f98318ba6d6620643c91ebff9b7da",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-035",
+    "textAndAnswerSha256": "b877f3022e091820e1069fa54dd5c53a8835b119b9cfb608ac92d54a1484c967",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-036",
+    "textAndAnswerSha256": "5559053f2f1cdbbac033c9aa5bbf033f9d63feba03026188f92f951a4363f511",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-037",
+    "textAndAnswerSha256": "c811ab6405ed67853c908e2a90d02b8731af26c8d9a71f0a1e3a787c87715d4e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-038",
+    "textAndAnswerSha256": "0f669bb29e5df96822497e25f9d3c2e656e77b084621d58d27aecc04bf024b8a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-039",
+    "textAndAnswerSha256": "9ccea110bfd4a31695d82570aa941a13c6d367a06da01bc15be0140b53136c63",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-040",
+    "textAndAnswerSha256": "3b84df3c2223e397639419f2f32b805561feb165c3d524e7031a3bc02352bdf8",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-041",
+    "textAndAnswerSha256": "589f2a245dfafd35dc922e46902008e00ee5bf15b33d57a90bc6ac51b04fb09d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-042",
+    "textAndAnswerSha256": "64dad3a3b451a305fe725fc9bd56be3da50fa066b1da29d51c206f15b4f3884b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-043",
+    "textAndAnswerSha256": "7a4742da2dabce8934a009fd7df3200b6ba1c8f3502b9afdd0480f2d049bab43",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-044",
+    "textAndAnswerSha256": "a1df73f7fa2ff1c344eaa514167676743151d72f8f5552123f6d8b769eec4db8",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-045",
+    "textAndAnswerSha256": "15a2a84fdd6c5d30f89aaa0ed78d03da63783e8e9e81c85c876e554424f94aef",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-046",
+    "textAndAnswerSha256": "9119d2ebecacaef35039a9357e20fb1190fabe45a8d41c95799fbfb704755cda",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-047",
+    "textAndAnswerSha256": "4eddf5fa0f8133ee6b7fd313580f06e56a026d094933a4cda3f2c13b2e35235d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-048",
+    "textAndAnswerSha256": "5249fca9b2b28ab4f4eb4d71d897cf2530f1ef36d1512fb8a1173767302288a9",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-049",
+    "textAndAnswerSha256": "7a0b430ab4971e08e6b8db29e45826ca5f621d3f8558d75c6f7454df44b26e5c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-050",
+    "textAndAnswerSha256": "852c58c2ede8c338f59ea3c521b2f6a6857743a2849caad7af4411a07462d0eb",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-051",
+    "textAndAnswerSha256": "a9b875e74417bd8bed17d0bf4014d7f859caef102919127820a5a3ad5de6ec5b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-052",
+    "textAndAnswerSha256": "3c845db4640506fc8356a0bf50167cfbeacc69062eb3de26a4267fe5e3f1be52",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-053",
+    "textAndAnswerSha256": "17ac242f3045e6322fdf983b53b362ba0f6477c3d910e11008ac1599b7bda83e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-054",
+    "textAndAnswerSha256": "bf4dc4662b5e435cec048ed6096b7f4f4a7428f56b665353b49a390ad6719139",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-055",
+    "textAndAnswerSha256": "6ade233d79aa3d3e811dd11e43fd1639a344eac3eb7d97ab2a3d05f54b4c1476",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-056",
+    "textAndAnswerSha256": "a7041d28b092ed10d03ebafd73965fd5d0778a7242dd1e0bc5d16276e3fe2ee2",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-057",
+    "textAndAnswerSha256": "430734ca2650da6887c2f2714a779f6f339a2ab5f4d61c0afe80cb15b2de2c32",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-058",
+    "textAndAnswerSha256": "b2e50094ebd1bd0f31efe7697f527c2d1aec3a9b2ff727f33c74b7aabbec1b78",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-059",
+    "textAndAnswerSha256": "745599b63edfac88bc8bc80f4e96bb62abe862750350a2c0da0c2d38a35d4a4a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-060",
+    "textAndAnswerSha256": "17b721e60d94e2ca57ba7d996515860e51b4d6f3f8b0aaea1be31b411fc0708f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-061",
+    "textAndAnswerSha256": "0264e85d35fff89a92fe6313d995fcf78635fb787bfe07e714e4d7f4fa6c636f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-062",
+    "textAndAnswerSha256": "cebd4a76f471e7cc0128832905b240d97565f7c734a9db940ef5ca5b2463c883",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-063",
+    "textAndAnswerSha256": "26a6906a662699bbbd603db6d3e8e8c8a8cb88467b07d9b6945d91d7737f54de",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-064",
+    "textAndAnswerSha256": "476d78c7de6c64047d52c1f37770884eed117a77de6f8e98765675956c91cf68",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-065",
+    "textAndAnswerSha256": "2edf35fa4e03e3072cd93989898a7ae4d490166bbc9eb2400d42d6be74750be3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-066",
+    "textAndAnswerSha256": "4531a8e63dbb05f3c9c338fe3245556161ac901efe469cbedc12a81373a75c86",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-067",
+    "textAndAnswerSha256": "5e290b145d68be6ddecd029517a619faabe475c1caedf16cf3ee7cede31ceb44",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-068",
+    "textAndAnswerSha256": "d206cd28f78efeb4c949ce1b49b15d342cac35b33a327a9095413b3c3a66b7b2",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-069",
+    "textAndAnswerSha256": "ac4afd67aee9b90c11428d9abf567ca0f0badb4630648dcd7d8bbbbf536b83b5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-070",
+    "textAndAnswerSha256": "c0b70ecc96f0e50b9739d34b220dc3444f26d1b0532f012e9a400df909fe9e61",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-071",
+    "textAndAnswerSha256": "fe482c52ba13f498060c11864fd9ca3a17e2ba760b89d20f72c97096ea2ca5a8",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-072",
+    "textAndAnswerSha256": "7022fea955dc518d8da46768bbbcb9bc3ca2c8ebf9b143a97b1da0ad011081ba",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-073",
+    "textAndAnswerSha256": "fd596ba78ef0af4f1720c87a1e2fd0d7744a17c97932bf591de0a1eace59e750",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-074",
+    "textAndAnswerSha256": "3c10ed5e421a3ab6b239dd1b46fcec490f27289a184fef2a3f8ddcfa92a47077",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-075",
+    "textAndAnswerSha256": "59a84bd0d687e5f38af8cbfcc71b930b2cc87ce7a80044176971ca32bb947ccb",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-076",
+    "textAndAnswerSha256": "c8874930da819a37482783c16aa68ca4547ec9b982dff2254281cc6fb9903309",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-077",
+    "textAndAnswerSha256": "9cf01cdf92ba26f6a75262a1bd89e4b9fe157f88bc0454a0f444890d75cc75a8",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-078",
+    "textAndAnswerSha256": "5301be9a711bd49d467a0df434f44f1f52b42c35ac121cd7ed77277ffa2b112b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-079",
+    "textAndAnswerSha256": "76571073a8154c0e72493adea937624ea28b8d6c1aee3baab7f1388431106bc6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-080",
+    "textAndAnswerSha256": "6f2d33df89e55c49cbcd4949ed4918239ea1ec342bc827432838fa95b5f0dafe",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-081",
+    "textAndAnswerSha256": "3f95e53f2f8b0f344989d9ba01ccb1ba827dc81f37f8229eac8cba146419b1f6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-082",
+    "textAndAnswerSha256": "dfc02cf379d2dfd16f71596ed15630bac4986e1713847cb7f75b9b1e7b7c0314",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-083",
+    "textAndAnswerSha256": "1b5c1759652e550c272f81ce00f2d4e0008e4c109779a78411537c1df7fe3e92",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-084",
+    "textAndAnswerSha256": "39a2083b361d0acca6afd668d7b339d87d48ca8d39521c2b7be9ab86367f21c4",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-085",
+    "textAndAnswerSha256": "746cdf2f0bab39c15c593901aa881f428639a70bc927e747c0e73fd3971f19f8",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-086",
+    "textAndAnswerSha256": "25d7836060684bdfb8c56f01659bbff2344a00784ec7ad36a4d01c09e2d93a12",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-087",
+    "textAndAnswerSha256": "b18cd837e65a47dd61082f5341eecff3cb23a7d023734fb3380db577bcf57968",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-088",
+    "textAndAnswerSha256": "9d44487d53a9db979cd0ebc430866d116db067cf5b3674221aaf29a6d1ffce58",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-089",
+    "textAndAnswerSha256": "cf0413d03abd29537ccd4c18f0dddaddded926f3ed60f5d83764fc8ae28436cc",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-090",
+    "textAndAnswerSha256": "af3b466799258e19b3d928d00523dc8a766dc1b667d37adb80da4b16764d4dbe",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-091",
+    "textAndAnswerSha256": "f36a64494b8fd82a2758fc434dfe8fbb91d1486128479346ad86f92f839ba165",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-092",
+    "textAndAnswerSha256": "49e311ab3af4ce1eb22bf80203ed817ad864ddc3d77fe97d929352a02eb202af",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-093",
+    "textAndAnswerSha256": "d64d822a908da89c7aeb3d288089cfc4b19f1456ec0c95ac797ce9a1ebb3caa3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-094",
+    "textAndAnswerSha256": "52f335f8ded1a513766b057016c26e6cef3fb8ce10f6cad802e39c9a1a200385",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h2-095",
+    "textAndAnswerSha256": "ea3ea0f27615aee1c1368bf715535abedf0b4da65fa422f02449a94d18f5fd63",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-001",
+    "textAndAnswerSha256": "a628fc3955cc49303deee0f5d1b915df0cb9f06168885e12ec84c02080e5e2a4",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-002",
+    "textAndAnswerSha256": "6d7a5e0519c06e8e7ff6605c4f36082bd819a7fa8f0ed1a48d043d4a372f53ef",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-003",
+    "textAndAnswerSha256": "42e25752c1381686f86e4e4b3f52ec9ecb956afc69a72fd2bfdee49fb5038400",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-004",
+    "textAndAnswerSha256": "6035c01e8db48270a38f4f78a6ff8c0b9f74aec37fdc287803dccc74fa78bea9",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-005",
+    "textAndAnswerSha256": "4f03be9b757dca12e589f43dc6069cc6ec44bf98ee1d3c111fd4adce483f05a6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-006",
+    "textAndAnswerSha256": "eeb2290a8f4f37917f9a07d4671e1d0f28222d6d81e43132be0d7eb152a8c50a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-007",
+    "textAndAnswerSha256": "abc6658e3034d5b2b3d42a2181b872a5ceb8025b1934c80db0b9bff5567c0c4f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-008",
+    "textAndAnswerSha256": "85cbbc6beffde92eff4504b784872dd22d70c574aa97be4121802e0f9aad6ec0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-009",
+    "textAndAnswerSha256": "11a35f2c5d703b082dfd5c60df66435859b24c627092377bdc06d9fdba413af0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-010",
+    "textAndAnswerSha256": "2ed5bd041c16345be6cef41ecd257254277b6caa3eaf888cc94ff0e22ad1ff86",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-011",
+    "textAndAnswerSha256": "2f67a89361901891139819d733ddd22066841d04a52217afdc5846906c158ceb",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-012",
+    "textAndAnswerSha256": "9e8124f78140875cd41a26850af52c28197d14b08b731644549ac3d775d6103c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-013",
+    "textAndAnswerSha256": "5dd8f8f26d2ced2608a69426986e57da6c9bfa52baae850d971ae85a7010de7d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-014",
+    "textAndAnswerSha256": "212270d2ec2a0df911a516979e685bb592b2ad4fd8395405f7fb66cddd202e2d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-015",
+    "textAndAnswerSha256": "4508ce9edd7bcf4df7fbc0452f0a0250a85f6944e9c4a2baa8878bb207b05315",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-016",
+    "textAndAnswerSha256": "586b400a019860e9b769415853d888de349c726fa773d172c74e40a45b3f01ce",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-017",
+    "textAndAnswerSha256": "3c132470411d1e5cecb74004c10fab898ff5e8a90a8cf132c264fa71e343ef43",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-018",
+    "textAndAnswerSha256": "d33f8275d4709c3d7f2dfae2384e4209d66eeb3b09d2a26d4fcad0380a387d35",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-019",
+    "textAndAnswerSha256": "431e702b26a5aeb673eeb9d316ec436847e6d837ea23b99d5d83562a64894b6b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-020",
+    "textAndAnswerSha256": "bea4559c200901cec35f34fa98cbe57d1742bc2e4a430d7c7ef402f59143efed",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-021",
+    "textAndAnswerSha256": "1f2087c2eae3cb9e63d29ce439fcb81db25c0eb8ed00f1e0f57e8f59ab656c09",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-022",
+    "textAndAnswerSha256": "3528b6fa904c87c917df7cb0839a0cd90db56dde73d44a97845b495fb7364ec4",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-023",
+    "textAndAnswerSha256": "995574cdbb7a5f4f23e83f06c2cd157f35badf5607cf15abf4e7d9d8b4381cce",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-024",
+    "textAndAnswerSha256": "fa491407abfa4e869d787e1d7fe80ece155e08e0dbbe90a4fbfc8352a1036291",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-025",
+    "textAndAnswerSha256": "b4f733e09dee9ecbc7534168d1f609b21d7600f3e5ac1ecf4ff9b5033b3d2424",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-026",
+    "textAndAnswerSha256": "1628e7e7136ff10bcf56c739dc58d6492db426e73c2856cd4b34b03546e1feee",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-027",
+    "textAndAnswerSha256": "7f36586cab68cced074ec7258b92a4ade5e8fe095c60aaf710849a52fd95eab3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-028",
+    "textAndAnswerSha256": "ac542ef0e353574a6f4229b9537aa960e3dd21797ac1ae269cc3aa7a68e52091",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-029",
+    "textAndAnswerSha256": "214522de21008cd11f9149ae9c3311c9eb2fcd4b207267c7575d8a058c7fb906",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-030",
+    "textAndAnswerSha256": "f7607ad6e886eb196c2c01544bc0a68f687dd008a8857ec17ecd0891e9d20c51",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-031",
+    "textAndAnswerSha256": "b7438b408675afb9296bcd099a0d78c7caee5b6b5008aca279301de8de69dc51",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-032",
+    "textAndAnswerSha256": "4b29e5706f434df6272c1cf20583d964dd486a45e8725bfbc6de15fffd76c3fa",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-033",
+    "textAndAnswerSha256": "3afd153d2dc082b6027e1c7b4cc792fb681643d5c5d682dad645256878504642",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-034",
+    "textAndAnswerSha256": "32de194a22b2a66e2d32f4425cb2f927227cf472026da57cb257bd447ab741e8",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-035",
+    "textAndAnswerSha256": "8d51d70008007f5b618e542d3742245e98c7df5f8719a5254d32dbfd6ee12670",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-036",
+    "textAndAnswerSha256": "5b1aa1202fb3a354a85c1afc002aebce703a78008e20c18a7d49f259dd58d1ea",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-037",
+    "textAndAnswerSha256": "b45c7bed8bc4fe6aa359d797e508c3b5b5a95e3d0b5e5562a4bd3f72c36ebfb6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-038",
+    "textAndAnswerSha256": "15681876ac46493a44caff062c386188b9c26999f06feb37a9ed0d5b4556acf0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-039",
+    "textAndAnswerSha256": "17496876c989e2c892158a67ee2ca16a140a750f8c8ffa377a82845f819ffadd",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-040",
+    "textAndAnswerSha256": "0832a6617336949fadecb37721aee9b9b0d478311f5e909a7eaa744aa65a2ff2",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-041",
+    "textAndAnswerSha256": "0841dc4922f233af7f45dff027632ca9565e20eda1235e53c05dd9747ee9e15f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-042",
+    "textAndAnswerSha256": "ecafb35b0235728e8006a684e424efd907ed7d3d8ba910e3a2acf1b81ee9b4c7",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-043",
+    "textAndAnswerSha256": "51bb4441567da060344384502e5d9678299bd4b719e46d417a1569232673c69e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-044",
+    "textAndAnswerSha256": "f40ab94131d229d2003d85aa1ce3401b11fc16d4e01e6aabbd5ff668f0924d6a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-045",
+    "textAndAnswerSha256": "d09d81dc744a1eb2eddb2ae87851d4ecd70570bf91d40b9ef7caae81229524f1",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-046",
+    "textAndAnswerSha256": "359213f470625d3c2876a8abac26f9b588b3e024e640495c42d564ac014f5a97",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-047",
+    "textAndAnswerSha256": "c24ee3454fd5c3f8b6f98ab18d33e95bf275352302b0a3706b11075168720a7d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-048",
+    "textAndAnswerSha256": "364908b28a604de69cec2c5a6fae2c42600d5e91013c430f56927d347a97fa6f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-049",
+    "textAndAnswerSha256": "b12cb7efa2bd539c60f80ace5d534e78988c753efd5d004aae8637baaeb3729f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-050",
+    "textAndAnswerSha256": "6ecd4a87166af16a4fd71858b55f82939667304840afad9a4b887863bb5c5883",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-051",
+    "textAndAnswerSha256": "a2841f1bfc44ba8e81d303770b6e902eb657992111b1f1bbc7839eac54a85dd9",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-052",
+    "textAndAnswerSha256": "443b2ab3ad73f780fa531231c535d94ec211db0bf0514dbfa747233ed7b298bd",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-053",
+    "textAndAnswerSha256": "6b910f1a9604df7baaa4589a5b9415550ab9fc316da6247c99518ce217cd3f78",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-054",
+    "textAndAnswerSha256": "8747de859853f5078911ddae5cf876dcb43ee89c53aaa289b5633ef4143ccb71",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-055",
+    "textAndAnswerSha256": "4eec1fc78ba4d51a6d538328c65d9e6ed55612837a02ac89f47320c720313c73",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-056",
+    "textAndAnswerSha256": "5c31fc11157126ab6a6234d2478d46b4f0cfd0027719319c5e75930b35146f46",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-057",
+    "textAndAnswerSha256": "bbab23b1850ae0dc947786cb0372a0c4fe26f1b26ddc955998b93bfc302f7b5c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-058",
+    "textAndAnswerSha256": "c96f124a6fb1d0aab06443f433d8e30e443d4980dd2fbc39833166adfc24f224",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-059",
+    "textAndAnswerSha256": "8b8fffab079884b75667ff159568ebfab8157332ed12920131530293b8584538",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-060",
+    "textAndAnswerSha256": "6f83415f2576dc3a73f1af83e9ee8d09aa92705f6d3227623131faa9fb648b3b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-061",
+    "textAndAnswerSha256": "04321f8dc9c45a1d86463449062d1ad2d1d9507cbb943b89978b83341c3e56e5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-062",
+    "textAndAnswerSha256": "e9bdeb50f523dbf5f2dd229bae2141931f78bd377c068765ef9182e5c4652333",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-063",
+    "textAndAnswerSha256": "e01880b159fa1d79b10c85d723407776e37ee38eff6d6fc5bf1cb3818621dc86",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-064",
+    "textAndAnswerSha256": "88d99cde1a866cdcc3e3c709612b58ff5e1e22ffbb2c1bc7d6345e7fbe52f737",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-065",
+    "textAndAnswerSha256": "2242528e3f19475cc29d2a5f3b295c018fed760e0573e7592039db7c30385a75",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-066",
+    "textAndAnswerSha256": "13aba2e58f6fd64befe0bf1414e7dd59de288b2164dbe0f1b3495012109fe259",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-067",
+    "textAndAnswerSha256": "ddf3046700db51043e0565b0a400b670a5bc1d9324898e100f8dfcd7128291cd",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-068",
+    "textAndAnswerSha256": "0ebff053f4903dba6072d73adf21d1fbb824dcf153e89c06138734d1ac45ffa7",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-069",
+    "textAndAnswerSha256": "b6c06d710efb4e00a183e2a4e43ab10ca21a5c3e79e1856fa524e4ab619936e2",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-070",
+    "textAndAnswerSha256": "a6271f23d270af5fe879709590191d939148cf481a4f0e7894599528d0eb2a7b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-071",
+    "textAndAnswerSha256": "10a27fbb229d026d22fa158180ebe2b993fe27643ee0a9a8205fada926ccd69e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-072",
+    "textAndAnswerSha256": "f899c37e92d0d3895b74cb6098f379e90849a9e96c16ddcc2e96cd2991837146",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-073",
+    "textAndAnswerSha256": "941e573f4472c49a7bcf8a45bfda844ca50d457a2cb3fe2bf3799d772ac782d5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-074",
+    "textAndAnswerSha256": "946f87ffdca6af08affada88c1a7f397e0955c4c0b8ed935790def9b44f97aee",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-075",
+    "textAndAnswerSha256": "2b80ae792b82b7cf6cef2fdc8f21232744c21f0bcd1a1eb7e251fbaa02a5ef4a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-076",
+    "textAndAnswerSha256": "2f22894c9e63bc9627ff525943cb23607094dad3f2cd98091d531cb018dde1f3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-077",
+    "textAndAnswerSha256": "20caee26a9d03d8e40ee3d7173679b16e8d38f98fbd0ba7411ea36ab7bd95c81",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-078",
+    "textAndAnswerSha256": "98e48fbae335bd8111f54ed366f17b245b5256794be59364ea7148ba7ed2dbce",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-079",
+    "textAndAnswerSha256": "c1ab6018b15572d8dd1c9c6737af6a913a5ae74ea24741143005129a5f1b530b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-080",
+    "textAndAnswerSha256": "f21a3d259c80c5307bcaf3fe5fbdc28345077b86fa76abbd882f0ce28596cc4c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-081",
+    "textAndAnswerSha256": "50f72ba422a71c696fa3f4e66fb83450757ab623236703987c5a8f3c5ba427a0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-082",
+    "textAndAnswerSha256": "14da1cc3e12612a9a69ab9d3b775380a81df45fc056fe7f0f066e434bde2fe43",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-083",
+    "textAndAnswerSha256": "a11bfdd1b6010a511eb60ec267e0e775fc44534dd6f200a76e1bda52976b069c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-084",
+    "textAndAnswerSha256": "edb92880c1511c4042056dba58414bdb297946dbac6e61d6df5ae7cdb318bef1",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-085",
+    "textAndAnswerSha256": "699b544a064f86469cf370df7097d0efdce0e9351a705b5438113e20ae7edd39",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-086",
+    "textAndAnswerSha256": "1fe43c7e359dec36b3e0dff3913072039579ee707e4a76fb43e8c08112d738ec",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-087",
+    "textAndAnswerSha256": "2ae0308cfbd7311bd9786146fa16f99ffe9db334df1f7f9c3f5cdedfb3a8c342",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-088",
+    "textAndAnswerSha256": "2d234495108b82510b6833dfce30f87ce7b12cdfa801ec100955d49b0f6e8ab4",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-089",
+    "textAndAnswerSha256": "57c7e63165c659cd3fc9761737c7999ad27579fcd4521b93f6ecb03851682b1d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-090",
+    "textAndAnswerSha256": "d6f5cf6b2c722ace0072884576d27aca3750e8490615ba1249c18cf021703881",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-091",
+    "textAndAnswerSha256": "e5e1fb4b21bfce1b636e046ab3d1c1c670be7e243ad73caa0bcfd0ed8505d993",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-092",
+    "textAndAnswerSha256": "01cad373535b42238c1875415e85a0d1f1064306f0703a1f1a4123d23a06b091",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-093",
+    "textAndAnswerSha256": "ccc2c347ab735c4c5ca9cc9399ebc213b7be2265a82a7139771bdd2fb224738a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-094",
+    "textAndAnswerSha256": "fa26b98e687e31a027f2c78740144a91689d813857a290593b79161dd0983fe5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h3-095",
+    "textAndAnswerSha256": "1a815a05874db0bfce81ae11aae0383255ce69d3a173cbf22b1b964cd8833cfc",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-001",
+    "textAndAnswerSha256": "754506e5b9ba9b89f801e6b4e30f7aadef1bf66c4ac47e986b25b0e4bc724320",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-002",
+    "textAndAnswerSha256": "24c4165196f61477eaefaec8200012bbab3b3edce3c9d2529636ba3fda5efd9f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-003",
+    "textAndAnswerSha256": "379aae08bca8fc1dc3cb45b1690c2450fbc61cc1f5569d84a19b30eb2dcdfeb0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-004",
+    "textAndAnswerSha256": "cd3904252777343d75ed5786d723897a1efed141fc23d3d82051dee5b8b95afe",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-005",
+    "textAndAnswerSha256": "c99ab7986f93519f7b894c76d07bcd09b1dc9c0ca4be77bdb8fdb4f8bb2f8ef3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-006",
+    "textAndAnswerSha256": "1b40b7a51f680adc64e2a04f4c3c1aa5c44870351b1dc34fafcdb77b1d82eb91",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-007",
+    "textAndAnswerSha256": "eab106f4025fd57297ed2be75f4d3bc86fd910786bb4f52e05dfffaf9e9e9b66",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-008",
+    "textAndAnswerSha256": "02e069f5eff9789b44d3171215521fee00e7605860c454397491c92247534c2f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-009",
+    "textAndAnswerSha256": "2cf53c992410ef65da309717fd9149eba32886a865ad1216ba9951f854682e35",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-010",
+    "textAndAnswerSha256": "3d404a8c0e71bef2c0ded029654f4872bedd906f9999daf2aef8355ce8180df7",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-011",
+    "textAndAnswerSha256": "147e89e7c1fea4fb1703f6caf52c54a034530d5a5b236ad9381c95ebf229793b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-012",
+    "textAndAnswerSha256": "51ee7f63cb042d5d90195330cf9b275107b414c962b35121d7df958be9a190c1",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-013",
+    "textAndAnswerSha256": "709939ad6ddf64e707298d26bf83c995a840b9b9f872c14c941c029d2132bb9c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-014",
+    "textAndAnswerSha256": "ab7159c83c61374f0d9b2b4dc30f4a814b1ca01644291c534c4837a9a6d77747",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-015",
+    "textAndAnswerSha256": "1950548d84fcd0800f7a32652fdd645c94f1c40145fa5ed8c274bb09c88552a4",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-016",
+    "textAndAnswerSha256": "199625cc464bfc90e81041d8a52c63f20d38873097205a98b3766a7b7f5c7b90",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-017",
+    "textAndAnswerSha256": "6d22ab40aa9f94463fd47421c198cd1ecc993e283d96919a0c0616c1c554d232",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-018",
+    "textAndAnswerSha256": "3ffd218f896aa9df6732c6acf8d9f52a965063cbda6c97aa93d810e0516bfc81",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-019",
+    "textAndAnswerSha256": "f3d57cfa44c0eedc225eb62b77f1fe788e440f6b0b3c94b8ba79b9fee82ca1e2",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-020",
+    "textAndAnswerSha256": "92ed48f22f9a032e13bea17578a5b62c1f2d0708f1a4c8db3a04d7a8b8455b4c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-021",
+    "textAndAnswerSha256": "0b754bc11cc071977e61c51cef5279b7ec9b2e58705fab803ddef1eb8898da3f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-022",
+    "textAndAnswerSha256": "e0554783790b2b973310a714aa7646d9b9c5915c27837070c26f5fa47d3c86e1",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-023",
+    "textAndAnswerSha256": "5fe5b7594f67b51241430ed095902c50b6a146cc95d3b3a7f735d439f7b4c758",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-024",
+    "textAndAnswerSha256": "d7202a53828eaf0fbb9f0fb0db9de5c314806168d6f339a68e8c28c8dfc749d5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-025",
+    "textAndAnswerSha256": "666018105d1b4d3ecc54e231a6e16268c463258d8897cb6b94819b02a51ec2e8",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-026",
+    "textAndAnswerSha256": "82f25e521c14f31965b6c5b141e3090a49505586ef2793cf9088e03f0ef732c9",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-027",
+    "textAndAnswerSha256": "d3abccf9041445953887d922df6b33a6c8650e1a8078c2f5d83a0f645a94a8e0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-028",
+    "textAndAnswerSha256": "f4e9a846ce62a784efa5807946b4e2012f94d1560702310a3a51db9f8f088865",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-029",
+    "textAndAnswerSha256": "a344c6bb6b5a5c1adc398a330f5c6b44680fcc67adb277fe5a978b5c6f9a4df2",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-030",
+    "textAndAnswerSha256": "ef73c03f6b880ebf2f9e6b33617f6bc2f52776f36948a3fd7301a40473824e71",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-031",
+    "textAndAnswerSha256": "711042c23d4952e7751ef53b0793007205e26f55e291238ce0e1745ce95e0725",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-032",
+    "textAndAnswerSha256": "3289b1658016c1a73e9f54d4f9abe591e8dc2ed3a2305392309e1a434a363115",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-033",
+    "textAndAnswerSha256": "e3f1830372a43f10eb960b5cdad2d4c8534792d1b157faa46f721dd6131d836a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-034",
+    "textAndAnswerSha256": "89e29e6553269e2dec6b3e275c68495b784f62b4184874479090b654bc3b0a34",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-035",
+    "textAndAnswerSha256": "5b7c94aca3a9922878337119c37d0048dc980f9ff4a2ced78522c597fbdd2621",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-036",
+    "textAndAnswerSha256": "7ef8c1aed69819593de550e8d45d3f8d6fb560d69e08569fa27ff7c4775105f6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-037",
+    "textAndAnswerSha256": "0733342806aa70c5a4595188892494503f2b3e720c7ce741b6fcedf5c6451e48",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-038",
+    "textAndAnswerSha256": "d56007f12c6977d2078633203ef6e108da44caa14b547f78123326b3c17339b3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-039",
+    "textAndAnswerSha256": "f01814ff902602a117f904230d278389db0792752d2294c4f38fe853e14c34b0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-040",
+    "textAndAnswerSha256": "a0e23d6f125b6c5280bbacd6d6bc62b2f33ddba6d9ce67d6d7d4012535de5c8e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-041",
+    "textAndAnswerSha256": "25ff58a31fb3bdddad44257ea6db360e78e035fca8319c46544dc90f0deb9c48",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-042",
+    "textAndAnswerSha256": "25c23d3dbe8ae71d74e90116f6ff33fc2256ad335f7107459e98da1fc2077e7b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-043",
+    "textAndAnswerSha256": "6b2d77e8f8400740cd19d1ba32734b70a39f429ba8265b5ca3f9735248b222c0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-044",
+    "textAndAnswerSha256": "bcac3ac939893758c546864ba93b635e2ce4bb2b17f20a65f3641386d76e37cb",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-045",
+    "textAndAnswerSha256": "2247248d76ec4deb489382ecb9fdc8818bdf11e24877a257ad8513c25a9de843",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-046",
+    "textAndAnswerSha256": "34a34d114319d5adad1563ea131b75eb86d604105f2cd152cb0f48c5203bc984",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-047",
+    "textAndAnswerSha256": "fe7a8fe2380995aaa707a54b8c0c17c8c1fd90043ea3b86bb5329bcf96051e1b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-048",
+    "textAndAnswerSha256": "0650533111b2fc40e93c9136f6281d6a5837c26afb28036f48a53ba452dcd5f3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-049",
+    "textAndAnswerSha256": "4e64d3e4384a1e86c037921d81612c45ad1e491707d595995fc86580e8f41516",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-050",
+    "textAndAnswerSha256": "aa4bfbbdd7fd3abef3b213f9efbfd0c2aebe44ba4aa42f81c567de749ec7b26e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-051",
+    "textAndAnswerSha256": "42157bdc938026ff151d91dc1f5ce38d60c6916eab890903d46ca7f0dc2de42b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-052",
+    "textAndAnswerSha256": "17ae30d53fae398c86ba82c3cff5bda8c42b068da078c0900b87c397072dfe3c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-053",
+    "textAndAnswerSha256": "26724608491b06e45513077297411da6bbdd65708fdf226da8bc19e6641acbee",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-054",
+    "textAndAnswerSha256": "027b33700d2f2dec70d44db77a239e995e79e6862c61bb3e7c6bfcc9b6e6de15",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-055",
+    "textAndAnswerSha256": "3bf24333e97afb613e65ee372860b63ec1e7ebe6bb1f2ee593ebea1134026cac",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-056",
+    "textAndAnswerSha256": "de09998c655bad22388361430dfd92ad865a2ddda253aa4525db3419465637d5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-057",
+    "textAndAnswerSha256": "69fb303055cfac0c9f46fdadb1f3499964ad706d68b9cb1260fd741a66899fd5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-058",
+    "textAndAnswerSha256": "ab226a367756a1e7e37fce9fbd811fb170c69a70d9ce28b23bd2fe2f3331d091",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-059",
+    "textAndAnswerSha256": "0c3f3f440e1c923650f719d26503d095643eaec2df8a2509c4071eec1c65c441",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-060",
+    "textAndAnswerSha256": "0b09c7817d1e27c634e3c105d98c738cf60d66e31204839466ed1bbfda235b41",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-061",
+    "textAndAnswerSha256": "ba54b501702b528950c291f8b314f89126726ec491bd0e69db087af092c337a6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-062",
+    "textAndAnswerSha256": "3c2e6b229b83f91f91ae7ccfa63f499908492b4c5882d7126aa3795787ae36df",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-063",
+    "textAndAnswerSha256": "487562003c448924dc2eb54ec9c09538bd55e8c550d44da93eade0055f30ea13",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-064",
+    "textAndAnswerSha256": "fbeabf8167205c939d8e1bd802eeda3e82842653e691c4cafab17666d6ada915",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-065",
+    "textAndAnswerSha256": "aaf6d14baf48ec057a65f3e4472bd9d2f3f2b5d20d82b36553694d8cd471eca3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-066",
+    "textAndAnswerSha256": "54e10f87655899d7f1a4583270a57b46a7a8cfa7e12fa5e8fd5393ad6d4fdc39",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-067",
+    "textAndAnswerSha256": "8beb59cd760554088c2d5835595e0b89a5e18df3efb9ad42d5c6c85d9a4548db",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-068",
+    "textAndAnswerSha256": "0ccdf5ff91c871a550b3d1e0df2ba0fb7c579a5af9b191612362d290ba356006",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-069",
+    "textAndAnswerSha256": "de3cb87fe7984be091e21a6bfcbacf517f31c87b88232afa1df3819ebb34adaf",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-070",
+    "textAndAnswerSha256": "4e19a5411f428e7a2d028b8813ab939f27e109095798dbd36630fbddd33ce22e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-071",
+    "textAndAnswerSha256": "7e2975a259134e22373fc742154e8c1adc7ef075d56d4aed2cb58e5eaa5e5c5d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-072",
+    "textAndAnswerSha256": "f9cbad1b8e5b35416a6487317e1f8c16f455ff900beaa2b58a46af3da46c009c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-073",
+    "textAndAnswerSha256": "3eaf7d9f427f7bf829a4be5dec8381892bd11059258e920804e91fe9102d1d3f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-074",
+    "textAndAnswerSha256": "deb697c09a83461d63cbdd0c4430322221ad5f53f6b9ce5287ae16a0a84480af",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-075",
+    "textAndAnswerSha256": "20ac4d28a02dc8dae81e6a048e01e98dc5ab39633801fdbe43c332bb1696bc62",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-076",
+    "textAndAnswerSha256": "5c304982b149a389f90f1e430be40f980c1d78cb0dba79a00d45dddf14034c81",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-077",
+    "textAndAnswerSha256": "66de738d3f68151565027543a1c1893dd48725dabe5740952eb049d167ec65a6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-078",
+    "textAndAnswerSha256": "76483f3da0ef500ca369cc5dcf1f15c5d4cda9b7ef3920573c6252e12f0b7ffc",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-079",
+    "textAndAnswerSha256": "497d654ec73c61af45c43248a6e9566f3038cd08bfaea105491a66bad662050c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-080",
+    "textAndAnswerSha256": "7dc1950bc604b0cb6d8b8a09643e297bc443040ee8b72ac984f293adcc8b97e2",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-081",
+    "textAndAnswerSha256": "72f4c23f6b976667133daafa87bf2719e6aea79f5c76d6cf93165ed2af8e3845",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-082",
+    "textAndAnswerSha256": "5af1c58d9d717672146464287a10ffb0f6a870a8ce22fbf4c00f2658267e5eb5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-083",
+    "textAndAnswerSha256": "610d7daee3291d249873a688a978d07ef0066a6da79cd6cea64d848e9457bf35",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-084",
+    "textAndAnswerSha256": "b832a196f95e39b38f187717c85d1fd7bb85f01dd2506bb61767ccd847bf3a73",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-085",
+    "textAndAnswerSha256": "d1b797533630092c7dac89ec3502ec0ef53e19d39ed91ffdeda41946e947bee4",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-086",
+    "textAndAnswerSha256": "127b94d2e233e2ebf44fd6eae48cc2d1cfae4f8eb63a2e5e473a074100a036b7",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-087",
+    "textAndAnswerSha256": "fa788dfa7b7eaea44459e0c67d86b5fcdf8b478440356da0f3e84688a5bb4991",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-088",
+    "textAndAnswerSha256": "d566d7c2b44559cd8d9dda2dcce56644813cfd30031623a3b9e42396fcf88f6f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-089",
+    "textAndAnswerSha256": "6de0884d5e4b1c1542372efa5321cdb774d34d47420dba8a1fe1c8cf757ac4e6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-090",
+    "textAndAnswerSha256": "0818ebe165a8a7274c0f766f1c49c61be8af3dde11da95f8e5f013e1df85d624",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-091",
+    "textAndAnswerSha256": "9cb5cb210ac1b7b3d9d03956782ee2e644defcc12d792fbee179c10de5f94427",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-092",
+    "textAndAnswerSha256": "1a468f092bbcde68b932c58647b8e75fa531f0ae254afc7e097e212f182c7559",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-093",
+    "textAndAnswerSha256": "f5c03dc5e4c45ca3d95ce57956b8feb7b9a67b3f9f73fde0693ee7935f900406",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-094",
+    "textAndAnswerSha256": "45c539825ece551b407650c70f64cecb8d35626e77ffa757100f3acc99da254b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h4-095",
+    "textAndAnswerSha256": "f10a5f8f053cd56de7b20fdd2b5229778fbfb141e20c257b4a1c08e0e48649e7",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-001",
+    "textAndAnswerSha256": "dfa67379e6f397edb261f0a114a432aa6e7b0e3b291429b9262fcab3ba7f09d1",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-002",
+    "textAndAnswerSha256": "45ca35b7b7697a6a913882f9e94aa2aa8f37021c92ef6d71e2f4953f130efc0e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-003",
+    "textAndAnswerSha256": "8b864568f4a95e8b2957e96c12e51c2b616da1f43b8a9829989c49b608e1c392",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-004",
+    "textAndAnswerSha256": "40f059c2c9ad034f58b93671327b18010c383f54d60383308f616952b83cda45",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-005",
+    "textAndAnswerSha256": "ab847a1f88f0b0bf22b2b5febe9a1df1243a86aa732a2d13539e80ee1331381a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-006",
+    "textAndAnswerSha256": "b8fbff5bd03005586c50562fc146ed204d62ea4a9ca35b9abe511cfe574b535a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-007",
+    "textAndAnswerSha256": "1f5932545a605d4e3573bf6fc7949eed4bdc6bc121bc41c786d9985167e76038",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-008",
+    "textAndAnswerSha256": "07f2dcf188fb2fd4446401ab7aaa2e1b56fe824bfaaa7b2d32ed22a932a2f88f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-009",
+    "textAndAnswerSha256": "c73285e335282e2df8a5b987a362cc2d5b25b7429b09dec9afc9da57b3568678",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-010",
+    "textAndAnswerSha256": "b05e5e6eacd019edfbb6789ce7fa6861f475ac74806d798bc50852eec7d4a54c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-011",
+    "textAndAnswerSha256": "fecce30848fc27950cd1a04611cbbae0325ed10c144496e5d63998d2b7b5b3c2",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-012",
+    "textAndAnswerSha256": "5fb7bcb178d3d3895fcb24bee07596cea86aa36f5fe9a2fcd2f806397eeed88a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-013",
+    "textAndAnswerSha256": "b170fbe3761dcba726abd4a12f0dfef4adf7579c10ceeb252a06862cd98395e6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-014",
+    "textAndAnswerSha256": "28b61c6bdefd086208f02a9564878981a5537dafdc55ddfb12f09af32e5dc82f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-015",
+    "textAndAnswerSha256": "e12cd79f0b56fadd8dc3703f193a9e85faa5672f3c0752dc0e7262b5d9a43afe",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-016",
+    "textAndAnswerSha256": "e7e237d9daa1068505a7eac3e01fd07755868d9f9bbe0e28aa34d6f976ad8f7c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-017",
+    "textAndAnswerSha256": "bc7f37cfab394b61114ebb18193bb608ec96ec7efbe7f09742e20862819e0fe1",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-018",
+    "textAndAnswerSha256": "1628f34fd55759c78ab781b8079102c8d495d2e19b1f0e6ebb0ada18a446770a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-019",
+    "textAndAnswerSha256": "62448985b8958825a15ae4fc5d755962eb82e67db912e60ccfb3e1bc96c07fcc",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-020",
+    "textAndAnswerSha256": "93cee01fa9f66d5ce69914a851068bf330a098dfd90ff2988e5f7aedd07920c1",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-021",
+    "textAndAnswerSha256": "82db41e7d4764342c8b0d691fa741234c478f701d73a1a4d0754dcd0da7850a5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-022",
+    "textAndAnswerSha256": "25081b032c49b093103dd7d9354a038dfb3ac22a4be3382f6fa4175d9a4a4211",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-023",
+    "textAndAnswerSha256": "7aa78546c4fcc522f1963b3b3521872aeb3b059bc09a6f98ee948f39cbdb2d53",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-024",
+    "textAndAnswerSha256": "7b048a8b38d0f1b1a12b6e622efb08bb28a87bd5e29cf866e0c9f782bf9a30ec",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-025",
+    "textAndAnswerSha256": "4ec35aacb859f96a4f65fe947c8232e59de4a355ada38580e7eaae8c8a2c1b65",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-026",
+    "textAndAnswerSha256": "fffc5c5d786a0fc7e7f11180755e2488e8740481aec4c045a9e382ee2593df0a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-027",
+    "textAndAnswerSha256": "384137a87afae7b5a937aa6e8e54174e638def8445887361dca09f269bac10dc",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-028",
+    "textAndAnswerSha256": "a95fd4c87f67520ebdd80263123b9b6f2ac7706c5677a74f12de2afd96e5518a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-029",
+    "textAndAnswerSha256": "d027c96c45eacdc6affc4a5c8af380326d4e9505167742c57a0798d76a744fb8",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-030",
+    "textAndAnswerSha256": "912b0b7ca8bc174b42a87fd90aca41db136843e5494fd38a1452d4dd5f889e1c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-031",
+    "textAndAnswerSha256": "485e2a7b0add3b1a70115694beaa0ac0ea1832fa01e070b47351179b16196269",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-032",
+    "textAndAnswerSha256": "fa613c3b41cb15b4f24a0a8c75678fce8fe27caaacd854955059eb7ff0d84aa1",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-033",
+    "textAndAnswerSha256": "03700d8cb64738f3eb7959d1466959f11aacd4ea02277038664ddae8581084e3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-034",
+    "textAndAnswerSha256": "a2a1009ae7c7ba8e6ed4cc92d3ab99ee7aedce0c8008d6824590a771b177cab6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-035",
+    "textAndAnswerSha256": "7170ae690d666f190463bdd85376eb8e14ad7b5f5d96860a4f79e3c8af588194",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-036",
+    "textAndAnswerSha256": "d2b61a7d1ea01a67ba83aeb84925eb4dd8ce47a1989184fdca2cdc9c5e7fa292",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-037",
+    "textAndAnswerSha256": "da865201fe063ffb6f79dbbc46d61013995116e328bcbf4a4ae1709786f50f50",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-038",
+    "textAndAnswerSha256": "14e7e9b52ad2c9398a80e5d44f43355d2a18dcd134ef1889686d8df12c3b5028",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-039",
+    "textAndAnswerSha256": "46d0a393fec4513c2b4b18b3c6eae9e9eddb5870b3ca8426aa19b05f2a8241fc",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-040",
+    "textAndAnswerSha256": "5a44eb479544a77cf5902fc6e838313f77b2c78bc3d5f3fa5682309a98a8723a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-041",
+    "textAndAnswerSha256": "f0f1a655c850fd8eb06e6c52d3fd5f55b13caef75cb0f34cf7ef0af13a2941a0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-042",
+    "textAndAnswerSha256": "d66127176544a6cf03318c9f034c15a7b0badce9bd08881a68c77da5def411f3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-043",
+    "textAndAnswerSha256": "e635ad0989b937904eedf888d14ceafb7e6697a6891b7fa994b8716de94c0f74",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-044",
+    "textAndAnswerSha256": "8b7b39efd7f012eb6da4e21c0f313e74257a447b011619d5462ca3e784ff3ef8",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-045",
+    "textAndAnswerSha256": "9cfe41362118d493a8bcc73051ceeafe418ecca9c6dcdfda3fdd3bf7a6c836f7",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-046",
+    "textAndAnswerSha256": "d4145b6eb55e8ba4fc54f8c10e3c48779d51901f0c9bcaeca73ee60146719e29",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-047",
+    "textAndAnswerSha256": "aac7c35511e2c635a7636eb59e407609b2a153715c15f6dc864d3de571a4b933",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-048",
+    "textAndAnswerSha256": "469b3b098222365c07814be9c6cd6affa26f1da4e9aac40f45011951e2ac7249",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-049",
+    "textAndAnswerSha256": "2770bd1c17663aed7fa661171478b24a40e7e80fa2060ac04744da7cfd6d4b14",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-050",
+    "textAndAnswerSha256": "8dfced9cd820cbcc05959676d5621802384c0f91838789912e7d21a406ca5cb0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-051",
+    "textAndAnswerSha256": "6fb5ace028acc15b6c092bb7ccc4528c1ff9bae005ce30f70eca609577de6f73",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-052",
+    "textAndAnswerSha256": "c2a90cd66ceb6ebbc283355d59df0710d6e3a66027c38a0c5149b173059e94da",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-053",
+    "textAndAnswerSha256": "91d510e924d391b5d84b8e612bddbeadfa11bdd73b222b2df561927c1209a591",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-054",
+    "textAndAnswerSha256": "9ba77148a2dc773a40be5d45ee0d6350282679a42cdb44e4cf98c717e5393713",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-055",
+    "textAndAnswerSha256": "06d51d7ecf9fbf1b02f6638631bbd476037e6b22bf5a00302fe07792cb64dc5e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-056",
+    "textAndAnswerSha256": "948ca2bd774da7a6f5cf77a81841124074a91534ee398adb27ace580745a3d55",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-057",
+    "textAndAnswerSha256": "0ea0961d28aeef7326519b32ed2a94e7b88ff824d894cd2e1c1159534ba6cec9",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-058",
+    "textAndAnswerSha256": "57276f421ea8db4e9904884835a6309e308ff2940a9ce9a15b88802ddbeb9bdb",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-059",
+    "textAndAnswerSha256": "4a883a7695584756753cca855f368de068d0c62cc3658d757749cedb06b84736",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-060",
+    "textAndAnswerSha256": "64cb8491812ca878f8e125ab3ca5550a21defc7b4f1093a58352f64ea68e02c6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-061",
+    "textAndAnswerSha256": "03f7cf3a9735a0c34f8d0c68717fcc3fad814b944a69abd4dec5ee09bc186954",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-062",
+    "textAndAnswerSha256": "9327d87842915ff209a716c8f71ad2d15af14115977488bcae8a95376cecc022",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-063",
+    "textAndAnswerSha256": "0efada5b3546b0b3810c89578744259e5b1b5ecbbec2427bb155345dcd7b6251",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-064",
+    "textAndAnswerSha256": "c9d292095dc9bdc4ed3377238574eeec15c929a1a9651eeec41930cc6d5f3daa",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-065",
+    "textAndAnswerSha256": "affe777079337a69289ac427145b14849331c7538f241dc37bdf97c5b01d26f0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-066",
+    "textAndAnswerSha256": "dba1ff41097fc101acd0978821d011445c75f73798485031e38350858c188f59",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-067",
+    "textAndAnswerSha256": "768f099d0d8f469dc85e73618f94209092d7c88c2539b8e2668b770761455a81",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-068",
+    "textAndAnswerSha256": "8662a33fc5bf0993848e28c8f2372b22c7cf690db153d3ce382c076602e9d97c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-069",
+    "textAndAnswerSha256": "55d11063f37cd01121ec97c4e1062a9aa0608aa1617ac667a4fe76b149c921f8",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-070",
+    "textAndAnswerSha256": "2684ab7e071fce8f36aaa63f81c3d7c653e54442d65f7254862fe200d30282fe",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-071",
+    "textAndAnswerSha256": "dbbf42d86a2d96a759971327a82242575a7b09eaea8ac13e7c4f2d2ae6243513",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-072",
+    "textAndAnswerSha256": "52c89513a1bf074d62eec40e4463c897b44ad40b17e2be10c20d053dd14a353c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-073",
+    "textAndAnswerSha256": "43e59ddb65ee6a23e7db046c9d801a88e4b505c946f961f6454d5d09532dc164",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-074",
+    "textAndAnswerSha256": "64bdfd9d952f2d7e8845cc599ed49d9f00cf32e4e364f6178229eae8d33a6e5f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-075",
+    "textAndAnswerSha256": "d41fe4e98013e5f7fe9ece8cef032cedd0afd7ff91927bd3bf8646832069c24b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-076",
+    "textAndAnswerSha256": "d45c78111ff960c369bc1536937e6138de440e79bd828fba49816939bf4a95f3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-077",
+    "textAndAnswerSha256": "07cd5495980c683b11bbf6328e7f905c2affc2e0ae641fe53dae2336d682db94",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-078",
+    "textAndAnswerSha256": "8e31ef3d3301a4b8aefbe70cc80745a0aaaced9202cb3ecabe72b9ccc459ae19",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-079",
+    "textAndAnswerSha256": "d5c8451614b5839ff7997c8bf04cabc8a2c3cf4f0e1893c62a565ffeb72d950c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-080",
+    "textAndAnswerSha256": "f017e199140d2b1690509ce34b9b2fc072a137f40c8c58a66bbe6df2027343c2",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-081",
+    "textAndAnswerSha256": "9aff7306d0076df712b0802699117d9fe7badd7f5fc5f3d035d42af33a89ece6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-082",
+    "textAndAnswerSha256": "40c63fcd2bda2acf2393d119ca429008ee7032aec881d69de71e36877631b425",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-083",
+    "textAndAnswerSha256": "02e4ce7789390bdcec95c82f7c358e903f3e7830234f237ee4446cf9f570cc3d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-084",
+    "textAndAnswerSha256": "abbf0251f11a05a226f324349df8f161a5b8388075e1ed9deb0b928e8c2688fd",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-085",
+    "textAndAnswerSha256": "09217b28c4aa199885027386e3d8b7a137992928e6d6c4a4a54bde1ea0362e3e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-086",
+    "textAndAnswerSha256": "67fc29c598ebf257683c8f7850c148d8254486eb102060b0e86041cffbd76d91",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-087",
+    "textAndAnswerSha256": "909367220d888639b5ef6ce16b5330d554ae5492c0dc88471f9f538a736c29b4",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-088",
+    "textAndAnswerSha256": "592d09804a0918a1d399a92cf9c9caec5ca6f271fe7ced31842c9a40436dc044",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-089",
+    "textAndAnswerSha256": "74ec8f37f274e59228165cabd9fa730eac403d70e49b59aa470cb32d1e61d294",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-090",
+    "textAndAnswerSha256": "daa69d641069cae0ebdf37e5c9e888b57279f5c2718720c139747db1809fe67e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-091",
+    "textAndAnswerSha256": "6e6b334ce23f140a5c87d418a619d65a485b41d8dc2e0255bb2448ef5c0c5d80",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-092",
+    "textAndAnswerSha256": "f814016819b8baf6ba92bc7c8361c3d6e6b114580d27402d0d2046bfe9545e03",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-093",
+    "textAndAnswerSha256": "0a2459623ece08b4ea25bd0ee49e41adf3264316f4868eaaf6c9c245905c3c9d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-094",
+    "textAndAnswerSha256": "8a25b31f16dff050972692a8e6337da852ff9adce9ccdee004205913606f53bd",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h5-095",
+    "textAndAnswerSha256": "2a0ddebd6c94738753015f2f03b03b4da859806e297709d47c3b9cc5dc10a2c9",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-001",
+    "textAndAnswerSha256": "fa299edae44364e4017373f63da7d719c86e5de8cc3f3fb8c1aa192e23054619",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-002",
+    "textAndAnswerSha256": "2100688610c04ad4dd0594b0352671c051e4ed21ec156f1e7502a84727c889a5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-003",
+    "textAndAnswerSha256": "395b97c681ee8f9c4d831044efaf2f72c166aaab6df23d067c938e4bd72c8bee",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-004",
+    "textAndAnswerSha256": "bdea7e50a2d86742c76cbcce6a61e9d9a9959c43f371f75dbde5403c22801d78",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-005",
+    "textAndAnswerSha256": "34563e29a21acc4e0e3441c44e416218bbf6a2a095e8991ae93def38c55ccea4",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-006",
+    "textAndAnswerSha256": "c5bfef5a538b3a8c9aeeecddad7c1fc2d260e71416ae1b75b73a99ab15b625c1",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-007",
+    "textAndAnswerSha256": "d64c480b68c16b500c14592d0f0e05a26acc9b02ab8f6ae6d76b6d31bad97b16",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-008",
+    "textAndAnswerSha256": "1b35acee5f9c5f582ff0358a0902cda54499d92ec0e072d2a52b2a13341cc44a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-009",
+    "textAndAnswerSha256": "19d8c72dca0f51576e02815e4150e07d3772b1f26ad4173ca2fe7af5c3133d87",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-010",
+    "textAndAnswerSha256": "305fa5123e24a6515926aca2421fa8021dccbd2bc3be838a4692f832451d0aee",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-011",
+    "textAndAnswerSha256": "74b2b046e18654493060fb44c08e64bc8e513fa6423c9bd5b0ecca668cb68143",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-012",
+    "textAndAnswerSha256": "cc4cc5a9f7f0c436e525cfc6d609e0b9200f44d92baf7006a5b39c01f42dd1b5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-013",
+    "textAndAnswerSha256": "89cecf37d9720c803527cdbdaee393b53bc5391dc52b0c94ad0e18b24a1f37cd",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-014",
+    "textAndAnswerSha256": "f7bf2f340ef83ddf133600d0e33e4ea75debf0a06e7c1f82e0d2aff58d87685f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-015",
+    "textAndAnswerSha256": "f457487f38651f87c209e243fb3c118609c1e22ea0ffafeb8fed8666e01e0852",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-016",
+    "textAndAnswerSha256": "56bb82c8914e1fb8ec75170d26750454e7d596c0d88ef5c7e322a768bcec187a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-017",
+    "textAndAnswerSha256": "674d18b14dba5e6707b0465bd7ed372f399324c652224d901c6e581ea093b722",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-018",
+    "textAndAnswerSha256": "e09b1d88fef0ec34c40ad75da58ddf4ccee2371b37f48c139975ecc9d03142b6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-019",
+    "textAndAnswerSha256": "29c1e8d85fd27bb8e1a1b1a2a468075c6ecd29bf9cba79b3b373a6af057e7909",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-020",
+    "textAndAnswerSha256": "d3ddba987eef35d1f78c223928f75deabf36bea85ede410bbd1f700a97d3aabe",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-021",
+    "textAndAnswerSha256": "d234ac1b5c36502dcc451af69388ac9e0be12576b637352de42439b8acac4ff7",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-022",
+    "textAndAnswerSha256": "bd4b92d09a3f891db00c91463a3ec5f9cad7c4c081fa8512c114819a9ee773ab",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-023",
+    "textAndAnswerSha256": "2673ca32b4873e1eb6df0e4a9b3ab56c0ca2057313713d1ed8def40e3f24689d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-024",
+    "textAndAnswerSha256": "5d44805b7f47495ba427062e9076481388da0ce2492870563758aac0ca72aaef",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-025",
+    "textAndAnswerSha256": "ca619bc6802d2c495db15bbd2dba7830902271cf9ed96ef903c1c7142e02eeb3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-026",
+    "textAndAnswerSha256": "c9ef34d106bda0217fe016a948cb23e94f23c098806bd9cf88ca0856ff148e17",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-027",
+    "textAndAnswerSha256": "b70246625edd8cd8565014ecfbc7faff9c7540fcd3695fae0f5731f2f2790ddf",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-028",
+    "textAndAnswerSha256": "246b87915fdee714352a3e91cc86b7167fc9380c845dc2bf10cac854e20fea01",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-029",
+    "textAndAnswerSha256": "0c1ecb9adf81800605425a01102f165b1df5f21345e9a0168ebe5c949a0f2ec2",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-030",
+    "textAndAnswerSha256": "f86e846ee4ba4a056791b35a1c54aebab638628dcad8e78cbafe1db6aaf889ef",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-031",
+    "textAndAnswerSha256": "02b0d0f50636b37023d07c7fbd29b82c9153c0b6ed275d021b61e014e89afa59",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-032",
+    "textAndAnswerSha256": "f98470611a87114a1e396b6c5659afe8e32155755fb4f4fd9d8d7d64954d3136",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-033",
+    "textAndAnswerSha256": "5312542ed04ab614e6b32a92d37cea1fd49469063c9edc299eabe84025819382",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-034",
+    "textAndAnswerSha256": "23e623dc0ec060f7239407377fdb414ce04e56c0afce66c913bed762af4d4afd",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-035",
+    "textAndAnswerSha256": "3339c48fba9bc681c2702e67d14e274d66f7b495bdbaebc00f4ce7bcf909299c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-036",
+    "textAndAnswerSha256": "0c3c40740997aed24e0aafd22f8224baa4d7eb0ed698a9201f16a448fb163b16",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-037",
+    "textAndAnswerSha256": "9672d4806463d6056f11062853b7af704e6c9bcf741d67b3259390f4bb34df28",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-038",
+    "textAndAnswerSha256": "2f38c5b18df19c1c7bbd41ba3e7e7d771e6e55f3101bb2c8e6aec55019348cfe",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-039",
+    "textAndAnswerSha256": "eee880c36630ab42e73c2c538707734a22eb250156b0591cae809510fff191ff",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-040",
+    "textAndAnswerSha256": "a058c80b2e3372ee7e7428aa6776640487ef981da707c8b427a3178a4a6e054d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-041",
+    "textAndAnswerSha256": "beb37d6e66f2103bd52a9144609d9ca6b8f750b8c12345116463d595db02f4bd",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-042",
+    "textAndAnswerSha256": "47f8f5f9a35ee8da7ed9c3200981f73f6fbc69d0bb9a1f7a25fa76e95c3648a5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-043",
+    "textAndAnswerSha256": "42b04cac0f6512be8b73baf1e74d4882cf742acae4942de583ffe2ce82bb390a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-044",
+    "textAndAnswerSha256": "e79d0dea251c9d6ef1c5acad6e9f4ca6e878b2caea36573b1b70cc57ff021d67",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-045",
+    "textAndAnswerSha256": "5a8458d724eb395dd65dc66edd70794b04102a1d2b6dad4b1fd99eecb292c677",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-046",
+    "textAndAnswerSha256": "c37d7880cb0d5e3af0d03053255cf1fc2c68f0199cc019204e5c9ec2758f4a11",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-047",
+    "textAndAnswerSha256": "4becc67559a523d01e664a7cc6a55a8a6ea343a38c8f9725b98e7a03f62ef9c5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-048",
+    "textAndAnswerSha256": "baf53b7976022bdd1158adb7ae76712e41d84a04735e3c41ad9e8594e55bfbac",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-049",
+    "textAndAnswerSha256": "18b3ad2c923876db41f9cf54ac36f7a6b1f06680852c154f3362114b1c786a0b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-050",
+    "textAndAnswerSha256": "d92dfcad7409c7916dc29cb3639fb580ec7c805eb8c67101892cf4c7fb4eba7c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-051",
+    "textAndAnswerSha256": "001caa73984d201812fd67531e1e7c14de35a87d4a041d3b5a9886c63361e169",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-052",
+    "textAndAnswerSha256": "dcc69c2ab84a194f4af105994010bd4cc77de4c135f180d8cff03b0ea5970777",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-053",
+    "textAndAnswerSha256": "bb20eb877cfca3d9d029405c43527ff5a5523c7713b18a1a436c77344337871d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-054",
+    "textAndAnswerSha256": "54bf657420147a072bafdf91faae3716680089827cb75e7420299b2abcb1b6f1",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-055",
+    "textAndAnswerSha256": "0e1ce4a71021b8cb5027b227cde862219562e277443ac3fd1d3f911dd95b0a47",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-056",
+    "textAndAnswerSha256": "241939d22b2615d5fae9355c87c7f8c3ba255722247145a3b3f9890fb175387b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-057",
+    "textAndAnswerSha256": "bb128db0c97defe937ada3b292cb2529f298363a17017a546f5059db151e8767",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-058",
+    "textAndAnswerSha256": "bddb636a7e9681198af04f1aa1562471019d6588baecd0d14a48d842f160aaf0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-059",
+    "textAndAnswerSha256": "979574fdbb9aa444794e84af6fc3c8828f49700e187121879d6e2b26b468c515",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-060",
+    "textAndAnswerSha256": "3ad4a6eb6ff2cc7ce5ebd344b28dec3cbc6854454c56fa6c27fda7d794f6f6c8",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-061",
+    "textAndAnswerSha256": "d1f3ff280d28b9301d442256d63d7ad3403a3271b5d3e7c9734e80af8f32cf7d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-062",
+    "textAndAnswerSha256": "a791bec98a52ffc644144650a1d98bd9eae0e465f3bd7205eadfcfcd627bc077",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-063",
+    "textAndAnswerSha256": "e937f184fe04316cb025aeb90dbfd4e3d5cf0cbd460d41b6dc4c33b2300e7cbf",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-064",
+    "textAndAnswerSha256": "d78483cc61f721488ed58d562c10de0ed59ebd0406ae4089781760154337d350",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-065",
+    "textAndAnswerSha256": "7f594fb175d1c3badab41897d6f5963a78ded06eefa252036177a89a2035eaaa",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-066",
+    "textAndAnswerSha256": "6c9f64934af5dd3d4a8539800a16886027d6f26c0fc6c419a2056782aef704de",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-067",
+    "textAndAnswerSha256": "1bab38f93aebd803e03c63015c093d5241acdaee787799594f5f5c3f0066d3a8",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-068",
+    "textAndAnswerSha256": "2e3b181a452fde411a3ef3244dd21162607abcb7e346481c2061b06b75f2b7df",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-069",
+    "textAndAnswerSha256": "1f60775dd9148a6576def73eda4eb07c59deb2faf3bae72b659061bdf159c3eb",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-070",
+    "textAndAnswerSha256": "414f9831ba287ef2fcc83d6d791aa109b2005088d6f99914e5a181a8f6a01714",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-071",
+    "textAndAnswerSha256": "9f64147188ed66787e79806d066b9b1d956cd98772b577dfd8b3bde89be94b8e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-072",
+    "textAndAnswerSha256": "551a3190bbd8d81f22d70bac70d2d813088abc0ebba44211573414050c536c08",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-073",
+    "textAndAnswerSha256": "60dc1546b075858aa6aa02ef84f66e5dd5f452f0dcc1c8181c42abf80fcba6b6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-074",
+    "textAndAnswerSha256": "da61840f60f61f1f9e006f35942a50d3eef6139b9cc756b37d82a7182fd81b2a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-075",
+    "textAndAnswerSha256": "43b19fddef8c78961012a34e2ab694bf61a116921df7f937b1cbc3e575253697",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-076",
+    "textAndAnswerSha256": "b8ed41c5c3d0bfe9adfdef68743c282acc6a1d18cef6eae1a8f0d0005245f916",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-077",
+    "textAndAnswerSha256": "21b480835d09e4ead12e02be1fc132d5825948d1914ac42a330ac4ea2bc0828f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-078",
+    "textAndAnswerSha256": "2ac5874dcd95be05efe8b16f49fc88e00e9c7e33e4028073a5cafe3e9288f5ed",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-079",
+    "textAndAnswerSha256": "dde9107bb63584d3627dc52ce400de88a50ed98dae3c44aef3b87fd26a756cd5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-080",
+    "textAndAnswerSha256": "5a651a33f1b2094c9c38e4f4cdf1036b36082734b11853068c3d51d3f2d363b8",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-081",
+    "textAndAnswerSha256": "2dc2e081d9b135f265889ec14734b1f029ada3b6e00bf4eaa522f8d756db4892",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-082",
+    "textAndAnswerSha256": "b34cc767535a396eccc617eaa7ae316cddd382a1c1afcc6e38ef13c06bd127f3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-083",
+    "textAndAnswerSha256": "c2a01cd014b566e398e05521b66583f75e48d4e661316182174d4e6624e5c3d1",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-084",
+    "textAndAnswerSha256": "c54ba3badcc31cded4c04e2b3f240dc02b3e48a7ae8c52be476a42a1d6652aef",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-085",
+    "textAndAnswerSha256": "97e0c505a3ee1c0b6845e912d5cf9f57bed6b33f102cc435830b2cbb8534671b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-086",
+    "textAndAnswerSha256": "0b402008047822dc65ecddb692975c924c201e1afa584824d7f6afb4044e565f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-087",
+    "textAndAnswerSha256": "7f42117d142ea79e4eb020fccaac58eca634010a31bb1c8dded23dd404060564",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-088",
+    "textAndAnswerSha256": "40b8194228d3cf1e82febfd7b54d63e3c549a7d93bd8b6ff2e0a6eec0b0349aa",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-089",
+    "textAndAnswerSha256": "121a77a8d34309cdd8216bd90f34ab0358c630ae8b035997b9fa4931f420b40f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-090",
+    "textAndAnswerSha256": "2c121af4fa23838ce8e8c69e464553d4648307db1e6d23e289700a273ae7b982",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-091",
+    "textAndAnswerSha256": "770ca1ef708607c2a85692bde6f1c716ebe5e9eb6b6fa6a78112c8a0ca224bcf",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-092",
+    "textAndAnswerSha256": "09a2cdccfed2315f792a8b5e04c9b425fbbf3e0509158210202a11903261d1a7",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-093",
+    "textAndAnswerSha256": "afa9db695d8ae86e22736722e7e3a77797244f4635c4e731e00d5b056c6b3903",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-094",
+    "textAndAnswerSha256": "6569f27802676a9ace1a64ca26358ed69a5f04eb8fea3b3567e142ac845c7bbb",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h7-095",
+    "textAndAnswerSha256": "a11ae80773e493c972855d0c748eb3d76ce6518736c216a9bbefdbd411703216",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-001",
+    "textAndAnswerSha256": "1d6b5611ee616d874976ca19f5e1db0b1b3c3379564013cd9bef09a758130dfc",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-002",
+    "textAndAnswerSha256": "521ba9c9fbafcdb1451dd4752c157f5b262c728588927c9469892797147b0198",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-003",
+    "textAndAnswerSha256": "961873140af051bb0f0266a13053e3f043629cff9a5a195221cfa3c3a2661612",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-004",
+    "textAndAnswerSha256": "a09548c8350fa2cec0cc08213aca041cb090eabb19130364212251b32b71bf11",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-005",
+    "textAndAnswerSha256": "bf5c935b6a97c5a208bda6ba9ad39084048f81aba64b6e995fe190cc41174d34",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-006",
+    "textAndAnswerSha256": "0bb0a94f255385d2b654483236286f5910e5ce01aa52de899993ed94ad323070",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-007",
+    "textAndAnswerSha256": "3f9c669b7d224c19ecbd28e3b2205e4b22726a144fa50eb48fbd71b6787a0101",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-008",
+    "textAndAnswerSha256": "944e0fdcafabcdc2ff7a7e3413c8cee25a3dd8d9959ada613d7db2b9dc142620",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-009",
+    "textAndAnswerSha256": "17999f1a081c29cc4e16dc0e6439b847ef251753e1e044dd2ce17fa41ebc1507",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-010",
+    "textAndAnswerSha256": "cbfe5da069c8ad24110e7bc6a8bfb2be52e18260355dfa1f9bc9ca6d23ea6d70",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-011",
+    "textAndAnswerSha256": "d436cb13ae75d655464f2ed2b9395cb045bd51604dc095bc464ca1c61230f087",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-012",
+    "textAndAnswerSha256": "9e5b0157533ba4b6f97ddef96812dce50d50888cee7e4a06d1d4f1e133b81f4a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-013",
+    "textAndAnswerSha256": "bc14fdc5abfbabfbb340bf7985ddfeab76ef350f55de1bff0e0bb7cd746dcbfd",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-014",
+    "textAndAnswerSha256": "072fcc38c8f7f970bd4a7f29260b9fcfa46109382fd8a4e2a241045f3e3fbd67",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-015",
+    "textAndAnswerSha256": "1cffaec161ec9562c99b685dbfd65465641631425923d899429fbbc93a6b9f99",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-016",
+    "textAndAnswerSha256": "15d01941d71003367a3ff54dc47d8ea9b8c846ebcc34f835c8c8dca86a83c119",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-017",
+    "textAndAnswerSha256": "447bcc03e66cd56109e6b8a0a598663a0529064aa28951f1589e8f455700bcd7",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-018",
+    "textAndAnswerSha256": "8fae63e8939c25d4058ab5dd6832cdd98546b7eb27f9936fbc6884dcfbfc5f9a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-019",
+    "textAndAnswerSha256": "3835c6a189a5da1ecfad5c041a347fc53e60f193581b6fbc547dd2d6fbd78cd9",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-020",
+    "textAndAnswerSha256": "1bc203e6b325c648e9296085e6c2a888018ad98dfcbff071c5a7c77633f8a35b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-021",
+    "textAndAnswerSha256": "289837d28e5d3ba24d14c30d4ba9f85091fbb3c52f81e59a8736a69e357fc669",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-022",
+    "textAndAnswerSha256": "0de3e507566624cfea9b79d628cfb55b7337aecedd3dccc2026cd31faf69368a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-023",
+    "textAndAnswerSha256": "b211566dbfaf79083629755f46002b6895a5488fc0672a442ab137db4283df5c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-024",
+    "textAndAnswerSha256": "92deed334979390682ac908e61ef64ac964724c1412fea7f8ef9b5b188b9ba7c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-025",
+    "textAndAnswerSha256": "c47ce494ee622711340d7a4a388876ebb9b36be2b1e7601e31ba79fc5a6cc513",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-026",
+    "textAndAnswerSha256": "0ca43f13c6728d865dfc65a5ba14a67ee5003ef0451e840a952c38be2eec41f3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-027",
+    "textAndAnswerSha256": "b47d838ff35f1f1f1398e739cac1059892db3cb391a5724ee9ae29be57e70211",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-028",
+    "textAndAnswerSha256": "b89b85a12e66337d51076f5303f334ecf9d7c26984042367797a12e40af28d9c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-029",
+    "textAndAnswerSha256": "41190e3b613fbf5b20fdb2fb746fff59eaf999b17411d89e922f4e376581ea45",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-030",
+    "textAndAnswerSha256": "7b890a135d0a64f1501fd18da46a5c55e05c8bbcef9b0a8ac0403e9e11cbe3f1",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-031",
+    "textAndAnswerSha256": "fe324a93fcb3ce7940d30d06e586ee61b7980311aa0f7020e5ff0e08f27f15e1",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-032",
+    "textAndAnswerSha256": "a385ad337cb45d3e231921f8512aad8f50a8bf3c2bd99507a06eb566a2f5f2e3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-033",
+    "textAndAnswerSha256": "564490af79f69c7142ffaf4ffdd0113b9e2fe52bff57a452ae30ac9aace91586",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-034",
+    "textAndAnswerSha256": "88c420b2279f3e985820ab88a1f6ca944b7e34f1b949dc61c392dd4187f7f6cf",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-035",
+    "textAndAnswerSha256": "9b90b3ebe4fc1b75fa562f8a7e368b4adbd7dcc4099eff9f0935007080782a43",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-036",
+    "textAndAnswerSha256": "41468b6fdfc5664629387c6a6556733065cfcdba4a8116818df474f82cf1a88b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-037",
+    "textAndAnswerSha256": "7392515d1dbff0a835e9a39ac6f4c697c23649c33700ba964d36dcb7e4c8e327",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-038",
+    "textAndAnswerSha256": "de034e3554a3b892ef82fdfe75fde4780409af175ef2783d30a62af8cf3204ff",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-039",
+    "textAndAnswerSha256": "67eed477eb714d3f79b1e5b1f0d00861781842d4c81afe491bcefb194b0d5b66",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-040",
+    "textAndAnswerSha256": "45352dedfcca276b026bc6a842b99963544eea3b3fb6298937bb1998247dd53e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-041",
+    "textAndAnswerSha256": "6b3895b73c77d7a0318fc394789399f1782dd8cc22b0b57dc70def12d78bf369",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-042",
+    "textAndAnswerSha256": "383abceed79b62bbaff302d2ff8fe0924e07f4668710ecceb1242a461aafd831",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-043",
+    "textAndAnswerSha256": "c8b010f023e08b4c78b94774407a6ee8e0a7da2b6fa54145331a41eb92eea384",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-044",
+    "textAndAnswerSha256": "39cd8d588861eac2cdaf5e187bd43f849198c5e04e0bcd271e18215d605f872f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-045",
+    "textAndAnswerSha256": "d3d21af8916937625c9678dc9fe3fc9f560406283c1b3fa5e4eea644629f0e8f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-046",
+    "textAndAnswerSha256": "21a0a197baf039b5e097affe39b68db0624b0419fb9fb96b6cd299354dfc7417",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-047",
+    "textAndAnswerSha256": "4bd127c12f2e61c510da8cd93034712425a85e6a3101b785a274480d1e6612b5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-048",
+    "textAndAnswerSha256": "396193d2864118d6339a45273fdf456e527554359cb01ad2a35aee64cb2ccb10",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-049",
+    "textAndAnswerSha256": "e1753b03a49a6cea019f7153ae085851d94763e099622c282fc762b34259eede",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-050",
+    "textAndAnswerSha256": "48694905d9dd9e41571ee2e06a929fcc919a0f6050be358ffc0a4e37c2e30464",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-051",
+    "textAndAnswerSha256": "38bd3284c1049523dd9fb67e5e71d4282d974eff7a9745b2bc79c8bf9d04f6d8",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-052",
+    "textAndAnswerSha256": "b6ab851f064894e4e8a59eca742256ea56af4a797bbcdc90bb113fddb063eae6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-053",
+    "textAndAnswerSha256": "18151c27305f4d6c38a647b97296018456ae566b49516e9cf2ee5317e6b3b62b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-054",
+    "textAndAnswerSha256": "70b52f4c8f0037b255a1d74d61647cd27bea36f883e4da299bb924ac9aa07307",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-055",
+    "textAndAnswerSha256": "18ace122397a2ca347502fb55b23b03fb446026f384038444d4328aea37d5d11",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-056",
+    "textAndAnswerSha256": "92ff665d4658df4b9c8711961e841bf58fa2a24b70e39a1909541b8aea73b063",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-057",
+    "textAndAnswerSha256": "8fc6d464113404c117a1278419e7f2077ac4a2b17cbeb6907b0ddcc5a176ad1c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-058",
+    "textAndAnswerSha256": "8653a49a4d6bfb6111c2bb64b12432ba32f36a885ec1a34143b34f2ee154fdbe",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-059",
+    "textAndAnswerSha256": "ba735696fd1145d5f0d2388ba07675f63bb7b4d56275bbc383a67897c31fc018",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-060",
+    "textAndAnswerSha256": "9247e3611072ffbf4f0d49212fd863cc468442761defafd309487041ff7bd660",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-061",
+    "textAndAnswerSha256": "8b7d3cebadc4a7af012d9c6ca582f73f2def77d988a5391fd3fdb3414d21ffbc",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-062",
+    "textAndAnswerSha256": "e92d0f9becfe1428d55629cf98214078a9867989678aeec156f08e65e648d9bb",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-063",
+    "textAndAnswerSha256": "ece0dc45da5ce96308b70e803b71b8a1a2455b3f2e0cb1d573ed791f6f6c6bc3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-064",
+    "textAndAnswerSha256": "385f35ae044436a952724e9869edb1971967725a5820134607370c70a5faf219",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-065",
+    "textAndAnswerSha256": "76e83094dd696619e80305f55c9a0c43607e124ddc334ec1bcc63ca66ca1fc4d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-066",
+    "textAndAnswerSha256": "e9bdeb50f523dbf5f2dd229bae2141931f78bd377c068765ef9182e5c4652333",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-067",
+    "textAndAnswerSha256": "1667247291f11d1c3c929ef086dbcddd284b6f59fbfdb68892b67b91474740a7",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-068",
+    "textAndAnswerSha256": "7898937fd04705b34988d28bdee68b54e97fc0b825f52f04e567245cfad259e5",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-069",
+    "textAndAnswerSha256": "526c7f40d3d3b0fc2a6f5c9e34d1e1c35c8a43b374b6149dd24f7459ea902dac",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-070",
+    "textAndAnswerSha256": "49fce82a1bceb1371507dd67b2d21ead9bd8614d857295d6383029233d2b4868",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-071",
+    "textAndAnswerSha256": "8584010eff9f5fdaf1d84cbd2dd0b878449f6a216c1dcbe918ff90e59af55efa",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-072",
+    "textAndAnswerSha256": "ac508bdaa513e021e3272a80bf7ab700b6b03f2eeee40b0f9e42c8e589424f39",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-073",
+    "textAndAnswerSha256": "d8912c41b4313fd338a2cba513c8fea5c71cac96dd33569e83b583d91a7de845",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-074",
+    "textAndAnswerSha256": "d1dfff58a1433f67485c77c691da424ef536822968ba84412aac8a4a8b0a61c4",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-075",
+    "textAndAnswerSha256": "887a145e7b7f233f9f941da1885a34217ebecd23c8bdb80af4730b888a6c7eaf",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-076",
+    "textAndAnswerSha256": "1806a369f6ac2a00878be75b5514414953cb1a2b5d24c980064c5f1c3aa4a26a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-077",
+    "textAndAnswerSha256": "cae92629f4100ee3d25f29346944286594565bad5ffacf31b325f4df4306c5cf",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-078",
+    "textAndAnswerSha256": "ee992649f52b4928ba5735cf5b1d1f3a350bd3dbeff7a0fdf37b483308963463",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-079",
+    "textAndAnswerSha256": "6b6c7099bfe1944a6b16a1d59027d854ac8f7d393e2ad7f143a0fe6439ebdea2",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-080",
+    "textAndAnswerSha256": "cfe56fd79417a4d54531cd7dde526685f9af1e8436fe82aa6750c3796733056e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-081",
+    "textAndAnswerSha256": "36ceef1e183a62e0814808ba93dc6a077b46ebe64b2fa9da5ee491ba3f83c285",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-082",
+    "textAndAnswerSha256": "8b78e1afb1701d3bd4f54eda886ad2aaefadee240ae526b5b76cf866a3fe3fb4",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-083",
+    "textAndAnswerSha256": "3e06db1fc29026d3ccaee4a7de23fa557c2f4e504b93669c5d941620e5ee0c93",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-084",
+    "textAndAnswerSha256": "43056416fb2b8d177090e3d7e5a7b07abd36fcfc86db6275b2e88791a40f88f3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-085",
+    "textAndAnswerSha256": "889417a7ba18194f9ea23d7c10dcde7e73d50175548775267ab54b4e33e69d79",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-086",
+    "textAndAnswerSha256": "7fe357756729573210b2e9bd2a22ce46e84d8e21ae0f03017b978dad064233f2",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-087",
+    "textAndAnswerSha256": "382b31dd35d24bfdb47ad47a9eed70d15b889c9f9386225b6408804b18bd4321",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-088",
+    "textAndAnswerSha256": "08fd57ba31c8a543300574a2bd6dfc9f9c4d96609811bf2f8f1f184bb112ebca",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-089",
+    "textAndAnswerSha256": "b1494ebdb0da4d2fb650abd9537db6e589cb958ed2fc3d69039588f18ca816c9",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-090",
+    "textAndAnswerSha256": "faff9d19285d9cc68057bdc4bdb6bc7c487ad87e8c0173c708444c570161f7b8",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-091",
+    "textAndAnswerSha256": "a3b81a391fcf6d7a1c57915896a1d8f42aea034ec6997edf7c859b62e7adc12c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-092",
+    "textAndAnswerSha256": "cb7df044ba02f207905e814afd5c41ade12591b4f23c35e18a133268b043ed44",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-093",
+    "textAndAnswerSha256": "cc3204d8e2c7589f67d1b6b602ea676ef10d186f05ce2f49cc8c906e7f934417",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-094",
+    "textAndAnswerSha256": "639430bd8750e3e00763aad30422fc1864fd8379e4cef1edf1af1b232d99591f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h8-095",
+    "textAndAnswerSha256": "89ae6ddb2beb501b188007f65eb5342eb8525bf45464fb28fa42abe401985af1",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-001",
+    "textAndAnswerSha256": "d7fc620c48a385c7b12ccb07babb55fc89daa7278c92ae9e448ecbcb269c3727",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-002",
+    "textAndAnswerSha256": "cb4bea54a6bece08d4fee85777a7adc7fa497b0c90d07fe9f3ddc835291c0221",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-003",
+    "textAndAnswerSha256": "55de9f330181e365e7faf690959ffb302591e8441eeabfa50259b3587c92258a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-004",
+    "textAndAnswerSha256": "36f4f1bf9ff03307baaed55d7aa2a17179674ce2db04f6be8293e6a5b9d0046f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-005",
+    "textAndAnswerSha256": "2c8b4e5ed6c5903233c70e247ca1eaa9dc0d788ff1695df2122ed1b307ffca42",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-006",
+    "textAndAnswerSha256": "2cedac1e02cfd1e7162766d78831abcc653434a1cb91cb3067d826c07c968387",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-007",
+    "textAndAnswerSha256": "6ea37948fde187ac035a47e35059abb976ed406807c2d7068c1d5b9019b06540",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-008",
+    "textAndAnswerSha256": "359e9d14504fbc567de067987edbb38ed28abccd965ba59b707c8122349a5215",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-009",
+    "textAndAnswerSha256": "43d57755f1082db9ff59d9c269250fd89ab798c7da560019cea1b35ed63fe9cf",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-010",
+    "textAndAnswerSha256": "2462378b5b92cd36d4739b6e8b4b694a4d089b6ea7c69ac63e503be340c71995",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-011",
+    "textAndAnswerSha256": "f9fadf5d1e498d01e222c9db84246ee7dbe93302a54b6c4685627353ed2b1158",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-012",
+    "textAndAnswerSha256": "909134e05aee2493ac39df58e40659b63c85e7837cf15bf783a7877444d1e0a6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-013",
+    "textAndAnswerSha256": "e005169cabc1cb09326a9d4aa3b287dcbf17249d3c8835902bae887a67e5e856",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-014",
+    "textAndAnswerSha256": "1665dde2528c6498a7b4586489905cc2d6b31bdd2264c785c7012102a737415e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-015",
+    "textAndAnswerSha256": "eab1c70430ef1e34786d078f2f69a0a2dc6f3deb1687aa2bfca419f5fa60b1a0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-016",
+    "textAndAnswerSha256": "4a29978daeaebc59a36d046e8ff7d942aadc7564c869e75047ce4959cadb4a6a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-017",
+    "textAndAnswerSha256": "24fd103349ce1905c15c4e4f4656a165df406827708fe121509969fe4e652c75",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-018",
+    "textAndAnswerSha256": "aa151f8a376b30825471dc4ebe845ae07b009356ea13e80a4449c4038267e4e3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-019",
+    "textAndAnswerSha256": "163024dad2041cabe18b9a57fa3ef4838cee2dd346272fe6eba79ec41a64a8b0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-020",
+    "textAndAnswerSha256": "b3d5de7de0ee397537a68d70795bcbceb7a00fe50418177fb768f046383023c9",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-021",
+    "textAndAnswerSha256": "5db37aba6ca7bc2acc6dd70269acaaf1e9f6596d388ec7433eaf8d77f773e331",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-022",
+    "textAndAnswerSha256": "764bcd2643f04e1e12410ad6108b8a9714e7ca28fa99013fb2b98edcfd40fd55",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-023",
+    "textAndAnswerSha256": "47737801a1994567b8ab03af89fcebd0bd210b5e8ea882bac79a1a5308ec473d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-024",
+    "textAndAnswerSha256": "296b06067430a8dcd3d6502279fb1812fe43be28e4a5e6c54ae2481e423e8c40",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-025",
+    "textAndAnswerSha256": "2c0ebc3fc697f0892570001e402e18748d8d9ae0b1c2d22e24d3f47f6c1c4297",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-026",
+    "textAndAnswerSha256": "2755116a199a5649be972e76fd3155643109e1ee066d23ae1d9ee301900f27f6",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-027",
+    "textAndAnswerSha256": "7ce67462d051e52358afccdd5acc3db071ae610b8a45d03bb7e29c0b4abaf657",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-028",
+    "textAndAnswerSha256": "3c4ac2c97e9ff6e315eeb64b60c6e98fc532c39e61320de7feb5254444143d2e",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-029",
+    "textAndAnswerSha256": "6ad67af286d2e0b2ab9adf6322b537df094e586ccd695cfd3efbde20cd4911bc",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-030",
+    "textAndAnswerSha256": "9d15bf59c6677dc1732d0c37591bfb1ba920fe1948722f966b03c69d21ee6648",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-031",
+    "textAndAnswerSha256": "5fc0ca252fea72e1cfd1ab4526c6a8203235d6aac90b991194caf95cf1e3a904",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-032",
+    "textAndAnswerSha256": "c16c6a15332c214cfe98574033fa97b40f197d5f2b65a334d3b3f4053fc78697",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-033",
+    "textAndAnswerSha256": "28c88be76f194a42730b66c58726e5c28d1e6373151b238b88e586138d82eb2a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-034",
+    "textAndAnswerSha256": "6b4829981b3730bf963781a5e92999f9888b13c50c1c4235fb8042e43a40f3b3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-035",
+    "textAndAnswerSha256": "753928736df86457a96b2302930522ed0def1b3c5be46e1f9bc0ab35934d9c15",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-036",
+    "textAndAnswerSha256": "6250509a4e260ab5577c79cc1be19846f10628eef3a976a9d9f94e7de0555efb",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-037",
+    "textAndAnswerSha256": "a146489f6eac358c94b7218e5dc5407f9fd74259a3f6d72713e4dd09057f9934",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-038",
+    "textAndAnswerSha256": "17659f59cbaebe24c70e0f855c6a30f41f9ba96320a152cd2ab13faefcd6be14",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-039",
+    "textAndAnswerSha256": "08fefddbbfa4c81c7f7be131c18fc0dc80fd64e2a4a058d01fde5023c5d1c968",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-040",
+    "textAndAnswerSha256": "c5b9ee00c1cd94f92cb010a3b8aca88a10914608d4e2b1b861e418ec2f4701f0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-041",
+    "textAndAnswerSha256": "53f92131499ffc00910989209f40b30229a5f2cf0e027990afbc9569d7a5e7bf",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-042",
+    "textAndAnswerSha256": "2f7e8bf3272446a3bd14de4c21b22d54b793fd9f727dd0f4f1e0a078e37b85f3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-043",
+    "textAndAnswerSha256": "d02b1a62dbf9e75a98881eea86b66d0749ea5166486a1aa0dfe4288fb8f2412d",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-044",
+    "textAndAnswerSha256": "84d63dd6b9ff1941ce2839e1e0bb47920544e72613ab52b1c9bd33fdb7e27660",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-045",
+    "textAndAnswerSha256": "626d4b7bbc2bbea4bbdaef563660995dd5e53c4db4c03f5c98180079cd120e54",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-046",
+    "textAndAnswerSha256": "516f47830cbd8cd314b64be6258d47b87a2ac03750579bd88336ee6f97c35cea",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-047",
+    "textAndAnswerSha256": "53dbf643062e5af4c0f46f313a306ea96a740ca082586809373ae1dab5554115",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-048",
+    "textAndAnswerSha256": "ce25e06eff06440963cbcaaff279ac3a68fd991c25bd8bdb73b2203478a2ebd9",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-049",
+    "textAndAnswerSha256": "b0f161ea62004a2368ad0f803f8455c7e482abdee2b199701fd1a6caf8621822",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-050",
+    "textAndAnswerSha256": "05db5282f6f4cc56da87281b8dceb37f273ad4596db2c43f8d17b636c50f8926",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-051",
+    "textAndAnswerSha256": "9d8e3234773f61b8c9e3dcfaf907aaeac928e75722559555a55651fd2783ab84",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-052",
+    "textAndAnswerSha256": "4d205c75472f991656a009729f786cec027665bd2f79293df7fe61113f87925f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-053",
+    "textAndAnswerSha256": "b0b6d3c41e39f2b2fc6f714ba9f2d3c92e9a4864ac2274aed4e9fb3352fc0c76",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-054",
+    "textAndAnswerSha256": "d1a10ce98f74a969baef6af0e030b9de76429f659a30ca05b2b4858ad440fe19",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-055",
+    "textAndAnswerSha256": "8e024305b1919e0316761275cdbd59f8eaa95a4eef527a94f6760c37ba87a12c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-056",
+    "textAndAnswerSha256": "751d94b5f2382f7b49f361c57808cda9b0cec28986cff2fc77a88585586c4f2c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-057",
+    "textAndAnswerSha256": "dce3a98995c44277d0e76ba04538065c393ee62e6110ac0e626a5b340c5e9f63",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-058",
+    "textAndAnswerSha256": "60e6c2014a54b68c9f4737d40f567e20746de4551ec0707f38a560eb5838a300",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-059",
+    "textAndAnswerSha256": "0f6d9be59a0ef1d8cf6d4e7a9e28538e23f20bafc65187db75a175462d0673be",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-060",
+    "textAndAnswerSha256": "72b70171919856eedfac43bcea46a88ac74efbad965f5f87e47ed14f518b960c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-061",
+    "textAndAnswerSha256": "62acdff755ad60ff11bc9d76b1d5124ca97f248da2722947ae6d5fe4f49bbd30",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-062",
+    "textAndAnswerSha256": "addddf31fedad888ef18f69e28c63c076269ccc3873369cc13dcc9ae265a8739",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-063",
+    "textAndAnswerSha256": "68af91faabfe279feee88247c66f0f25fd93992825a97be9efdc284b405515c4",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-064",
+    "textAndAnswerSha256": "cbc8b9393333c9a53fbd912fc1f0a2eedad8264b5b224fa164bfc588fb660b3b",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-065",
+    "textAndAnswerSha256": "b6678a462caf90e4d2c084519b260ebf90ef5f178b06fb333c896f4ea71158d3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-066",
+    "textAndAnswerSha256": "5410a59948fbda5f63944c20331a4284901ea6ea4405846fb52e0f0a89a06a4f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-067",
+    "textAndAnswerSha256": "71371b8047878cc4218d8bbba81cecf6379725c3017918d37f2bb270a3b9fab8",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-068",
+    "textAndAnswerSha256": "32f9b84c3e22cf51705bf64129a7a0c431ae34a0424149befa96bebf5c1676e0",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-069",
+    "textAndAnswerSha256": "e878d2bf28b15c59584e12ee87840afdfaa9637d81644969a1e064540b175b3a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-070",
+    "textAndAnswerSha256": "05c271d930e37fa1dc6629535db5b9c46b18e1e5c72045202de4c200a43e0f45",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-071",
+    "textAndAnswerSha256": "cfe08a91d158aa11534d9bd535a355028169895a214ad1cd178e46420b7aa72f",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-072",
+    "textAndAnswerSha256": "46e02c77992ade3ec163b07edf706177c6bf4d9b8a9b9dcbe6bd867d4d258973",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-073",
+    "textAndAnswerSha256": "011f9955e2732201dd8bc4822ba6d776286e2e925595b27e7df0bd657cb7672a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-074",
+    "textAndAnswerSha256": "e537bafda3f4df768cb72acaa2da599727e257f690823cafd545b12f612e8bc3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-075",
+    "textAndAnswerSha256": "9069ff637b92e60893f77625e97fb6beb7f378b43b425254a55283cf6deb2f30",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-076",
+    "textAndAnswerSha256": "2b1bfddbc5c15da746986709bb4ac350e9e13a756056a1d4e868e170601c3249",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-077",
+    "textAndAnswerSha256": "16b4ee2b875c61a1d4c2913437e9389fa2c38fca6eba680f5b1d83aea479c40a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-078",
+    "textAndAnswerSha256": "c318374665196d6bcd652a9205261cc4a9785fcb156151c28f03981caf002403",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-079",
+    "textAndAnswerSha256": "e5733535e52e25d110e1749fbe932cbf9c1602c3f0929d9e8dfbf6e3c3735fec",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-080",
+    "textAndAnswerSha256": "ee3339a80e603a896fcf077b0def42095f49e86e60d6523d14b65224a130d450",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-081",
+    "textAndAnswerSha256": "658a2652e13c5eff16e705ac33d77c42e00064c2ab6451d74a97a666c3196bfe",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-082",
+    "textAndAnswerSha256": "ac958cd1808d0114b9747114bf4e40b9b865c1f4788e5d276594a5341eb6c289",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-083",
+    "textAndAnswerSha256": "c51ac41437477ed31e1efcdf1457dffc87cc871eb91579e15f0870fbeafbbeed",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-084",
+    "textAndAnswerSha256": "7bf0e2429a60b7d3c32e361beadd2461a35d57ac416045b6ceb5e65464c418a2",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-085",
+    "textAndAnswerSha256": "79959957b7df5501149883f63ebe0bf1fc542704013f000765d6cd27a913d01c",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-086",
+    "textAndAnswerSha256": "685fb98db7d1a4db3f58ebe3c538a34c3305b066a26cd6855a3b8aa709c33a69",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-087",
+    "textAndAnswerSha256": "9aa21f385c2aeaec553607d8dea3ea766d6ad42bfaf7a2e8823d126b1cda9ef9",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-088",
+    "textAndAnswerSha256": "05bdad07f0b8ddcfb21dc17baa9237894f8ef8a30aebc5ecd0ab3192cd58de6a",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-089",
+    "textAndAnswerSha256": "a336f608c3f90d9ac6e66d5fa727768a00f5e54ab2733fba6ebe6c891acabfbb",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-090",
+    "textAndAnswerSha256": "c326bbad1121761854e2720f50e440b74542996f685588961089eaf3ebed2efc",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-091",
+    "textAndAnswerSha256": "f36a64494b8fd82a2758fc434dfe8fbb91d1486128479346ad86f92f839ba165",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-092",
+    "textAndAnswerSha256": "49e311ab3af4ce1eb22bf80203ed817ad864ddc3d77fe97d929352a02eb202af",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-093",
+    "textAndAnswerSha256": "d64d822a908da89c7aeb3d288089cfc4b19f1456ec0c95ac797ce9a1ebb3caa3",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-094",
+    "textAndAnswerSha256": "52f335f8ded1a513766b057016c26e6cef3fb8ce10f6cad802e39c9a1a200385",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  },
+  {
+    "id": "h9-095",
+    "textAndAnswerSha256": "ea3ea0f27615aee1c1368bf715535abedf0b4da65fa422f02449a94d18f5fd63",
+    "review": "text-and-answer-reviewed; image-dependent correctness requires image review",
+    "checkedAt": "2026-10-14"
+  }
+]
