@@ -480,6 +480,22 @@ window.KarimenTownConfig = Object.freeze({
         "title": "沖縄そば・天ぷらセット",
         "sha256": "603a2cfcb66e7d560b5ba1330470cf68fa2bc050fd7568334671f3c79c303c0b"
       }
+    ],
+    "cafe-itoman": [
+      {
+        "url": "./assets/town/curated-cafe-itoman-10.jpg",
+        "shopId": "cafe-itoman",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "セラミックアートカフェ イトマンのイナムドゥチの食事",
+        "caption": "イナムドゥチの食事 · 2025年7月掲載",
+        "credit": "掲載元：沖縄ラボ",
+        "sourceUrl": "https://okinawa-labo.com/ceramicartcafeitoman-69136",
+        "title": "セラミックアートカフェ イトマンの写真掲載ページ",
+        "sha256": "d7558d1683825a4e2eb39cb51ea911a853c31d9dfbd7c8a8ab1f8d12d3cfba80"
+      }
     ]
   }
 });

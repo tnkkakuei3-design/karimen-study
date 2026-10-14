@@ -486,6 +486,22 @@
       "shopId": "itomaru-machigwa",
       "actualListedRestaurantPhoto": true,
       "modifications": "最大1200pxに縮小しJPEGで保存。内容の改変なし。"
+    },
+    {
+      "file": "curated-cafe-itoman-10.jpg",
+      "shopId": "cafe-itoman",
+      "sha256": "d7558d1683825a4e2eb39cb51ea911a853c31d9dfbd7c8a8ab1f8d12d3cfba80",
+      "title": "セラミックアートカフェ イトマンのイナムドゥチの食事",
+      "credit": "掲載元：沖縄ラボ",
+      "source": "https://okinawa-labo.com/ceramicartcafeitoman-69136",
+      "download": "https://okinawa-labo.com/wp-content/uploads/2025/07/ceramicartcafeitoman-9_720.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "modifications": "向き補正・長辺800px以内に縮小しJPEG圧縮。画像内容の生成・差し替えなし。",
+      "caption": "イナムドゥチの食事 · 2025年7月掲載",
+      "sourceCheckedOn": "2026-10-15"
     }
   ],
   "shopImages": {
