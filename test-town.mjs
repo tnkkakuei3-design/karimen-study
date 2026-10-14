@@ -42,8 +42,8 @@ let a=app();
 const shops=a.w.KarimenTownData.shops;
 assert.equal(shops.length,14);assert.equal(new Set(shops.map(s=>s.id)).size,14);
 assert.deepEqual([...shops.map(s=>s.number)],[1,2,3,4,5,7,8,9,10,11,12,13,14,15]);
-assert.equal(a.query('#mock').hidden,false);assert.ok(a.query('#mock .town-teaser'));
-assert.match(a.query('#mock .town-directory-entry').textContent,/全14件を見る/);
+assert.equal(a.query('#mock').hidden,false);assert.ok(a.query('.course-town-entry'));
+assert.match(a.query('.course-town-entry').textContent,/食券が使えるお店/);
 const homePick=a.query('#mock [data-recommended-shop]');
 if(homePick)assert.equal(a.w.KarimenTown.scheduleStatus(shops.find(s=>s.id===homePick.dataset.recommendedShop)).kind,'open');
 await settle();
@@ -73,7 +73,7 @@ assert.equal(status('zero','2026-10-13T08:00:00Z').kind,'outside','between lunch
 assert.equal(status('zero','2026-10-13T10:00:00Z').kind,'check','dinner hours still need day confirmation');
 assert.match(read('town.css'),/data-town-state=open/,'only scheduled-open photos remain undimmed');
 const original=a.run('JSON.stringify(state)');
-a.click('#mock [data-town-action="open"]');
+a.click('.course-town-entry');
 assert.equal(a.query('#town').hidden,false);assert.equal(a.w.location.hash,'#town');
 assert.equal(a.all('.town-card').length,14);assert.equal(a.all('.town-card .town-hours').length,14);assert.equal(a.all('.town-card .town-hours dl').length,14);assert.equal(a.query('#town-title'),a.w.document.activeElement);
 assert.equal(a.query('#town-title').textContent,'食券が使えるお店');
@@ -179,10 +179,10 @@ for(let round=0;round<2;round++){
 }
 assert.equal(a.query('[data-town-action="map-shop"][data-id="365"]'),null);
 a.click('[data-town-action="close"]');assert.equal(a.query('#mock').hidden,false);assert.equal(a.w.location.hash,'');
-a.click('#mock [data-town-action="open"]');
+a.click('.course-town-entry');
 a.click('[data-town-action="filter"][data-value="cafe"]');
 a.click('[data-town-action="close"]');
-a.click('#mock [data-town-action="open"]');
+a.click('.course-town-entry');
 assert.equal(a.all('.town-card').length,14,'home entry always opens the full directory');
 a.click('[data-town-action="close"]');
 const remembered=a.snapshot();a.close();
@@ -198,7 +198,7 @@ const playing=a.run('JSON.stringify(state)');a.w.KarimenTown.open('kirakira');
 assert.equal(a.query('#play').hidden,false);assert.equal(a.run('JSON.stringify(state)'),playing,'guide cannot interrupt an active question');
 a.click('[data-action="pause"]');const paused=a.run('JSON.stringify(state)');
 assert.equal(a.query('#learn .town-teaser'),null,'learning screen has no restaurant promotion');
-a.click('#tab-mock');a.click('#mock [data-town-action="open"]');a.click('[data-town-action="save"][data-id="mahoroba"]');
+a.click('#tab-mock');a.click('.course-town-entry');a.click('[data-town-action="save"][data-id="mahoroba"]');
 // Every map entry point must identify the same verified business, including repeat visits.
 for(const shop of shops){
  a.w.KarimenTown.open(shop.id);
@@ -244,7 +244,7 @@ assert.match(a.query('#toast').textContent,/保存できません/);assert.equal
 a=app();a.click('[data-action="detail"][data-set="1"]');a.click('[data-action="start-mock"]');
 assert.equal(a.query('#play').hidden,false);a.w.KarimenTown.open();assert.equal(a.query('#town').hidden,true);
 a.click('[data-action="pause"]');const pausedExam=a.run('JSON.stringify(state)');
-a.click('#mock [data-town-action="open"]');a.run('updateTimer()');
+a.click('.course-town-entry');a.run('updateTimer()');
 assert.equal(a.run('JSON.stringify(state)'),pausedExam,'restaurant browsing does not advance a paused mock timer');a.close();
 
 let calls=0;
@@ -275,19 +275,14 @@ a=app({configure(w){
  w.Date=class extends NativeDate{constructor(...args){super(...(args.length?args:[clock]));}static now(){return clock;}};
  w.setInterval=(fn,delay)=>{if(delay===60000)scheduleTick=fn;return 1;};
 }});
-const checkHome=()=>{
- const pick=a.query('#mock [data-recommended-shop]');
- const eligible=a.w.KarimenTownData.shops.filter(s=>a.w.KarimenTown.scheduleStatus(s,new Date(clock)).kind==='open');
- assert.equal(Boolean(pick),eligible.length>0);
- if(pick){assert.ok(eligible.some(s=>s.id===pick.dataset.recommendedShop));const photo=pick.querySelector('img');if(photo)assert.ok(a.w.KarimenTownConfig.suppliedPhotos[pick.dataset.recommendedShop].some(p=>new URL(p.url,a.w.location.href).href===photo.src));}
-};
+const checkHome=()=>{assert.ok(a.query('.course-town-entry'));assert.equal(a.query('#mock [data-recommended-shop]'),null,'shared entry has no rotating promotion');};
 const recordsBefore=a.snapshot();
 checkHome();
 for(const time of ['2026-10-13T15:00:00Z','2026-10-14T05:00:00Z','2026-10-13T05:00:00Z']){clock=Date.parse(time);scheduleTick();checkHome();}
 assert.deepEqual(a.snapshot(),recordsBefore);
-a.click('#mock .town-home-shop');assert.ok(a.query('#town .town-detail-heading'));
+a.click('.course-town-entry');assert.ok(a.query('#town .town-heading'));
 a.click('#tab-mock');checkHome();
-a.click('#mock [data-town-action="open"]');
+a.click('.course-town-entry');
 const orderedIds=()=>a.all('.town-card .town-card-copy').map(el=>el.dataset.id);
 function assertScheduleOrder(){
  const priority={open:0,check:1,outside:2,closed:3};

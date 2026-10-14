@@ -1,0 +1,47 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import {createRequire} from 'node:module';
+import {JSDOM,VirtualConsole} from 'jsdom';
+import {IDBFactory} from 'fake-indexeddb';
+const require=createRequire(import.meta.url),M=require('./honmen/model.js');
+const code=p=>fs.readFileSync(new URL(p,import.meta.url),'utf8');
+const c=vm.createContext({});vm.runInContext(code('./honmen/questions.js')+';globalThis.data=HONMEN_DATA',c);
+const data=JSON.parse(JSON.stringify(c.data)),q=data.questions.find(q=>q.type==='boolean');
+let now=1000000;const rows=new Map(),storage={getItem:k=>rows.get(k)??null,setItem:(k,v)=>rows.set(k,v)};
+let m=M.create({bank:data.questions,storage,contentVersion:data.version,now:()=>now});
+m.begin({ids:[q.id]});m.confidence('study',0,true);m.answer('study',0,q.answer);m.finish('study');
+assert.ok(m.schedule().due.includes(q.id),'correct but uncertain enters review');
+m.begin({ids:[q.id],mode:'review'});m.answer('review',0,q.answer);m.finish('review');
+assert.ok(m.schedule().waiting.includes(q.id));assert.equal(m.state.stats[q.id].passes,1);
+now+=M.INTERVAL;m.begin({ids:[q.id],mode:'review'});m.confidence('review',0,true);m.answer('review',0,q.answer);m.finish('review');
+assert.equal(m.state.stats[q.id].passes,0,'uncertainty resets graduation');assert.ok(m.schedule().waiting.includes(q.id));
+// Older files have no confidence fields. Retain their records, best scores and sessions.
+const legacy=JSON.parse(m.export());for(const a of legacy.attempts)delete a.uncertain;
+rows.set(M.KEY,JSON.stringify(legacy));m=M.create({bank:data.questions,storage,contentVersion:data.version,now:()=>now});
+assert.equal(m.state.attempts.length,3);assert.ok(m.state.attempts.every(a=>a.uncertain.length===a.ids.length));
+const errors=[],vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));
+const dom=new JSDOM(code('./honmen.html'),{url:'https://example.test/honmen',runScripts:'outside-only',pretendToBeVisual:true,virtualConsole:vc}),w=dom.window;
+w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=()=>{};w.matchMedia=()=>({matches:false,addEventListener(){}});w.setInterval=()=>0;
+w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;};
+Object.defineProperty(w,'indexedDB',{value:new IDBFactory()});
+w.localStorage.setItem(M.KEY,JSON.stringify(legacy));w.localStorage.setItem('karimen-study-v4','unchanged');
+for(const script of w.document.querySelectorAll('script[src]'))vm.runInContext(code(script.getAttribute('src').split('?')[0]),dom.getInternalVMContext());
+assert.equal(await w.HonmenReady,true);const doc=w.document,app=w.HonmenApp;
+const click=s=>{const e=doc.querySelector(s);assert.ok(e,s);assert.ok(!e.disabled,s);e.click();};
+const settle=async()=>{await app.storage.flush();await new Promise(r=>setTimeout(r,20));};
+click('[data-h="tab"][data-tab="learn"]');assert.ok(doc.querySelector('.learning-overview'));assert.equal(doc.querySelectorAll('.category-card').length,11);
+const before=app.model.export();click('.course-town-entry');assert.equal(app.view,'town');assert.equal(w.location.hash,'#town');click('[data-town-action="close"]');assert.equal(app.view,'learn');assert.equal(app.model.export(),before,'directory preserves honmen progress');
+click('[data-h="learn-section"][data-value="notes"]');
+for(const el of doc.querySelectorAll('[data-h-note]')){el.open=true;el.dispatchEvent(new w.Event('toggle'));assert.ok(el.querySelector('.note-content').textContent.trim(),'notebook topic renders');}
+click('[data-h="note-figure"]');assert.ok(doc.getElementById('figure-dialog').open);assert.ok(doc.querySelector('#figure-content svg, #figure-content img, #figure-content table'));click('[data-h="close-figure"]');
+click('[data-h="tab"][data-tab="review"]');assert.match(doc.getElementById('review').textContent,/今すぐ復習/);assert.match(doc.getElementById('review').textContent,/次の復習待ち/);
+click('[data-h="settings"]');assert.ok(doc.querySelector('[data-h="sound"]'));click('[data-install-action="guide"]');assert.ok(doc.getElementById('home-install-guide').open);click('[data-install-action="close"]');
+click('[data-h="close"]');click('[data-h="tab"][data-tab="mock"]');click('[data-h="mock-filter"][data-value="new"]');assert.equal(doc.querySelectorAll('.set-card').length,8);
+// Ensure a saved study session remains resumable after UI upgrade, including hazards.
+click('[data-h="tab"][data-tab="learn"]');click('[data-h="learn-section"][data-value="categories"]');click('[data-h="random"]');assert.equal(app.view,'play');
+const saved=app.model.state.sessions.study;assert.equal(saved.ids.length,10);assert.ok(saved.ids.every(id=>id!==q.id),'new questions have priority');
+click('[data-h="pause"]');await settle();assert.ok(doc.querySelector('[data-h="resume"][data-slot="study"]'));click('[data-h="resume"][data-slot="study"]');assert.deepEqual([...app.model.state.sessions.study.ids],[...saved.ids]);
+assert.equal(w.localStorage.getItem('karimen-study-v4'),'unchanged');assert.deepEqual(errors,[]);
+await app.storage.flush();app.storage.close();w.close();
+console.log('Course unification passed: legacy progress, uncertainty/review cooldown, shared restaurants/return, all notebook topics, zoom, install guide, filters and resume.');

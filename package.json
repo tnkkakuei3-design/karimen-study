@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "node validate.mjs && node build-honmen.mjs && node build-static.mjs",
-    "test": "node validate.mjs && node build-honmen.mjs --check && node test-honmen.mjs && node test-notebook.mjs && node test-progress.mjs && node test-storage.mjs && node test-ui.mjs && node test-home-install.mjs && node test-town.mjs && node test-cloud.mjs && node test-cloud-client.mjs && node test-migration.mjs && node test-audio.mjs"
+    "test": "node validate.mjs && node build-honmen.mjs --check && node test-honmen.mjs && node test-course-unification.mjs && node test-notebook.mjs && node test-progress.mjs && node test-storage.mjs && node test-ui.mjs && node test-home-install.mjs && node test-town.mjs && node test-cloud.mjs && node test-cloud-client.mjs && node test-migration.mjs && node test-audio.mjs"
   },
   "devDependencies": {
     "fake-indexeddb": "6.2.5",
