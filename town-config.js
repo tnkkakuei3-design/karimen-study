@@ -483,7 +483,7 @@ window.KarimenTownConfig = Object.freeze({
     ],
     "cafe-itoman": [
       {
-        "url": "./assets/town/cafe-itoman-taco-rice.jpg",
+        "url": "./assets/town/cafe-itoman-taco-rice-v2.jpg",
         "shopId": "cafe-itoman",
         "kind": "venue",
         "selectedForDisplay": true,
@@ -494,7 +494,7 @@ window.KarimenTownConfig = Object.freeze({
         "credit": "写真：パルム（Googleマップ）",
         "sourceUrl": "https://www.google.com/maps?cid=2923301630253285552",
         "title": "セラミックアートカフェ イトマンのGoogleマップ",
-        "sha256": "f23e08e1086cda4fa1f3439f5291ac7992f1bd8463efa3bd14394f3464107583"
+        "sha256": "f626090f88fdb95ca8ac6394becb819cc22e5b8c0fb114960b43250951f464e1"
       },
       {
         "url": "./assets/town/curated-cafe-itoman-10.jpg",
