@@ -549,8 +549,11 @@ const googleTownAudit = {
 for (const shop of [...window.KarimenTownData.shops, ...window.KarimenTownData.marketShops]) {
   const audit = googleTownAudit[shop.id];
   const oldName = shop.name;
+  const oldShortName = shop.shortName;
   Object.assign(shop, audit.fields, {googleName:audit.googleName, googleCheckedOn:audit.googleCheckedOn, googleSourceUrl:audit.googleSourceUrl, hoursSourceNote:audit.hoursNote || ''});
-  shop.aliases = [...new Set([...(shop.aliases || []), oldName, audit.googleName])];
+  shop.aliases = [...new Set([...(shop.aliases || []), oldName, oldShortName, audit.googleName].filter(Boolean))];
+  shop.name = audit.googleName;
+  shop.shortName = audit.googleName;
   if (audit.weekly) {
     const old = window.KarimenTownData.schedules[shop.id];
     window.KarimenTownData.schedules[shop.id] = {weekly:audit.weekly, holidays:old.holidays || false, lastWednesday:old.lastWednesday || false, soldOut:old.soldOut || shop.id==='itomaru-minatomachi' || shop.id==='itomaru-machigwa', lastOrder:old.lastOrder && shop.id!=='uminchu' ? old.lastOrder : undefined, uncertain:shop.facility ? '施設内の店舗ごとに異なります' : undefined};

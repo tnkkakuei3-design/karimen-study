@@ -160,8 +160,9 @@
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateSchedules();});
   window.addEventListener('focus',updateSchedules);
   window.setInterval(updateSchedules,60000);
+  const nameClass = shop => shop.name.length > 32 ? 'town-shop-name town-shop-name-long' : shop.name.length > 20 ? 'town-shop-name town-shop-name-medium' : 'town-shop-name';
   function card(shop) {
-    return `<article class="town-card" data-town-state="${scheduleStatus(shop).kind}"><div class="town-card-head"><button class="town-card-copy" data-town-action="shop" data-id="${shop.id}"><span><strong>${esc(shop.shortName || shop.name)}</strong><small>${esc(shop.category)}</small></span>${icon('arrow')}</button>${bookmarkButton(shop)}</div><p class="town-card-menu">${esc(shop.menus.slice(0,3).join('・'))}</p>${scheduleSummary(shop)}${media(shop)}<div class="town-card-foot">${shop.id==='itomaru'?'<button class="textbtn town-market-entry" data-town-action="shop" data-id="itomaru">中の9店を見る →</button>':shop.parentId?'<span>糸満市場内</span>':'<span></span>'}${link(searchUrl(shop),'Googleマップ ↗','town-photo-link')}</div></article>`;
+    return `<article class="town-card" data-town-state="${scheduleStatus(shop).kind}"><div class="town-card-head"><button class="town-card-copy" data-town-action="shop" data-id="${shop.id}"><span><strong class="${nameClass(shop)}">${esc(shop.name)}</strong><small>${esc(shop.category)}</small></span>${icon('arrow')}</button>${bookmarkButton(shop)}</div><p class="town-card-menu">${esc(shop.menus.slice(0,3).join('・'))}</p>${scheduleSummary(shop)}${media(shop)}<div class="town-card-foot">${shop.id==='itomaru'?'<button class="textbtn town-market-entry" data-town-action="shop" data-id="itomaru">中の9店を見る →</button>':shop.parentId?'<span>糸満市場内</span>':'<span></span>'}${link(searchUrl(shop),'Googleマップ ↗','town-photo-link')}</div></article>`;
   }
   function homeRecommendation() {
     const now=new Date();
@@ -169,7 +170,7 @@
     if(!available.length)return '<p class="town-home-empty">現在、営業時間内と確認できるお店はありません。</p>';
     const day=Math.floor((now.getTime()+9*3600000)/86400000);
     const shop=available[day%available.length],status=scheduleStatus(shop,now),photo=suppliedPhotos(shop)[0];
-    return `<div class="town-home-pick" data-recommended-shop="${shop.id}"><p class="town-home-label">営業時間内のおすすめ <span>掲載情報の予定</span></p><button class="town-home-shop" data-town-action="shop" data-id="${shop.id}">${photo?`<img src="${esc(photo.url)}" alt="${esc(photo.alt)}" width="104" height="80" loading="lazy" decoding="async">`:icon('food')}<span><strong>${esc(shop.shortName||shop.name)}</strong><small>${esc(shop.menus.slice(0,2).join('・'))}</small><small class="town-home-hours">${esc(status.note)}</small></span>${icon('arrow')}</button>${photo?photoCredit(photo,true).replace('<figcaption','<div').replace('</figcaption>','</div>'):''}<p class="town-home-note">臨時休業・売り切れは各店へご確認ください。</p></div>`;
+    return `<div class="town-home-pick" data-recommended-shop="${shop.id}"><p class="town-home-label">営業時間内のおすすめ <span>掲載情報の予定</span></p><button class="town-home-shop" data-town-action="shop" data-id="${shop.id}">${photo?`<img src="${esc(photo.url)}" alt="${esc(photo.alt)}" width="104" height="80" loading="lazy" decoding="async">`:icon('food')}<span><strong class="${nameClass(shop)}">${esc(shop.name)}</strong><small>${esc(shop.menus.slice(0,2).join('・'))}</small><small class="town-home-hours">${esc(status.note)}</small></span>${icon('arrow')}</button>${photo?photoCredit(photo,true).replace('<figcaption','<div').replace('</figcaption>','</div>'):''}<p class="town-home-note">臨時休業・売り切れは各店へご確認ください。</p></div>`;
   }
   function refreshHomeRecommendation(){
     const holder=document.querySelector('#mock:not([hidden]) .town-home-recommendation');
@@ -224,7 +225,7 @@
   function mapResults(list) {
     if(!list.some(s=>s.id===mapShop))mapShop=(list.find(shop=>shop.embedUrl)||list[0]).id;
     const shop=byId.get(mapShop);
-    return `<div class="town-map-layout"><div class="town-map-picker" role="group" aria-label="地図に表示するお店">${list.map(s=>`<button data-town-action="map-shop" data-id="${s.id}" aria-pressed="${s.id===mapShop}"><span class="town-number">${s.number}</span>${esc(s.shortName||s.name)}</button>`).join('')}</div><div class="town-map-selected"><h3>${esc(shop.name)}</h3>${scheduleSummary(shop)}${embeddedMap(shop)}<div class="town-map-actions"><button class="btn secondary" data-town-action="shop" data-id="${shop.id}">お店の詳細を見る ${icon('arrow')}</button>${link(routeUrl(shop),shop.address||mapPlaceId(shop)?'徒歩ルートを見る ↗':'お店の場所を探す ↗','textbtn')}</div></div></div>`;
+    return `<div class="town-map-layout"><div class="town-map-picker" role="group" aria-label="地図に表示するお店">${list.map(s=>`<button data-town-action="map-shop" data-id="${s.id}" aria-pressed="${s.id===mapShop}"><span class="town-number">${s.number}</span>${esc(s.shortName||s.name)}</button>`).join('')}</div><div class="town-map-selected"><h3 class="${nameClass(shop)}">${esc(shop.name)}</h3>${scheduleSummary(shop)}${embeddedMap(shop)}<div class="town-map-actions"><button class="btn secondary" data-town-action="shop" data-id="${shop.id}">お店の詳細を見る ${icon('arrow')}</button>${link(routeUrl(shop),shop.address||mapPlaceId(shop)?'徒歩ルートを見る ↗':'お店の場所を探す ↗','textbtn')}</div></div></div>`;
   }
   function refreshResults() {
     const holder=document.getElementById('town-results'); if(!holder)return;
@@ -237,14 +238,14 @@
   function marketDirectory(shop) {
     const children=marketShops.filter(s=>s.parentId===shop.id);
     if(!children.length)return '';
-    return `<section class="town-detail-section town-market-directory"><h3>市場内でごはん <span>${children.length}店</span></h3><p class="town-section-sub">食べたい料理から、お店を選べます。</p><div class="town-tenant-grid">${children.map(s=>`<article class="town-tenant"><button class="town-tenant-link" data-town-action="shop" data-id="${esc(s.id)}"><span class="town-tenant-type">${esc(s.category)}</span><strong>${esc(s.shortName||s.name)} ${icon('arrow')}</strong><span>${esc(s.menus.slice(0,2).join('・'))}</span><small>${esc(s.price)}</small></button>${media(s,'card')}</article>`).join('')}</div><p class="town-menu-note">食券の対応・対象メニュー・差額は各店へ。掲載価格は参考です。</p></section>`;
+    return `<section class="town-detail-section town-market-directory"><h3>市場内でごはん <span>${children.length}店</span></h3><p class="town-section-sub">食べたい料理から、お店を選べます。</p><div class="town-tenant-grid">${children.map(s=>`<article class="town-tenant"><button class="town-tenant-link" data-town-action="shop" data-id="${esc(s.id)}"><span class="town-tenant-type">${esc(s.category)}</span><strong class="${nameClass(s)}">${esc(s.name)} ${icon('arrow')}</strong><span>${esc(s.menus.slice(0,2).join('・'))}</span><small>${esc(s.price)}</small></button>${media(s,'card')}</article>`).join('')}</div><p class="town-menu-note">食券の対応・対象メニュー・差額は各店へ。掲載価格は参考です。</p></section>`;
   }
   function detail(shop) {
     const canRoute=Boolean(shop.address || mapPlaceId(shop));
     const addressSource=shop.source ? link(shop.source,'店舗情報の出典 ↗','town-source-link') : '';
     const socialLink=safeUrl(shop.instagram) ? link(safeUrl(shop.instagram),'公式Instagramで写真を見る ↗','town-source-link') : '';
     return `<div class="town-topline"><button class="textbtn" data-town-action="${shop.parentId?'shop':'list'}" ${shop.parentId?`data-id="${esc(shop.parentId)}"`:''}>${icon('back')}${shop.parentId?'糸満市場のお店へ':'お店一覧へ'}</button><span class="town-pr">店舗案内 · PR</span></div>
-      <div class="town-detail-heading"><div><p class="town-eyebrow">${esc(shop.category)}</p><h2 id="town-title" tabindex="-1">${esc(shop.name)}</h2>${badge(shop)}</div>${bookmarkButton(shop)}</div>
+      <div class="town-detail-heading"><div><p class="town-eyebrow">${esc(shop.category)}</p><h2 id="town-title" class="${nameClass(shop)}" tabindex="-1">${esc(shop.name)}</h2>${badge(shop)}</div>${bookmarkButton(shop)}</div>
       ${marketDirectory(shop)}${scheduleSummary(shop)}<p class="town-hours-notice">掲載情報に基づく営業予定です。臨時休業・売り切れは各店へ。</p>
       <div class="town-detail-hero">${media(shop,'detail')}</div>
       ${link(searchUrl(shop),'Googleマップの写真・口コミ ↗','textbtn town-all-photos')}${socialLink}

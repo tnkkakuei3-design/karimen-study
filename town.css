@@ -93,3 +93,13 @@
 @media(max-width:600px){.town-tenant-grid{grid-template-columns:1fr}.town-tenant-link{padding:14px}}
 
 .town-photo-source{display:flex;align-items:center;gap:8px;padding:14px;font-size:13px;border-top:1px solid var(--line);color:var(--muted)}.town-photo-source a{color:inherit}.town-photo-source .icon{width:18px;flex:none}
+
+/* Full Google names remain readable without clipping or abbreviations. */
+.town-shop-name{overflow-wrap:anywhere;word-break:normal;line-height:1.5}
+.town-card-copy .town-shop-name-medium{font-size:19px}
+.town-card-copy .town-shop-name-long{font-size:17px}
+.town-home-shop .town-shop-name-medium,.town-home-shop .town-shop-name-long{font-size:16px}
+.town-tenant-link .town-shop-name-long{font-size:16px;line-height:1.6}
+.town-detail-heading .town-shop-name-medium{font-size:25px}
+.town-detail-heading .town-shop-name-long{font-size:22px}
+@media(max-width:649px){.town-detail-heading .town-shop-name-medium{font-size:23px}.town-detail-heading .town-shop-name-long{font-size:20px}}
