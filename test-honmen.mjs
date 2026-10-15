@@ -90,7 +90,7 @@ const doc=w.document,app=w.HonmenApp;
 const click=selector=>{const el=doc.querySelector(selector);assert.ok(el,'missing '+selector);assert.ok(!el.disabled,'disabled '+selector);el.click();};
 const settle=async()=>{await new Promise(resolve=>setTimeout(resolve,10));await app.storage.flush();};
 assert.equal(doc.querySelectorAll('#mock .set-card').length,8);
-assert.equal(doc.querySelector('.course-switch a[aria-current]').textContent.trim(),'本免 95問・50分');
+assert.equal(doc.querySelector('.course-picker a[aria-current]').textContent.trim(),'本免95問・50分');
 click('[data-h="set"][data-set="2"]');click('[data-h="start-set"][data-mode="mock"]');assert.equal(app.view,'play');
 assert.ok(!doc.querySelector('#play .feedback'));assert.equal(doc.getElementById('timer').textContent,'50:00');
 click('#play [data-h="answer"][data-value="true"]');assert.ok(!doc.querySelector('#play .feedback'),'mock does not leak answers');

@@ -168,13 +168,15 @@
   function card(shop) {
     return `<article class="town-card" data-town-state="${scheduleStatus(shop).kind}"><div class="town-card-head"><button class="town-card-copy" data-town-action="shop" data-id="${shop.id}"><span><strong class="${nameClass(shop)}">${esc(shop.name)}</strong><small>${esc(shop.category)}</small></span>${icon('arrow')}</button>${bookmarkButton(shop)}</div><p class="town-card-menu">${esc(shop.menus.slice(0,3).join('・'))}</p>${compactSchedule(shop)}${media(shop)}<div class="town-card-foot">${shop.id==='itomaru'?'<button class="textbtn town-market-entry" data-town-action="shop" data-id="itomaru">中の9店を見る →</button>':shop.parentId?'<span>糸満市場内</span>':'<span></span>'}${link(searchUrl(shop),'Googleマップ ↗','town-photo-link')}</div></article>`;
   }
+  let homePick=null;
   function homeRecommendation() {
-    const now=new Date();
-    const available=shops.filter(shop=>scheduleStatus(shop,now).kind==='open');
-    if(!available.length)return '<p class="town-home-empty">現在、営業時間内と確認できるお店はありません。</p>';
-    const day=Math.floor((now.getTime()+9*3600000)/86400000);
-    const shop=available[day%available.length],status=scheduleStatus(shop,now),photo=suppliedPhotos(shop)[0];
-    return `<div class="town-home-pick" data-recommended-shop="${shop.id}"><p class="town-home-label">営業時間内のおすすめ <span>掲載情報の予定</span></p><button class="town-home-shop" data-town-action="shop" data-id="${shop.id}">${photo?`<img src="${esc(photo.url)}" alt="${esc(photo.alt)}" width="104" height="80" loading="lazy" decoding="async">`:icon('food')}<span><strong class="${nameClass(shop)}">${esc(shop.name)}</strong><small>${esc(shop.menus.slice(0,2).join('・'))}</small><small class="town-home-hours">${esc(status.note)}</small></span>${icon('arrow')}</button>${photo?photoCredit(photo,true).replace('<figcaption','<div').replace('</figcaption>','</div>'):''}<p class="town-home-note">臨時休業・売り切れは各店へご確認ください。</p></div>`;
+    if(!homePick){
+      const available=allShops.map(shop=>({shop,photo:suppliedPhotos(shop).find(p=>!/外観|店内|入口|通路|施設|カウンター|看板/.test(p.alt))})).filter(p=>p.photo);
+      if(!available.length)return '';
+      homePick=available[Math.floor(Math.random()*available.length)];
+    }
+    const {shop,photo}=homePick;
+    return `<div class="town-home-pick" data-recommended-shop="${shop.id}"><button class="town-home-shop" data-town-action="open" aria-label="食券が使えるお店の一覧を見る"><img src="${esc(photo.url)}" alt="${esc(photo.alt)}" width="120" height="112" loading="lazy" decoding="async"><span><small class="town-ticket-badge">食券OK</small><strong class="${nameClass(shop)}">${esc(shop.name)}</strong><small>${esc(shop.category)}</small></span>${icon('arrow')}</button>${photoCredit(photo,true).replace('<figcaption','<div').replace('</figcaption>','</div>')}</div>`;
   }
   function refreshHomeRecommendation(){
     const holder=document.querySelector('#mock:not([hidden]) .town-home-recommendation');
@@ -393,7 +395,7 @@
     init(callbacks){api=callbacks;if(initDone)return;initDone=true;readRoute();if(!isOpen())activatePhotos(document.querySelector('main > section:not([hidden])')||document.createElement('div'));},
     onView(name){if(!initDone)return;if(name!=='town'){disconnectPhotos();if(location.hash==='#town'||location.hash.startsWith('#town/'))history.replaceState({...history.state,karimenTown:false},'',location.pathname+location.search);if(['mock','learn'].includes(name))activatePhotos(document.getElementById(name));if(name==='mock')refreshHomeRecommendation();}},
     teaser(){
-      return `<aside class="town-teaser" aria-label="地域のお店一覧"><div class="town-home-recommendation">${homeRecommendation()}</div><button class="town-directory-entry" data-town-action="open"><span class="town-entry-icon">${icon('ticket')}</span><span><strong>食券が使えるお店</strong><small>営業時間・定休日・地図</small></span><span class="town-entry-meta"><small class="town-pr">PR</small><span class="town-entry-cta">全${shops.length}件を見る ${icon('arrow')}</span></span></button></aside>`;
+      return `<aside class="town-teaser" aria-label="地域のお店一覧"><div class="town-teaser-heading">${icon('food')}<strong>教習の合間に、まちのごはん</strong><small class="town-pr">PR</small></div><div class="town-home-recommendation">${homeRecommendation()}</div><button class="town-directory-entry" data-town-action="open">食券が使えるお店をすべて見る ${icon('arrow')}</button></aside>`;
     },
     scheduleStatus,
     open,
