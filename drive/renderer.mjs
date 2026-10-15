@@ -1,3 +1,4 @@
+import {impactMotion} from './impact-motion.mjs?v=20261015-fx1';
 import {clamp} from './engine.mjs?v=20261015-cockpit1';
 const COLORS={sky:'#dcebf0',skyTop:'#b5d5e4',road:'#7f9098',edge:'#f8f4e7',pavement:'#dadbd2',grass:'#a7bda7',ink:'#18374b'};
 export class Renderer{
@@ -100,6 +101,7 @@ export class Renderer{
    if(sc.id==='parked')objects.push({z:hh-3.6,draw:()=>this.van(-3.95,hh-3.6)});
    const actorX=clamp(drive.actorX,-7,7);
    if(!drive.impact&&!drive.actorClear&&(sc.actor==='adult'||drive.eventTime!==null||hero||highlight)){objects.push({z:hh,draw:()=>sc.actor==='bike'?this.bike(actorX,hh,drive.time):this.person(actorX,hh,sc.actor,drive.eventTime||0)});}
+   if(drive.crowd)for(const a of drive.crowd){const f=a.hit?impactMotion(drive.time-a.hit.at,a.hit.speed):null,x=f?a.hit.x+f.x:a.x,z=f?a.hit.z+f.z:a.z;objects.push({z,draw:()=>{if(f){const p=this.project(x,z);c.save();c.translate(p.x,p.y-f.y*p.s);c.rotate(f.roll);c.translate(-p.x,-p.y);}this.person(x,z,'adult',a.elapsed);if(f)c.restore();}});}
    objects.sort((a,b)=>b.z-a.z);objects.forEach(o=>o.draw());
    if(sc.id==='parked'&&drive.distance<70&&drive.distance>10){const p=this.project(-4.95,hh-4.5,.22);c.fillStyle='#bb7b5b';c.beginPath();c.arc(p.x,p.y,p.s*.16,0,Math.PI*2);c.fill();}
    if(highlight||drive.detected){const hit=this.hits.find(hh=>hh.type===sc.target);if(hit)this.marker(hit,drive.detected?'危険を発見':sc.id==='parked'?'車の陰に注意':sc.id==='crosswalk'?'渡りたい人':'交差点の死角');}

@@ -1,3 +1,4 @@
+import {visibleCrowd,CROWD_LIMIT} from './arcade.mjs?v=20261015-crowd1';
 import {impactMotion} from './impact-motion.mjs?v=20261015-fx1';
 import {makePedestrian,posePedestrian,poseCyclist} from './pedestrian.mjs?v=20261015-perf1';
 import {pedestrianMotion,childMotion} from './pedestrian-motion.mjs?v=090';
@@ -314,21 +315,19 @@ export function createIntegratedWorld(){
  box(additions,0,-.035,-220,100,.08,8,'#626f70');box(additions,-1.72,.02,-213,3.1,.025,.4,'#f2eddf');
  const corner=new THREE.Group();corner.name='arcade-corner';box(corner,6,2.25,-211.8,4.8,4.5,7.6,'#d9d2c1');box(corner,6,4.55,-211.8,5,.15,7.8,'#8d9b94');for(let z=-214;z<=-209;z+=2)box(corner,3.57,2.8,z,.04,1.2,1.1,'#819fa7');
  const sign=new THREE.Group();stopSign(sign,true);sign.position.z=-120;corner.add(sign);w.scene.add(freezeStatic(corner));w.scene.add(freezeStatic(compact(additions)));
- const adult=makeAdult(),bike=makeBicycle();w.scene.add(adult,bike);w.actors=[w.child,adult,bike];w.targets=[w.van,...w.actors,corner];w.occluders.push(adult,bike,corner);w.shadows=[w.actorShadow,contactShadow(w.scene,.9,1.1,true),contactShadow(w.scene,2,.9,true)];
- const sparkMaterial=new THREE.MeshBasicMaterial({color:'#ffe3a0'});w.sparks=w.actors.map(()=>{const g=new THREE.Group();for(let j=0;j<7;j++){const star=mesh(g,new THREE.OctahedronGeometry(.09,0),sparkMaterial);star.userData.angle=j*Math.PI*2/7;}w.scene.add(g);g.visible=false;return g;});return w;
+ // Reuse a fixed pool of simple figures instead of dozens of animated skeletons.
+ w.crowd=Array.from({length:CROWD_LIMIT},(_,i)=>{
+  const g=new THREE.Group(),shirt=['#e6ab42','#6489ba','#bd6963','#7eaa8d'][i%4];
+  box(g,0,1.05,0,.46,.58,.27,shirt);sphere(g,0,1.57,0,.19,'#d3aa88');
+  const limbs=[];for(const side of [-1,1]){const leg=new THREE.Group();leg.position.set(side*.13,.78,0);box(leg,0,-.33,0,.16,.62,.18,'#334b60');g.add(leg);limbs.push(leg);const arm=new THREE.Group();arm.position.set(side*.29,1.29,0);box(arm,0,-.22,0,.13,.47,.14,shirt);g.add(arm);limbs.push(arm);}
+  g.userData.limbs=limbs;g.traverse(o=>{if(o.isMesh){o.castShadow=false;o.receiveShadow=false;}});w.scene.add(g);g.visible=false;return g;
+ });return w;
 }
 export function updateIntegratedWorld(w,d,options={}){
- w.index=0;updateWorld(w,{...d,scene:{hazard:88},speed:d.speed,eventTime:null,actorX:-5.05,actorClear:false,detected:null},options);w.index=3;
- d.actors.forEach((a,i)=>{const actor=w.actors[i],flight=a.hit?d.time-a.hit.at:null;actor.visible=!a.passed||flight!==null&&flight<2.5;actor.rotation.set(0,i===2?Math.PI:-Math.PI/2,0);actor.position.set(a.x,0,-a.z);
-  if(flight!==null){const f=impactMotion(flight,a.hit.speed);actor.position.set(a.hit.x+f.x,f.y,-(a.hit.z??a.z)-f.z);actor.rotation.z=f.roll;actor.rotation.x=f.pitch;}
-  else if(i<2){const gait=a.started===null?0:Math.sin(a.elapsed*8)*.42;actor.userData.legs.forEach((l,k)=>{l.rotation.x=k?gait:-gait;l.userData.knee.rotation.x=-Math.max(0,k?-gait:gait)*.9;});actor.userData.arms.forEach((arm,k)=>arm.rotation.x=k?-gait*.7:gait*.7);}
-  else {actor.userData.wheels.forEach(wh=>wh.rotation.z=-a.elapsed*5);actor.userData.crank.rotation.z=-a.elapsed*5;actor.userData.rider.userData.legs.forEach((l,k)=>{l.rotation.x=-.25+Math.sin(a.elapsed*5+k*Math.PI)*.3;l.userData.knee.rotation.x=.65;});}
-  if(i<2){posePedestrian(actor,{elapsed:a.started===null?null:a.elapsed,time:d.time,flight,impactSpeed:a.hit?.speed});actor.position.z=-(a.currentZ??a.z);
-   if(flight!==null){const f=impactMotion(flight,a.hit.speed);actor.position.set(a.hit.x+f.x,f.y,-(a.hit.z??a.z)-f.z);}
-   else actor.position.y=Math.abs(a.x)>3.6?.13:0;
-  }
-  if(i===2)poseCyclist(actor,{travel:Math.max(0,5.3-a.x),time:d.time,flight,impactSpeed:a.hit?.speed});
-  const shadow=w.shadows[i];if(shadow){shadow.position.set(actor.position.x,.027,actor.position.z);shadow.visible=actor.visible&&Math.abs(actor.position.x)<3.5;shadow.material.opacity=1/(1+actor.position.y);}
-  const sparks=w.sparks[i];sparks.visible=flight!==null&&flight<.6;sparks.position.set(a.hit?.x||0,1.2,-a.z);sparks.children.forEach(p=>{const t=flight||0,angle=p.userData.angle;p.position.set(Math.cos(angle)*t*3,Math.sin(angle)*t*3,t);p.scale.setScalar(Math.max(.1,1-t));});
+ w.index=0;updateWorld(w,{...d,scene:{hazard:88},speed:d.speed,eventTime:null,actorX:-5.05,actorClear:true,detected:null},options);w.index=3;w.child.visible=false;if(w.actorShadow)w.actorShadow.visible=false;
+ const actors=visibleCrowd(d);
+ w.crowd.forEach((g,i)=>{const a=actors[i];g.visible=!!a;if(!a)return;g.rotation.set(0,a.side>0?-Math.PI/2:Math.PI/2,0);g.position.set(a.x,0,-a.z);
+  if(a.hit){const f=impactMotion(d.time-a.hit.at,a.hit.speed);g.position.set(a.hit.x+f.x,f.y,-a.hit.z-f.z);g.rotation.x=f.pitch;g.rotation.z=f.roll;}
+  const stride=a.hit?0:Math.sin(a.elapsed*12)*.9;g.userData.limbs.forEach((l,j)=>l.rotation.x=(j<2?1:-1)*(j%2?-1:1)*stride);
  });
 }

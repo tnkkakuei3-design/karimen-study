@@ -6,7 +6,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import {JSDOM,VirtualConsole} from 'jsdom';
 import {Drive,SCENES,clamp,HAZARD_REVIEWS} from './drive/engine.mjs';
-import {ArcadeDrive} from './drive/arcade.mjs';
+import {ArcadeDrive,visibleCrowd} from './drive/arcade.mjs';
 
 const baseline=process.argv.includes('--baseline');
 const dom=new JSDOM(fs.readFileSync('drive/index.html','utf8'),{url:'https://karimen-study.pages.dev/drive/',runScripts:'outside-only',pretendToBeVisual:true,virtualConsole:new VirtualConsole()});
@@ -26,7 +26,7 @@ class Renderer{
  hit(){return true;}
 }
 class DriveAudio{setEnabled(){}unlock(){}silence(){}impact(){}update(){audio++;}}
-Object.assign(w,{impactMotion,Drive,SCENES,clamp,HAZARD_REVIEWS,ArcadeDrive,Renderer,DriveAudio});
+Object.assign(w,{impactMotion,Drive,SCENES,clamp,HAZARD_REVIEWS,ArcadeDrive,visibleCrowd,Renderer,DriveAudio});
 const ctx=dom.getInternalVMContext(),run=code=>vm.runInContext(code,ctx);
 run(fs.readFileSync('drive/app.mjs','utf8').replace(/^import .*;\n/gm,''));
 await new Promise(resolve=>setTimeout(resolve,0));

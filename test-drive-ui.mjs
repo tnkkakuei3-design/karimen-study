@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import {JSDOM,VirtualConsole} from 'jsdom';
 import {Drive,SCENES,clamp,HAZARD_REVIEWS} from './drive/engine.mjs';
-import {ArcadeDrive} from './drive/arcade.mjs';
+import {ArcadeDrive,visibleCrowd} from './drive/arcade.mjs';
 const html=fs.readFileSync(new URL('./drive/index.html',import.meta.url),'utf8');
 const source=fs.readFileSync(new URL('./drive/app.mjs',import.meta.url),'utf8').replace(/^import .*;\n/gm,'');
 for(const from of ['karimen','honmen']){
@@ -16,7 +16,7 @@ for(const from of ['karimen','honmen']){
  w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
  class Renderer{constructor(canvas){assert.ok(canvas)}invalidateSize(){}render(){}hit(){return true}}
  class DriveAudio{setEnabled(){}unlock(){}silence(){}update(){}}
- Object.assign(w,{impactMotion,Drive,SCENES,clamp,HAZARD_REVIEWS,ArcadeDrive,Renderer,DriveAudio});
+ Object.assign(w,{impactMotion,Drive,SCENES,clamp,HAZARD_REVIEWS,ArcadeDrive,visibleCrowd,Renderer,DriveAudio});
  const ctx=dom.getInternalVMContext(),run=code=>vm.runInContext(code,ctx);
  run(source);run(fs.readFileSync(new URL('./drive/study-return.mjs',import.meta.url),'utf8'));
  await new Promise(resolve=>setTimeout(resolve,0));
