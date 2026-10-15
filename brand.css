@@ -1,0 +1,43 @@
+/* Shared DONDORA visual identity. Question/vehicle interfaces keep their own layout. */
+@font-face{font-family:DondoraDot;src:url('./assets/brand/dot-gothic-subset.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+:root{--brand-cream:#fffaf0;--brand-blue:#1682b6;--brand-green:#4da532;--brand-red:#d6382d}
+:root:not([data-theme=dark]){--bg:#fffaf0;--line:#e7e3d7;--soft:#f4f2e9;--pale:#edf7fc}
+body:not(.in-game){background:var(--bg,var(--brand-cream))}
+.header{border-bottom:2px dotted #d5cdb9;margin-bottom:22px;padding:18px 0;gap:10px}
+.header .brand{gap:12px;min-width:0;line-height:1.4}
+.header .dondora-logo{display:block;width:112px;height:68px;object-fit:contain;flex:none}
+.header .brand h1,.header .brand>span{font-size:17px;letter-spacing:0}
+.home-intro{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:22px 24px;background:var(--surface,#fffdf7);border:1px solid var(--line,#e7e3d7);border-top:4px solid var(--brand-blue);border-radius:12px;margin-bottom:24px;overflow:hidden}
+.home-intro::after{content:"";position:absolute;z-index:-1;inset:0 0 0 58%;opacity:.32;background-image:linear-gradient(#d9e9ed 1px,transparent 1px),linear-gradient(90deg,#d9e9ed 1px,transparent 1px);background-size:24px 24px;mask-image:linear-gradient(90deg,transparent,#000)}
+.home-intro h2{font-family:DondoraDot,sans-serif;font-weight:400;letter-spacing:0;font-size:40px;line-height:1.4}
+.home-intro .home-character{width:47%;max-width:270px;height:auto;object-fit:contain;flex:none}
+.home-intro p{font-size:14px}
+#learn .character-heading,#review .character-heading,.notes-heading{border-bottom:2px dotted #d5cdb9;padding:4px 0 16px;min-height:88px;margin-bottom:20px}
+#learn .character-heading h2,#review .character-heading h2,.notes-heading h2{font-family:DondoraDot,sans-serif;font-weight:400;letter-spacing:0;line-height:1.4}
+.character-heading h2::before,.notes-heading h2::before{content:"";display:inline-block;width:9px;height:21px;margin-right:12px;background:var(--brand-blue);vertical-align:-2px;box-shadow:3px 3px 0 #bce0eb}
+#review .character-heading h2::before{background:var(--brand-green);box-shadow:3px 3px 0 #d5e7bf}
+#learn .placement-character,#review .placement-character{width:72px;height:88px;object-fit:contain}
+.bottom-tabs{border-top:3px solid var(--brand-blue);background:var(--surface,#fff)}
+.bottom-tabs button[aria-selected=true]{background:var(--pale,#edf7fc)}
+.mock-heading h3{border-left:4px solid var(--brand-green);padding-left:12px}
+#mock .mock-card{border-top:3px solid var(--brand-blue)}
+#learn .category-card{border-top:3px solid #8bbbcf}
+#learn .category-card .icon{color:var(--brand-blue)}
+#review .review-now-card{border-top:3px solid var(--brand-green)}
+#home .intro{padding:20px;border:1px solid #e7e3d7;border-top:4px solid var(--brand-blue);border-radius:12px;background:#fffdf7;margin-bottom:24px}
+#home .intro h1{font-family:DondoraDot,sans-serif;font-weight:400;letter-spacing:0}
+#home .home-mascot{width:106px;height:124px;object-fit:contain}
+#home .course-heading h2{border-left:4px solid var(--brand-green);padding-left:12px}
+#home .arcade-card{border-top:2px dotted #d5cdb9;border-bottom:2px dotted #d5cdb9}
+:root[data-theme=dark] .home-intro::after{opacity:.1}
+:root[data-theme=dark] .header,:root[data-theme=dark] .character-heading,:root[data-theme=dark] .notes-heading{border-color:var(--line)}
+body.play-active{background:var(--surface)}
+@media(max-width:649px){.header{padding:12px 0;margin-bottom:18px}.header .brand{gap:8px}.header .dondora-logo{width:88px;height:56px}.header .brand h1,.header .brand>span{font-size:15px}.header-tools{gap:2px}.home-intro{padding:18px 16px;gap:4px}.home-intro h2{font-size:30px}.home-intro p{font-size:13px}.home-intro .home-character{width:46%;max-width:200px}#home .intro{padding:16px}#home .home-mascot{width:80px;height:102px}}
+@media(max-width:374px){.header .dondora-logo{width:65px;height:48px}.header .brand h1,.header .brand>span{font-size:14px}.header .brand{gap:6px}.home-intro{padding:16px 12px}.home-intro h2{font-size:27px}}
+/* A viewport onto the unchanged producer artwork keeps its original logo crisp. */
+.header .dondora-logo{position:relative;overflow:hidden;align-self:center}
+.header .dondora-logo img{position:absolute;display:block;max-width:none;width:207%;height:auto;left:-50.5%;top:-5%;}
+
+.header{border-bottom-color:#dba89b}
+.header .brand{display:flex;align-items:center;text-decoration:none}
+.bottom-tabs button[aria-selected=true]::after{background:var(--brand-red)}

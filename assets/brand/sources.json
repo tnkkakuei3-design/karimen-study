@@ -1,0 +1,5 @@
+{
+  "logoArtwork": {"file":"dondora.png","url":"https://foresthuntingone.com/images/works/dd_main.png","page":"https://foresthuntingone.com/works/dondora.html","note":"Unmodified producer artwork; CSS displays the logo area."},
+  "designReference":"https://dondondrive.jp/",
+  "font":{"file":"dot-gothic-subset.ttf","family":"DotGothic16","source":"https://fonts.google.com/specimen/DotGothic16","license":"SIL Open Font License 1.1","usage":"Subset for short page headings; body text retains system fonts."}
+}
