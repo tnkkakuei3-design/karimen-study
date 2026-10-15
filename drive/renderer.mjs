@@ -1,8 +1,9 @@
 import {clamp} from './engine.mjs?v=090';
 const COLORS={sky:'#dcebf0',skyTop:'#b5d5e4',road:'#7f9098',edge:'#f8f4e7',pavement:'#dadbd2',grass:'#a7bda7',ink:'#18374b'};
 export class Renderer{
- constructor(canvas){this.canvas=canvas;this.ctx=canvas.getContext('2d');this.w=1;this.h=1;this.hits=[];this.pan=0;}
- size(){const b=this.canvas.getBoundingClientRect();const w=Math.max(1,b.width),h=Math.max(1,b.height),dpr=Math.min(globalThis.devicePixelRatio||1,2);if(this.canvas.width!==Math.round(w*dpr)||this.canvas.height!==Math.round(h*dpr)){this.canvas.width=Math.round(w*dpr);this.canvas.height=Math.round(h*dpr);}this.w=w;this.h=h;this.ctx.setTransform(dpr,0,0,dpr,0,0);}
+ constructor(canvas,{observe=false,onResize=()=>{}}={}){this.canvas=canvas;this.ctx=canvas.getContext('2d');this.w=1;this.h=1;this.hits=[];this.pan=0;this.sizeDirty=true;if(observe&&globalThis.ResizeObserver){this.observer=new ResizeObserver(()=>{this.invalidateSize();onResize();});this.observer.observe(canvas);}}
+ invalidateSize(){this.sizeDirty=true;}
+ size(){if(this.sizeDirty){const b=this.canvas.getBoundingClientRect();this.w=Math.max(1,b.width);this.h=Math.max(1,b.height);this.sizeDirty=false;}const w=this.w,h=this.h,dpr=Math.min(globalThis.devicePixelRatio||1,2);if(this.canvas.width!==Math.round(w*dpr)||this.canvas.height!==Math.round(h*dpr)){this.canvas.width=Math.round(w*dpr);this.canvas.height=Math.round(h*dpr);}this.ctx.setTransform(dpr,0,0,dpr,0,0);}
  project(x,z,y=0){const d=z-this.pos+4;return{x:this.w*.5+(x-(this.cameraX??-1.65))*this.focal/d+this.pan*this.w*.3,y:this.horizon+(1.6-y)*this.focal/d,s:this.focal/d,d};}
  poly(points,color,stroke){let c=this.ctx;c.beginPath();points.forEach((p,i)=>i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y));c.closePath();c.fillStyle=color;c.fill();if(stroke){c.strokeStyle=stroke;c.lineWidth=.6;c.stroke();}}
  ground(x1,x2,z1,z2,color){if(z2<this.pos-1)return;z1=Math.max(z1,this.pos-1);this.poly([this.project(x1,z1),this.project(x2,z1),this.project(x2,z2),this.project(x1,z2)],color);}

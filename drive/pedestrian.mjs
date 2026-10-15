@@ -36,7 +36,7 @@ export function posePedestrian(actor,{elapsed=null,time=0,flight=null,impactSpee
   body.rotation.x=Math.sin(Math.min(t/1.15,1)*Math.PI)*(.5+Math.min(impactSpeed,50)*.005);
   actor.rotation.z=-Math.sin(Math.min(t/1.4,1)*Math.PI)*.48;
  }
- actor.updateMatrixWorld(true);
+ // The renderer (or cyclist IK below) updates world matrices after posing.
 }
 // Two-bone IK keeps hands on the bars and ankles on the rotating pedals.
 const V=()=>new THREE.Vector3();
@@ -55,18 +55,18 @@ function limb(upper,lower,end,target,pole){
 }
 export function poseCyclist(bike,{travel=0,time=0,flight=null,impactSpeed=24}={}){
  const rider=bike.userData.rider,rig=rider.userData.rig;
- if(!rig.cycleRest){rig.cycleRest=[];rig.body.traverse(o=>{if(o.isBone)rig.cycleRest.push([o,o.position.clone(),o.quaternion.clone()]);});}
+ if(!rig.cycleRest){rig.cycleRest=[];rig.cycleBones=new Map();rig.body.traverse(o=>{if(o.isBone){rig.cycleRest.push([o,o.position.clone(),o.quaternion.clone()]);rig.cycleBones.set(o.name,o);}});}
  for(const [bone,pos,rot] of rig.cycleRest){bone.position.copy(pos);bone.quaternion.copy(rot);}
  posePedestrian(rider,{elapsed:null,time:0,flight,impactSpeed});rider.rotation.y=Math.PI/2;
  if(flight!==null){rider.rotation.z=-Math.min(flight,.8)*.45;return;}
- rig.body.rotation.set(0,0,0);const hips=rig.body.getObjectByName('Hips');bike.updateWorldMatrix(true,true);
+ rig.body.rotation.set(0,0,0);const hips=rig.cycleBones.get('Hips');bike.updateWorldMatrix(true,true);
  const axis=new THREE.Vector3(0,0,1).applyQuaternion(bike.getWorldQuaternion(new THREE.Quaternion()));
  const world=hips.getWorldQuaternion(new THREE.Quaternion()).premultiply(new THREE.Quaternion().setFromAxisAngle(axis,-.32));
  hips.quaternion.copy(hips.parent.getWorldQuaternion(new THREE.Quaternion()).invert().multiply(world));bike.updateWorldMatrix(true,true);
  const phase=-travel/.4/2.7;bike.userData.wheels.forEach(w=>w.rotation.z=-travel/.4);bike.userData.crank.rotation.z=phase;
  for(const [suffix,side] of [['L',-1],['R',1]]){
   const target=bike.localToWorld(new THREE.Vector3(.08+side*.12*(Math.cos(phase)-Math.sin(phase)),.4+side*.12*(Math.sin(phase)+Math.cos(phase))+.10,side*.14));
-  const bone=n=>rig.body.getObjectByName(n+suffix);
+  const bone=n=>rig.cycleBones.get(n+suffix);
   limb(bone('UpperLeg'),bone('LowerLeg'),bone('LowerLeg')?.children[0],target,bike.localToWorld(new THREE.Vector3(.65,1,side*.18)));
   limb(bone('UpperArm'),bone('LowerArm'),bone('Palm'),bike.localToWorld(new THREE.Vector3(.32,1.34,side*.22)),bike.localToWorld(new THREE.Vector3(.10,1.1,side*.45)));
  }
