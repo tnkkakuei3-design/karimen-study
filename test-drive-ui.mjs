@@ -13,7 +13,7 @@ for(const from of ['karimen','honmen']){
  const w=dom.window,$=id=>w.document.getElementById(id);
  w.matchMedia=()=>({matches:false});w.scrollTo=()=>{};w.requestAnimationFrame=()=>1;
  w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
- class Renderer{constructor(canvas){assert.ok(canvas)}render(){}hit(){return true}}
+ class Renderer{constructor(canvas){assert.ok(canvas)}invalidateSize(){}render(){}hit(){return true}}
  class DriveAudio{setEnabled(){}unlock(){}silence(){}update(){}}
  Object.assign(w,{Drive,SCENES,clamp,ArcadeDrive,Renderer,DriveAudio});
  const ctx=dom.getInternalVMContext(),run=code=>vm.runInContext(code,ctx);

@@ -1,4 +1,4 @@
-import {makePedestrian,posePedestrian,poseCyclist} from './pedestrian.mjs?v=090';
+import {makePedestrian,posePedestrian,poseCyclist} from './pedestrian.mjs?v=20261015-perf1';
 import {pedestrianMotion,childMotion} from './pedestrian-motion.mjs?v=090';
 import * as THREE from './vendor/three.module.min.js';
 import {mergeGeometries} from './vendor/BufferGeometryUtils.js';
@@ -8,6 +8,9 @@ const glass=new THREE.MeshStandardMaterial({color:'#355766',roughness:.2,metalne
 const chrome=new THREE.MeshStandardMaterial({color:'#aab9be',roughness:.28,metalness:.65});
 const rubber=new THREE.MeshStandardMaterial({color:'#263139',roughness:.93});
 const cache=new Map();
+// These groups never move after placement. Keep their authored matrices instead
+// of recomposing and multiplying them on every render / skeleton update.
+function freezeStatic(root){root.updateMatrixWorld(true);root.traverse(o=>{o.matrixAutoUpdate=false;o.matrixWorldAutoUpdate=false;});return root;}
 function canvasTexture(key,w,h,paintFn){
  if(cache.has(key))return cache.get(key);if(typeof document==='undefined')return null;
  const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');if(!ctx)return null;
@@ -209,7 +212,7 @@ function daylight(scene,textures){
  });if(t){t.mapping=THREE.EquirectangularReflectionMapping;scene.environment=t;scene.environmentIntensity=.42;}}
  const clouds=new THREE.Group();clouds.name='clouds';const cloudMat=new THREE.MeshBasicMaterial({color:'#edf3ee',fog:false});
  for(let i=0;i<5;i++){const z=-145-i*9,x=-95+i*48;for(let j=0;j<4;j++){const c=mesh(clouds,new THREE.SphereGeometry(1,12,6),cloudMat,x+j*6,38+(i%3)*12+(j%2)*2,z);c.scale.set(12-j,3+j%2,6);c.castShadow=false;c.receiveShadow=false;}}
- const cloudBatch=compact(clouds);cloudBatch.traverse(o=>{if(o.isMesh){o.castShadow=false;o.receiveShadow=false;}});scene.add(cloudBatch);return sky;
+ const cloudBatch=compact(clouds);cloudBatch.traverse(o=>{if(o.isMesh){o.castShadow=false;o.receiveShadow=false;}});scene.add(freezeStatic(cloudBatch));return sky;
 }
 
 function contactShadow(scene,width,depth,textures){
@@ -272,6 +275,7 @@ export function createWorld({merged=true,textures=true,index=0,integrated=false}
   box(corner,3.57,.5,-91.8,.12,1,7.6,'#bdc1b5');stopSign(corner,textures);scene.add(corner);
   const mirror=new THREE.Group();cyl(mirror,-4.6,2,-104.7,.045,.045,4,'#c18a5e',8);const disc=mesh(mirror,new THREE.CircleGeometry(.44,24),'#acbfc0',-4.6,3.65,-104.65);mesh(mirror,new THREE.TorusGeometry(.44,.045,6,24),'#cf975f',-4.6,3.65,-104.62);scene.add(mirror);
  }
+ freezeStatic(env);freezeStatic(van);freezeStatic(corner);
  const targets=index===0?[van,child]:index===1?[child]:[corner,child];
  const occluders=[env,van,child,...(intersection?[corner]:[])];
  const marker=new THREE.Mesh(new THREE.TorusGeometry(1.55,.025,6,40),new THREE.MeshBasicMaterial({color:'#e5b354',depthTest:false,transparent:true,opacity:.9}));marker.renderOrder=9;marker.visible=false;scene.add(marker);
@@ -295,8 +299,9 @@ export function updateWorld(world,drive,{yaw=0,still=false,reducedMotion=false}=
  }
  if(world.index===2)poseCyclist(child,{travel:Math.max(0,5.3-drive.actorX),time:drive.time,flight:drive.impact?drive.time-drive.impact.at:null,impactSpeed:drive.impact?.speed});
  cockpit.userData.wheel.rotation.z=-(drive.steering||0)*.55;
- sun.position.set(-35,48,16-drive.z);sun.target.position.set(0,0,-drive.z-23);sun.target.updateMatrixWorld();
- marker.visible=!!drive.detected;if(world.index===0)marker.position.set(-3.7,1.25,-83.1);else if(world.index===1)marker.position.set(x,1,-drive.scene.hazard+.3);else marker.position.set(3.6,2,-88);marker.scale.setScalar(world.index===1?.55:1);marker.quaternion.copy(camera.quaternion);world.scene.updateMatrixWorld(true);
+ sun.position.set(-35,48,16-drive.z);sun.target.position.set(0,0,-drive.z-23);
+ marker.visible=!!drive.detected;if(world.index===0)marker.position.set(-3.7,1.25,-83.1);else if(world.index===1)marker.position.set(x,1,-drive.scene.hazard+.3);else marker.position.set(3.6,2,-88);marker.scale.setScalar(world.index===1?.55:1);marker.quaternion.copy(camera.quaternion);
+ // WebGLRenderer updates the scene once, after all actors have their final pose.
 }
 
 export function createIntegratedWorld(){
@@ -307,7 +312,7 @@ export function createIntegratedWorld(){
  for(const side of [-1,1]){box(additions,side*4.2,.135,-154,1.25,.035,1.8,'#d9bf70');cyl(additions,side*4.8,1.7,-151.2,.045,.045,3.4,'#a9b5b0');box(additions,side*4.8,3,-151.2,.72,.65,.06,'#557fa2');label(additions,side*4.8,3,-151.15,.66,.5,'横断歩道','#557fa2','#fff8e8');}
  box(additions,0,-.035,-220,100,.08,8,'#626f70');box(additions,-1.72,.02,-213,3.1,.025,.4,'#f2eddf');
  const corner=new THREE.Group();corner.name='arcade-corner';box(corner,6,2.25,-211.8,4.8,4.5,7.6,'#d9d2c1');box(corner,6,4.55,-211.8,5,.15,7.8,'#8d9b94');for(let z=-214;z<=-209;z+=2)box(corner,3.57,2.8,z,.04,1.2,1.1,'#819fa7');
- const sign=new THREE.Group();stopSign(sign,true);sign.position.z=-120;corner.add(sign);w.scene.add(corner);w.scene.add(compact(additions));
+ const sign=new THREE.Group();stopSign(sign,true);sign.position.z=-120;corner.add(sign);w.scene.add(freezeStatic(corner));w.scene.add(freezeStatic(compact(additions)));
  const adult=makeAdult(),bike=makeBicycle();w.scene.add(adult,bike);w.actors=[w.child,adult,bike];w.targets=[w.van,...w.actors,corner];w.occluders.push(adult,bike,corner);w.shadows=[w.actorShadow,contactShadow(w.scene,.9,1.1,true),contactShadow(w.scene,2,.9,true)];
  const sparkMaterial=new THREE.MeshBasicMaterial({color:'#ffe3a0'});w.sparks=w.actors.map(()=>{const g=new THREE.Group();for(let j=0;j<7;j++){const star=mesh(g,new THREE.OctahedronGeometry(.09,0),sparkMaterial);star.userData.angle=j*Math.PI*2/7;}w.scene.add(g);g.visible=false;return g;});return w;
 }
@@ -324,5 +329,5 @@ export function updateIntegratedWorld(w,d,options={}){
   if(i===2)poseCyclist(actor,{travel:Math.max(0,5.3-a.x),time:d.time,flight,impactSpeed:a.hit?.speed});
   const shadow=w.shadows[i];if(shadow){shadow.position.set(actor.position.x,.027,actor.position.z);shadow.visible=actor.visible&&Math.abs(actor.position.x)<3.5;shadow.material.opacity=1/(1+actor.position.y);}
   const sparks=w.sparks[i];sparks.visible=flight!==null&&flight<.6;sparks.position.set(a.hit?.x||0,1.2,-a.z);sparks.children.forEach(p=>{const t=flight||0,angle=p.userData.angle;p.position.set(Math.cos(angle)*t*3,Math.sin(angle)*t*3,t);p.scale.setScalar(Math.max(.1,1-t));});
- });w.scene.updateMatrixWorld(true);
+ });
 }
