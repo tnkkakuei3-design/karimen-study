@@ -1,3 +1,4 @@
+import {impactMotion} from './impact-motion.mjs?v=20261015-fx1';
 import {makePedestrian,posePedestrian,poseCyclist} from './pedestrian.mjs?v=20261015-perf1';
 import {pedestrianMotion,childMotion} from './pedestrian-motion.mjs?v=090';
 import * as THREE from './vendor/three.module.min.js';
@@ -290,11 +291,11 @@ export function updateWorld(world,drive,{yaw=0,still=false,reducedMotion=false}=
  const walk=drive.eventTime!==null&&!still?Math.sin(Math.max(0,drive.eventTime-.85)*8)*.42:0;
  if(world.index===2){child.userData.wheels.forEach(w=>w.rotation.z=drive.eventTime===null?0:-drive.eventTime*5);child.userData.crank.rotation.z=drive.eventTime===null?0:-drive.eventTime*5;
  child.userData.rider.userData.legs.forEach((l,i)=>{l.rotation.x=-.25+(i?1:-1)*walk*.7;l.userData.knee.rotation.x=.65+(i?1:-1)*walk*.45;});child.userData.rider.userData.arms.forEach(a=>a.userData.elbow.rotation.x=-.25);}else{child.userData.legs.forEach((l,i)=>{l.rotation.x=i?walk:-walk;l.userData.knee.rotation.x=-Math.max(0,(i?-walk:walk))*.9;});child.userData.arms.forEach((a,i)=>{a.rotation.x=i?-walk*.7:walk*.7;a.userData.elbow.rotation.x=-.15-Math.abs(walk)*.3;});}
- if(drive.impact){const t=Math.min(2.5,drive.time-drive.impact.at);child.visible=true;child.position.set(drive.impact.x+t*2.2,Math.max(0,6*t-2.8*t*t),-drive.scene.hazard-t*5);child.rotation.z=t*3.2;child.rotation.x=t*2.1;if(world.actorShadow)world.actorShadow.visible=false;}else{child.rotation.x=0;child.rotation.z=0;}
+ if(drive.impact){const f=impactMotion(drive.time-drive.impact.at,drive.impact.speed);child.visible=true;child.position.set(drive.impact.x+f.x,f.y,-(drive.impact.z??drive.scene.hazard)-f.z);child.rotation.z=f.roll;child.rotation.x=f.pitch;if(world.actorShadow)world.actorShadow.visible=false;}else{child.rotation.x=0;child.rotation.z=0;}
  if(world.index<2){const motion=world.index===0?childMotion(drive.eventTime):pedestrianMotion(drive.eventTime);const flight=drive.impact?drive.time-drive.impact.at:null;
   child.position.set(motion.x,Math.abs(motion.x)>3.6?.13:0,-drive.scene.hazard+motion.towardCar);
   posePedestrian(child,{elapsed:drive.eventTime,time:drive.time,flight,impactSpeed:drive.impact?.speed});
-  if(flight!==null){const t=Math.min(flight,2.5),power=Math.min(drive.impact.speed/35,1.4);child.position.set(drive.impact.x+t*(1+power),Math.max(0,5*t-3.4*t*t),-(drive.impact.z??drive.scene.hazard)-t*(2+power*2));}
+  if(flight!==null){const f=impactMotion(flight,drive.impact.speed);child.position.set(drive.impact.x+f.x,f.y,-(drive.impact.z??drive.scene.hazard)-f.z);}
   if(world.actorShadow){world.actorShadow.position.set(child.position.x,.027,child.position.z);world.actorShadow.visible=child.visible&&flight===null;}
  }
  if(world.index===2)poseCyclist(child,{travel:Math.max(0,5.3-drive.actorX),time:drive.time,flight:drive.impact?drive.time-drive.impact.at:null,impactSpeed:drive.impact?.speed});
@@ -319,11 +320,11 @@ export function createIntegratedWorld(){
 export function updateIntegratedWorld(w,d,options={}){
  w.index=0;updateWorld(w,{...d,scene:{hazard:88},speed:d.speed,eventTime:null,actorX:-5.05,actorClear:false,detected:null},options);w.index=3;
  d.actors.forEach((a,i)=>{const actor=w.actors[i],flight=a.hit?d.time-a.hit.at:null;actor.visible=!a.passed||flight!==null&&flight<2.5;actor.rotation.set(0,i===2?Math.PI:-Math.PI/2,0);actor.position.set(a.x,0,-a.z);
-  if(flight!==null){const t=Math.min(flight,2.5);actor.position.set(a.hit.x+t*2.2,Math.max(0,6*t-2.8*t*t),-a.z-t*5);actor.rotation.z=t*3.2;actor.rotation.x=t*2.1;}
+  if(flight!==null){const f=impactMotion(flight,a.hit.speed);actor.position.set(a.hit.x+f.x,f.y,-(a.hit.z??a.z)-f.z);actor.rotation.z=f.roll;actor.rotation.x=f.pitch;}
   else if(i<2){const gait=a.started===null?0:Math.sin(a.elapsed*8)*.42;actor.userData.legs.forEach((l,k)=>{l.rotation.x=k?gait:-gait;l.userData.knee.rotation.x=-Math.max(0,k?-gait:gait)*.9;});actor.userData.arms.forEach((arm,k)=>arm.rotation.x=k?-gait*.7:gait*.7);}
   else {actor.userData.wheels.forEach(wh=>wh.rotation.z=-a.elapsed*5);actor.userData.crank.rotation.z=-a.elapsed*5;actor.userData.rider.userData.legs.forEach((l,k)=>{l.rotation.x=-.25+Math.sin(a.elapsed*5+k*Math.PI)*.3;l.userData.knee.rotation.x=.65;});}
   if(i<2){posePedestrian(actor,{elapsed:a.started===null?null:a.elapsed,time:d.time,flight,impactSpeed:a.hit?.speed});actor.position.z=-(a.currentZ??a.z);
-   if(flight!==null){const t=Math.min(flight,2.5),power=Math.min(a.hit.speed/35,1.4);actor.position.set(a.hit.x+t*(1+power),Math.max(0,5*t-3.4*t*t),-(a.hit.z??a.z)-t*(2+power*2));}
+   if(flight!==null){const f=impactMotion(flight,a.hit.speed);actor.position.set(a.hit.x+f.x,f.y,-(a.hit.z??a.z)-f.z);}
    else actor.position.y=Math.abs(a.x)>3.6?.13:0;
   }
   if(i===2)poseCyclist(actor,{travel:Math.max(0,5.3-a.x),time:d.time,flight,impactSpeed:a.hit?.speed});

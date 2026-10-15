@@ -1,3 +1,4 @@
+import {impactMotion} from './drive/impact-motion.mjs';
 // Exercise actual application scheduling with a deterministic 120 Hz display.
 // Rendering is stubbed: this measures submitted work, not device GPU/FPS.
 import assert from 'node:assert/strict';
@@ -25,7 +26,7 @@ class Renderer{
  hit(){return true;}
 }
 class DriveAudio{setEnabled(){}unlock(){}silence(){}impact(){}update(){audio++;}}
-Object.assign(w,{Drive,SCENES,clamp,HAZARD_REVIEWS,ArcadeDrive,Renderer,DriveAudio});
+Object.assign(w,{impactMotion,Drive,SCENES,clamp,HAZARD_REVIEWS,ArcadeDrive,Renderer,DriveAudio});
 const ctx=dom.getInternalVMContext(),run=code=>vm.runInContext(code,ctx);
 run(fs.readFileSync('drive/app.mjs','utf8').replace(/^import .*;\n/gm,''));
 await new Promise(resolve=>setTimeout(resolve,0));

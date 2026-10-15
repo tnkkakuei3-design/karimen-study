@@ -1,7 +1,8 @@
+import {impactMotion} from './impact-motion.mjs?v=20261015-fx1';
 import {SCENES,Drive,clamp,HAZARD_REVIEWS} from './engine.mjs?v=20261015-review1';
 import {Renderer} from './renderer.mjs?v=20261015-cockpit1';
-import {ArcadeDrive} from './arcade.mjs?v=20261015-cockpit1';
-import {DriveAudio} from './audio.mjs?v=090';
+import {ArcadeDrive} from './arcade.mjs?v=20261015-fx1';
+import {DriveAudio} from './audio.mjs?v=20261015-fx1';
 const drivingAudio=new DriveAudio();let seenEvents=0;
 const $=id=>document.getElementById(id),icon=id=>`<svg aria-hidden="true"><use href="#i-${id}"/></svg>`;
 const STORAGE='dondora-hazard-drive-v1';
@@ -16,7 +17,7 @@ let three=null,threePromise=null,threeError=false,threeEnabled=true,lightQuality
 function using3D(){return !!(drive&&three&&!three.failed&&threeEnabled&&!threeError);}
 function refresh3DUI(){$('view-toolbar').hidden=false;$('road3d').hidden=!using3D();$('road').hidden=using3D();$('view-controls').hidden=!(using3D()&&!drive?.arcade&&drive?.phase==='running');$('compare-view').disabled=threeError||!three;$('quality').disabled=!three||threeError||!threeEnabled;$('compare-view').setAttribute('aria-pressed',String(threeEnabled&&!threeError));$('compare-view').textContent=threeEnabled&&!threeError?'3D表示':'2D表示';$('render-label').textContent=threeError?'3Dを利用できないため、2Dで表示':three?(threeEnabled?'3D表示。ドラッグで左右を見られます。':'2Dで表示しています。'):'3Dを準備しています…';renderer.invalidateSize();three?.invalidateSize();requestFrame();}
 function fallback3D(){threeError=true;threeEnabled=false;if(screen==='game'&&drive){pause();refresh3DUI();toast('3D描画が中断したため、2D表示に切り替えました',5);}}
-async function get3D(){if(threePromise)return threePromise;threePromise=(async()=>{try{const {Renderer3D}=await import('./renderer3d.mjs?v=20261015-cockpit1');three=new Renderer3D($('road3d'),{onContextLost:fallback3D,onResize:requestFrame});return three;}catch(error){threeError=true;console.warn('3D unavailable; using the 2D renderer.',error?.message);return null;}})();return threePromise;}
+async function get3D(){if(threePromise)return threePromise;threePromise=(async()=>{try{const {Renderer3D}=await import('./renderer3d.mjs?v=20261015-fx1');three=new Renderer3D($('road3d'),{onContextLost:fallback3D,onResize:requestFrame});return three;}catch(error){threeError=true;console.warn('3D unavailable; using the 2D renderer.',error?.message);return null;}})();return threePromise;}
 function previewDrive(index){const d=new Drive(index);d.z=d.scene.hazard-25;d.eventTime=2.5;d.actorX=index===2?1.8:-2.8;return d;}
 function fill3DPreviews(){if(!preview3d)return;for(let i=0;i<SCENES.length;i++){const thumb=$('thumb-'+i);if(!thumb||!preview3d.thumbs[i])continue;thumb.hidden=true;let img=thumb.parentNode.querySelector('img');if(!img){img=document.createElement('img');img.alt='';thumb.parentNode.prepend(img);}if(img.src!==preview3d.thumbs[i])img.src=preview3d.thumbs[i];}}
 let previewLoading=false;
@@ -175,9 +176,9 @@ window.addEventListener('resize',()=>{
  },120);
 });
 function renderRoad(d,options={}){
- if(!d.arcade){renderer.render(d,options);if(d.impact){const t=d.time-d.impact.at,c=renderer.ctx,w=renderer.w,h=renderer.h;c.save();c.translate(w*.5+t*w*.12,h*.5-Math.sin(Math.min(t,2.2)/2.2*Math.PI)*h*.33);c.rotate(t*3);c.fillStyle='#e9b452';c.beginPath();c.arc(0,-14,7,0,Math.PI*2);c.fill();c.fillRect(-7,-7,14,24);c.fillStyle='#334c65';c.fillRect(-8,17,6,16);c.fillRect(2,17,6,16);c.restore();}return;}
+ if(!d.arcade){renderer.render(d,options);if(d.impact){const t=d.time-d.impact.at,c=renderer.ctx,w=renderer.w,h=renderer.h;c.save();const f=impactMotion(t,d.impact.speed);c.translate(w*.5+f.x*w*.045,h*.6-f.y*h*.14);c.rotate(f.roll);c.fillStyle='#e9b452';c.beginPath();c.arc(0,-14,7,0,Math.PI*2);c.fill();c.fillRect(-7,-7,14,24);c.fillStyle='#334c65';c.fillRect(-8,17,6,16);c.fillRect(2,17,6,16);c.restore();}return;}
  const a=d.actors.find(x=>!x.passed)||d.actors[2];if(arcadePreview?.index!==a.index)arcadePreview=new Drive(a.index);const local=arcadePreview;local.phase=d.phase;local.z=d.z-a.z+local.scene.hazard;local.v=d.v;local.x=d.x;local.heading=d.heading;local.bodyPitch=d.bodyPitch;local.input=d.input;local.eventTime=a.started===null?null:a.elapsed;local.actorX=a.index===0?(a.x+3.7)/.86-5.05:a.index===1?(a.x+4.3)/.91-5.05:a.x;local.actorClear=!!a.hit;renderer.render(local,options);
- if(a.hit){const t=d.time-a.hit.at,c=renderer.ctx,w=renderer.w,h=renderer.h;if(t<2.5){c.save();c.translate(w*.5+t*w*.12,h*.5-Math.sin(Math.min(t,2.2)/2.2*Math.PI)*h*.33);c.rotate(t*3);c.fillStyle='#e9b452';c.beginPath();c.arc(0,-14,7,0,Math.PI*2);c.fill();c.fillRect(-7,-7,14,24);c.fillStyle='#334c65';c.fillRect(-8,17,6,16);c.fillRect(2,17,6,16);c.restore();}}
+ if(a.hit){const t=d.time-a.hit.at,c=renderer.ctx,w=renderer.w,h=renderer.h;if(t<2.5){c.save();const f=impactMotion(t,a.hit.speed);c.translate(w*.5+f.x*w*.045,h*.6-f.y*h*.14);c.rotate(f.roll);c.fillStyle='#e9b452';c.beginPath();c.arc(0,-14,7,0,Math.PI*2);c.fill();c.fillRect(-7,-7,14,24);c.fillStyle='#334c65';c.fillRect(-8,17,6,16);c.fillRect(2,17,6,16);c.restore();}}
 }
 function showArcadeResult(){
  resultShown=true;release();controls(false);const out=drive.outcome;let best=0;try{best=Math.max(out.points,Number(localStorage.getItem('dondora-drive-arcade-best'))||0);localStorage.setItem('dondora-drive-arcade-best',String(best));}catch{}
@@ -204,7 +205,7 @@ function frame(now){
  // Consume each new event once, without allocating a filtered array every frame.
  while(seenEvents<drive.events.length){
   const event=drive.events[seenEvents++];if(event.type!=='impact')continue;
-  drivingAudio.impact(event.combo||drive.combo||1);
+  drivingAudio.impact(event.combo||drive.combo||1,event.speed??drive.impact?.speed??24);
   if(drive.arcade){$('impact-count').textContent=drive.combo===1?'HIT':`×${drive.combo}`;$('impact-points').textContent=`+${100*drive.combo}`;const fx=$('impact-fx');fx.classList.remove('hit');void fx.offsetWidth;fx.classList.add('hit');}
   else toast('接触しました',1.5);
  }

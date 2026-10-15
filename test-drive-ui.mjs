@@ -1,3 +1,4 @@
+import {impactMotion} from './drive/impact-motion.mjs';
 // DOM integration only; Canvas/WebGL rendering is checked separately in a browser.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -15,7 +16,7 @@ for(const from of ['karimen','honmen']){
  w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
  class Renderer{constructor(canvas){assert.ok(canvas)}invalidateSize(){}render(){}hit(){return true}}
  class DriveAudio{setEnabled(){}unlock(){}silence(){}update(){}}
- Object.assign(w,{Drive,SCENES,clamp,HAZARD_REVIEWS,ArcadeDrive,Renderer,DriveAudio});
+ Object.assign(w,{impactMotion,Drive,SCENES,clamp,HAZARD_REVIEWS,ArcadeDrive,Renderer,DriveAudio});
  const ctx=dom.getInternalVMContext(),run=code=>vm.runInContext(code,ctx);
  run(source);run(fs.readFileSync(new URL('./drive/study-return.mjs',import.meta.url),'utf8'));
  await new Promise(resolve=>setTimeout(resolve,0));

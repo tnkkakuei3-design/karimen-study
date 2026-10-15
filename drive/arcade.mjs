@@ -16,7 +16,7 @@ export class ArcadeDrive {
    const actorZ=a.currentZ??a.z;
    // Swept longitudinal crossing uses the front bumper, never distance-only hits.
    if(!a.hit&&!a.passed&&this.v>.4&&oldZ+2<=actorZ+.65&&this.z+2>=actorZ-.65&&Math.abs(a.x-this.x)<(a.index===2?1.35:.95)){
-    a.hit={at:this.time,x:a.x,z:actorZ,speed:this.speed};this.combo++;this.maxCombo=Math.max(this.maxCombo,this.combo);this.hits++;this.points+=100*this.combo;this.events.push({type:'impact',time:this.time,index:a.index,combo:this.combo});
+    a.hit={at:this.time,x:a.x,z:actorZ,speed:this.speed};this.combo++;this.maxCombo=Math.max(this.maxCombo,this.combo);this.hits++;this.points+=100*this.combo;this.events.push({type:'impact',time:this.time,index:a.index,combo:this.combo,speed:this.speed});
    }
    if(!a.passed&&this.z>a.z+4){a.passed=true;if(!a.hit)this.combo=0;}
   }
