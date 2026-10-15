@@ -22,7 +22,7 @@ export function advanceFrame(drive,dt){
 export class Drive {
   constructor(index=0,guided=true){
     this.index=index;this.scene=SCENES[index];this.guided=guided;this.time=0;this.z=0;this.v=this.scene.initialSpeed/3.6;
-    this.x=-1.38;this.lane=0;this.steering=0;this.phase='ready';this.input={brake:false,gas:false};this.detected=null;this.firstBrake=null;this.events=[];
+    this.x=-1.38;this.lane=0;this.steering=0;this.phase='ready';this.input={brake:false,gas:false};this.detected=null;this.firstBrake=null;this.slowedEarly=false;this.slowedLate=false;this.waitInterrupted=false;this.waitedForCrossing=false;this.events=[];
     this.eventTime=null;this.actorX=this.scene.actor==='bike'?5.3:-5.05;this.actorClear=false;this.stopHold=0;
     this.impact=null;this.missedLine=false;this.stopped=false;this.stopDistance=null;this.checks={left:false,right:false};this.closest=Infinity;this.idle=0;this.outcome=null;
   }
@@ -43,12 +43,12 @@ export class Drive {
     if(this.phase!=='result'||!out||out.reviewAnswered||!Number.isInteger(choice)||choice<0||choice>=q.options.length)return false;
     out.reviewAnswered=true;out.reviewChoice=choice;out.reviewCorrect=choice===q.correct;
     out.detection=out.reviewCorrect?30:0;
-    out.score=Math.min(out.safe?100:59,out.detection+out.anticipation+out.stopping+out.confirmation);
-    out.rank=out.score>=90?'S':out.score>=75?'A':out.score>=60?'B':'もう一度';
+    out.score=out.detection+out.anticipation+out.stopping+out.confirmation;
+    out.rank=!out.safe?'もう一度':out.score>=90?'S':out.score>=75?'A':out.score>=60?'B':'もう一度';
     return true;
   }
   observe(side){
-    if(this.phase!=='running'||!['left','right'].includes(side)||this.checks[side]||this.scene.id!=='intersection'||!this.stopped||this.v>0.25)return false;
+    if(this.phase!=='running'||!['left','right'].includes(side)||this.checks[side]||this.scene.id!=='intersection'||!this.stopped||!this.stopZone||this.missedLine||this.v>=0.25)return false;
     this.checks[side]=true;this.events.push({type:'check',time:this.time,distance:this.distance,label:side==='left'?'左を確認':'右を確認'});return true;
   }
   step(dt){advanceFrame(this,dt);}
@@ -57,6 +57,12 @@ export class Drive {
     this.time+=dt;if(this.impact){this.v=0;if(this.time-this.impact.at>2.2)this.finish(false,'接触しました');return;}const previousZ=this.z;
     if(this.input.brake&&this.firstBrake===null&&this.cueVisible){this.firstBrake={time:this.time,distance:this.distance,speed:this.speed,beforeAppearance:this.eventTime===null||this.eventTime<0.85};this.events.push({type:'brake',time:this.time,distance:this.distance,label:'ブレーキ開始'});}
     const a=advanceVehicle(this,dt),target=this.x;
+    // Award braking only after a real speed reduction, not a momentary press.
+    if(this.firstBrake&&this.speed<=Math.max(0.9,this.firstBrake.speed-3)){
+      const early=this.eventTime===null||this.eventTime<(this.scene.actor==='adult'?1.4:0.85);
+      if(early)this.slowedEarly=true;else this.slowedLate=true;
+    }
+    if(this.stopped&&!this.actorClear&&this.v>=0.25)this.waitInterrupted=true;
     this.idle=this.v<0.1?this.idle+dt:0;
     if(this.eventTime===null&&(this.distance<=interceptDistance(this.index,target,this.v,a)||(this.stopZone&&this.v<0.25)))this.eventTime=0;
     if(this.eventTime!==null){
@@ -72,6 +78,7 @@ export class Drive {
       if(this.stopHold>=0.8&&!this.stopped){this.stopped=true;this.stopDistance=this.distance;this.events.push({type:'stop',time:this.time,distance:this.distance,label:'停止'});}
     }else this.stopHold=0;
     if(this.distance<this.scene.line)this.missedLine=true;
+    if(this.scene.id!=='intersection'&&this.stopped&&this.actorClear&&!this.waitInterrupted&&!this.missedLine&&this.v<0.25)this.waitedForCrossing=true;
     const actorWorldX=this.index===0?-3.7+Math.max(0,this.actorX+5.05)*.86:this.index===1?-4.3+Math.max(0,this.actorX+5.05)*.91:this.actorX;
     const actorZ=this.scene.hazard-(this.index===0?childMotion(this.eventTime).towardCar:this.index===1?pedestrianMotion(this.eventTime).towardCar:0);
     if(!this.actorClear&&this.v>.4&&previousZ+2<=actorZ+.65&&this.z+2>=actorZ-.65&&Math.abs(actorWorldX-this.x)<(this.index===2?1.35:.95)){this.impact={at:this.time,x:actorWorldX,z:actorZ,speed:this.speed};this.events.push({type:'impact',time:this.time,distance:this.distance,label:'接触'});this.v=0;this.release();return;}
@@ -82,10 +89,10 @@ export class Drive {
     if(this.outcome)return;
     this.phase='result';this.release();
     const detection=0;
-    const anticipation=this.firstBrake?(this.firstBrake.beforeAppearance?30:18):0;
-    const stopping=safe?30:this.stopped?15:0;
-    const confirmation=this.scene.id==='intersection'?(this.checks.left&&this.checks.right?10:0):(safe?10:0);
-    const score=Math.min(safe?100:59,detection+anticipation+stopping+confirmation);
-    this.outcome={safe,reason,score,detection,anticipation,stopping,confirmation,rank:score>=90?'S':score>=75?'A':score>=60?'B':'もう一度',events:this.events.map(e=>({...e})),seconds:this.time,stopDistance:this.stopDistance};
+    const anticipation=this.slowedEarly?30:this.slowedLate?18:0;
+    const stopping=this.stopped?30:0;
+    const confirmation=this.scene.id==='intersection'?5*(Number(this.checks.left)+Number(this.checks.right)):(this.waitedForCrossing?10:0);
+    const score=detection+anticipation+stopping+confirmation;
+    this.outcome={safe,reason,score,detection,anticipation,stopping,confirmation,rank:!safe?'もう一度':score>=90?'S':score>=75?'A':score>=60?'B':'もう一度',events:this.events.map(e=>({...e})),seconds:this.time,stopDistance:this.stopDistance};
   }
 }
