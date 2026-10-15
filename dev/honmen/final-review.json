@@ -1224,6 +1224,29 @@
       "explanation": "見える範囲や路面の状態に合わせて速度と車間距離を調整します。",
       "replacement": true,
       "preserveSourceFields": true
+    },
+    {
+      "id": "h7-094",
+      "approve": true,
+      "status": "ready",
+      "decision": "modify",
+      "reason": "同じ場面のh4-091に合わせ、第2肢に停止準備と安全確認を明記。正解は変更しない。",
+      "sourceUrls": [
+        "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+      ],
+      "checkedAt": "2026-10-15",
+      "answer": [
+        true,
+        true,
+        true
+      ],
+      "explanation": "右からの車が出てくる場合に備えます。接近を知らせても、相手の認知や譲歩を前提にしてはいけません。",
+      "statements": [
+        "右から来ている車は自車に進路をゆずるとは限らないので、いつでも止まれるように速度を落として接近する。",
+        "右から来ている車が出てくる危険を考え、必要に応じて自車の接近を知らせても、相手が気付いたと決めつけず、停止できる速度まで落として安全を確認する。",
+        "右から来ている車が自車に気付かず出てくるかもしれないので、いつでも止まれる速度で走行する。"
+      ],
+      "preserveSourceFields": true
     }
   ]
 }

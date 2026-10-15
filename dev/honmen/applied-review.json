@@ -1,5 +1,5 @@
 {
-  "version": "honmen-f58f648e581e",
+  "version": "honmen-6099de801bf7",
   "count": 760,
   "audit": [
     {
@@ -1467,7 +1467,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "56f6e0152e227ff659b3371d1b9bd2e653cc33ebeb1ffb01244ff6fa02e3b091"
+      "publicHash": "29cbbdbc30f5a753d15160efcac41a783aaf027130d59ae495db5e0eea4492b5"
     },
     {
       "id": "h2-095",
@@ -7726,9 +7726,31 @@
         "038_IMG_9757.jpeg"
       ],
       "transcribedDraft": null,
-      "review": null,
+      "review": {
+        "id": "h7-094",
+        "approve": true,
+        "status": "ready",
+        "decision": "modify",
+        "reason": "同じ場面のh4-091に合わせ、第2肢に停止準備と安全確認を明記。正解は変更しない。",
+        "sourceUrls": [
+          "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf"
+        ],
+        "checkedAt": "2026-10-15",
+        "answer": [
+          true,
+          true,
+          true
+        ],
+        "explanation": "右からの車が出てくる場合に備えます。接近を知らせても、相手の認知や譲歩を前提にしてはいけません。",
+        "statements": [
+          "右から来ている車は自車に進路をゆずるとは限らないので、いつでも止まれるように速度を落として接近する。",
+          "右から来ている車が出てくる危険を考え、必要に応じて自車の接近を知らせても、相手が気付いたと決めつけず、停止できる速度まで落として安全を確認する。",
+          "右から来ている車が自車に気付かず出てくるかもしれないので、いつでも止まれる速度で走行する。"
+        ],
+        "preserveSourceFields": true
+      },
       "terminology": null,
-      "publicHash": "6298201d8c9544196a7a82b066ad01d128bb9f61187379e7ab40e275948851bb"
+      "publicHash": "045c2a681ab3a0d0bf35e35e200a0c5ec5c3ab8867ac5cb102a583e702d05d01"
     },
     {
       "id": "h7-095",
@@ -9285,7 +9307,7 @@
           "explanation": "一般原付が駐車車両を避けて右に出ることを予測し、後方で安全に待ちます。"
         }
       },
-      "publicHash": "3ad53456d841084f1cbb8fd11068443cb2826973dbb088ba97621ec06f09d7e3"
+      "publicHash": "e7f9fcb0930e676b1131237a67601318b79e4806973371a3575f4e3948a2f26f"
     },
     {
       "id": "h8-093",
@@ -10866,7 +10888,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "bc087163c86fa09cf3cf62b48f639e67db451c425334d1f7512cb9863fa668fc"
+      "publicHash": "63d8fb75a3f50b8a0da305116cefa7667bc28dad8d2e737824b757647903aa7f"
     },
     {
       "id": "h9-095",

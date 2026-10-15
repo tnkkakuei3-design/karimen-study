@@ -17,7 +17,7 @@
         "h2-094",
         "h9-094"
       ],
-      "sha256": "af10ce995061cf6aa3f7cdec7e974f88ef467fef1900541f8d84008967d3d7b0"
+      "sha256": "233a6def984763017dda30c903714240a27f67341658d0e38b37bc81d56c7270"
     },
     {
       "key": "snow-ruts",
@@ -136,7 +136,7 @@
       "questionIds": [
         "h8-092"
       ],
-      "sha256": "d71781ff2a8f1dbe6e672456b3be547a8d4f97e90d2666dbe6b7875c0cfbcc0e"
+      "sha256": "74c2108cd42003c1b1447e46855668fd27b4bffbc45dd076658c731b90e03db0"
     },
     {
       "key": "left-turn-cycle",
