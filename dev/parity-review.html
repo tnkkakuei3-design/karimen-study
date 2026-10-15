@@ -27,11 +27,14 @@ function fixture(c){
  else if(['notes','note-open'].includes(c.screen)){navigate('learn');learnSection='notes';renderLearn();if(c.screen==='note-open'){const n=document.querySelector('#learn-notes details.note');n.open=true;populateNote(n);}}
  else navigate(c.screen);
  }
+ // Force fixture images to load before measuring, including below-the-fold lazy thumbnails.
+ [...document.images].forEach(i=>i.loading='eager');
+ await document.fonts.ready;
  await Promise.race([Promise.all([...document.images].map(i=>i.decode().catch(()=>{}))),new Promise(r=>setTimeout(r,5000))]);
  requestAnimationFrame(()=>requestAnimationFrame(()=>{
  const activeDialog=document.querySelector('dialog[open]'),root=activeDialog||document;
  const visible=e=>!!(e.getBoundingClientRect().width&&e.getBoundingClientRect().height)&&getComputedStyle(e).visibility!=='hidden'&&!e.closest('[hidden]');
- const style={};for(const sel of ['.page-heading h2','.recommend','.category-card','.question','.learning-points','.point-main','.point-detail','.answer-result-title','.score','.result-achievement','.achievement-copy h3','.review-now-card','.note','.settings-group h3']){const e=[...root.querySelectorAll(sel)].find(visible);if(e){const s=getComputedStyle(e);style[sel]=Object.fromEntries(['fontSize','fontWeight','lineHeight','borderRadius','paddingTop','paddingRight','paddingBottom','paddingLeft','color','backgroundColor'].map(k=>[k,s[k]]));}}
+ const style={};for(const sel of ['.page-heading h2','.recommend','.category-card','.question','.learning-points','.point-main','.point-detail','.answer-result-title','.score','.result-achievement','.achievement-copy h3','.review-now-card','.note','.settings-group h3']){const e=[...root.querySelectorAll(sel)].find(visible);if(e){const s=getComputedStyle(e);style[sel]=Object.fromEntries(['fontFamily','fontSize','fontWeight','letterSpacing','lineHeight','borderRadius','paddingTop','paddingRight','paddingBottom','paddingLeft','color','backgroundColor'].map(k=>[k,s[k]]));}}
  const overflow=[...root.querySelectorAll('h1,h2,h3,p,button,section,article,figure')].filter(visible).filter(e=>e.getBoundingClientRect().right>innerWidth+1||e.getBoundingClientRect().left< -1).map(e=>({tag:e.tagName,cls:e.className,text:e.textContent.trim().slice(0,40)}));
  const small=[...root.querySelectorAll('button,input,select,summary,a')].filter(visible).map(e=>e.matches('input[type=checkbox]')&&e.closest('label')?e.closest('label'):e).filter(e=>{const r=e.getBoundingClientRect();return r.width<44||r.height<44}).map(e=>({tag:e.tagName,text:e.textContent.trim().slice(0,40),width:e.getBoundingClientRect().width,height:e.getBoundingClientRect().height}));
  post({ok:true,documentWidth:document.documentElement.scrollWidth,overflow,small,images:[...root.querySelectorAll('img')].filter(visible).filter(e=>!e.complete||!e.naturalWidth).map(e=>e.getAttribute('src')),style});

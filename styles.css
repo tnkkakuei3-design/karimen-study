@@ -980,3 +980,6 @@ h2,h3{font-weight:700}
 /* Align navigation marks without changing subject pictograms. */
 .card-chevron,.set-card .chevron{align-items:center;justify-content:center}
 .btn>.icon,.textbtn>.icon,.flag-btn>.icon,.bottom-tabs button>.icon{display:block}
+
+/* Keep informational footer links usable at the same touch target size. */
+.footer a{display:inline-flex;align-items:center;min-height:44px}
