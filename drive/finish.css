@@ -57,3 +57,7 @@ dialog{padding:24px;border-radius:12px;max-height:calc(100dvh - 32px);overflow:a
 @media(max-height:600px) and (orientation:landscape){
  .in-game .shell{max-width:none;padding-inline:14px}.in-game #game{display:grid;grid-template-columns:minmax(0,1fr) 200px;column-gap:14px;grid-template-rows:auto auto auto 1fr}.game-heading{grid-column:1/-1;margin:4px 0;min-height:48px}.drive-stage,.drive-stage:has(#road3d:not([hidden])){grid-column:1;grid-row:2/5;height:calc(100svh - 66px);min-height:240px}.instruction{grid-column:2;grid-row:2;margin:0 0 6px}.instruction>svg{display:none}.steering-controls{grid-column:2;grid-row:3;gap:6px}.steering-controls>span{display:none}.pedals{grid-column:2;grid-row:4;position:static;display:grid;grid-template-columns:1fr;gap:8px;padding-bottom:12px;pointer-events:auto}.pedal{width:100%;min-height:58px;opacity:1;padding:8px}.pedal:last-child{justify-self:stretch}.pedal strong{font-size:15px}.pedal small{font-size:11px}.keyboard-tip{display:none}.overlay-card{padding:14px 20px}.overlay-card h2{font-size:19px}.start-tip{padding:6px 0;margin-bottom:6px}.start-tip .guide-mascot{height:40px;width:30px}
 }
+
+/* A taller silhouette keeps the new driving guide readable at the same width. */
+.home-mascot-motedora{height:96px}
+@media(max-width:700px){.home-mascot-motedora{height:80px}}

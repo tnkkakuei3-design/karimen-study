@@ -225,5 +225,19 @@
     "recommended_number": 7,
     "rights": "公式サイト掲載画像。再利用許諾・フリー素材の明示は未確認。",
     "retrieved_date_jst": "2026-10-12"
+  },
+  {
+    "id": "motedora01",
+    "name": "モテドラ師",
+    "alt": "モテドラ師",
+    "src": "https://dondondrive.jp/wp/wp-content/themes/dondora/assets/img/friends/motedora01.png",
+    "pages": [
+      "https://dondondrive.jp/friends/"
+    ],
+    "file": "assets/characters/motedora01.png",
+    "width": 310,
+    "height": 440,
+    "adopted_usage": "運転体験トップの案内役",
+    "retrieved_date_jst": "2026-10-15"
   }
 ]
