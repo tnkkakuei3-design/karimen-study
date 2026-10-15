@@ -1,5 +1,5 @@
 import {impactMotion} from './impact-motion.mjs?v=20261015-fx1';
-import {SCENES,Drive,clamp,HAZARD_REVIEWS} from './engine.mjs?v=20261015-score4';
+import {SCENES,Drive,clamp,HAZARD_REVIEWS} from './engine.mjs?v=20261015-restart1';
 import {Renderer} from './renderer.mjs?v=20261015-characters1';
 import {ArcadeDrive,visibleCrowd} from './arcade.mjs?v=20261015-crowd1';
 import {DriveAudio} from './audio.mjs?v=20261015-fx1';
@@ -81,12 +81,14 @@ setText('speed',Math.round(drive.speed));setProgress(drive.z/drive.scene.hazard)
  if(drive.v<.25)status=stopped?'停止しています':'止まっています';
  if(inter&&drive.cueVisible&&!drive.stopped)status=`停止線まで ${Math.max(0,Math.round(drive.distance-drive.scene.line))} m`;
  if(stopped)status=inter&&(!drive.checks.left||!drive.checks.right)?'左右の安全を確認しよう':drive.actorClear?'安全を確認できました':'横断が終わるまで待とう';
+ if(drive.v<.25&&drive.eventTime===null)status='周囲を確認して、ゆっくり進もう';
  setText('drive-status',status);
  setHidden('look-controls',!(inter&&stopped&&!using3D()));setHidden('view-controls',!(using3D()&&drive.phase==='running'));
  let text='周囲を見ながら、余裕を持って減速しよう。';
  if(drive.guided&&drive.cueVisible&&!drive.detected)text=drive.scene.clue;
  if(drive.v<.25&&drive.idle>2&&!drive.stopZone)text=inter&&drive.cueVisible?'停止線の手前まで、ゆっくり進もう。':'アクセルを長押しして、ゆっくり前へ。';
  if(stopped)text=inter&&(!drive.checks.left||!drive.checks.right)?'停止できました。「左を見る」「右を見る」で確認。':'止まれました。そのまま、横断が終わるまで待とう。';
+ if(drive.v<.25&&drive.eventTime===null&&drive.idle>1)text=inter?'停止線の手前まで、周囲を確認しながらゆっくり進もう。':'まだ手前です。周囲を確認し、いつでも止まれる速さで近づこう。';
  setText('instruction',text);
  if(drive.guided&&drive.cueVisible&&!hintShown){hintShown=true;toast('周りに、危険の手がかりが見えてきました',3);}
 }

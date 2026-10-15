@@ -92,9 +92,20 @@ export class Drive {
       const early=this.eventTime===null||this.eventTime<(this.scene.actor==='adult'?1.4:0.85);
       if(early)this.slowedEarly=true;else this.slowedLate=true;
     }
-    if(this.stopped&&!this.actorClear&&this.v>=0.25)this.waitInterrupted=true;
+    // A distant preparatory stop is not the crossing wait. Re-arm the final stop on restart.
+    if(this.eventTime===null&&this.v>=.25&&this.stopped){
+      this.stopped=false;this.stopHold=0;this.stopDistance=null;this.checks={left:false,right:false};
+    }
+    if(this.eventTime!==null&&this.stopped&&!this.actorClear&&this.v>=0.25)this.waitInterrupted=true;
     this.idle=this.v<0.1?this.idle+dt:0;
-    if(this.eventTime===null&&(this.distance<=interceptDistance(this.index,target,this.v,a)||(this.stopZone&&this.v<0.25)))this.eventTime=0;
+    // At low speed, leave eight metres before the required stopping position.
+    // Far-away stops do not start the crossing; waiting near the line always does.
+    const approachDistance=Math.max(this.scene.line+8,interceptDistance(this.index,target,this.v,a));
+    const waitingNearLine=this.stopZone&&this.distance<=this.scene.line+5&&this.v<.25;
+    if(this.eventTime===null&&((this.v>=.25&&this.distance<=approachDistance)||waitingNearLine)){
+      this.eventTime=0;
+      this.events.push({type:'crossing',time:this.time,distance:this.distance,label:'横断開始'});
+    }
     if(this.eventTime!==null){
       this.eventTime+=dt;
       const elapsed=Math.max(0,this.eventTime-(this.scene.actor==='adult'?1.4:0.85));

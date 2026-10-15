@@ -1,9 +1,11 @@
 import assert from 'node:assert/strict';
 import {Drive,gradeDriving,crossingEnd,HAZARD_REVIEWS} from './drive/engine.mjs';
 function run(index,brakeAt,dt=1/120){
- const d=new Drive(index);d.start();
+ const d=new Drive(index);d.start();let approach=false;
  for(let t=0;t<60&&d.phase==='running';t+=dt){
-  d.input.brake=d.distance<brakeAt;d.input.gas=!d.input.brake;
+  if(d.idle>2&&d.eventTime===null)approach=true;
+  if(approach){d.input.brake=d.eventTime!==null;d.input.gas=!d.input.brake&&d.v<1;}
+  else {d.input.brake=d.distance<brakeAt;d.input.gas=!d.input.brake;}
   if(d.stopped){d.observe('left');d.observe('right');}d.step(dt);
  }
  if(d.outcome){d.answerReview(HAZARD_REVIEWS[index].correct);const o=d.outcome;assert.equal(o.score,o.detection+o.anticipation+o.stopping+o.confirmation);assert.ok(o.score>=0&&o.score<=100);if(!o.safe)assert.equal(o.rank,'もう一度');}
