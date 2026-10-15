@@ -251,7 +251,7 @@
       storage=await HonmenStorage.open({storage:localStorage,indexedDB:window.indexedDB,validate:HonmenModel.normalize,build:version,onChange:warn});
       model=HonmenModel.create({bank,storage,contentVersion:version});
       window.HonmenApp={model,storage,get view(){return view;}};
-      $('brandmark').innerHTML=icon('road');$('settings-button').innerHTML=icon('settings');
+      $('brandmark').innerHTML=icon('road');$('settings-button').innerHTML=icon('settings')+'<span>設定</span>';
       ['mock','learn','review'].forEach((key,i)=>$('nav-'+key).innerHTML=icon(['exam','book','review'][i]));
       $('startup-status').hidden=true;$('main').inert=false;$('tabs').inert=false;$('settings-button').disabled=false;
       window.KarimenHomeInstall?.init({canPrompt:()=>false,canGuide:()=>view!=='play',hasProgress:()=>Object.keys(model.state.stats).length>0,openSettings:settings,exportRecord:()=>action({dataset:{h:'export'}})});

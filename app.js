@@ -586,7 +586,7 @@ window.addEventListener('storage', e => { if ((e.key === KarimenModel.STORE || e
 window.addEventListener('karimen-storage-status', updateChrome);
 setInterval(() => { try { progressStorage.retry?.(); } catch {} }, 10000);
 matchMedia('(prefers-color-scheme:dark)').addEventListener?.('change',theme);
-$('brandmark').innerHTML = icon('road'); $('settings-button').innerHTML = icon('settings');
+$('brandmark').innerHTML = icon('road'); $('settings-button').innerHTML = icon('settings') + '<span>設定</span>';
 $('nav-mock').innerHTML = icon('exam'); $('nav-learn').innerHTML = icon('book'); $('nav-review').innerHTML = icon('review');
 theme(); navigate('mock'); updateTimer(); setInterval(updateTimer,500);
 window.KarimenHomeInstall?.init({
