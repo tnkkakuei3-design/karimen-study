@@ -91,9 +91,9 @@ setText('speed',Math.round(drive.speed));setProgress(drive.z/drive.scene.hazard)
  if(drive.guided&&drive.cueVisible&&!hintShown){hintShown=true;toast('周りに、危険の手がかりが見えてきました',3);}
 }
 function resultCharacter(safe){
- if(!safe)return '<img class="result-mascot" src="../assets/characters/D047.png" width="310" height="460" alt="ロボット教官">';
+ if(!safe)return '<img class="result-mascot" src="../assets/characters/motedora02.png" width="310" height="440" alt="モテドラ師">';
  const points=Array.from({length:145},(_,i)=>{const t=i/144*Math.PI*2,r=44+4*Math.cos(12*t);return (60+Math.cos(t)*r).toFixed(2)+','+(60+Math.sin(t)*r).toFixed(2)}).join(' ');
- return `<img class="result-mascot result-friends" src="../assets/characters/D004.png" width="1400" height="792" alt="プーリーくんとよりともさん"><svg class="flower-stamp" viewBox="0 0 120 120" role="img" aria-label="クリア"><polygon points="${points}"/><circle cx="60" cy="60" r="33"/><text x="60" y="66" text-anchor="middle">クリア</text><path d="M44 82q16 8 32-1"/></svg>`;
+ return `<img class="result-mascot" src="../assets/characters/motedora02.png" width="310" height="440" alt="モテドラ師"><svg class="flower-stamp" viewBox="0 0 120 120" role="img" aria-label="クリア"><polygon points="${points}"/><circle cx="60" cy="60" r="33"/><text x="60" y="66" text-anchor="middle">クリア</text><path d="M44 82q16 8 32-1"/></svg>`;
 }
 function showHazardReview(){
  resultShown=true;release();controls(false);const q=HAZARD_REVIEWS[drive.index];
