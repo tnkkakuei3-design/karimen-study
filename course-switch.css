@@ -4,3 +4,5 @@
 .header-tools #settings-button{padding:0;border:0;border-radius:6px;background:transparent;color:var(--muted);font-family:inherit;line-height:normal;cursor:pointer;box-shadow:none}.header-tools #settings-button:focus-visible{outline:3px solid var(--blue);outline-offset:3px}.header-tools #settings-button:disabled{cursor:default;opacity:.45}@media(hover:hover){.header-tools #settings-button:hover:not(:disabled){color:var(--fg);background:var(--soft)}}
 
 .header-tools #settings-button svg{stroke-width:1.7}
+
+.course-caret{width:16px;height:16px;flex:none;fill:none;stroke:var(--muted);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.course-picker[open] .course-caret{transform:rotate(180deg)}

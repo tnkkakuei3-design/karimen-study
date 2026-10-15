@@ -24,7 +24,7 @@ small{font-size:13px}
 .brand h1{font-size:20px;line-height:1.35;letter-spacing:-.025em}
 .eyebrow{font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--muted)}
 #brandmark{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:#163753;color:white}
-.icon{height:23px;width:23px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+.icon{height:23px;width:23px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
 .iconbtn{display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--line);border-radius:var(--control-radius);background:var(--surface)}
 main:focus{outline:none}
 .page-heading{margin-bottom:22px}
@@ -975,3 +975,7 @@ h2,h3{font-weight:700}
 #learn .hazard-scoring{font-size:12px;color:var(--muted);line-height:1.7;margin:10px 0 0}
 #learn .hazard-preview:focus-visible{outline:3px solid var(--blue);outline-offset:5px;border-radius:4px}
 @media(max-width:360px){#learn .hazard-preview{gap:10px}#learn .hazard-preview img{width:88px;height:64px}#learn .hazard-preview strong{font-size:16px}#learn .hazard-preview small{font-size:11px}}
+
+/* Align navigation marks without changing subject pictograms. */
+.card-chevron,.set-card .chevron{align-items:center;justify-content:center}
+.btn>.icon,.textbtn>.icon,.flag-btn>.icon,.bottom-tabs button>.icon{display:block}
