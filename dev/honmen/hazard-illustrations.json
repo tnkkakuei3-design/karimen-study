@@ -1,0 +1,166 @@
+{
+  "method": "Original-reference AI illustration redraw",
+  "sourceCommit": "e6d6a198e6070f148087669a3539948e77232347",
+  "scenes": [
+    {
+      "key": "cycle-children",
+      "questionIds": [
+        "h2-093",
+        "h5-091",
+        "h9-093"
+      ],
+      "sha256": "1734eeb86c355687ccf17aded136283f3d20a44ec7f568462724cad77542e22e"
+    },
+    {
+      "key": "long-load-turn",
+      "questionIds": [
+        "h2-094",
+        "h9-094"
+      ],
+      "sha256": "af10ce995061cf6aa3f7cdec7e974f88ef467fef1900541f8d84008967d3d7b0"
+    },
+    {
+      "key": "snow-ruts",
+      "questionIds": [
+        "h2-095",
+        "h5-095",
+        "h9-095"
+      ],
+      "sha256": "70632dd85820d32580215ec5af3a3699c9f81a2f1b076ef6ec4c62f1df9aff44"
+    },
+    {
+      "key": "blind-curve",
+      "questionIds": [
+        "h3-092",
+        "h7-095",
+        "h10-092"
+      ],
+      "sha256": "2f2608324782673361c9342212593b5b298a28b61d6900158255467cccae260d"
+    },
+    {
+      "key": "children-oncoming",
+      "questionIds": [
+        "h2-092",
+        "h9-092"
+      ],
+      "sha256": "9df5a56c83741b07da9a042c6add35bfa0a4a2484111da3e9004591942401dbc"
+    },
+    {
+      "key": "highway-exit",
+      "questionIds": [
+        "h3-091",
+        "h10-091"
+      ],
+      "sha256": "732b74ce789efb9ebdfb54d69a3ed5a3c8c8e07ac60b3bb7696587e31f0bd87d"
+    },
+    {
+      "key": "turning-car-scooter",
+      "questionIds": [
+        "h3-093",
+        "h5-094",
+        "h10-093"
+      ],
+      "sha256": "84baf58efad3da84007e453c11f24fdd12e380292e93cae65073bdb6db186404"
+    },
+    {
+      "key": "cycle-pedestrian",
+      "questionIds": [
+        "h3-094",
+        "h10-094"
+      ],
+      "sha256": "427617d8acf83bbbe370be862c521293376e4b1461837cc11141f8699a335270"
+    },
+    {
+      "key": "right-side-car",
+      "questionIds": [
+        "h4-091",
+        "h7-094"
+      ],
+      "sha256": "058f108349bd42d88ccba1a23e5f610cb0cde7d4f60dd6245dee5efed320bc21"
+    },
+    {
+      "key": "truck-crosswalk",
+      "questionIds": [
+        "h4-092"
+      ],
+      "sha256": "b894a017cfdadebf4b456456876cfc2a3ff60144b5be0b8aa3ddc652a8611a93"
+    },
+    {
+      "key": "highway-merge",
+      "questionIds": [
+        "h4-093",
+        "h5-093"
+      ],
+      "sha256": "3dcae4d946bba0a1957c253a7dd44b1a871a8930507e1bf438b274ddc2f391f1"
+    },
+    {
+      "key": "tram-island",
+      "questionIds": [
+        "h4-094",
+        "h7-091"
+      ],
+      "sha256": "b637a7bedca73737fe4fc7a37d96911fb4daa7cc670d3b7bdaa33e996664d1f6"
+    },
+    {
+      "key": "mountain-dust",
+      "questionIds": [
+        "h4-095"
+      ],
+      "sha256": "13537091718530e9b1b0087a59b1196d80375b75e0df4c55c73e4abfec4942eb"
+    },
+    {
+      "key": "rain-pedestrians",
+      "questionIds": [
+        "h5-092",
+        "h8-093"
+      ],
+      "sha256": "3daf42c8ef955da5810f8e25419ba8669b1cdb355cf6e089a87e4f658e1e7828"
+    },
+    {
+      "key": "highway-hazard-lights",
+      "questionIds": [
+        "h7-092",
+        "h8-095"
+      ],
+      "sha256": "5ad2ea540740876d5f9fcfeb5980dfdde00405603e74c9009fce40c4352619a7"
+    },
+    {
+      "key": "school-bus",
+      "questionIds": [
+        "h8-091"
+      ],
+      "sha256": "fc4b4fc5d900192f878b2428040d231a9b9bfa20aecfb50f17c372b0ee41daba"
+    },
+    {
+      "key": "parked-car-scooter",
+      "questionIds": [
+        "h8-092"
+      ],
+      "sha256": "d71781ff2a8f1dbe6e672456b3be547a8d4f97e90d2666dbe6b7875c0cfbcc0e"
+    },
+    {
+      "key": "left-turn-cycle",
+      "questionIds": [
+        "h2-091",
+        "h7-093",
+        "h9-091"
+      ],
+      "sha256": "414cbb231974bf30cf81f821bb54a6b1c1189c3d196dac78198f921c9dcf3f4e"
+    },
+    {
+      "key": "wet-steel-construction",
+      "questionIds": [
+        "h8-094"
+      ],
+      "sha256": "dafe83d7a5a694488fa66d8a314e79aadedddd72ff9cac2d5dc50a7be2b46a30"
+    },
+    {
+      "key": "icy-bridge",
+      "questionIds": [
+        "h3-095",
+        "h10-095"
+      ],
+      "sha256": "0d31fd31f2578fd2d55fd64f6ed6403c2a9c938ab57c29595e7b7ff3791010af"
+    }
+  ]
+}

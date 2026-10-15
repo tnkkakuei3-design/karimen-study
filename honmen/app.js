@@ -91,7 +91,7 @@
   }
   function renderNotes() {HonmenNotes.render($('learn-notes'),{search:noteSearch,filter:noteFilter,bank});}
   function time(ms) { const seconds=Math.ceil(ms/1000);return `${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`; }
-  function image(q) { return q.image?`<button class="h-figure" data-h="figure" data-id="${q.id}" aria-label="問題の図を拡大"><img src="./${esc(q.image)}" alt="${esc(q.imageAlt||'問題の図')}" decoding="async"><small>タップして拡大</small></button>`:''; }
+  function image(q) { return q.image?`<button class="h-figure" data-h="figure" data-id="${q.id}" aria-label="問題の図を拡大"><img src="./${esc(q.image)}?v=${esc(q.imageHash||'')}" alt="${esc(q.imageAlt||'問題の図')}" decoding="async"><small>タップして拡大</small></button>`:''; }
   function source(q) {
     const review=q.editorial;
     return review?`<details><summary>原資料からの補正について</summary><p class="muted">${esc(review.reason)}</p>${(review.sourceUrls||[]).map((url,i)=>`<a class="source-link" href="${esc(url)}" target="_blank" rel="noopener">確認資料${i+1} ↗</a>`).join(' ')}</details>`:'';
@@ -188,7 +188,7 @@
     if(key==='confirm-finish'){const result=model.finish(b.dataset.slot);if(!checked(!!result))return;lastResult=result;resultFilter='wrong';close();changeView('result');return;}
     if(key==='history'){close();lastResult=model.state.attempts.find(a=>a.id===b.dataset.record);returnTab=view==='mock'?'mock':'review';resultFilter='wrong';changeView('result');return;}
     if(key==='retry'){start(lastResult.ids.filter((id,i)=>lastResult.correctness[i]!==true&&model.byId.has(id)),'study','間違い・未回答の練習');return;}
-    if(key==='figure'){const q=model.byId.get(b.dataset.id);if(!q?.image)return;$('figure-content').innerHTML=`<img src="./${esc(q.image)}" alt="${esc(q.imageAlt||'問題の図')}">`;$('figure-zoom').value='100';$('figure-content').style.width='100%';$('figure-dialog').showModal();return;}
+    if(key==='figure'){const q=model.byId.get(b.dataset.id);if(!q?.image)return;$('figure-content').innerHTML=`<img src="./${esc(q.image)}?v=${esc(q.imageHash||'')}" alt="${esc(q.imageAlt||'問題の図')}">`;$('figure-zoom').value='100';$('figure-content').style.width='100%';$('figure-dialog').showModal();return;}
     if(key==='export'){const blob=new Blob([model.export()],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='honmen-progress-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('本免の記録を書き出しました');return;}
     if(key==='import'){$('import-file').click();return;}
     if(key==='confirm-import'){if(!pendingImport)return;if(!checked(model.import(pendingImport)))return;pendingImport=null;await storage.flush();applySettings();close();changeView('review');toast('本免の記録を読み込みました');return;}

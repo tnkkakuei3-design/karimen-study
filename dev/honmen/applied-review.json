@@ -1,5 +1,5 @@
 {
-  "version": "honmen-c405b2c237d8",
+  "version": "honmen-f58f648e581e",
   "count": 760,
   "audit": [
     {
@@ -1400,7 +1400,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "2ed71f3c9221ff53f3e3660bc21ab0914abd70c2dec308efbc42a6a863322bb8"
+      "publicHash": "11a4cf77579bba571ae0cace86dc2213d618b4bd3fcb6442221b3eab2575d948"
     },
     {
       "id": "h2-092",
@@ -1422,7 +1422,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "988f271c9d6a4768fa61e2f14825c164cb626f34956c20f6627b3382bcbe4e7b"
+      "publicHash": "fc12343fcc902036323338c4637175138ff0419da56b026b2ab102bb0a3c6476"
     },
     {
       "id": "h2-093",
@@ -1445,7 +1445,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "28cf3eeb056551a61f1a629b9801c85a37ef639e7345241b15aa658538cc7545"
+      "publicHash": "26f90b4bd9c5234e16d13c4e0af4bf4c4f34b3ac513cdcc079f642e27f749d61"
     },
     {
       "id": "h2-094",
@@ -1467,7 +1467,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "e2d1c8ec2c69a2bf60f8ecbc5ae3a92ab4b29d1fd1efe3215ef90838cfcb9992"
+      "publicHash": "56f6e0152e227ff659b3371d1b9bd2e653cc33ebeb1ffb01244ff6fa02e3b091"
     },
     {
       "id": "h2-095",
@@ -1489,7 +1489,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "8ed9e1c2103468ac7c2d1c74dc9627f5d3378b29eb99367cdd84cdf3a69a6087"
+      "publicHash": "1f9be0008dc796c27373f8010fc7fc95ac2933914360606c6b7e9ed5d86c5406"
     },
     {
       "id": "h3-001",
@@ -2882,7 +2882,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "a3cc0d1ae66f78adafbb2bd95abc6df0c4af670a0bb94b8274980ac3fdb26cae"
+      "publicHash": "ecd41be2df69a19cba0fa9c63dda17e00ba8dcb69bb390f0b9a7a1ae8ab360c8"
     },
     {
       "id": "h3-092",
@@ -2904,7 +2904,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "615e2bf95df262e15766ff634489dafcb72927fc7e8069a14eb45edbd0ffca03"
+      "publicHash": "b73aa44a7735cdaca2e0953f2a4d268016b02bd23f85ae2e51dbae9f5129b90e"
     },
     {
       "id": "h3-093",
@@ -2941,7 +2941,7 @@
           "explanation": "前車の停止や一般原付の進路変更に備えて減速します。前車や一般原付を追い越して右折してはいけません。"
         }
       },
-      "publicHash": "53e239ce51ae888edd5f52b22341c51eccbb04e5d1a2c20bde2b0f45e7b6fb51"
+      "publicHash": "dda3b9235414e4ca2d411d35f538775336875772ac4a32d692c0a156d1b6852c"
     },
     {
       "id": "h3-094",
@@ -2963,7 +2963,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "a314542c0a33a2a1bb15ac98b6c79f173606f518341f57cfbe0d47be15776a23"
+      "publicHash": "8aa1eca8619384de4ad83e0b64fbad9858b33683615befc56fdcd3946d827859"
     },
     {
       "id": "h3-095",
@@ -2986,7 +2986,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "470ecfc9e9706c351fb41806f93195758aaa45f2f4b372ebea901ff428dd23da"
+      "publicHash": "7842b4429139791aaf794874036a06a705d318b91ca6447b0333e1fb4c346fdf"
     },
     {
       "id": "h4-001",
@@ -4459,7 +4459,7 @@
         "preserveSourceFields": true
       },
       "terminology": null,
-      "publicHash": "87a19b5fa7f7f9cc12ba1eb25aae766b69aeda662309c6e4a45265bba98d2f67"
+      "publicHash": "6a97a4e1a07adccc7bfac726d1670f695f2d4e823e46180c462587ee68d94195"
     },
     {
       "id": "h4-092",
@@ -4481,7 +4481,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "f367f259c9fea0122af845dfce4ddec75b59215697d85f13b34c1f6458246016"
+      "publicHash": "8f3c0c8976f0f610b856ad810bc2d9204773e7c018fbca6370e27521b7c91a8f"
     },
     {
       "id": "h4-093",
@@ -4504,7 +4504,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "a291996df915d78e4f6340940cfbce1c5006c630251ad24375ca09262026e505"
+      "publicHash": "93ffa288634c68b076988f304b8f60ae9acad766d2ae14d95defb22eb05a94e6"
     },
     {
       "id": "h4-094",
@@ -4526,7 +4526,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "12232f92ccd64b94902b01fa1999436832e8c9fb8efc91ee1f632b332ec238fe"
+      "publicHash": "388e5df560fdcd42e2e0c2979e2e577687bdcc302433ea99b9946dbf68d0d810"
     },
     {
       "id": "h4-095",
@@ -4548,7 +4548,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "39f81a1a469e17f8e08a4efc5b2d52a5be74f0aa32815df80afb7d3241d60925"
+      "publicHash": "96e931e9f27d5cdc59f472c37523f9a2092d9988e7973363fddce25c31556214"
     },
     {
       "id": "h5-001",
@@ -6063,7 +6063,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "2dea0d360f6c1bc7552cbe9294fe4036d82c7e1536c2afa459e9cf8838d65eaa"
+      "publicHash": "39903afdcedfff5ed6f48f128994d35a66c273613d7ea79544afb7ad6140ac4f"
     },
     {
       "id": "h5-092",
@@ -6085,7 +6085,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "3a08a9754745af90219f9d16e55ad68ae1c764ac5a87b9a6458cccbd3ea01118"
+      "publicHash": "ac2b291939c19ff8b5cdb0b95f2150ccf13344f9e12b8fb98650389ac02ed861"
     },
     {
       "id": "h5-093",
@@ -6107,7 +6107,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "ecfeda72af55ce366ed0528e8b86db057530323bb727a8bc3bd1a363d5956fe4"
+      "publicHash": "fa981f9e8c279eb1eea52107ee3059cce1f84414c9098ed1ba4e9cb9b4e82190"
     },
     {
       "id": "h5-094",
@@ -6144,7 +6144,7 @@
           "explanation": "前車が歩行者のため停止することや、一般原付が右へ出ることを予測して減速します。"
         }
       },
-      "publicHash": "1ed934da54ddb420992324c48eeefd17adeba7abfe1b087360d12c8205be27b9"
+      "publicHash": "74dd82f2aef8f748d81fc7bb7b934e4509d19a5fd5540d50ca66ad603aa3c3eb"
     },
     {
       "id": "h5-095",
@@ -6166,7 +6166,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "1f3c233ecc99d8a7977f3e94b234c5cb35d22d73f0808ecfa6a62b0b6d67f79c"
+      "publicHash": "7e3f4d324bacccc10cfa43c654e2d4d44e1c235a41696183fa7e6d9baaad8c2e"
     },
     {
       "id": "h7-001",
@@ -7662,7 +7662,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "9befa3aa43cc0458c7863ed191ec433b4bb79226f1f929915f140571af6594c3"
+      "publicHash": "d8ed0036d67fac0c48f5e496d81ef6c8a2fad811facbbf93144cc650d273bd21"
     },
     {
       "id": "h7-092",
@@ -7684,7 +7684,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "937f786ed6e93dc1b8b7b2cc27d65974318f5c84c5abd43fca8ac28067764a44"
+      "publicHash": "8942665874d1c163b7c8271761d01d858121691ef92928fb299ae9335eebf044"
     },
     {
       "id": "h7-093",
@@ -7706,7 +7706,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "93fa7b98f7f363754f24ec87a136e667883d05de55b8ed2b64c08226036b0288"
+      "publicHash": "d908d5f5ae4cf514b75f46764d653b2b07d9cf62950551f02c627040b0e5353f"
     },
     {
       "id": "h7-094",
@@ -7728,7 +7728,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "8380d42fe0bb0bcfc1620c4df9de0beda6d6004b076edaf32b54211d3f554a24"
+      "publicHash": "6298201d8c9544196a7a82b066ad01d128bb9f61187379e7ab40e275948851bb"
     },
     {
       "id": "h7-095",
@@ -7750,7 +7750,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "5044c23160a788e767feed9d54f96fa3683f629afc7c73e0179d39b341c8df7b"
+      "publicHash": "25266aa703defeaf535af616aceaf77d3863568beef120dc14f367da923087e2"
     },
     {
       "id": "h8-001",
@@ -9248,7 +9248,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "a53e18e7a14b66d0c2caa2b351f7c4da3f11c99565e79f478941c8b585e4a0bb"
+      "publicHash": "c361741cc7f6c817358e125134afe5f0c8dc3cd6907af8c6181500fbeba37d5a"
     },
     {
       "id": "h8-092",
@@ -9285,7 +9285,7 @@
           "explanation": "一般原付が駐車車両を避けて右に出ることを予測し、後方で安全に待ちます。"
         }
       },
-      "publicHash": "1b7e0296b8e0e5ea349960bbc1cb1401fdc30f566bbe842979cd91b5b58263b6"
+      "publicHash": "3ad53456d841084f1cbb8fd11068443cb2826973dbb088ba97621ec06f09d7e3"
     },
     {
       "id": "h8-093",
@@ -9308,7 +9308,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "51ae1e173ddd01d8837862f0150f5c22ad6173aa21e6af0bedc6c781c89faa84"
+      "publicHash": "2b10495002f02492da401ee15083c4060422e2311753b010b445a7cc246ee705"
     },
     {
       "id": "h8-094",
@@ -9330,7 +9330,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "f67714d5ce33d391d9e47552666c246b81770611405882068915a87cdc05f7f1"
+      "publicHash": "a6dd733ca43ca69419c0e2afbe5dac019d831d4aa533cbd52cd4a6a17b5fb3ab"
     },
     {
       "id": "h8-095",
@@ -9352,7 +9352,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "3636feb0ae135f4be0694b62da3827d142fcde0b3f6b52cc35ccd54831e4aaa1"
+      "publicHash": "5f797eb62e9c92ac7190c35bad6703d0b53549190e90ba441b368bfd80649d2c"
     },
     {
       "id": "h9-001",
@@ -10799,7 +10799,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "b5afb99ecb862cc446dac5562320795cccdfc571c86c6d1db3b0cf56f6f6f8f2"
+      "publicHash": "2556ebd7afe96aa7f477e9cab50dc6d57e20b21e51a9b0013dc1994ae9fa99df"
     },
     {
       "id": "h9-092",
@@ -10822,7 +10822,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "403163cd65a2742ba027f3e5984ad1a1bed0b217662cb01a955118e56713184e"
+      "publicHash": "a5ccebc8983aaf4282e2dbb635e0a48f89f572919e0ef03ad57ab40e80457d87"
     },
     {
       "id": "h9-093",
@@ -10844,7 +10844,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "edfbe241bbccf3fa65bec6c47f77e49b3abd06f3cd5a64f47d7c7eda5980e5a6"
+      "publicHash": "8110033cabaa8f26a5d6b236481b604f71d36bc5d461968ce1a0b55aa41ecf0a"
     },
     {
       "id": "h9-094",
@@ -10866,7 +10866,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "922f1b665dcf929f73acc55df080112547e48ece04b6b5f44fe8cef3afd749e7"
+      "publicHash": "bc087163c86fa09cf3cf62b48f639e67db451c425334d1f7512cb9863fa668fc"
     },
     {
       "id": "h9-095",
@@ -10888,7 +10888,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "b6cacc3362e1217f223632c55f656e0368c3d441d7605f1bcbde9973628ded9e"
+      "publicHash": "9d15c13f009301f414704b0349d8e98ff91f904a84ecc3704d4bde1cd4a3f93f"
     },
     {
       "id": "h10-001",
@@ -12422,7 +12422,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "2ae993fd7942a2eb16dd804856080336fecabe0df31332fbe073a7a880ebb3cf"
+      "publicHash": "ee4be3a3b8305922a168c5b199957e0c5fa78053db9e79f50d676023f18fd445"
     },
     {
       "id": "h10-092",
@@ -12444,7 +12444,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "db41b49057ae3d38011062b4a8f619da12ee3dea73a43dfdf74bf5c156f6e817"
+      "publicHash": "345e1e26f82c9d0f5a667e5faf78a32a833a25bf3134dab21cd58c7e8f198324"
     },
     {
       "id": "h10-093",
@@ -12481,7 +12481,7 @@
           "explanation": "前車が歩行者のため停止したり、一般原付が右へ出たりする可能性があります。減速してそれぞれの動きを確認します。"
         }
       },
-      "publicHash": "06118bd1d2dad7d9311299e3e27baa518359e6f4bfaeb12048c4c13e31bf62c1"
+      "publicHash": "12b60b162aa797f438171ce8d6933ccf4c28bf1b4adda341ecd33faf8dd36622"
     },
     {
       "id": "h10-094",
@@ -12503,7 +12503,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "a21342b7f680f8e43eca7a497670eced9cb68bae49d75ba171b71ca70da40515"
+      "publicHash": "18a88229f914930051f95e86599bf9f7b620327e393b507431d849d5bc5c4069"
     },
     {
       "id": "h10-095",
@@ -12525,7 +12525,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "bcd89b3e56cc31b2055efcbf82673a878ba9af85844619a296b52692b89a182a"
+      "publicHash": "b3821cff6687cbfc6c70f54fce67a52d06cf1cf188f674038b298e684373cb94"
     }
   ]
 }
