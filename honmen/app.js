@@ -144,7 +144,8 @@
   function image(q) { return q.image?`<figure class="question-visual"><div class="question-visual-head"><span>問題の図</span><button class="textbtn" data-h="figure" data-id="${q.id}" aria-label="問題の図を拡大">拡大 ↗</button></div><div class="sourced-pictures single"><img src="./${esc(q.image)}?v=${esc(q.imageHash||'')}" alt="${esc(q.imageAlt||'問題の図')}" decoding="async"></div></figure>`:''; }
   function source(q) {
     const review=q.editorial;
-    return (review?`<details><summary>原資料からの補正について</summary><p class="muted">${esc(review.reason)}</p>${(review.sourceUrls||[]).map((url,i)=>`<a class="source-link" href="${esc(url)}" target="_blank" rel="noopener">確認資料${i+1} ↗</a>`).join(' ')}</details>`:'');
+    const imageCredit=q.imageSources?.length?`<details><summary>画像の出典</summary>${q.imageSources.map(s=>`<a class="source-link" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.publisher)} ↗</a>`).join('<br>')}</details>`:'';
+    return imageCredit+(review?`<details><summary>原資料からの補正について</summary><p class="muted">${esc(review.reason)}</p>${(review.sourceUrls||[]).map((url,i)=>`<a class="source-link" href="${esc(url)}" target="_blank" rel="noopener">確認資料${i+1} ↗</a>`).join(' ')}</details>`:'');
   }
   function answerLines(keys,answers) { return keys.map((v,i)=>`<div class="h-answer-line"><b>${keys.length===3?['①','②','③'][i]:''} 正解 ${mark(v)}</b><span>あなたの回答 ${mark(answers[i])}</span></div>`).join(''); }
   function feedback(q,keys,answers,uncertain=false) {

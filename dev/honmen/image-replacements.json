@@ -1,0 +1,2386 @@
+{
+  "items": {
+    "h10-007": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "reused_asset": "image-b0038f725f5c.png"
+        }
+      ],
+      "condition": "車両横断禁止、転回禁止と区別",
+      "oldHash": "4b688ea40e5d0e017f0d4e163e8fc7636c5ce12553775449cf9ce8530bf818b6",
+      "newHash": "c93f07d95e66c90d7476e9ed193a732fc1ddfee9d6a0e5c5878d898fda93b361"
+    },
+    "h9-004": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "reused_asset": "image-b0038f725f5c.png"
+        }
+      ],
+      "condition": "車両横断禁止、転回禁止と区別",
+      "oldHash": "3bc8a3adb0d585319ea267f3043bc2028e88c3b3e73aeb7a2f0b44a244c50c69",
+      "newHash": "c93f07d95e66c90d7476e9ed193a732fc1ddfee9d6a0e5c5878d898fda93b361"
+    },
+    "h10-016": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "reused_asset": "image-31d37e41c233.png"
+        }
+      ],
+      "condition": "優先道路の太い縦線",
+      "oldHash": "ff01e342e425e1b9836af7c056ebc8a91e1d1e555839bb145255ed50bc9cf89a",
+      "newHash": "3fbbbcaf1aecfc8c53b998c2dcd86a278bd2248f6920958b276598c287dd641c"
+    },
+    "h10-022": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            559,
+            591.7,
+            597,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "自動車専用",
+      "oldHash": "740f69b1be7ca3945aef35376a0a62185112780bbb9a803b13960b2130edda0d",
+      "newHash": "7081f9ba47116d6f375ce3a6a655ba4a245cfea5c51293a074ade39e2851e37f"
+    },
+    "h4-011": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            559,
+            591.7,
+            597,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "自動車専用",
+      "oldHash": "cdd7236e8cdb6a2f4d33a54d3764b9ad9b27916af5b8bc60dbb99f08133c7ca4",
+      "newHash": "7081f9ba47116d6f375ce3a6a655ba4a245cfea5c51293a074ade39e2851e37f"
+    },
+    "h10-051": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            265.5,
+            591.7,
+            303.5,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "危険物積載車両通行止め",
+      "oldHash": "aaf69a61b8e5f935c1b38e527efd9b2b0ee0341c73c45bc0b1c48d55847525aa",
+      "newHash": "78cfb654df3d3438b316b45c2294f91958e1cad9463459acb14fce64bc6864f5"
+    },
+    "h9-019": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            265.5,
+            591.7,
+            303.5,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "危険物積載車両通行止め",
+      "oldHash": "8ad9af97723c7d782ead1ed5d2cf93aba1e637290af47d2ba1600643bc7ae151",
+      "newHash": "78cfb654df3d3438b316b45c2294f91958e1cad9463459acb14fce64bc6864f5"
+    },
+    "h10-090": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            265.5,
+            766,
+            303.5,
+            804
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "警笛鳴らせ、区間補助標識なし",
+      "oldHash": "d97a3f50910050309d892216def3c8ff3fcdcf3048054fa1d8188c66d0cf646c",
+      "newHash": "4705f7dc16c2c32b94222770362e9dd58996f6ec8dba624eeef704b38c056f9c"
+    },
+    "h2-025": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            753,
+            649,
+            796,
+            688
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "専用の文字・バス・通行帯を示す下矢印",
+      "oldHash": "635c170fe69f237f3d3417ed9cc6e91bce46e160527313c9b039e5c31b34ac8a",
+      "newHash": "5cf1fe45ecf4d285ef14aca0135ab91604df521f0657027c6a9fa3f82d9f1223"
+    },
+    "h4-024": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            753,
+            649,
+            796,
+            688
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "専用の文字・バス・通行帯を示す下矢印",
+      "oldHash": "bd61ad93b18e81edeae934ce10e16d040ff4b6b1e94754ec915a2ab38f87b31a",
+      "newHash": "5cf1fe45ecf4d285ef14aca0135ab91604df521f0657027c6a9fa3f82d9f1223"
+    },
+    "h2-021": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            706,
+            591.7,
+            744,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "歩行者等専用、横断歩道と区別",
+      "oldHash": "da6c00b7c11b84700fae7c0c8386a4317016f936d2c986ab396c2ceef99fee59",
+      "newHash": "3e33a2500160053ea821da188cd4be0e28ab5bc33835f23097d6982e648fe93e"
+    },
+    "h3-024": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            263,
+            707,
+            306,
+            746
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "優先の文字、専用通行帯と区別",
+      "oldHash": "a95eacabd40707d2a9a7a107c4c631f74693a90b4c51ef5d4660a15f084d1beb",
+      "newHash": "a079b40fda88f3996c8fa1b743c0eb7273b6befbbdf825f9567fb9dcdebf6fa2"
+    },
+    "h5-071": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            263,
+            707,
+            306,
+            746
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "優先の文字、専用通行帯と区別",
+      "oldHash": "f1b1c3f0ea9e625ff30ed850794b16c8b3879f8704737947dceff778b1f4dbd5",
+      "newHash": "a079b40fda88f3996c8fa1b743c0eb7273b6befbbdf825f9567fb9dcdebf6fa2"
+    },
+    "h3-010": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            608,
+            591.7,
+            646,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "特定小型原付・自転車専用",
+      "oldHash": "c088e34db7d43b580c41db3d0d27ee77679c2d2ef9867a2c6e39e565bfcc0c78",
+      "newHash": "c47d59d3d674b4e828d0b000492fafb8777bff05b7796982fc17a9c90423f5e4"
+    },
+    "h3-017": {
+      "sources": [
+        {
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 122,
+          "crop_points": [
+            457,
+            149,
+            518,
+            192
+          ],
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
+        }
+      ],
+      "condition": "白線のみ・停止禁止部分・黄色の立入り禁止部分と区別",
+      "oldHash": "766fdc3c91371050b3e0caca05b4b82fe1a5d7eb8514d3bb04fe7011800b6975",
+      "newHash": "0582a52dbc981c74e9df7d143cf58bf8e21a8f13c7c1195d16dfc65fd3fe22d9"
+    },
+    "h3-018": {
+      "sources": [
+        {
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 124,
+          "crop_points": [
+            401.7,
+            149.7,
+            441.7,
+            192.5
+          ],
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
+        }
+      ],
+      "condition": "安全地帯の黄白二重枠、斜線なし",
+      "oldHash": "9480d88d9dad5e46366e1076a9bf10eab78c1351abb350950e1109de19ca43ff",
+      "newHash": "d8c3dbf38cd2021767f73307e7149f4001553a60661558edf9e748742fb76f5d"
+    },
+    "h3-037": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            133.33333333333334,
+            592.5,
+            168.33333333333334,
+            629.1666666666667
+          ]
+        }
+      ],
+      "condition": "学校、幼稚園、保育所等あり・黄色の菱形",
+      "oldHash": "3261e380eda048944e6a882cb066d520a9b875ac04ec3507c44d7b93c4c8e58c",
+      "newHash": "015e911b1d03df09e1f5892e925f2aa5e72fc770a36cbc90613950ca12dfe83a",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h7-029": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            133.33333333333334,
+            592.5,
+            168.33333333333334,
+            629.1666666666667
+          ]
+        }
+      ],
+      "condition": "学校、幼稚園、保育所等あり・黄色の菱形",
+      "oldHash": "6a49ff974c441b6e177c8886ddcc2a9540152a481a98cb21f8c4c5933429487c",
+      "newHash": "015e911b1d03df09e1f5892e925f2aa5e72fc770a36cbc90613950ca12dfe83a",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h9-008": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            133.33333333333334,
+            592.5,
+            168.33333333333334,
+            629.1666666666667
+          ]
+        }
+      ],
+      "condition": "学校、幼稚園、保育所等あり・黄色の菱形",
+      "oldHash": "6ba3235f3d505094c908f26ab2a42a4ad938dba282eb2ea0560ea4280ad24e28",
+      "newHash": "015e911b1d03df09e1f5892e925f2aa5e72fc770a36cbc90613950ca12dfe83a",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h4-009": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            657,
+            591.7,
+            695,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "普通自転車等及び歩行者等専用",
+      "oldHash": "f9ae791443e2dab003154004d53586ec80429d1ef176d130a289bb0e9a3c06fa",
+      "newHash": "28806b9687c8f1755913ba7f65dcf80767186cc76fc3a6ae253aa1ede3af5b46"
+    },
+    "h4-013": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "reused_asset": "image-24946ef9f8d0.png"
+        }
+      ],
+      "condition": "横断歩道・自転車横断帯の一体標識",
+      "oldHash": "64730ada1fd012af1817c2455b1b3dfa5d1993297029c00d66eb02a73f80e90d",
+      "newHash": "c5045aea9396ec1115d9a7ffbffea273d300a632b379832df8a25e3f2d8759dc"
+    },
+    "h4-019": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            892.5,
+            476,
+            932,
+            513
+          ]
+        }
+      ],
+      "condition": "軌道敷内通行可・青地に自動車と線路。普通自動車だけとの限定は誤り。",
+      "oldHash": "18397ff1a4abf78de59139af6b2efa080efd470faa4b16615955780b2b20c1d7",
+      "newHash": "fc0c89fb56fd635719cca7045934e70cb94b18cf502a145f5eb862452b554be8",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h4-033": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            461.2,
+            591.7,
+            499.2,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "最高速度50、下線なし",
+      "oldHash": "0ae4e18773aa0dbbd65e141bd1cfb9c86106abd68df26a186455dd3cb9c86186",
+      "newHash": "1baadd46532a7a229479713c32d957d24202a6fd58c362597dbf9f93070b57b8"
+    },
+    "h7-030": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            461.2,
+            591.7,
+            499.2,
+            629.7
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "最高速度50、下線なし",
+      "oldHash": "5773e1364398860272cec8803b75d17cd4d4777a62e8bbb7f0d0554e592497ea",
+      "newHash": "1baadd46532a7a229479713c32d957d24202a6fd58c362597dbf9f93070b57b8"
+    },
+    "h2-013": {
+      "sources": [
+        {
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 151,
+          "crop_points": [
+            473,
+            138,
+            527,
+            181
+          ],
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
+        }
+      ],
+      "condition": "前方優先道路の白色逆三角形2個",
+      "oldHash": "91c9e5acca16b6efa11d2ffc22d17373dbd655278dd8b9f878023ae9b4160414",
+      "newHash": "948785147fa1b3df5622ac9cffe6def4e79bfd3e91377ca07b9c0c56bcaa3a3b"
+    },
+    "h5-011": {
+      "sources": [
+        {
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 151,
+          "crop_points": [
+            473,
+            138,
+            527,
+            181
+          ],
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
+        }
+      ],
+      "condition": "前方優先道路の白色逆三角形2個",
+      "oldHash": "3272d84a47453e8f35041a8d8576fc9fd0b1a0372d8ff115039e5fe533497204",
+      "newHash": "948785147fa1b3df5622ac9cffe6def4e79bfd3e91377ca07b9c0c56bcaa3a3b"
+    },
+    "h7-018": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            363.4,
+            533.5,
+            401.4,
+            571.5
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "直進指定の円形、一方通行の長方形と区別",
+      "oldHash": "db63bf126b156ee6435d76c54efd827e55b124f4c894f545e40f76aeee680d2d",
+      "newHash": "e54437c4c5334ba1268ebd1f631f6866caef787015ce877bf062477b6ab6454a"
+    },
+    "h8-010": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            363.4,
+            533.5,
+            401.4,
+            571.5
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "直進指定の円形、一方通行の長方形と区別",
+      "oldHash": "a752a3cc4d023aa8bf075205d60722177471058b4324a7795cbe20b2bb992718",
+      "newHash": "e54437c4c5334ba1268ebd1f631f6866caef787015ce877bf062477b6ab6454a"
+    },
+    "h5-036": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            657,
+            475.3,
+            695,
+            513.3
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "特定小型原付・自転車通行止め",
+      "oldHash": "58b5ce99cbac75016c2a1a52a9d8f39f6e1c49b4f582d45110ce3ab2c9ca008b",
+      "newHash": "0434e71078fb4280487958abbfe879214e998780a1f376296a30a666e59f73fc"
+    },
+    "h5-046": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "reused_asset": "data/assets/63f56f0df360c7ea01c3.png"
+        }
+      ],
+      "condition": "小回り右折、二段階右折の矢印と区別",
+      "oldHash": "1c75ba355ba1b23ca95f3b70ec1792a8d5e065b06a80c028c538d405f45e2f7a",
+      "newHash": "f228916ee6b5175ab50ae2897d00a541a5c677fcc41cb73dc48202ade6b01c08"
+    },
+    "h8-020": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "reused_asset": "data/assets/63f56f0df360c7ea01c3.png"
+        }
+      ],
+      "condition": "小回り右折、二段階右折の矢印と区別",
+      "oldHash": "a781fffe8142be43c5172d268c01ad75022e458545e727cae396192a8f44d9e0",
+      "newHash": "f228916ee6b5175ab50ae2897d00a541a5c677fcc41cb73dc48202ade6b01c08"
+    },
+    "h5-053": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "reused_asset": "data/assets/c9a8860d3ee69b5899d7.png"
+        }
+      ],
+      "condition": "車両通行止め、進入禁止と区別",
+      "oldHash": "ed51f90b0de61654067fc7207629f3bdc7822a5d5bb1c369ee943f1ded4cfec1",
+      "newHash": "dab17122da0849f96732e8851dcc7c53511787c9efa7016093f05e0cbc487b7e"
+    },
+    "h5-078": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            90,
+            535.8333333333334,
+            126.66666666666667,
+            570
+          ]
+        }
+      ],
+      "condition": "右方屈曲あり・直角矢印",
+      "oldHash": "46dd06c3e9ef2c33b1aed829b54049bb083ceac40bab8dfd20604fea7c1b0543",
+      "newHash": "77f513a4216eddf859f27c8491c383e8996aff5a23e5ee4196199dee32ad73ca",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h8-004": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            90,
+            535.8333333333334,
+            126.66666666666667,
+            570
+          ]
+        }
+      ],
+      "condition": "右方屈曲あり・直角矢印",
+      "oldHash": "d7d6e118f26fb8b365fd70aaebbc0a1705a1978bc783bbdf253e3d10922795e5",
+      "newHash": "77f513a4216eddf859f27c8491c383e8996aff5a23e5ee4196199dee32ad73ca",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h7-028": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            608,
+            533.5,
+            646,
+            571.5
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "転回禁止、車両横断禁止と区別",
+      "oldHash": "d46705b8b8caec052e3c3085e5aa5dce31e19a05155343959885472b792ccbaa",
+      "newHash": "b439b2585dd395027a109caf59718506268c04eda13c50662de7c755e16375ea"
+    },
+    "h8-014": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            410,
+            652,
+            453,
+            688
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "一方通行、左折可と背景色を区別",
+      "oldHash": "ff1308baf3bec64b45df29a9180a9a27d075cde53fa1fd350c5501ce5f624725",
+      "newHash": "d8a814a4ca41f2cc17d88e475cf3fc63862b75f5948d11ab3914d241165db38f"
+    },
+    "h9-059": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            410,
+            652,
+            453,
+            688
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "一方通行、左折可と背景色を区別",
+      "oldHash": "cdf64b9bae0aa4f29aa11dfaf179ac85200caa8601ab0f7b55b0b9442f3aaf78",
+      "newHash": "d8a814a4ca41f2cc17d88e475cf3fc63862b75f5948d11ab3914d241165db38f"
+    },
+    "h8-036": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            45.2,
+            648.8,
+            85.2,
+            688.8
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
+        }
+      ],
+      "condition": "落石の警戒標識",
+      "oldHash": "a53e6dd8fc95c7308f20b9005bc50eea4867b73b5da2aaf455c6b3949c9cadba",
+      "newHash": "595c5250ec6058cb22860f1ca100bb40177857539b91b6609f0bff715ed2bb40"
+    },
+    "h8-025": {
+      "sources": [
+        {
+          "publisher": "Wikimedia Commons / Monaneko・Fry1989（法令標識図、Public Domain）",
+          "url": "https://commons.wikimedia.org/wiki/File:Japan_road_sign_316.svg",
+          "source_file": "commons_parking_render.png",
+          "source_sha256": "f2bac0742712079a9a043b0965e92db75ce648a7c758ea120f5b8c84bf6b7699",
+          "license": "Public Domain"
+        }
+      ],
+      "condition": "駐車禁止、斜線1本、時間制限なし",
+      "oldHash": "09583482c2fb3ad9ae8adf91f18461b3d8fc4a41e89dedfc633f0b3fec460a62",
+      "newHash": "72f90e335ac8ac6c85f0f21466a94bfff56b712f6298d254c441d29f70d63b03"
+    },
+    "h8-072": {
+      "sources": [
+        {
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "reused_asset": "data/assets/c9a8860d3ee69b5899d7.png"
+        }
+      ],
+      "condition": "車両通行止め、進入禁止と区別",
+      "oldHash": "e78c838fe96fcbe5908c3d9e0dd69704ce38c9ae318dd5500b2d40ea4f7a97b0",
+      "newHash": "dab17122da0849f96732e8851dcc7c53511787c9efa7016093f05e0cbc487b7e"
+    },
+    "h4-027": {
+      "sources": [
+        {
+          "publisher": "SOMPOダイレクト",
+          "url": "https://www.sompo-direct.co.jp/otona/oshiete/car/road-sign.html"
+        }
+      ],
+      "condition": "交差点中心の菱形と右折方向の道路標示",
+      "oldHash": "2d7908bdaa00e225c399d020b0709d3bf52cb40ffd67c61fd0bdb48af4a1118c",
+      "newHash": "a8b92caafa9a7ac1631d9b1eec00317aa55de09cc6005b3cec3c21bf75efc7ea"
+    },
+    "h10-039": {
+      "sources": [
+        {
+          "publisher": "SOMPOダイレクト",
+          "url": "https://www.sompo-direct.co.jp/otona/oshiete/car/road-sign.html"
+        }
+      ],
+      "condition": "交差点中心の菱形と右折方向の道路標示",
+      "oldHash": "7593bd36e1bac1ef21baae9ea858dbd104aed0d7cd9d87359e0f61cd37357cf5",
+      "newHash": "a8b92caafa9a7ac1631d9b1eec00317aa55de09cc6005b3cec3c21bf75efc7ea"
+    },
+    "h3-006": {
+      "sources": [
+        {
+          "publisher": "石原自動車教習所「信号に従うこと」",
+          "url": "https://www.iac-ds.co.jp/oyakudachi01002/",
+          "source_file": "iac_signals_oyakudachi_zu02002.png",
+          "source_sha256": "e9e3a5d518ad6461154552111b4dbc4188ffc5af39e7184b837ca9235884e752"
+        }
+      ],
+      "condition": "赤主灯・青右矢印",
+      "oldHash": "829cef6e4d56a783c0405bbb7ea7ae84cfcae09e106d3e6bffe684c3bd0c120f",
+      "newHash": "d854f3f04506956d5d05e747faa1e75306c1608141acde7ebebd6b256f0dff80"
+    },
+    "h8-069": {
+      "sources": [
+        {
+          "publisher": "石原自動車教習所「信号に従うこと」",
+          "url": "https://www.iac-ds.co.jp/oyakudachi01002/",
+          "source_file": "iac_signals_oyakudachi_zu02002.png",
+          "source_sha256": "e9e3a5d518ad6461154552111b4dbc4188ffc5af39e7184b837ca9235884e752"
+        }
+      ],
+      "condition": "赤主灯・青右矢印",
+      "oldHash": "4475e0ad4243c8fb68e0d8765788c3b8989bfce0a9e36ea70a2a44da25a2e8ca",
+      "newHash": "d854f3f04506956d5d05e747faa1e75306c1608141acde7ebebd6b256f0dff80"
+    },
+    "h10-069": {
+      "sources": [
+        {
+          "publisher": "石原自動車教習所「信号に従うこと」",
+          "url": "https://www.iac-ds.co.jp/oyakudachi01002/",
+          "source_file": "iac_signals_oyakudachi_zu02003.png",
+          "source_sha256": "a0e7a6fb9bcfb5e1093392e39d26f0f50848a95d6b1cbf43d533e1b1eb20098a"
+        }
+      ],
+      "condition": "赤主灯・黄右矢印。青矢印と区別。",
+      "oldHash": "8853665d75c4ddff5e67663c2b8537abd11c3164ff946746f26c7262dec3a834",
+      "newHash": "a8858a63586c55bfa0dae933773efa90e8384d1e6fa58dc37358076d32c8b2ff"
+    },
+    "h5-056": {
+      "sources": [
+        {
+          "publisher": "水原自動車学校「学科練習問題 1-2」",
+          "url": "https://www.unten.co.jp/gakka/item1-2/q1-2/",
+          "source_file": "signals_4.png",
+          "source_sha256": "f794f0892cd50dd7deb9920f154ff9d816aad84b784aa1e421fddb8e3e65756c"
+        }
+      ],
+      "condition": "腕を垂直に上げた状態・身体の正面に平行する方向",
+      "oldHash": "2e90dc44689d103a66d1a32949f3121c5c484f639c68a2995180a9b101929223",
+      "newHash": "979ad1ec17fa4a16d5e30002a282e792ec75fbf8d432f52f554a6b4318702cb3"
+    },
+    "h7-013": {
+      "sources": [
+        {
+          "publisher": "JAF Mate Online（警察官図を抜粋・方向矢印を付した既存画像）",
+          "url": "https://jafmate.jp/safety/licensetest_20260408.html",
+          "reused_asset": "image-1b2964732c7d.png"
+        },
+        {
+          "publisher": "水原自動車学校「学科練習問題 1-2」",
+          "url": "https://www.unten.co.jp/gakka/item1-2/q1-2/",
+          "source_file": "signals_4.png",
+          "source_sha256": "f794f0892cd50dd7deb9920f154ff9d816aad84b784aa1e421fddb8e3e65756c"
+        },
+        {
+          "publisher": "運転教室スタートライン「警察官の手信号」",
+          "url": "https://ds-startline.com/teshingo/",
+          "source_file": "startline_hands_7.jpg",
+          "source_sha256": "0ca593e3c32e6ce169d9a5b5a02a4caa9752c98682f9c6559ab079e4a1165525",
+          "crop_pixels": [
+            424,
+            241,
+            502,
+            499
+          ]
+        }
+      ],
+      "condition": "両姿勢・正面背面への矢印。側方矢印と解答色を表示しない。",
+      "oldHash": "230f8d26796e0785c99eb131ed054b1706f88f5fbe33e1e6c8245b7d7de6a50b",
+      "newHash": "802e3f04ef0293286de5d908d4406c5339183aaed94666105af0aee3a92b74d8"
+    },
+    "h2-008": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            656.6666666666667,
+            534.1666666666667,
+            694.1666666666667,
+            570
+          ]
+        }
+      ],
+      "condition": "追越しのための右側部分はみ出し通行禁止・補助標識なし",
+      "oldHash": "fe953aebb6e03a42909f12632f66296a03ad4b820abc8950efac336d633f462e",
+      "newHash": "72c30aee07ca7d7ff9b7891e32a04f17f9fd657c184d36f821dc6468654a364f",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h10-035": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            656.6666666666667,
+            534.1666666666667,
+            694.1666666666667,
+            570
+          ]
+        }
+      ],
+      "condition": "追越しのための右側部分はみ出し通行禁止・補助標識なし",
+      "oldHash": "dec39d54d1c1ea42a8a4f292bf7c2e340cc9daf8a0c8247b00c1f761d99f69b3",
+      "newHash": "72c30aee07ca7d7ff9b7891e32a04f17f9fd657c184d36f821dc6468654a364f",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h10-082": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            656.6666666666667,
+            534.1666666666667,
+            694.1666666666667,
+            570
+          ]
+        }
+      ],
+      "condition": "追越しのための右側部分はみ出し通行禁止・補助標識なし",
+      "oldHash": "1f3c800fc7ad4dd8a7906fb94a8965fd76c14d947a738025bcd91ecd002a5d17",
+      "newHash": "72c30aee07ca7d7ff9b7891e32a04f17f9fd657c184d36f821dc6468654a364f",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h2-009": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            411.6666666666667,
+            591.6666666666667,
+            450,
+            630
+          ]
+        }
+      ],
+      "condition": "最大幅2.2m",
+      "oldHash": "dc4d081f7cc2c45db36c590861eec512586ee706e6f66f24b9e308e064dfd3b4",
+      "newHash": "cab5313e380e03e84db27a34000d28bc0c630e0d74763ff3c3189940c2ef9cc9",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h2-010": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            1066.6666666666667,
+            646.6666666666667,
+            1115,
+            688.3333333333334
+          ]
+        }
+      ],
+      "condition": "終わり・青い斜線入りの円",
+      "oldHash": "9a0e76697675a60120a81bb06184770735da085846ae89bbaf6e2b8c5a849074",
+      "newHash": "600d1eb99ef4023eb8dfd1a1344d5b17b7f48af6c9969764949b46deea16753b",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h2-011": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            46.66666666666667,
+            704.1666666666667,
+            86.66666666666667,
+            745.8333333333334
+          ]
+        }
+      ],
+      "condition": "対面通行",
+      "oldHash": "f46ab6acdbbae6fd7fcfacf2bf39882b125b00f067981bf7d9bda5e98d62a28e",
+      "newHash": "875aadf9c33bd686952c9ebd05fc8b083a2ce545a9665a95696c64ed240b157a",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h2-027": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            459.1666666666667,
+            763.3333333333334,
+            498.33333333333337,
+            804.1666666666667
+          ]
+        }
+      ],
+      "condition": "一時停止・日本語止まれ",
+      "oldHash": "8eef5654419e7467c3a116b610d57ee77d53fdde206b847d590e1aaa50b15784",
+      "newHash": "0bc85d11a6915c9e7eaee6a084f9403b8112cf74444ca5db1291b021b2cc9075",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h2-028": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            312.5,
+            534.1666666666667,
+            350.83333333333337,
+            570.8333333333334
+          ]
+        }
+      ],
+      "condition": "指定方向外進行禁止・左折のみ",
+      "oldHash": "3862332ed4020d767092f2c981849043648b209589189535c4ae51b4ca6a0075",
+      "newHash": "8959eea9250edd9f0f1fa418cba926b4c9b95b5c329fccfac191ccf5f258e088",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h10-075": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            312.5,
+            534.1666666666667,
+            350.83333333333337,
+            570.8333333333334
+          ]
+        }
+      ],
+      "condition": "指定方向外進行禁止・左折のみ",
+      "oldHash": "f6e87a63d6bb1c01e4fdd35ecb8505fe8010805392c809d09cdcefe3f6c42144",
+      "newHash": "8959eea9250edd9f0f1fa418cba926b4c9b95b5c329fccfac191ccf5f258e088",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h3-007": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            411.6666666666667,
+            475,
+            449.1666666666667,
+            512.5
+          ]
+        }
+      ],
+      "condition": "二輪の自動車以外の自動車通行止め",
+      "oldHash": "0dd2a04a18eb14073a5ad20be075925ae696bb263eeefe3d75af16a0a91799f0",
+      "newHash": "7610c2881dbfbeaa8f281764ac47120c3c0f5fa90f9bf81abb860ff0c9395687",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h10-083": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            411.6666666666667,
+            475,
+            449.1666666666667,
+            512.5
+          ]
+        }
+      ],
+      "condition": "二輪の自動車以外の自動車通行止め",
+      "oldHash": "235862fd30eb9d1ab7ae89973a7d9c829907588dcbb1d63502080754ba1d33d9",
+      "newHash": "7610c2881dbfbeaa8f281764ac47120c3c0f5fa90f9bf81abb860ff0c9395687",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h3-011": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            509.1666666666667,
+            474.1666666666667,
+            548.3333333333334,
+            513.3333333333334
+          ]
+        }
+      ],
+      "condition": "大型乗用自動車等通行止め",
+      "oldHash": "786f8eb4d5b2ad18c484881864318e7af2e4a38d85ca394e6b751d747937da24",
+      "newHash": "849a1323433599320ec7de37cd285d4f51ff1de7719c86baf0e52c0f1a6d9e0e",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h9-062": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            509.1666666666667,
+            474.1666666666667,
+            548.3333333333334,
+            513.3333333333334
+          ]
+        }
+      ],
+      "condition": "大型乗用自動車等通行止め",
+      "oldHash": "401c5cb661ebaa16ab97281b7eb3a6ac099b55a4fb41d997bdac237f069018ac",
+      "newHash": "849a1323433599320ec7de37cd285d4f51ff1de7719c86baf0e52c0f1a6d9e0e",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h3-012": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            45,
+            764.1666666666667,
+            86.66666666666667,
+            804.1666666666667
+          ]
+        }
+      ],
+      "condition": "動物が飛び出すおそれあり・鹿",
+      "oldHash": "aa4a1ed59deb8e200db0210a7b51da084a8a079554267211f11140714f68728b",
+      "newHash": "8f0c01cc9ea51e5344cd2de8fe8a42ce64b57ba83c5409e5fbd23463bcafb8a4",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h3-013": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            460,
+            474.1666666666667,
+            498.33333333333337,
+            513.3333333333334
+          ]
+        }
+      ],
+      "condition": "大型貨物自動車等通行止め",
+      "oldHash": "79943fd240bbd173bf0eefe937a7a2a709f6229da5c9dc9d39d7b5543a778204",
+      "newHash": "406405646ac3bc1b0b8f443326dba02acddc45d3f93740e90a490d4935967ff0",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h4-008": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            89.16666666666667,
+            764.1666666666667,
+            128.33333333333334,
+            804.1666666666667
+          ]
+        }
+      ],
+      "condition": "その他の危険",
+      "oldHash": "89c5bc3fb9681c31abf619a4bd0f5d8b979d86d0f0d324ff442d66f72df049ba",
+      "newHash": "d06b1bd8a884a4bb3ded3005e401451f93455e6362c3981707a36366138700a7",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h4-021": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            262.5,
+            475,
+            303.33333333333337,
+            512.5
+          ]
+        }
+      ],
+      "condition": "通行止め",
+      "oldHash": "3ae3e86ee8fe0687e1ff7c69aa3820ba275413c147ac1b408c22d37119262ba0",
+      "newHash": "ca4730501eea709b69a96d758632a0d39ae8b3c9b00d4d5c31bf1bb26f44a1f3",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h4-035": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            508.33333333333337,
+            591.6666666666667,
+            549.1666666666667,
+            630
+          ]
+        }
+      ],
+      "condition": "最低速度30・下線あり",
+      "oldHash": "130cbc3824e8d465fbd413f2c2da0b38475e4194a3486caa41b48cebaaba0c4c",
+      "newHash": "8a49ba8b460c46f94e1ab0feb04c2eb09f05e60c32b1a21dfdde8a79fa7c0d59",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h8-051": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            508.33333333333337,
+            591.6666666666667,
+            549.1666666666667,
+            630
+          ]
+        }
+      ],
+      "condition": "最低速度30・下線あり",
+      "oldHash": "df1245b5c5d9352bb0e8cb77e36cae1a433b0688c7a4bccd036909000275ec8c",
+      "newHash": "8a49ba8b460c46f94e1ab0feb04c2eb09f05e60c32b1a21dfdde8a79fa7c0d59",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h4-025": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            356,
+            708,
+            403,
+            745.5
+          ]
+        }
+      ],
+      "condition": "進行方向別通行区分・左直進、直進、右折",
+      "oldHash": "96b754b79ed31930144d1dad9021f5e32927222440f7cf4c049e8bd4801384b7",
+      "newHash": "09d815335123a79b7689e66475fe82a8ace797f64b71a43f27429c3959e2b7e4",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h5-007": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            130.83333333333334,
+            648.3333333333334,
+            170.83333333333334,
+            688.3333333333334
+          ]
+        }
+      ],
+      "condition": "合流交通あり",
+      "oldHash": "074fc3412099c481dfc56e509c2612b5dbe9b2a30ebaf4f25f779837caeea17d",
+      "newHash": "acde8d04b9db716a687be72c32cc47d9ec3979f2e272b89dae85bfe43ba3175d",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h5-013": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            264.1666666666667,
+            534.1666666666667,
+            302.5,
+            570.8333333333334
+          ]
+        }
+      ],
+      "condition": "指定方向外進行禁止・直進と左折",
+      "oldHash": "876d47cb48c1e8e9587d64e1867d75ad7ed0cda1bb4bc110dce266811e2ea205",
+      "newHash": "6ab687af4c18e42a0e5c59fff8557efca787bec5106ca24051e5397a608d1c3d",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h5-029": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            360,
+            763.3333333333334,
+            400,
+            804.1666666666667
+          ]
+        }
+      ],
+      "condition": "徐行・日本語",
+      "oldHash": "676283e214aecc9b8a6ba15ecd83bc3821ae24b0433f9278856d9f925613d578",
+      "newHash": "e6ef19de074adc1b781e6bc75b1f5842e6c1d834ee44bfa4c771491a4faae062",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h5-057": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            560,
+            473.33333333333337,
+            600,
+            513.3333333333334
+          ]
+        }
+      ],
+      "condition": "二輪の自動車・一般原付通行止め",
+      "oldHash": "ed2ead0a8d513cf34e10e348f8a27eb68f1628fa66256bf40067a599125e8974",
+      "newHash": "5d8fb67dc4fdf46e291c5d94ff836907eaa8df3f3b7934561cdf8eb8d0dff6b1",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h5-063": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            360.83333333333337,
+            591.6666666666667,
+            400,
+            630
+          ]
+        }
+      ],
+      "condition": "高さ制限3.3m",
+      "oldHash": "d367ae6cebb029ae59d2ad70fcdf67b2840079f96cc243cafe306f92be763198",
+      "newHash": "94e8d5c7466de7fdab767430a6f80ca603f00b224e19d8a92b486c212eb0daa0",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h7-008": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            982.5,
+            669.1666666666667,
+            1026.6666666666667,
+            687.5
+          ]
+        }
+      ],
+      "condition": "終わり・赤い左矢印",
+      "oldHash": "83281282b3d4818e4b5c59424f4e879afd997e0c73b84d50605e0f528f9a9ec6",
+      "newHash": "5355cb0240d5ecc334c5307c89c25d09acb93965932447122311cc4fa41e9db2",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h7-009": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            802.5,
+            533.3333333333334,
+            842.5,
+            572.5
+          ]
+        }
+      ],
+      "condition": "時間制限駐車区間8～20時・60分",
+      "oldHash": "3e2556f7d905c958294312be95be2e68d924314449773ec6ee67e08ae1b772ea",
+      "newHash": "faefdf6a1105bbdec21306ce02bcbb43b8459299081dfa7073d96dfacb5f527c",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h8-062": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            802.5,
+            533.3333333333334,
+            842.5,
+            572.5
+          ]
+        }
+      ],
+      "condition": "時間制限駐車区間8～20時・60分",
+      "oldHash": "157864a938cd4faa826b369b99e3b8556c3e8a9da4592847fc0684808a632f86",
+      "newHash": "faefdf6a1105bbdec21306ce02bcbb43b8459299081dfa7073d96dfacb5f527c",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h7-012": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            133.33333333333334,
+            592.5,
+            168.33333333333334,
+            629.1666666666667
+          ]
+        }
+      ],
+      "condition": "学校、幼稚園、保育所等あり・黄色の菱形",
+      "oldHash": "7b2dc873e11aca022a4f148740a83bc4fd1278dc06083a2457270fd000de0ff2",
+      "newHash": "015e911b1d03df09e1f5892e925f2aa5e72fc770a36cbc90613950ca12dfe83a",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h7-056": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            557.5,
+            705,
+            598.3333333333334,
+            747.5
+          ]
+        }
+      ],
+      "condition": "一般原付二段階右折",
+      "oldHash": "d00b41d7bbfd25f074a78a9bbeef14896813761c816ead7bb659102344fd23dd",
+      "newHash": "84e626fbaf658d40d3dd3cacf7a4e4715241fc080ba352514ce06e1f236bb86c",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h7-061": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            935.8333333333334,
+            649.1666666666667,
+            974.1666666666667,
+            690
+          ]
+        }
+      ],
+      "condition": "安全地帯・青地のV字",
+      "oldHash": "7b8c091a2ebd37327be4fd161e72656a47506ba65810aa351672815f6a3af083",
+      "newHash": "5098612374895989c8c4a5522c73b0b3173d20f3831dfb041de6b76930758241",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h8-005": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            215.83333333333334,
+            534.1666666666667,
+            255.83333333333334,
+            572.5
+          ]
+        }
+      ],
+      "condition": "右つづら折りあり",
+      "oldHash": "6e26671374477e862f57ed9143978897c9455692ee445fdcbef14f2d61511092",
+      "newHash": "ca5268de195a39e75b0dc400992bc7912568d27de853125024c7bc081a59b7d3",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h8-042": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            89.16666666666667,
+            648.3333333333334,
+            128.33333333333334,
+            689.1666666666667
+          ]
+        }
+      ],
+      "condition": "路面凹凸あり",
+      "oldHash": "c6125199cb8419a79816703c64a7f7ac5b433f245508408b75638da554afab56",
+      "newHash": "270fe2cd4501f85078a789472bb0cfd0644eb46d13de5f15017951cb217c8eae",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h8-059": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            509.1666666666667,
+            533.3333333333334,
+            548.3333333333334,
+            571.6666666666667
+          ]
+        }
+      ],
+      "condition": "指定方向外進行禁止・左斜め下",
+      "oldHash": "6303b7587e28dfba9264ccfd7086d683a9ae786dfbe865cdd5974786812ebc97",
+      "newHash": "2187742b504ac9f2591ef7cf9db11ad7971c76808c347b61af1ef381aef8db5f",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h8-086": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            849.1666666666667,
+            648.3333333333334,
+            889.1666666666667,
+            689.1666666666667
+          ]
+        }
+      ],
+      "condition": "自転車横断帯・三角形",
+      "oldHash": "fc82f647b9f896c1683817c566e38f7db2a8e62370eaba0c1a56cd68b6bd9a90",
+      "newHash": "f7d79e16546b84cc795ca088fcd4e5cdfd5be3312c8d3d0a41ba529915ad3b60",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h9-038": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            216.66666666666669,
+            592.5,
+            255,
+            630.8333333333334
+          ]
+        }
+      ],
+      "condition": "すべりやすい",
+      "oldHash": "bbcf5b258dfd49a1c1975a3e682b2e2e2c1ee5b55828d86aaa2da2c02955f625",
+      "newHash": "748a2483073335fa53d5bb528f4ee5a62511b7e5282c34e5c4e78422a0073c75",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h9-041": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            1050,
+            579.1666666666667,
+            1117.5,
+            599.1666666666667
+          ]
+        }
+      ],
+      "condition": "始まり・赤い右矢印",
+      "oldHash": "0b28d0ed17f02f1e20796a66ab3fd6b754f83ef2ee04eb5aa0cb3e70c52c2f4b",
+      "newHash": "a3faa4248bfef08dcc2ca01910ac108797dbe27c8d74a77419b0981e32a8c803",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h10-050": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            1050,
+            579.1666666666667,
+            1117.5,
+            599.1666666666667
+          ]
+        }
+      ],
+      "condition": "始まり・赤い右矢印",
+      "oldHash": "bf38ce12132b5786d502d746034a30110f5c57ea4f19ce1999225b84118b861a",
+      "newHash": "a3faa4248bfef08dcc2ca01910ac108797dbe27c8d74a77419b0981e32a8c803",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h9-066": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            174.16666666666669,
+            475,
+            212.5,
+            512.5
+          ]
+        }
+      ],
+      "condition": "Y形道路交差点あり",
+      "oldHash": "223a6c9a69cbbdb5150ff6120c60b12b5eeeb5254a21765295806f938eb831a3",
+      "newHash": "1d41f200b9a977a090c929e16b576cb45fc611c95fed43bba624656ff7a7d0a3",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h9-072": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            849.1666666666667,
+            590.8333333333334,
+            890.8333333333334,
+            630
+          ]
+        }
+      ],
+      "condition": "停止線・白い横棒",
+      "oldHash": "de6742a4bb86e4628701615cc66662a3893e4a0510353377b98e09f3c136d6f0",
+      "newHash": "31fac26589c153063936e2ee234644003cd5e405349372573bfb27ae64033eeb",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h10-042": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "cropPoints": [
+            311.6666666666667,
+            591.6666666666667,
+            350,
+            630.8333333333334
+          ]
+        }
+      ],
+      "condition": "重量制限5.5t",
+      "oldHash": "4d0b89bb382617e2c644b07c9495e47405dadaf44f9d28ce275bc1611ef5d6d6",
+      "newHash": "60eb246c879280b989182cc087e0019bb04e04dfaf0aee1ef3c961442c47d626",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+    },
+    "h3-009": {
+      "sources": [
+        {
+          "publisher": "japandrivinglicense.com",
+          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-1/",
+          "cropPixels": [
+            55,
+            10,
+            270,
+            200
+          ],
+          "frame": 0
+        }
+      ],
+      "condition": "歩行者用路側帯の白い二本実線。英語の欄外表記と図番号を除外。",
+      "oldHash": "d231b0fae5fc005982605b4fdfdcb702e06d64fc880b554d9697b2a5d83c2a14",
+      "newHash": "d7953a4c1abef69ba7d83029769e074d7b9da98bbc754694081488a6febf19e3"
+    },
+    "h7-034": {
+      "sources": [
+        {
+          "publisher": "japandrivinglicense.com",
+          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-1/",
+          "cropPixels": [
+            55,
+            10,
+            270,
+            200
+          ],
+          "frame": 0
+        }
+      ],
+      "condition": "歩行者用路側帯の白い二本実線。英語の欄外表記と図番号を除外。",
+      "oldHash": "60881e101378803d89c320185a613f944e48e326508e07c9fd9a1a78407d3e57",
+      "newHash": "d7953a4c1abef69ba7d83029769e074d7b9da98bbc754694081488a6febf19e3"
+    },
+    "h10-057": {
+      "sources": [
+        {
+          "publisher": "japandrivinglicense.com",
+          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-1/",
+          "cropPixels": [
+            55,
+            10,
+            270,
+            200
+          ],
+          "frame": 0
+        }
+      ],
+      "condition": "歩行者用路側帯の白い二本実線。英語の欄外表記と図番号を除外。",
+      "oldHash": "9f4f96782713eb4120e59a30eb3338e9c4783589be6980be90d7760d3d041b4f",
+      "newHash": "d7953a4c1abef69ba7d83029769e074d7b9da98bbc754694081488a6febf19e3"
+    },
+    "h5-084": {
+      "sources": [
+        {
+          "publisher": "japandrivinglicense.com",
+          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-4/",
+          "cropPixels": [
+            55,
+            8,
+            250,
+            232
+          ],
+          "frame": 0
+        }
+      ],
+      "condition": "駐停車禁止路側帯の白い実線と破線。英語の欄外表記と図番号を除外。",
+      "oldHash": "f4a9c7bb76dfd440318a0942c44adbb1f2cd59eccbb67d0a8cd9fd7d34e8aade",
+      "newHash": "664d3f90dac33b4d7e62e57292d5334e6eabad631e1d6c6649a5140ca1c5fa84"
+    },
+    "h4-010": {
+      "sources": [
+        {
+          "publisher": "警察庁 交通の方法に関する教則",
+          "url": "https://www.npa.go.jp/bureau/traffic/20241101kyousoku.pdf",
+          "page": 136,
+          "imageBlock": 1,
+          "bbox": [
+            146.52000427246094,
+            185.76004028320312,
+            206.27999877929688,
+            268.9200439453125
+          ],
+          "subCrop": null
+        }
+      ],
+      "condition": "自転車横断帯・自転車記号",
+      "oldHash": "e9c335bc3aa32fa322641e83992bcf24f0fe727f7328e8bb52db8ba2edb7009d",
+      "newHash": "33c744447ae02f247c6c40af6bed38d55e4cd84710bf3dd2205b3808d02a3da2"
+    },
+    "h2-018": {
+      "sources": [
+        {
+          "publisher": "japandrivinglicense.com",
+          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-3/",
+          "cropPixels": [
+            0,
+            0,
+            360,
+            158
+          ],
+          "frame": 0
+        }
+      ],
+      "condition": "カーブで右側通行を認める道路標示。図番号を除外。",
+      "oldHash": "aa4e5a266a61076aa4fab65fb0c304f4703548861eb1ea98f3d0da56255025aa",
+      "newHash": "9f408892f56d9af6b4ef9839268bec41c27a2249ebefa814837200955a897ed0"
+    },
+    "h8-048": {
+      "sources": [
+        {
+          "publisher": "japandrivinglicense.com",
+          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-3/",
+          "cropPixels": [
+            0,
+            0,
+            360,
+            158
+          ],
+          "frame": 0
+        }
+      ],
+      "condition": "カーブで右側通行を認める道路標示。図番号を除外。",
+      "oldHash": "696c6d93b7dc230c3f068b39d09422236f3ba4d3d19205bbb89e1d5cf5e864d7",
+      "newHash": "9f408892f56d9af6b4ef9839268bec41c27a2249ebefa814837200955a897ed0"
+    },
+    "h4-012": {
+      "sources": [
+        {
+          "publisher": "警察庁 交通の方法に関する教則",
+          "url": "https://www.npa.go.jp/bureau/traffic/20241101kyousoku.pdf",
+          "page": 138,
+          "imageBlock": 2,
+          "bbox": [
+            169.55999755859375,
+            330.3600158691406,
+            183.36000061035156,
+            382.5600280761719
+          ],
+          "subCrop": null
+        }
+      ],
+      "condition": "路上障害物に接近・片側によける白い斜線",
+      "oldHash": "9d0487172c83139306ec3d2988842c61475b3c880d40699e8cef0a7175e20631",
+      "newHash": "b93ad43f39a72e8928fab1077b4d90de29fd6b1a8b8141e46ed391fb7ba40c5d"
+    },
+    "h7-036": {
+      "sources": [
+        {
+          "publisher": "警察庁 交通の方法に関する教則",
+          "url": "https://www.npa.go.jp/bureau/traffic/20241101kyousoku.pdf",
+          "page": 138,
+          "imageBlock": 3,
+          "bbox": [
+            163.9199981689453,
+            403.5600280761719,
+            189,
+            449.4000244140625
+          ],
+          "subCrop": null
+        }
+      ],
+      "condition": "安全地帯又は路上障害物に接近・両側によける白い斜線",
+      "oldHash": "c7ad6141992384e0dcc4ed56c21437a75e14332f215edd9191e6160a14c9df51",
+      "newHash": "79edb0b2e08c22ddb392b5224de9c15199e73a65a2a4e2fc9b353c52e15c322c"
+    },
+    "h4-006": {
+      "sources": [
+        {
+          "publisher": "japandrivinglicense.com",
+          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-2/",
+          "cropPixels": [
+            0,
+            0,
+            269,
+            350
+          ],
+          "frame": 0
+        }
+      ],
+      "condition": "横断歩道等あり・白い菱形二つ。図番号を除外。",
+      "oldHash": "75fca06afd81fa253d47aa9e0a497eba1140db8c322ca7b34a211611861088fd",
+      "newHash": "c924e3382de744608305dabcad6fa97160e24fc2bfd227eb3e10484c81e0899c"
+    },
+    "h5-049": {
+      "sources": [
+        {
+          "publisher": "japandrivinglicense.com",
+          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-2/",
+          "cropPixels": [
+            0,
+            0,
+            269,
+            350
+          ],
+          "frame": 0
+        }
+      ],
+      "condition": "横断歩道等あり・白い菱形二つ。図番号を除外。",
+      "oldHash": "019627e23ed46c6fc5399d375b8ad2fb8926e363e380d8e8534893c32f1ca88a",
+      "newHash": "c924e3382de744608305dabcad6fa97160e24fc2bfd227eb3e10484c81e0899c"
+    },
+    "h7-032": {
+      "sources": [
+        {
+          "publisher": "japandrivinglicense.com",
+          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-2/",
+          "cropPixels": [
+            0,
+            0,
+            269,
+            350
+          ],
+          "frame": 0
+        }
+      ],
+      "condition": "横断歩道等あり・白い菱形二つ。図番号を除外。",
+      "oldHash": "e0281f8539ecae0388893a0973b288e989c4210d61149c3dc465c58ac4734c9f",
+      "newHash": "c924e3382de744608305dabcad6fa97160e24fc2bfd227eb3e10484c81e0899c"
+    },
+    "h8-024": {
+      "sources": [
+        {
+          "publisher": "警察庁 交通の方法に関する教則",
+          "url": "https://www.npa.go.jp/bureau/traffic/20241101kyousoku.pdf",
+          "page": 133,
+          "imageBlock": 1,
+          "bbox": [
+            153.72000122070312,
+            340.20001220703125,
+            199.0800018310547,
+            458.6400146484375
+          ],
+          "subCrop": null
+        }
+      ],
+      "condition": "平行駐車・道路端と平行な枠",
+      "oldHash": "43d6185e658b9262219d76fbf22521c74ec8f48d5e43e1ef0809b2c665870038",
+      "newHash": "7cf29af0d7b2f99475118f30b36e6f1c5ad40bf8ef77dde31e43bd75dcac6b41"
+    },
+    "h7-022": {
+      "sources": [
+        {
+          "publisher": "japandrivinglicense.com",
+          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-2/",
+          "cropPixels": [
+            0,
+            0,
+            360,
+            320
+          ],
+          "frame": 0
+        }
+      ],
+      "condition": "左側車線の直進左折矢印。図番号を除外。",
+      "oldHash": "f6b0df03443ce7066297f6fd254b25caa6ffb7ab3ca3cfbf0acdcc7713c1cd7b",
+      "newHash": "c016585e021352ab7630fd8caf72775a504a399750fbea257a83388df2e9fb39"
+    },
+    "h2-012": {
+      "sources": [
+        {
+          "publisher": "警察庁 交通の方法に関する教則",
+          "url": "https://www.npa.go.jp/bureau/traffic/20241101kyousoku.pdf",
+          "page": 135,
+          "imageBlock": 1,
+          "bbox": [
+            150,
+            235.32000732421875,
+            202.8000030517578,
+            333.4800109863281
+          ],
+          "subCrop": [
+            0,
+            0,
+            49,
+            184
+          ]
+        }
+      ],
+      "condition": "終わり・50の上に白い終わり記号",
+      "oldHash": "d3a51ff32a5d0105f64365e6c3929ccdf825f2d2180df51cd438b395ef4994b6",
+      "newHash": "c5539c8bb4c82576222cfdb17cd80e6bf106baee204dff98117c1c088f265e14"
+    },
+    "h10-061": {
+      "sources": [
+        {
+          "publisher": "警察庁 交通の方法に関する教則",
+          "url": "https://www.npa.go.jp/bureau/traffic/20241101kyousoku.pdf",
+          "page": 135,
+          "imageBlock": 1,
+          "bbox": [
+            150,
+            235.32000732421875,
+            202.8000030517578,
+            333.4800109863281
+          ],
+          "subCrop": [
+            0,
+            0,
+            49,
+            184
+          ]
+        }
+      ],
+      "condition": "終わり・50の上に白い終わり記号",
+      "oldHash": "b5ae4b910d45c1648fa4022c9d4c4f09ea5d189e0db5adcb26f24cece03e0f57",
+      "newHash": "c5539c8bb4c82576222cfdb17cd80e6bf106baee204dff98117c1c088f265e14"
+    },
+    "h5-023": {
+      "sources": [
+        {
+          "publisher": "警察庁 交通の方法に関する教則",
+          "url": "https://www.npa.go.jp/bureau/traffic/20241101kyousoku.pdf",
+          "page": 135,
+          "imageBlock": 1,
+          "bbox": [
+            150,
+            235.32000732421875,
+            202.8000030517578,
+            333.4800109863281
+          ],
+          "subCrop": [
+            0,
+            0,
+            49,
+            75
+          ]
+        }
+      ],
+      "condition": "終わり・白い斜線の輪のみ",
+      "oldHash": "fa3406bf58eb55a2b544542868031280a9514694c6ef709a9ec959cc9a6797db",
+      "newHash": "09ef1fb4c560a665c6e8748760c30f6a1081faedbba38bdc9a8fe056a80bc6b4"
+    },
+    "h4-007": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "processing": "同一資料の図を並置。図柄の描き直しなし。"
+        }
+      ],
+      "condition": "車両通行止めと車両進入禁止",
+      "oldHash": "e7cf4d59921cf9c8ff03e536a9e91b4910800df6b266944be0e82c37b60dc907",
+      "newHash": "2f7186d30608864a860b650897b0b9f8d733d6e7015f1b8bd5f52f99e705c92c"
+    },
+    "h9-055": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "processing": "同一資料の図を並置。図柄の描き直しなし。"
+        }
+      ],
+      "condition": "転回禁止と車両横断禁止",
+      "oldHash": "e2c01189c9ef74682f41219be332dab3b24e36130a6f1b6d6b6fcff1659520c8",
+      "newHash": "2d4ed4a6d1cb07f50d6058eaa5229fb5784c19046f10cd8e50b000b2df58f7ae"
+    },
+    "h3-043": {
+      "sources": [
+        {
+          "publisher": "www.daigo-ds.com",
+          "url": "https://www.daigo-ds.com/gentsuki/aizu.html",
+          "cropPixels": null,
+          "frame": 0
+        }
+      ],
+      "condition": "二輪車の背面・左腕を垂直に曲げる右折合図・方向指示器点灯前のフレーム",
+      "oldHash": "144e9dcb54942ef53140d8b9a17d152488f3c4bd150c5f56b9b07dc4f62c8ea8",
+      "newHash": "b669f1490d51986c3df7348d50fe8f32195fa0668022e520be60bffd19db8074"
+    },
+    "h4-044": {
+      "sources": [
+        {
+          "publisher": "www.daigo-ds.com",
+          "url": "https://www.daigo-ds.com/gentsuki/aizu.html",
+          "cropPixels": null,
+          "frame": 0
+        }
+      ],
+      "condition": "二輪車の背面・左腕を斜め下に伸ばす徐行停止合図",
+      "oldHash": "79485f31d3cf1fee2f4dfe13120927c8c52a83f060ad1494224eee3edd77e6cb",
+      "newHash": "4a93342d1fbf66875446bd8c25387a1935c020b400556a00a999e39d79a32fc9"
+    },
+    "h5-008": {
+      "sources": [
+        {
+          "publisher": "www.car-license.co.jp",
+          "url": "https://www.car-license.co.jp/feature/question/challenge1-2.html",
+          "cropPixels": null,
+          "frame": 0
+        }
+      ],
+      "condition": "黄色の灯火の点滅",
+      "oldHash": "81c77b43a2c96791d3c25a2b174abe4d7ec16a2e5e107078b85397e1376535b9",
+      "newHash": "e49f293f25cca2982322eebf7800e4b9c4a7af47879597c6ae325ab3a7ba0c2f"
+    },
+    "h10-089": {
+      "sources": [
+        {
+          "publisher": "www.car-license.co.jp",
+          "url": "https://www.car-license.co.jp/feature/question/challenge1-2.html",
+          "cropPixels": null,
+          "frame": 0
+        }
+      ],
+      "condition": "黄色の灯火の点滅",
+      "oldHash": "06dfb459378ad84fbfea75695857749aab7705e426587c0172ce36e8714e33c0",
+      "newHash": "e49f293f25cca2982322eebf7800e4b9c4a7af47879597c6ae325ab3a7ba0c2f"
+    },
+    "h8-030": {
+      "sources": [
+        {
+          "publisher": "www.car-license.co.jp",
+          "url": "https://www.car-license.co.jp/common/gakkashiken/img/0036.gif",
+          "cropPixels": null,
+          "frame": 0
+        }
+      ],
+      "condition": "灯火を頭上に上げる警察官・体の左右方向の矢印",
+      "oldHash": "893130d039228fb2350e8d94482318639d4de04a9f6fec84d80ec999abce1adc",
+      "newHash": "96af63e58849f0692d43bda1bcf30504f37dddfdce0b7e42aa8614744503511d"
+    },
+    "h5-086": {
+      "sources": [
+        {
+          "publisher": "www.car-license.co.jp",
+          "url": "https://www.car-license.co.jp/common/gakkashiken/img/0057.gif",
+          "cropPixels": null,
+          "frame": 0
+        }
+      ],
+      "condition": "同一交差点の右折・対面A青、側方B赤",
+      "oldHash": "0ccf08d35b5a6daff129489125fdf638771f4bafd35973ed2519b40e432c6ff9",
+      "newHash": "598695d63a677715113c2af33ee52c47cdbf6a96f7cb89a7e413bd0d93f18918",
+      "amendment": {
+        "text": "車が右折する場合、対面する信号Aが青色であれば、右折先の信号Bが赤色であっても、周囲の安全を確かめて右折することができる。",
+        "explanation": "同じ交差点内の右折では、自分が対面していた信号Aに従います。右折先の横向きの信号Bで交差点内に停止するのではなく、歩行者や対向車の安全を確認して進行します。"
+      }
+    },
+    "h3-050": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "processing": "本標識と補助標識を原資料の図柄のまま上下に配置"
+        }
+      ],
+      "condition": "追越しのための右側部分はみ出し通行禁止＋追越し禁止の補助標識",
+      "oldHash": "e5699970d8e10b89c5e1a8f4e29d8496349f9dfea7ad5c80174fe7f9f9e89d5e",
+      "newHash": "5bde485331b47768e5c271dbc79d53ff42de574cf41b2046f8d89c84413c1e0f"
+    },
+    "h7-072": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "processing": "本標識と補助標識を原資料の図柄のまま上下に配置"
+        }
+      ],
+      "condition": "追越しのための右側部分はみ出し通行禁止＋追越し禁止の補助標識",
+      "oldHash": "475bfb8724f797bb4614cb2650ab6795aa084befdd61269aede8bf7d9fdae012",
+      "newHash": "5bde485331b47768e5c271dbc79d53ff42de574cf41b2046f8d89c84413c1e0f"
+    },
+    "h9-086": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "processing": "本標識と補助標識を原資料の図柄のまま上下に配置"
+        }
+      ],
+      "condition": "バス専用通行帯・補助標識8–20。公開設問も時刻のみ一致させる。",
+      "oldHash": "89c550dbac8a73403323abba2d112c808936791a2cc61c53cb6060486f6a4d3f",
+      "newHash": "72c616d94f94497021cf8c97a5758bba053fb97d9285061fa83528b869d5fcc2",
+      "amendment": {
+        "text": "この標識は、バス専用通行帯で、8時から20時まで、バス以外自動車（小型特殊・一般原動機付自転車・軽車両は除く。）は、通行できないことを表している。",
+        "explanation": "指定時間はバス専用通行帯となり、原則として対象外の自動車は通行できません。"
+      }
+    },
+    "h9-076": {
+      "sources": [
+        {
+          "publisher": "国土交通省",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf"
+        },
+        {
+          "publisher": "SOMPOダイレクト",
+          "url": "https://www.sompo-direct.co.jp/otona/oshiete/car/road-sign.html"
+        }
+      ],
+      "condition": "駐停車禁止の標識と黄色実線の縁石",
+      "oldHash": "72a4c9ed9534403019e84a3aca51313c14f7c5c00728a4d6080d35c08fd62642",
+      "newHash": "1cab0ec52217a5c6d539c74778c709a661594b953a922a858c35642bbe5aea4f"
+    },
+    "h2-047": {
+      "sources": [
+        {
+          "publisher": "www.car-license.co.jp",
+          "url": "https://www.car-license.co.jp/common/gakkashiken/img/0028.gif",
+          "cropPixels": null,
+          "frame": 0
+        }
+      ],
+      "condition": "A側が白線、B側が黄色線の車両通行帯",
+      "oldHash": "8be122a33aaa99a7423875a6556044efb74f0d15038710d7da59eb0a436a3bef",
+      "newHash": "d53f0bd57c06fe441b56cc5456f1574525d8a6f16dd25fcc66f112d7413124f5"
+    },
+    "h3-048": {
+      "sources": [
+        {
+          "publisher": "www.car-license.co.jp",
+          "url": "https://www.car-license.co.jp/common/gakkashiken/img/0028.gif",
+          "cropPixels": null,
+          "frame": 0
+        }
+      ],
+      "condition": "A側が白線、B側が黄色線の車両通行帯",
+      "oldHash": "19f9938e20de48aa9253c1473596d267e7ec37ab80680895a0974ef83bf1a1f8",
+      "newHash": "d53f0bd57c06fe441b56cc5456f1574525d8a6f16dd25fcc66f112d7413124f5",
+      "amendment": {
+        "text": "図のAの通行帯からBの通行帯へ進路変更してはいけない。",
+        "explanation": "A側は白線なので、安全を確認してBへ進路変更できます。黄色線側のBからAへの進路変更は禁止です。"
+      }
+    },
+    "h10-011": {
+      "sources": [
+        {
+          "publisher": "www.car-license.co.jp",
+          "url": "https://www.car-license.co.jp/common/gakkashiken/img/0080.gif",
+          "cropPixels": null,
+          "frame": 0
+        }
+      ],
+      "condition": "右折のために黄色線を越える矢印",
+      "oldHash": "1bc1c7f1c0bf6078f018744391765bd97a1a77935063755f774df2fad8455da4",
+      "newHash": "8195d39c1e4167d36dea88982d4266f01c9aafa40b31854deab12e016962663e"
+    },
+    "h2-080": {
+      "sources": [
+        {
+          "publisher": "合宿免許ナビ",
+          "url": "https://www.car-license.co.jp/common/gakkashiken/img/0031.gif",
+          "processing": "図右の説明欄を除外"
+        }
+      ],
+      "condition": "本線同士の合流・B側の車線が減少、A側が継続",
+      "oldHash": "16bf4384e843e941f78959f5656603e739fcddd84c58afbe37f8fd2628b982ac",
+      "newHash": "1c740801a6f26ac2007d72571e7c7cab6bde18a57a1c394ae4d8008e27165ee9",
+      "amendment": {
+        "text": "図の本線車道の合流地点では、A車はB車の進行を妨げてはならない。",
+        "explanation": "車線がなくなるB車が、車線をそのまま走行するA車の進行を妨げてはいけません。"
+      }
+    },
+    "h7-004": {
+      "sources": [
+        {
+          "publisher": "合宿免許ナビ",
+          "url": "https://www.car-license.co.jp/common/gakkashiken/img/0031.gif",
+          "processing": "図右の説明欄を除外"
+        }
+      ],
+      "condition": "本線同士の合流・B側の車線が減少、A側が継続",
+      "oldHash": "424eac7f41a359f299b24e4392abeafe1b8f01a9a0a27c05572b9fc2f094d220",
+      "newHash": "1c740801a6f26ac2007d72571e7c7cab6bde18a57a1c394ae4d8008e27165ee9"
+    },
+    "h2-071": {
+      "sources": [
+        {
+          "publisher": "国土交通省 道路標識一覧",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "processing": "本標識と補助標識を原資料の図柄のまま上下に配置"
+        }
+      ],
+      "condition": "駐車禁止8–20時・左矢印の終わり補助標識",
+      "oldHash": "bfaa399b0efdfb6f6a3e74979d90ff03dff32ec884f4ac9436a9cbdcd9a6d878",
+      "newHash": "a1533583ed51162f19c73a896f55c1a64e309a0e6c762e4788320d838a3f1e92"
+    },
+    "h7-041": {
+      "sources": [
+        {
+          "publisher": "警察庁 交通の方法に関する教則",
+          "url": "https://www.npa.go.jp/bureau/traffic/20241101kyousoku.pdf",
+          "page": 96,
+          "imageBlock": 1,
+          "bbox": [
+            140.39999389648438,
+            227.16000366210938,
+            242.27999877929688,
+            374.8800048828125
+          ],
+          "subCrop": [
+            0,
+            0,
+            191,
+            132
+          ]
+        }
+      ],
+      "condition": "パーキングチケット発給設備の標示板",
+      "oldHash": "e5968aea34979358dcd2a613a87feb8dacc7ba085cacec1c8fa5f42be5f3efa4",
+      "newHash": "c788f670c22c16579a8be7ed97a6ca9b448a738ef144d0bba6807d1ed2375df1"
+    },
+    "h5-048": {
+      "sources": [
+        {
+          "publisher": "www.gakka.info",
+          "url": "https://www.gakka.info/1-3-6.html",
+          "cropPixels": null,
+          "frame": 0
+        }
+      ],
+      "condition": "歩行者・自転車専用の表示板",
+      "oldHash": "5d0abe1cb205e99b8046eab781d102fcc9c9d7c6d2f21305d8ce84af793f84ad",
+      "newHash": "c67b92e24491d04b2b11af558c6332ab7901e26957f816aad0bc78aeb845d82b"
+    },
+    "h2-029": {
+      "sources": [
+        {
+          "publisher": "www.mitsui-direct.co.jp",
+          "url": "https://www.mitsui-direct.co.jp/car/guide/accidents/negligence/c2c/15.html",
+          "cropPixels": null,
+          "frame": 0
+        }
+      ],
+      "condition": "Bが右折、対向するAが直進。公開設問の甲乙をB・Aに対応させる。",
+      "oldHash": "ccf8643e89749ef8b06df1da1fdc4899a639b6f85db7760d0169219d3aab0437",
+      "newHash": "ee48424406b9794612e17ce98b42ed43a3f5fad825075ffb64c4ada32bf771b5",
+      "amendment": {
+        "text": "右折しようとするB車は、たとえ先に交差点に入っても、直進しようとするA車の進行を妨げてはならない。",
+        "explanation": "右折車は、対向する直進車の進行を妨げてはいけません。"
+      }
+    },
+    "h3-025": {
+      "sources": [
+        {
+          "publisher": "www.mitsui-direct.co.jp",
+          "url": "https://www.mitsui-direct.co.jp/car/guide/accidents/negligence/c2c/15.html",
+          "cropPixels": null,
+          "frame": 0
+        }
+      ],
+      "condition": "Bが右折、対向するAが直進。公開設問の甲乙をB・Aに対応させる。",
+      "oldHash": "5f37be1c205d4f01f2318dfce834913701e6026d34810878b59ab54f4f15e3d8",
+      "newHash": "ee48424406b9794612e17ce98b42ed43a3f5fad825075ffb64c4ada32bf771b5",
+      "amendment": {
+        "text": "右折しようとして先に交差点にはいったB車は、A車が直進であればA車が通り過ぎるまで、交差点の中で待機しなければならないが、A車が左折であれば先に右折することができる。",
+        "explanation": "対向車が左折でも、右折車はその進行を妨げてはいけません。"
+      }
+    },
+    "h4-026": {
+      "sources": [
+        {
+          "publisher": "www.mitsui-direct.co.jp",
+          "url": "https://www.mitsui-direct.co.jp/car/guide/accidents/negligence/c2c/15.html",
+          "cropPixels": null,
+          "frame": 0
+        }
+      ],
+      "condition": "Bが右折、対向するAが直進。公開設問の甲乙をB・Aに対応させる。",
+      "oldHash": "3dae67cedfe35b528f50d4526203c9845038dbae00056ba78ed57fd573f1e134",
+      "newHash": "ee48424406b9794612e17ce98b42ed43a3f5fad825075ffb64c4ada32bf771b5",
+      "amendment": {
+        "text": "図のB車はA車が通り過ぎるまで交差点の中で待っていなければならない。",
+        "explanation": "右折車は対向する直進車の進行を妨げてはいけません。"
+      }
+    },
+    "h3-027": {
+      "sources": [
+        {
+          "publisher": "www.tokiomarine-nichido.co.jp",
+          "url": "https://www.tokiomarine-nichido.co.jp/world/guide/drive/202503.html",
+          "cropPixels": null,
+          "frame": 0
+        }
+      ],
+      "condition": "同程度の幅の信号のない交差点。白い車が左方、黄色い車が右方。",
+      "oldHash": "f7318dbd6b466ecb4b6deda39f146c5b9cb7d46db9efd0f0d5627da228198580",
+      "newHash": "a9e3fab2d42412fb2a692f2c7bb0bc89fcd4fe8c173878e961cd980d8223b71f",
+      "amendment": {
+        "text": "図のような信号機のない、道幅が同程度の交差点に白い車と黄色い車が進行してきたとき、白い車は黄色い車の進行を妨げてはならない。",
+        "explanation": "優先道路などの指定がない、同程度の幅の交差点では左方から来る車が優先です。黄色い車から見て左方にある白い車が優先します。"
+      }
+    },
+    "h10-063": {
+      "sources": [
+        {
+          "publisher": "japandrivinglicense.com",
+          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-4/",
+          "cropPixels": [
+            0,
+            0,
+            360,
+            320
+          ],
+          "frame": 0
+        }
+      ],
+      "condition": "Aがカーブ外側、Bが内側。図番号だけ除外。",
+      "oldHash": "1af362815607e1103364639d2cd08e8d874972cef03b4e316f9d82ed95f65083",
+      "newHash": "500bda57717b771d157b14f7f3bff9096b313845e68874a9f2e311b85cc145d9"
+    },
+    "h4-076": {
+      "sources": [
+        {
+          "publisher": "japandrivinglicense.com",
+          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-1/",
+          "cropPixels": [
+            0,
+            0,
+            228,
+            390
+          ],
+          "frame": 0
+        }
+      ],
+      "condition": "車長10m、後方への突出2m。図番号だけ除外。",
+      "oldHash": "6d69737f511cb9d7d15efdfc43f0d9f31c8dda1b5e34815505b343374f8b4440",
+      "newHash": "b448236653800649c682aca34faf1ed85441805ff7ce0ed8f770cde251816d39",
+      "amendment": {
+        "explanation": "車体の前後からのはみ出しは、それぞれ車長の10分の1までです。図は車長10mに対して後方に2m出ており、通常の制限1mを超えるため、制限外積載許可が必要です。"
+      },
+      "ruleSource": "https://www.police.pref.kochi.lg.jp/docs/2023110800078/"
+    },
+    "h3-028": {
+      "sources": [
+        {
+          "publisher": "SOMPOダイレクト",
+          "url": "https://www.sompo-direct.co.jp/otona/oshiete/car/road-sign.html"
+        }
+      ],
+      "condition": "交差点中心の菱形と右折方向の道路標示。中心の外側を通るという誤った記述を問う。",
+      "oldHash": "9cd8d4b6abbbf7606fe3871c7abfe9f192e13df9a62067d4b52f232010e8d34e",
+      "newHash": "a8b92caafa9a7ac1631d9b1eec00317aa55de09cc6005b3cec3c21bf75efc7ea",
+      "amendment": {
+        "text": "図のような標示のある交差点で自動車が右折するときは、交差点の中心の外側を徐行して通行する。"
+      }
+    },
+    "h8-056": {
+      "sources": [
+        {
+          "publisher": "www.tokiomarine-nichido.co.jp",
+          "url": "https://www.tokiomarine-nichido.co.jp/world/guide/drive/202503.html",
+          "cropPixels": null,
+          "frame": 0
+        }
+      ],
+      "condition": "交差点に進入する黄色い車の左折時の寄せ方を問う。",
+      "oldHash": "ed0ddac9e55c6923dc3be14e3e22e39fcd942dabf873739f1235a8817c8e342a",
+      "newHash": "a9e3fab2d42412fb2a692f2c7bb0bc89fcd4fe8c173878e961cd980d8223b71f",
+      "amendment": {
+        "text": "図の黄色い車がこの交差点を左折する場合は、できるだけ道路の左端に寄って徐行する。"
+      }
+    },
+    "h3-066": {
+      "sources": [
+        {
+          "publisher": "higashikyusyu-ds.jp",
+          "url": "https://higashikyusyu-ds.jp/wp-content/uploads/2021/01/効果測定４（本免）.pdf",
+          "page": 3,
+          "bbox": [
+            38.040000915527344,
+            92.04003143310547,
+            252.60000610351562,
+            198.72003173828125
+          ]
+        }
+      ],
+      "condition": "山道の左カーブ。手前で減速し出口で徐々に加速するという操作を設問本文に明記する。",
+      "oldHash": "73837a8120fec4dd76a56240513de0d3bad97a8d6c8426411824ad4ab2f5aa00",
+      "newHash": "f78927281854f95bba0961430f55884d59ade7d7eb4da16e91f7c14528ac4b09",
+      "amendment": {
+        "text": "図のようなカーブで、手前の直線部分で十分減速し、カーブ内は速度を抑え、出口で周囲の安全を確かめながら徐々に加速する曲がり方はよくない。",
+        "explanation": "カーブ手前で十分減速し、カーブでは速度を抑え、出口で周囲の安全を確認して徐々に加速するのは適切です。"
+      }
+    },
+    "h8-082": {
+      "sources": [
+        {
+          "publisher": "higashikyusyu-ds.jp",
+          "url": "https://higashikyusyu-ds.jp/wp-content/uploads/2021/01/効果測定４（本免）.pdf",
+          "page": 3,
+          "bbox": [
+            38.040000915527344,
+            92.04003143310547,
+            252.60000610351562,
+            198.72003173828125
+          ]
+        }
+      ],
+      "condition": "山道の左カーブ。手前で減速し出口で徐々に加速するという操作を設問本文に明記する。",
+      "oldHash": "70e9b5b768bb44c76674881cf87fb3b0d5775a157b7276bce9499f8f7cfdd9fb",
+      "newHash": "f78927281854f95bba0961430f55884d59ade7d7eb4da16e91f7c14528ac4b09",
+      "amendment": {
+        "text": "図のようなカーブでは、手前で十分減速し、カーブ内では速度を抑え、出口で周囲の安全を確かめながら徐々に加速する。"
+      }
+    }
+  },
+  "status": "ordinary-complete",
+  "replaced": 135
+}

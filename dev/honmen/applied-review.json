@@ -1,5 +1,5 @@
 {
-  "version": "honmen-a95a5ff1b30e",
+  "version": "honmen-26bd0ad4d9f3",
   "count": 760,
   "audit": [
     {
@@ -112,7 +112,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "45a909a65fcd06a60c19911871432d8440d646f93881fef944ff2efb343af1c6"
+      "publicHash": "f2fa8ff55fe5482888f6968380f19d49f3f3d0acaf35c85b45f2981c52d02ae8"
     },
     {
       "id": "h2-009",
@@ -126,7 +126,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "079e2d0d286807fbee43bc489b60b59655d9f52830cd1768dfc0596e0d888be5"
+      "publicHash": "3ad22bff6f944b6479cd71da9586dadbc0d896e40ecf32f64c3f093707a04f31"
     },
     {
       "id": "h2-010",
@@ -140,7 +140,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "f991324475ce58f280346dc32d09bcef361fc17553413cb7828989b3be8af8be"
+      "publicHash": "d60d0290e31f331abc0c7b354e6067bee958bc92a25e8095267eef31aa4b5ea8"
     },
     {
       "id": "h2-011",
@@ -154,7 +154,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "d3b9d15b071be64950d115eefb76741d295f495240d47f76d4f3603ed0c4e0e2"
+      "publicHash": "8106429ae17bbad344b766f9f325d0d21e1d84087f1de1114717f3b64f2b9b85"
     },
     {
       "id": "h2-012",
@@ -168,7 +168,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "c708a2230539ede295a9aeed5eca84255959e7a33b93f1a531b0a4bbab793069"
+      "publicHash": "c3a82e1d8b7d4b52113a51469fefa2e3bd5131f4a4dfee0abfec30cc1901e41e"
     },
     {
       "id": "h2-013",
@@ -182,7 +182,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "166884e1307ff3f354af95220bc5b992de973bfd1b51cf95f4f00755cb862ac8"
+      "publicHash": "9e91224b5e5bde15898e486105d943689e56d49a6b29aca70f7183ae75a18400"
     },
     {
       "id": "h2-014",
@@ -261,7 +261,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "98289b5d2194b22603ce29524c85ff0998223ee99dc6340ce5ee5bacd3ccf36b"
+      "publicHash": "a9b94458cf4dea9b2876a0921cd8335c29d9965f2096c3e58c26dc49d6221e18"
     },
     {
       "id": "h2-019",
@@ -303,7 +303,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "6187f363ecb8d56a6493cd1537ec740f8e78d2655830e331414f0c4fd80d6679"
+      "publicHash": "3ec15cd06a2d3229fae941afd734aca8324f46f0554ef58d210a6351a8147f81"
     },
     {
       "id": "h2-022",
@@ -370,7 +370,7 @@
           "explanation": "路線バス専用通行帯でも、一般原動機付自転車・小型特殊自動車・軽車両は通行できます。"
         }
       },
-      "publicHash": "dfd05e39e2fde777daf6953f31ea04cef06b5c974fdad0fc853dea137c27ef36"
+      "publicHash": "955ab82ca0191a03e9feb5076f52c0deed01965227ca69e852fcd358063e2c89"
     },
     {
       "id": "h2-026",
@@ -398,7 +398,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "bcf61df1fd115f3f7d587b228ce90b982e5cd6a33026e1fd822b5bec0304ed7f"
+      "publicHash": "3b2222f2b7503625fac25a62ac17fda04b2462131d6cdfd1ce5e24674968b4b6"
     },
     {
       "id": "h2-028",
@@ -412,7 +412,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "b1fff482b354e85fead9d959b2e5f11edb35820e578bda4840440df57b6ade15"
+      "publicHash": "ea39f551cdba0f12919275186f467f5d135ce5b17cad4acf2a6dec2a3339a161"
     },
     {
       "id": "h2-029",
@@ -426,7 +426,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "ecfce04291b5f88b74c7540d02a1414d678a6c943bfd337e1422f2c129a23db0"
+      "publicHash": "687bb3f4ec094d47ff43433514bff8df5164b8dccd3a29e493a46fd52b43b5f0"
     },
     {
       "id": "h2-030",
@@ -714,7 +714,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "5a840fe2989047967c57102df65d5648ef635ee6db65639f28b1d9b89f59bf25"
+      "publicHash": "fa477cde6b60d49b3d9a735bc52eca40abb908e6609d0415bfee86c3b17bbee9"
     },
     {
       "id": "h2-048",
@@ -1085,7 +1085,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "7b3ec9e7192b223e9884b5c8b8bccce5f4b87b899872bf6ca7caf05a3330aa36"
+      "publicHash": "20cbeba033080ebb5322c6902e14c91f0261d71f711db603e3dda14cbeac428c"
     },
     {
       "id": "h2-072",
@@ -1211,7 +1211,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "a29d4345445fe5cda002aa38a550468be1985f24f54aa896c87df19ff8de5445"
+      "publicHash": "c50512e4f8d852d2107aed39ae144eb42510a709d3f95f51ad8922d644f965be"
     },
     {
       "id": "h2-081",
@@ -1584,7 +1584,7 @@
           "explanation": "右向きの青矢印でも、軽車両や二段階右折の一般原付はその矢印に従って右折できません。"
         }
       },
-      "publicHash": "41c141a3ce9d65e03f81b2b263942009232b3c3b8bb0384e66c6c4c9b4e8b655"
+      "publicHash": "4218398e6a4a37eb664da6ec12907a1f5815df2bdee3af38de221ce11f031e6b"
     },
     {
       "id": "h3-007",
@@ -1598,7 +1598,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "2c88e81a98e9b152bc2014d4a0d77b04ca7ff31daab5bfbaff93ca2d3eac3a13"
+      "publicHash": "a9d3111c282017ee1472c3981755c58b535d5b5d245dee19948ed484d2c801c6"
     },
     {
       "id": "h3-008",
@@ -1626,7 +1626,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "38ae191d1c38571c3da5d59e9a78b17d017c772b8699ab8359aa63a137126322"
+      "publicHash": "490e5e48334be512dd3a62b8cfd49f3593a0c36ba82fe669cd4ee83f90ffc948"
     },
     {
       "id": "h3-010",
@@ -1640,7 +1640,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "5bcca90657179f01f6ad049e56949fcc47be1c2128ec7403711b36c2ce23dbae"
+      "publicHash": "1eb7b7d5f94995bbde040fac4397977c1e59b626312f8511aa72b99bf3b1b2b6"
     },
     {
       "id": "h3-011",
@@ -1654,7 +1654,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "bb912944ae8cfeeb97ab26ae6db0508d0e8b2e90dd468466e6c83e88d5bf2bb6"
+      "publicHash": "14f5dabb72f8255a0d7f25ca6381f571a9f18eb2c172113bc19967ff1ce3b5fe"
     },
     {
       "id": "h3-012",
@@ -1668,7 +1668,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "250e6c34e2c25f6f3e857b9707588de600b8a18462ff4f6d0426a45c885eed5d"
+      "publicHash": "275cb24350e192aa6eb3cc006697084ba9d440c1fce8b9f71ebf68f5fa08d653"
     },
     {
       "id": "h3-013",
@@ -1682,7 +1682,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "a42f61509d290e8701304983240d918617ca155f03b0834465dfcc57b2060e28"
+      "publicHash": "0b7e56272004790bbf7990ae6a63b8d1539405a8f562450f963fc6869eca77e5"
     },
     {
       "id": "h3-014",
@@ -1738,7 +1738,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "0aa938b93aae7e327ddbfc08d476c4a75f34743ad9e67edadb60cf5fdf5e9f79"
+      "publicHash": "22c3bda6a25ec1040a53823b28dbf0cd9082acceaa646ef4763aed4b9643f2ed"
     },
     {
       "id": "h3-018",
@@ -1752,7 +1752,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "a4a64b20c04f9857adf1f452392fbd14d12ca63f8afd9002da9f550ed3f7c8ef"
+      "publicHash": "fe4400a628b20214b668594668e564f1f9ef5aad0a1c26bab7ee8e7c3bd613d9"
     },
     {
       "id": "h3-019",
@@ -1836,7 +1836,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "dc165bc9175a07ec14cf2e96784fd68aef57f7c42e0492876fbeec026158f79b"
+      "publicHash": "37f352a0c373e4324b0a848d7ef39a1708948788adeaed189af704082e580bb2"
     },
     {
       "id": "h3-025",
@@ -1850,7 +1850,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "ca1bc745f1477466ba3e6dbc76374c2f1b2db6617643fd43745507093e650a02"
+      "publicHash": "ed4a7c26a7479abbd38e7fc2ce8a070a8598026a484e2ce17c57e3e5bc00e6e6"
     },
     {
       "id": "h3-026",
@@ -1878,7 +1878,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "cc87077b74d0c9b161c396f40607aca502f183650d52e6df99392201f0d5ad0f"
+      "publicHash": "8f8170287718d95ec61a30f30e3909ac7f854cf5258d8bf6a4bb93e5cb042a47"
     },
     {
       "id": "h3-028",
@@ -1892,7 +1892,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "efabe983fb009212149c79390a77b7754dc7101ea19a08cea56c2e38c49e8518"
+      "publicHash": "aa231122fc279e05ac17eeb28bb32cd12138d08ac166b2465ef9541c95a3c3be"
     },
     {
       "id": "h3-029",
@@ -2042,7 +2042,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "1e3ab3f91ae946cc0b2ff87e97ffc46f281afd833b6dafa7a53ca23db3db17d7"
+      "publicHash": "db4f9735e0c730ed071f70b6a027442f074bac78cea367cfc940f9a26e0878b2"
     },
     {
       "id": "h3-038",
@@ -2126,7 +2126,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "387a9abc096134f551a701fe6ddb095da2ff7d035ab1ca1d51809215c1578d07"
+      "publicHash": "370e809076504f0d97189ae20462c4eebdf763f9a634a9e5395c917de3388cc1"
     },
     {
       "id": "h3-044",
@@ -2196,7 +2196,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "52c20b7b783c8d3a357064bb37e219839329c80c5882aa72a4621df785a56471"
+      "publicHash": "cdaf6d627651b96074132887e6c440beb0c69a484fa85c82c0bbe4868c390dba"
     },
     {
       "id": "h3-049",
@@ -2233,7 +2233,7 @@
           "text": "図の標識のあるところでは、自動車や一般原動機付自転車を追い越すため、進路を変えたり、その横を通り過ぎたりしてはならない。"
         }
       },
-      "publicHash": "48876acf532b5695ac50a76f40d056a3124cb396082b4c61919a5d35fbf24646"
+      "publicHash": "8717a17667d51277ab2254459ccb7a081fab99965039abb5cb6bae9d4b71f0c0"
     },
     {
       "id": "h3-051",
@@ -2485,7 +2485,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "e31c40af267d90aa77f79970d424e7afcab000b6ab42b7e67c1021a43f370984"
+      "publicHash": "2ae4330611371bfaaca9c83f2795c033b7b147b1ab59d650ddc4e214b4ee9914"
     },
     {
       "id": "h3-067",
@@ -3079,7 +3079,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "d792642a7b01ae06b1af0643dc7c3d4c384688ee85e48ad6337e62221dcd61ce"
+      "publicHash": "cac2ae7bf60c10b06e3c21ec15ad5fb1cb6673e9c5d45e4d8c20fb58f9edaacf"
     },
     {
       "id": "h4-007",
@@ -3093,7 +3093,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "6e373fefbecd3474a061e299d615a0d918181975cf0b63b3e259028931e6b10d"
+      "publicHash": "96b686f089065a20d139a01909e8e4894879273e354bec93e96ea319618a661d"
     },
     {
       "id": "h4-008",
@@ -3107,7 +3107,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "3aa1f7edd0999fd6fb06caab9f15ff2be4582fa5a2c3b411838f5538df87d5ae"
+      "publicHash": "cbd5d0ad938bd74b7ba3a01b6a8106e87fb84b6aa8d6fc19de988f351938535f"
     },
     {
       "id": "h4-009",
@@ -3135,7 +3135,7 @@
         "preserveSourceFields": true
       },
       "terminology": null,
-      "publicHash": "c73b867f7f632918d207514900370fc414351128a240a2c9454ee54ec5c0fb38"
+      "publicHash": "bba1618f8915f6e687766bc2b686a3c2851f999d7174294b0a3e8d4090fa8715"
     },
     {
       "id": "h4-010",
@@ -3149,7 +3149,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "6551d576f3f8b455cd55c084f920694a4b533978e0485dd50a768de931af6e49"
+      "publicHash": "f620a33d4adda1140d436c8ffb3b57ca10c842c8263edf2c8e04203bfa5e984e"
     },
     {
       "id": "h4-011",
@@ -3175,7 +3175,7 @@
         "preserveSourceFields": true
       },
       "terminology": null,
-      "publicHash": "09c4fb0b5da06df528eca5464791d0de6133d26dcc78c1b50a55d3d6da746c34"
+      "publicHash": "292c4e93c30b3127f05bf1dd38500ce1c61ecc23abd404f0ce327de419fd4483"
     },
     {
       "id": "h4-012",
@@ -3189,7 +3189,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "a8b43253702f94949c9b9f1e1fb1ced98ecadf09ae280cecfe0823ad7427dc2e"
+      "publicHash": "ae9701a76a1c4d3e608fdc2222998de21967685ad7b77a90bf24a8ba2e2b4ef2"
     },
     {
       "id": "h4-013",
@@ -3203,7 +3203,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "fa3b032377412538977e813cda15ec217513f0b0b313ebbd33744084892c8f1f"
+      "publicHash": "da3d9bb284c9878f2e335434a6f2591aed1408d26f8c77df2bebff6e9718e3cc"
     },
     {
       "id": "h4-014",
@@ -3287,7 +3287,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "98a7673fea2e3342f97d9a10636937dcbad5c729191315efcab5f93b28fd24e8"
+      "publicHash": "5e74ade55c7576a2e9a5fd539fe7cb0eaa40f2ba605bf9848ab9aad79ca66e03"
     },
     {
       "id": "h4-020",
@@ -3315,7 +3315,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "0705bd8ccb4629017394dc7e76e78ab2c292d725fe3049d48d35d88b0ae9b726"
+      "publicHash": "f62426f9673afd4e4a2def19761ded87a2f9fcc6721b6a9e2911ffeb8a2cee01"
     },
     {
       "id": "h4-022",
@@ -3357,7 +3357,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "f143506797c298aab94608ae2d4cb1bd65420e089786aee29784e860e6e6a10a"
+      "publicHash": "ffec11feb236eea5ea11b72c0f7cc47763ba8114743a944e3c836bb75419246d"
     },
     {
       "id": "h4-025",
@@ -3371,7 +3371,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "18e99266fc5c52e8b29a8c33c7f39cbad5700ac4da1e2737e3bc8acb4922c0a8"
+      "publicHash": "d8a07b2313714185b708fe54ea74a782e4fbd7b251a41893a767f7b94213039e"
     },
     {
       "id": "h4-026",
@@ -3385,7 +3385,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "e8e8b2e9ba323c18c1351972f85e682e2dc981cdfdc3f669c986634d68161af1"
+      "publicHash": "5efaf9a1a72b57bdcc7b002f80b50105dc3d9424588ff684090b92be014afe1a"
     },
     {
       "id": "h4-027",
@@ -3399,7 +3399,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "5d26d6a207ec643ccd44f40407511a183c63a8d2feef52803a622c046797bc88"
+      "publicHash": "b976ed4434b328193381a71ace92812d5c3a95c53e25d4089cf11c3622d17889"
     },
     {
       "id": "h4-028",
@@ -3495,7 +3495,7 @@
         "preserveSourceFields": true
       },
       "terminology": null,
-      "publicHash": "3ccec7e184f591bb56d62db3c6dda5fb0bdfba91db0cd262a57c258f81137550"
+      "publicHash": "e6af5ec08abbbb9d3c4c71858450fb0c95f96108e77738b8bfc2f4f57844d4ba"
     },
     {
       "id": "h4-034",
@@ -3523,7 +3523,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "6a9b0034f12e42043da71762e18ab0f7553961aa008b527e837e2962c1604e82"
+      "publicHash": "eaba8ffd6fb73a92b969cf9b6acd27f0695547eddedde6161ae1fc756bc6a1ea"
     },
     {
       "id": "h4-036",
@@ -3649,7 +3649,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "4c1559c9db6ebc583eb90bc884e620ebb7bf4850a851d6ef16a3190509a67ff2"
+      "publicHash": "4d488dce490ba556e2ed0aaf0450560758091e251f8c6d7db3db2854dac657ea"
     },
     {
       "id": "h4-045",
@@ -4132,7 +4132,7 @@
         "preserveSourceFields": true
       },
       "terminology": null,
-      "publicHash": "0e8b301f6945cf01db2f414176ddc7d9329a9c0850f90db3fa0a1a45cfdc5b0c"
+      "publicHash": "66731ca74c66a247383ffea877e0ec99ef6b42116736b40caaa7f064b862a78f"
     },
     {
       "id": "h4-077",
@@ -4668,7 +4668,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "bbdedb6763b6d2109d1690f23c5ea32802a34228e34277c0cd176399747b42f5"
+      "publicHash": "2248265a05270daaaeca25d40827b83f735e4238851e30ccc6e106ac578f5a94"
     },
     {
       "id": "h5-008",
@@ -4682,7 +4682,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "31c794689d8b230f42d9f2d15f5f0db72790088a41ab88e57a75203ca2aa7bcb"
+      "publicHash": "aa685bacd087a15617d5ef52a9b5b6b85ec4884c30f54ffc741f7e209cf909b3"
     },
     {
       "id": "h5-009",
@@ -4750,7 +4750,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "63df61d78216ef90a5bfe73b4101874bf08b7e3cc3e4d14a474f7e541b383e3f"
+      "publicHash": "cb2a860dc0b4eeebbec6da57f3c8bd9d4914dc7d42147fc92f0b5480e7647ef2"
     },
     {
       "id": "h5-012",
@@ -4778,7 +4778,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "730e65ea66f2dc5edc4b3628dd367a204f42e19b23b8b572dac5802e671bca65"
+      "publicHash": "f83b068c11e53fb2a1d1c5fdd0d650b77e0184e5b4d9f38ee21c8255e5b34962"
     },
     {
       "id": "h5-014",
@@ -4952,7 +4952,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "07c2cc931267eefa4806c5fded2139494fb16bf53f6ee2e944f1d81b06aa47c3"
+      "publicHash": "f1e6004b08ed220bf509d8c17180244f551a96fa0cca0e40ae69b6484b087bdc"
     },
     {
       "id": "h5-024",
@@ -5036,7 +5036,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "88dbf88e37fc77a2b2bc591df2b2b3891c02c39da5705881d17415ca20b9d18b"
+      "publicHash": "d9955111190aed01b7fb65630283c134469c67c5e2ddc3ccda623a4c05d20ee3"
     },
     {
       "id": "h5-030",
@@ -5163,7 +5163,7 @@
           "text": "この標識は、自動二輪車の通行止めを表しているので、一般原動機付自転車は対象にならない。"
         }
       },
-      "publicHash": "e92ae3c37178cc463e4d14ee89a99264af82f43324e8d11081331c3d12c68a3b"
+      "publicHash": "79f615dac57dc78e851d93a853f2710dc2f5a9e5c0f1a24be00598473362af2f"
     },
     {
       "id": "h5-037",
@@ -5341,7 +5341,7 @@
           "explanation": "一般原動機付自転車の右折方法（小回り）を指定する標識です。"
         }
       },
-      "publicHash": "fcd88be6de3359d03bf789a6ed5a3a59ab2fa975b7061889c8e6637a4a4aa0f7"
+      "publicHash": "ac89ec1f5a490aefa83650f4984386b4b8a93bedb0c0f8c4999bb9c56671c4a2"
     },
     {
       "id": "h5-047",
@@ -5369,7 +5369,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "0ff05f26b58e0164aeff205e613b7dda804e3dbe6a0619dd06bf3a874f948a2c"
+      "publicHash": "672863a52e0595891eaacf83da2571dd1e8e7d2df84dddf47d33b7cf5a4ca9e0"
     },
     {
       "id": "h5-049",
@@ -5383,7 +5383,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "b4976912ee685bb8f5d800d26aed25d8c546b806a16d668f7aca33ce3c0c8333"
+      "publicHash": "b9cd45bb3e2e2b7441c6c27292148660067a72f9080ae485082ebb0f59adcbc4"
     },
     {
       "id": "h5-050",
@@ -5453,7 +5453,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "e3127c1c450aa3ca81fc58a8431717725cfd080e6d08b10c79cbfa97e84fd609"
+      "publicHash": "42abe706bd5330d41a067949beccb7783f7692b70637af641da9073fa4899cc1"
     },
     {
       "id": "h5-054",
@@ -5508,7 +5508,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "e03710a6359b69f45ed360b442dfe4a44688220322b54acb0e9c056aef7320f8"
+      "publicHash": "545d66b2c19343f03373f310b018cbcaf4236bdb1851af542d2bb21d4efb2764"
     },
     {
       "id": "h5-057",
@@ -5531,7 +5531,7 @@
           "text": "この標識のある道路で、一般原動機付自転車は通行することができる。"
         }
       },
-      "publicHash": "c24ca75c83fdb49eea1450558fbcfd436a0017f0ad80879bf4592d700f4a83b4"
+      "publicHash": "57580c672d0158a83d3b8e6758534e56767a43e9f237d51a617d8cc9fc8b3442"
     },
     {
       "id": "h5-058",
@@ -5624,7 +5624,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "b08be9ce0338c444782c47c77b4c965176264c90efa50593aae99cd710b52a51"
+      "publicHash": "3322b0be58a5d0051d26be33597490d1581fb4cbfa1f2538ce09a7242c5064bf"
     },
     {
       "id": "h5-064",
@@ -5736,7 +5736,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "489f717f7a7fe5308d64b449cc6641bbf29140505266b4d9203d5e87cfab6c7a"
+      "publicHash": "0f6108326a3250ad230a06541e58f0171b7447d64126502901d3b6fd46aca31f"
     },
     {
       "id": "h5-072",
@@ -5848,7 +5848,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "2bdc09003a8e60e4ed6b06a6215f8ef50ff86a0ef4383ae31b58cf64217b1b78"
+      "publicHash": "3f1ce4d6c8ad7280aead31eb7d4b36cfe7ef36df7d953b1f3668f6467336c2d8"
     },
     {
       "id": "h5-079",
@@ -5932,7 +5932,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "f91379ea3e750aa4efd326bfd6bcfc37f18ef3e35f419f65a496ddd62bbd1644"
+      "publicHash": "72ab737a6ff5a3d9b6e1008a78c4821c90209654d024e459bfaf907d4725c769"
     },
     {
       "id": "h5-085",
@@ -5972,7 +5972,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "4c797c1c457fa37d357ca75eaf407d26f17ff1110d7e95af32d26f4c2241c108"
+      "publicHash": "0d737544a69564ffc4bfee2c8bd27c411126bf41e9befc00a588ca9c4eea74ab"
     },
     {
       "id": "h5-087",
@@ -6222,7 +6222,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "a2d5c3b160b00e9e2b901d0c72ce9ed171a5560bc03a2877556531bf38ddff15"
+      "publicHash": "54f75cab426c3c8014cd84ef85d428de55c4985c4c0e94a46b3161c7944afa07"
     },
     {
       "id": "h7-005",
@@ -6278,7 +6278,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "15c702ad107494207c5496bb22bb5cd4f2714ae9109cdf850c81c72be0739931"
+      "publicHash": "3b148ae10f53c2d0aaabe4bb2f8c6f79ab3264d401ccefb675fd266d4f185a18"
     },
     {
       "id": "h7-009",
@@ -6292,7 +6292,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "db8ca915d4cb2c806dee199def26591ccd8f664d344b10958b0fd948597d9de8"
+      "publicHash": "8c19a5cf0535d7842eef02321b15a17611e701e868507c9eb9da1f24ffee2eab"
     },
     {
       "id": "h7-010",
@@ -6334,7 +6334,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "9c35cdac3911afdd812fb9cdaca1bc78cb55e354441438ef1da6f50a5a0f5d1f"
+      "publicHash": "48b475826f424f28fddf6b631e22cf8b046227c9b625fa5c5bf3389156d0f48c"
     },
     {
       "id": "h7-013",
@@ -6348,7 +6348,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "38794ade36b0e4c1db06b97770729f869d973730fe3311543ef739d557d2ab4d"
+      "publicHash": "31c08f94e5608d7eddccae2b371314792d86e34d417d1e82b52e05469623029b"
     },
     {
       "id": "h7-014",
@@ -6418,7 +6418,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "628e774aafd8c3843d0a6ca5ca02a96adfc9f18d342f99a334d625723d1f6e9c"
+      "publicHash": "6c07730ed5e536c1fbdeb6cee69aac35a3e0fa1dd654cce269e3972516a3ab4a"
     },
     {
       "id": "h7-019",
@@ -6488,7 +6488,7 @@
         "preserveSourceFields": true
       },
       "terminology": null,
-      "publicHash": "384e1f3dd0a50452bc54b3f3130ac4f788aba2685010427cea234371b54a7dd2"
+      "publicHash": "6018787ec57045a526e65269b627489a4e2acdd85d49300744114a4356c29269"
     },
     {
       "id": "h7-023",
@@ -6597,7 +6597,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "db3618209546375919e64f0ebe4a4f7d9f4f9192e5e42918eed25e19d899f635"
+      "publicHash": "760733ae72c00807c36e8a5760eb0fd7e578d2f16fc3abd09c20991767eca7a6"
     },
     {
       "id": "h7-029",
@@ -6611,7 +6611,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "227679d290d3ae4863d015986358f5a142e62b6bbb97d2dead5fa005f6574b15"
+      "publicHash": "dd9670df4f1fb9528b36718c54780226994e1a2bad5a7f3c743896bd14e95fb0"
     },
     {
       "id": "h7-030",
@@ -6625,7 +6625,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "fbd165954f81ed1b43d651d46a8ec77d94f88736dec32f5448b00914e8f05adb"
+      "publicHash": "0e8dbcf4ca1d833d2a5992158578e1e540ea7b5c830eac00378a96b0d1f66549"
     },
     {
       "id": "h7-031",
@@ -6653,7 +6653,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "54d0ddc386f76bb62565fec9d2f105dc5f50129bd98b3d78f9c9c4d9864b645d"
+      "publicHash": "803ba3e6f8854b5d87fbcf4af1882064b917d7690b23d2585dff846e2d304778"
     },
     {
       "id": "h7-033",
@@ -6681,7 +6681,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "098dac7a8a70ba7b24a5ec4b87a94a5e11913f8265c46a4530377a921b52f14b"
+      "publicHash": "8e59c90b0ff13bc9aa6799a97452afd4a03d7b429c91dc8fae9a6c792a1c1d86"
     },
     {
       "id": "h7-035",
@@ -6709,7 +6709,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "3e261102b36d0c3db5741c988319cea8696743c9c511f949b95fba47e7b2bc96"
+      "publicHash": "676e74976d468d053e63c26cde076f87d113b37c0c860c28e42a67d69dcd7971"
     },
     {
       "id": "h7-037",
@@ -6779,7 +6779,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "f8ff1202b324ba187a2579a62881788c607866cd15d969ecd76e955600b151db"
+      "publicHash": "ca91af1dc4c9b77fd9a40beca6b002e81cb2ab987da73a3651330246491e64ef"
     },
     {
       "id": "h7-042",
@@ -7021,7 +7021,7 @@
           "text": "この標識のある交差点で一般原動機付自転車は、あらかじめ出来るだけ道路の左端に寄り青の信号で徐行しながら、交差点の向う側までまっすぐ進み、その地点で止まって右に向きを変え、対面する信号が青になってから進む。"
         }
       },
-      "publicHash": "50c9d7eaac0622fc137d4fbc1590b49b71d778098b790871a9428b41295e350d"
+      "publicHash": "20f0cdf344677dc64ac5a084e8bce273f2097db164aeee59c35869dadf145ad3"
     },
     {
       "id": "h7-057",
@@ -7117,7 +7117,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "7682b773542e9ef7655101750168ca7b97c0386b597df2c0b736e9cf2c966d09"
+      "publicHash": "2e213cc18f6f033b54cb76fb25a717d702e3bc33c99a89e4140742a58fd8a894"
     },
     {
       "id": "h7-062",
@@ -7319,7 +7319,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "46d5f070eb3e879413215b9a22084b60003a4071b046861e929bee642a8d12c5"
+      "publicHash": "47fa4ddecf2001d540b6912807c2d7b3c682bae9ce857c2f4e12c960c04a2337"
     },
     {
       "id": "h7-073",
@@ -7828,7 +7828,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "91ca47f856ee75fe19d6c1e28e902faf822e5db09fc3ab852b142785334000db"
+      "publicHash": "56340da9249d7047635001e3e27819af4b2cd0b05b893a8e065dc63f6fdc8f95"
     },
     {
       "id": "h8-005",
@@ -7842,7 +7842,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "e8cedb23840865c02a9f4655fca2e58df39ecf267b477eda487058baad47b67e"
+      "publicHash": "e23d3f5ef654d44a17930e09ae46c6f969f6137683f1cdc5f2d67da56bae5636"
     },
     {
       "id": "h8-006",
@@ -7912,7 +7912,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "55bd9b81e2b1e33cf33a94e5d75fd91287aa0cb352c96487dac6a2d7a43f7243"
+      "publicHash": "0cfff88d139cd1bf061280864e51dd6fe284bd89ec50e3af9e3d7ed38d182eab"
     },
     {
       "id": "h8-011",
@@ -7980,7 +7980,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "dafe483bc0638dda9b7a5520f6cfc71f9404ae1ce4e7fe95e45c14649baf3b4c"
+      "publicHash": "8f24db3a18669bcc0d526551dc44a806c62bf954de50e931be0301432c4961ba"
     },
     {
       "id": "h8-015",
@@ -8100,7 +8100,7 @@
           "explanation": "一般原動機付自転車の右折方法が小回りに指定されています。"
         }
       },
-      "publicHash": "251522bf4884d49caca60851768e08b947b6d7ad8bbfe3b01360067f7e3b6ab6"
+      "publicHash": "0dd82ddbdf0cf12d23be6707ba9837395f42c20f0ad1f092b6c2e6cb91dfb7e0"
     },
     {
       "id": "h8-021",
@@ -8181,7 +8181,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "ad0c620e67cf78b679c8417a9375d5f98e40541d05af1edabdd5f7e4e5b7a9c1"
+      "publicHash": "3bdf10c02f5d5ac627ab2c89a00ca1794166b79a8a05ddefcb46def59e46301a"
     },
     {
       "id": "h8-025",
@@ -8195,7 +8195,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "758d2b0607e46219af40b5b5cee72f82a4fb15e77c2d5b35222c2969f23be813"
+      "publicHash": "4c42a3db7d76ed698815105ec48c1146cc953d76fb930ed039c339ace791d3ef"
     },
     {
       "id": "h8-026",
@@ -8287,7 +8287,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "161110ffbb2625ad9f61a8eecae6c1d78776635fdf2063ea63746db86719e621"
+      "publicHash": "bc44eb3c0ce37dc0ffd9ef38bdf0380894b9fc1cf746095d9fbb56b618c62f5f"
     },
     {
       "id": "h8-031",
@@ -8380,7 +8380,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "7d4ff69e8ebef84867e084ae4e76275340898ac5b9d2aa8b070de035dd364fe9"
+      "publicHash": "378266090cf86e43fbc470ef66ed0370a4029ba60321df733dda90b2616adfa4"
     },
     {
       "id": "h8-037",
@@ -8473,7 +8473,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "e1fe2c73ba3455eb4e087870fe299126e8dd2c9441c3d4ca87ce2efafdd557a5"
+      "publicHash": "4f1360739f217ece02cfc689d8bbb5d57822a0b54af1391a2fc2223e882349db"
     },
     {
       "id": "h8-043",
@@ -8557,7 +8557,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "b6255fb66e826c3c9b607d14d4bc78bae1c20e500a2fc280e463b903a1b3fa28"
+      "publicHash": "63510735eb1bb8a5f14b0fffcfeca820735a2e90a1adb189ee15c3f3897c7771"
     },
     {
       "id": "h8-049",
@@ -8599,7 +8599,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "422d1c2f2d5e7ea571b867daecef397d259c0ff68ea51f83470e80daa81f034e"
+      "publicHash": "c6617137d989bf40621d410c4fb73725249d1e00ed1fa7ab26ef80ce33e691e8"
     },
     {
       "id": "h8-052",
@@ -8694,7 +8694,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "5c9636ceb8ce6d732d58a1c7dd4fa2cb956782207163f9270f5b8235addb1d94"
+      "publicHash": "6fbd2a8211e58e9b866cb86c9e540b3b16107c25344e66aeaed8492f149d29d0"
     },
     {
       "id": "h8-057",
@@ -8750,7 +8750,7 @@
         "preserveSourceFields": true
       },
       "terminology": null,
-      "publicHash": "22e887023da84b2fa1a31bdb396299827a1799f618be14bfb73daf8e05a01739"
+      "publicHash": "bf3e2cfd727633648bc0c114f6b85da383e482da7605562d9a27bb30a77e427c"
     },
     {
       "id": "h8-060",
@@ -8804,7 +8804,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "670587b7e8c51038407eff23617848d693963e97f7a1df08d2a5e637a29e8165"
+      "publicHash": "6c5fb671e3e3b8a1f5d476ecbb5558e414dd38cbf221d8c38df189caf6a5507f"
     },
     {
       "id": "h8-063",
@@ -8916,7 +8916,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "cd92beea80ed961384cd5c1b7caa88f9ec0a2560ce7842a70b00973a8de0cd74"
+      "publicHash": "7207d82a1dfa07fdc5029328c4af8e55fa2bbda7317ae9b4190b10dbc90df6b8"
     },
     {
       "id": "h8-070",
@@ -8958,7 +8958,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "a2a185b3b81197f9298ad108650b63b0e8c341a6cf6f9c91200de50df87717f7"
+      "publicHash": "5548f44113650368b53cc673ed86d79d75d66acbda9ac989d9cde7d00493de45"
     },
     {
       "id": "h8-073",
@@ -9098,7 +9098,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "c0dce641026d0a3d9d15c90ef3986f8b96ae56deed62cc042ffa1f78e3adf591"
+      "publicHash": "91544d61dead9ffe4a4d570180f873a7240253f6a95637ba6c69e91ad209f5cc"
     },
     {
       "id": "h8-083",
@@ -9163,7 +9163,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "1dc5a4d9dbdc14858d2a6ea4dcea8b77387268d84bd3d2dd0e6e46296520fe0c"
+      "publicHash": "1e0bdd68f144b8afde11e1719d0274d19f60b98ae8b776804c2d79da61c7ed9f"
     },
     {
       "id": "h8-087",
@@ -9444,7 +9444,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "ddd9f1ab17d77280da128709b41613c99596ac76df4f91cc94ea088e743c1f32"
+      "publicHash": "a8f71db03fb5c9dc3c7b107f0a0a0717f0e63fac691f4cb6de292670a603bb8b"
     },
     {
       "id": "h9-005",
@@ -9514,7 +9514,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "d9bc43ff7941003c1d32abf2ef92549e6f8b0040f9c8096d41ee32cf5afff298"
+      "publicHash": "d1e54044cc85e2dec7e278ebad94428a95256c0a1f32aa7bb99af9fd39a8522e"
     },
     {
       "id": "h9-009",
@@ -9668,7 +9668,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "42cf550a260533d586c48ff1c99a438898a15efbf0f86938e0476e0a4dd53f85"
+      "publicHash": "90e11780976e976960ea3d8007a65aca9fb2ae9cec8ea869065779d7d63ab8fe"
     },
     {
       "id": "h9-020",
@@ -9976,7 +9976,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "2b94a402ce21dd895dfc1503f88d88e0e3adec7bfa80085e4de88e6633772ac5"
+      "publicHash": "e186a968931518305f2b52b9cc3f474cada010f3b9d2ed2a8321a2f8efbec649"
     },
     {
       "id": "h9-039",
@@ -10018,7 +10018,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "540f1a2bf9a7d51f760fe00637c0ee1c7b48ec21ad1eee71e6d385579646c7b8"
+      "publicHash": "d51e43d1f57a9538f4bb48c09a3906fa1e80bbfc18336628e915a03c9de9ed8d"
     },
     {
       "id": "h9-042",
@@ -10228,7 +10228,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "bd62bb6a4d419d18585b2fffde79611e7f8fc3171e88d8a114dc3f6ff69dbac4"
+      "publicHash": "dd8c381a1c4afb4043db501ee733f2fcb64a0ce51cedd55b26ee04f1a8a8a0b0"
     },
     {
       "id": "h9-056",
@@ -10284,7 +10284,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "0d41b76fae6a945219513d47c35313023dc45776bd6dc551f6d751ffeb3c03fa"
+      "publicHash": "7ba76738cca376e96be8398ee55ae2b797418d93d6df49910f1cc82bce0c2f2c"
     },
     {
       "id": "h9-060",
@@ -10352,7 +10352,7 @@
         "preserveSourceFields": true
       },
       "terminology": null,
-      "publicHash": "9663a962de04dcdb5a30621a6a5e747ca2ae35203adf55bf9ab6d64cf79bfc79"
+      "publicHash": "90ead617d1c8bd0b40964d72deb926e22b550b1b7afa0921679502246d9fe8f4"
     },
     {
       "id": "h9-063",
@@ -10417,7 +10417,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "9145363a6d23c6b5258e901ae3c04df49fedb1973a48430b4935acc7743fc1d7"
+      "publicHash": "8e3db2566d35a405388447e9e329c1470060f5abdeee0188ad634d76bc1339b8"
     },
     {
       "id": "h9-067",
@@ -10513,7 +10513,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "729bfb6a2c898acdfb577e3c2c4dd1557da2109143da1a204c3d30c600249038"
+      "publicHash": "dfedb7c962663b581f7ecbb63d890329d38c4f2b2a14e1dba90fb391bbd58906"
     },
     {
       "id": "h9-073",
@@ -10569,7 +10569,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "b96dab9b9535d9d52054ed53c8633a8161972df67d822c4465e2e08ae7f35b30"
+      "publicHash": "f3aa84567f19284f5b9a2a4286ba38ed7f4bc001226b0a1dba73a95d53127a84"
     },
     {
       "id": "h9-077",
@@ -10732,7 +10732,7 @@
           "text": "この標識は、バス専用通行帯で、7時から9時まで、バス以外自動車（小型特殊・一般原動機付自転車・軽車両は除く。）は、通行できないことを表している。"
         }
       },
-      "publicHash": "dafc778e5d7bd2288b37619b04d1aa23ae3b14315e79d30f0d11fe7439ddd48a"
+      "publicHash": "b3768dc8e20d35419371924154dd0b35a1498042d876353ce3ad95375a89e6da"
     },
     {
       "id": "h9-087",
@@ -11008,7 +11008,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "2d853f23a76d885814fdd6c6c080adb96d3bcd9f110100ab964547fc5e0140cb"
+      "publicHash": "b44e441d736dab7036ffbe6b00ddc568f897d7394b66e3e1cb5c00c3e0c6aa52"
     },
     {
       "id": "h10-008",
@@ -11075,7 +11075,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "0d9c40f7b5c9c9676095cfc6884f0a7129ee7ab9fa1c4a094a37aa8aef34691f"
+      "publicHash": "a40916ac0439acc37bce4a135c0bdf6bc79a8ffd9fd35daa9e88f5bda7c077c3"
     },
     {
       "id": "h10-012",
@@ -11145,7 +11145,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "20b578c15d1d379474b0a9f41781038b6c639adb89cd50f1bbea7dee3762a2d3"
+      "publicHash": "1937d5ca57cb3d551c60b0a067995d52371c38ec97dee73c72fc0d27755a0451"
     },
     {
       "id": "h10-017",
@@ -11254,7 +11254,7 @@
         "preserveSourceFields": true
       },
       "terminology": null,
-      "publicHash": "6623a77148d9440adeced739e54b2c4f35f413fe0f5213efdcf8de855d22e718"
+      "publicHash": "42b88dd7e795c4f620995f9aa41e951487036546885c0f84d5cfbd6f55acb250"
     },
     {
       "id": "h10-023",
@@ -11496,7 +11496,7 @@
           "text": "この標識は、『追越しのため右側部分はみだし通行禁止』という意味ですが、右側部分にはみ出さなければ一般原動機付自転車を追越すことはできる。"
         }
       },
-      "publicHash": "c07327c83530b2044440b126597e5c70eed4e26d3b70be0000213aaaf81996b8"
+      "publicHash": "726f8d3a6cf048a24b12427222cf581ada0b4304b7af1159bcff3f246071e956"
     },
     {
       "id": "h10-036",
@@ -11570,7 +11570,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "ef702750b9c7383fda64b3bf4581356c7f477ecad2d123a9b3bb25c315506e37"
+      "publicHash": "74c68aaf7359efcff24cc0253b01d85d8ddacbe7185d1c83219bc7637854a195"
     },
     {
       "id": "h10-040",
@@ -11612,7 +11612,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "ffb01dafb07274456d6c7497bcd0a7645149eeaab220e6585e7fbfd27eff163c"
+      "publicHash": "47c3651e2f8789c0369f209c1d5bc20fff259d701d3f633cbd29348e90272bfa"
     },
     {
       "id": "h10-043",
@@ -11738,7 +11738,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "ef199b39055efb22f155b398816ee81f11af28a52897578142f58d1e4d76c7d2"
+      "publicHash": "23471d599d7b6b7892986006f7e910c8f61b46e4502f9b8e8d2230ab82882663"
     },
     {
       "id": "h10-051",
@@ -11752,7 +11752,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "41722e9d6e43653f3eb59a39c33eb7c4833ac77306269587a6b9ca1ad547b1c9"
+      "publicHash": "99b1f6626de6597e2786cff9fb6ea9774ac6c17dc436426c26c159d54dc7b4b0"
     },
     {
       "id": "h10-052",
@@ -11864,7 +11864,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "174a35728ba0bdca8e7f4cf7179a1e046263f4e84a36660d48a376ff3786c65d"
+      "publicHash": "2d5ddb793f66c220603df5c8abb20475e7858f046d98a044ecc16ae10e285642"
     },
     {
       "id": "h10-058",
@@ -11945,7 +11945,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "638fe16851c3ea0cf7594dbac50ed24ea663274ef0248660f1ac73e75fb95a78"
+      "publicHash": "f77afe808af6894ce8744556d034ed38cd883f8bdca02ef35f71086daacb2110"
     },
     {
       "id": "h10-062",
@@ -11986,7 +11986,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "b5f591a13214458fca751282fcffcf181f79ff91755b322622fc619c5e89f136"
+      "publicHash": "1105542f4d9dbd157454bddb9cfb8dcaa8ad9a38d26022078c8cdb4299291bc2"
     },
     {
       "id": "h10-064",
@@ -12081,7 +12081,7 @@
         "preserveSourceFields": true
       },
       "terminology": null,
-      "publicHash": "ddb109d51d0e16e5c04d6cdf1d8a2037d385659b77ae157eb6f7435b1066e291"
+      "publicHash": "3e3caf2ae053c3d68e05b48a63e18e827afdc2d46a91f73c175cbfdf563dec2a"
     },
     {
       "id": "h10-070",
@@ -12179,7 +12179,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "ca5a131bc640bd1f2483706ec97ed7b4536b70c8e660162220b758bdc71428f9"
+      "publicHash": "a27771f7345b02e7c2df039d75a2b0adff52a53fcb701c7ac48ea8574841286e"
     },
     {
       "id": "h10-076",
@@ -12301,7 +12301,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "76984828d72d655bc0c8073b369b9250783175d89e9a5e3896a4923a289e0aea"
+      "publicHash": "001c07c732c27740a145763b0a99c0e51a730fcf6673dd8342e386652dc4e97a"
     },
     {
       "id": "h10-083",
@@ -12315,7 +12315,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "2f346d6639951c276fb128690f70a2555e206b2b5aa1e7151e9dca0a55080955"
+      "publicHash": "9f70325aba01637cdb70e593f2a28f56b0359611906da200d2a54d8e87d8a9a8"
     },
     {
       "id": "h10-084",
@@ -12408,7 +12408,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "04800ea35bc7c064a748968a6ae99320d73d642f549f7d0e7c25870065f23753"
+      "publicHash": "aaf38004b9fcdb285a8c5bcd99fe31d1557cb38b0f5ef2d78e13d8ced42ec7ea"
     },
     {
       "id": "h10-090",
@@ -12422,7 +12422,7 @@
       "transcribedDraft": null,
       "review": null,
       "terminology": null,
-      "publicHash": "e50dc22c060dc1b8308e80ff30890d9372fdbc75b90ab238611c87af13eb0e89"
+      "publicHash": "f9e3b5ba127a31feacdf40f55f194cfd8cdc55b13a5fcb5e613f5168c82d11b0"
     },
     {
       "id": "h10-091",

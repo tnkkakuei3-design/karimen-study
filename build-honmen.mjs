@@ -9,6 +9,9 @@ const amendments=new Map(review.items.map(r=>[r.id,r]));
 assert.equal(amendments.size,review.items.length,'Duplicate amendment');
 const terminology=await json('./dev/honmen/moped-terminology.json');
 const terms=new Map(terminology.items.map(r=>[r.id,r]));
+const imageReview=await json('./dev/honmen/image-replacements.json');
+const imageChanges=imageReview.items;
+assert.equal(Object.keys(imageChanges).length,135,'All ordinary image replacements must be present');
 const categories=['標識・標示','信号・合図','交差点・通行','歩行者保護','速度・車間距離','駐停車','高速道路','二輪車','危険予測','運転・点検','免許・心得'];
 const questions=[],audit=[];
 for(const set of sets){
@@ -30,6 +33,19 @@ for(const set of sets){
       for(const field of term.fields){assert.ok(['text','explanation','statements'].includes(field));assert.ok(Object.hasOwn(term.replacements,field));q[field]=structuredClone(term.replacements[field]);}
       q.editorial={reason:[q.editorial?.reason,term.reason].filter(Boolean).join(' '),sourceUrls:[...new Set([...(q.editorial?.sourceUrls||[]),'https://www.npa.go.jp/bureau/traffic/menkyo/menkyo_nirinsha.html'])],replacement:!!q.editorial?.replacement};
     }
+    const imageChange=imageChanges[q.id];
+    if(q.type==='boolean'&&q.image)assert.ok(imageChange,`${q.id}: ordinary image replacement missing`);
+    if(imageChange)assert.equal(q.type,'boolean');
+    if(imageChange){
+      assert.ok(q.image,`${q.id}: image amendment without an image`);
+      for(const [field,value] of Object.entries(imageChange.amendment||{})){
+        assert.ok(['text','explanation','imageAlt'].includes(field),`${q.id}: image review cannot change answers`);
+        q[field]=value;
+      }
+      q.imageSources=imageChange.sources.map(({publisher,url})=>({publisher,url}));
+      for(const s of q.imageSources)assert.equal(new URL(s.url).protocol,'https:');
+      assert.ok(q.imageSources.length,`${q.id}: missing image source`);
+    }
     assert.equal(q.status,'ready');
     for(const field of ['text','explanation'])assert.ok(typeof q[field]==='string'&&q[field].trim(),`${q.id}: ${field}`);
     assert.ok(categories.includes(q.category),`${q.id}: category ${q.category}`);
@@ -41,7 +57,8 @@ for(const set of sets){
     }else assert.equal(typeof q.answer,'boolean');
     if(q.image){assert.match(q.image,/^honmen\/assets\/h\d+-\d{3}\.jpg$/);await access(new URL('./'+q.image,import.meta.url));assert.ok(q.imageAlt);q.imageHash=createHash('sha256').update(await readFile(new URL('./'+q.image,import.meta.url))).digest('hex');}
     for(const url of q.editorial?.sourceUrls||[])assert.equal(new URL(url).protocol,'https:');
-    const fields=['id','set','number','type','text','answer','statements','explanation','category','image','imageAlt','imageHash','status','editorial'];
+    if(imageChange){assert.equal(q.imageHash,imageChange.newHash,`${q.id}: replacement hash mismatch`);assert.notEqual(q.imageHash,imageChange.oldHash,`${q.id}: original crop remains`);}
+    const fields=['id','set','number','type','text','answer','statements','explanation','category','image','imageAlt','imageHash','imageSources','status','editorial'];
     const publicQuestion=Object.fromEntries(fields.filter(k=>Object.hasOwn(q,k)).map(k=>[k,q[k]]));
     questions.push(publicQuestion);
     audit.push({id:q.id,sourceText:original.text,sourceAnswer:original.sourceAnswer,sourceStatements:original.statements||null,
