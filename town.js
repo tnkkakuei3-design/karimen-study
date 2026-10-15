@@ -176,7 +176,7 @@
       homePick=available[Math.floor(Math.random()*available.length)];
     }
     const {shop,photo}=homePick;
-    return `<div class="town-home-pick" data-recommended-shop="${shop.id}"><button class="town-home-shop" data-town-action="open" aria-label="食券が使えるお店の一覧を見る"><img src="${esc(photo.url)}" alt="${esc(photo.alt)}" width="120" height="112" loading="lazy" decoding="async"><span><small class="town-ticket-badge">食券OK</small><strong class="${nameClass(shop)}">${esc(shop.name)}</strong><small>${esc(shop.category)}</small></span>${icon('arrow')}</button>${photoCredit(photo,true).replace('<figcaption','<div').replace('</figcaption>','</div>')}</div>`;
+    return `<div class="town-home-pick" data-recommended-shop="${shop.id}"><button class="town-home-shop" data-town-action="open" aria-label="食券が使えるお店の一覧を見る"><img src="${esc(photo.url)}" alt="${esc(photo.alt)}" width="160" height="112" loading="lazy" decoding="async"><span><strong class="${nameClass(shop)}">${esc(shop.name)}</strong><small>${esc(shop.menus.slice(0,2).join('・'))}</small></span></button><div class="town-teaser-footer">${photoCredit(photo,true).replace('<figcaption','<div').replace('</figcaption>','</div>')}<button class="town-directory-entry" data-town-action="open">お店の一覧を見る ${icon('arrow')}</button></div></div>`;
   }
   function refreshHomeRecommendation(){
     const holder=document.querySelector('#mock:not([hidden]) .town-home-recommendation');
@@ -395,7 +395,7 @@
     init(callbacks){api=callbacks;if(initDone)return;initDone=true;readRoute();if(!isOpen())activatePhotos(document.querySelector('main > section:not([hidden])')||document.createElement('div'));},
     onView(name){if(!initDone)return;if(name!=='town'){disconnectPhotos();if(location.hash==='#town'||location.hash.startsWith('#town/'))history.replaceState({...history.state,karimenTown:false},'',location.pathname+location.search);if(['mock','learn'].includes(name))activatePhotos(document.getElementById(name));if(name==='mock')refreshHomeRecommendation();}},
     teaser(){
-      return `<aside class="town-teaser" aria-label="地域のお店一覧"><div class="town-teaser-heading">${icon('food')}<strong>教習の合間に、まちのごはん</strong><small class="town-pr">PR</small></div><div class="town-home-recommendation">${homeRecommendation()}</div><button class="town-directory-entry" data-town-action="open">食券が使えるお店をすべて見る ${icon('arrow')}</button></aside>`;
+      return `<aside class="town-teaser" aria-label="地域のお店一覧"><div class="town-teaser-heading"><strong>食券で、まちのごはん</strong><small class="town-pr">PR</small></div><div class="town-home-recommendation">${homeRecommendation()}</div></aside>`;
     },
     scheduleStatus,
     open,

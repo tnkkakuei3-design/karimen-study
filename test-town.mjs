@@ -43,7 +43,7 @@ const shops=a.w.KarimenTownData.shops;
 assert.equal(shops.length,14);assert.equal(new Set(shops.map(s=>s.id)).size,14);
 assert.deepEqual([...shops.map(s=>s.number)],[1,2,3,4,5,7,8,9,10,11,12,13,14,15]);
 assert.equal(a.query('#mock').hidden,false);assert.ok(a.query('.town-directory-entry'));
-assert.match(a.query('.town-directory-entry').textContent,/食券が使えるお店/);
+assert.match(a.query('.town-directory-entry').textContent,/お店の一覧を見る/);
 const homePick=a.query('#mock [data-recommended-shop]');
 assert.ok(homePick);assert.ok(homePick.querySelector('img'));assert.equal(homePick.querySelector('button').dataset.townAction,'open');
 await settle();
