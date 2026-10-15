@@ -6,6 +6,11 @@ export const SCENES = [
   {id:'intersection',number:'03',name:'その交差点、見えてる？',area:'一時停止の交差点',level:'応用',duration:'約40秒',title:'見通しの悪い交差点',desc:'停止線でしっかり止まり、左右の安全を確かめよう。',hazard:100,cue:70,trigger:39,line:7,initialSpeed:25,actor:'bike',target:'corner',clue:'「止まれ」と、右側の建物の陰を確認しましょう。',lesson:'一時停止の標識がある交差点では、停止線の直前で一時停止し、交差する道路の安全を確認します。見通しが悪い場合は、止まった後も慎重に進んで確認を続けましょう。',point:'止まることと、安全を確かめることはセット。',color:'#7ba790'}
 ];
 
+export const HAZARD_REVIEWS=[
+ {question:'駐車車両のそばでは、何に備える必要がありましたか？',options:['車の陰から人が出てくること','前の車が見えなくなることだけ','道路の先にある建物の高さ'],correct:0},
+ {question:'横断歩道に近づくとき、何に備える必要がありましたか？',options:['横断歩道をすばやく通り過ぎること','歩行者が横断を始めること','後ろの車に道を譲ることだけ'],correct:1},
+ {question:'見通しの悪い交差点では、何に備える必要がありましたか？',options:['正面の道路がまっすぐ続くこと','後ろから来る車だけ','建物の陰から自転車などが出てくること'],correct:2}
+];
 export const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 // Consume the whole frame interval. Small physics steps retain collision accuracy
 // without slowing the world down when rendering falls below 20 FPS.
@@ -31,10 +36,16 @@ export class Drive {
   pause(){if(this.phase==='running')this.phase='paused';this.release();}
   resume(){if(this.phase==='paused')this.phase='running';}
   release(){releaseVehicle(this);}
-  mark(){
-    if(this.phase!=='running'||!this.cueVisible||this.detected)return false;
-    this.detected={time:this.time,distance:this.distance,beforeAppearance:this.eventTime===null||this.eventTime<0.85};
-    this.events.push({type:'detect',time:this.time,distance:this.distance,label:'危険箇所を発見'});return true;
+  // Recognition is assessed after driving; touching the road never affects the score.
+  mark(){return false;}
+  answerReview(choice){
+    const q=HAZARD_REVIEWS[this.index],out=this.outcome;
+    if(this.phase!=='result'||!out||out.reviewAnswered||!Number.isInteger(choice)||choice<0||choice>=q.options.length)return false;
+    out.reviewAnswered=true;out.reviewChoice=choice;out.reviewCorrect=choice===q.correct;
+    out.detection=out.reviewCorrect?30:0;
+    out.score=Math.min(out.safe?100:59,out.detection+out.anticipation+out.stopping+out.confirmation);
+    out.rank=out.score>=90?'S':out.score>=75?'A':out.score>=60?'B':'もう一度';
+    return true;
   }
   observe(side){
     if(this.phase!=='running'||!['left','right'].includes(side)||this.checks[side]||this.scene.id!=='intersection'||!this.stopped||this.v>0.25)return false;
@@ -70,7 +81,7 @@ export class Drive {
   finish(safe,reason){
     if(this.outcome)return;
     this.phase='result';this.release();
-    const detection=this.detected?(this.detected.beforeAppearance?30:18):0;
+    const detection=0;
     const anticipation=this.firstBrake?(this.firstBrake.beforeAppearance?30:18):0;
     const stopping=safe?30:this.stopped?15:0;
     const confirmation=this.scene.id==='intersection'?(this.checks.left&&this.checks.right?10:0):(safe?10:0);

@@ -26,3 +26,12 @@ const trajectories=[30,60,120].map(hz=>{const d=new Drive();d.start();d.steer(.2
 for(const d of trajectories){assert.ok(Math.abs(d.x-trajectories[0].x)<1e-9);assert.ok(Math.abs(d.z-trajectories[0].z)<1e-9);}
 const edge=new ArcadeDrive();edge.start();edge.input.gas=true;edge.steer(1);run(edge,10);assert.ok(edge.x<=2.45);assert.ok(Number.isFinite(edge.heading));
 console.log('PASS: continuous steering, centering, stationary steering, pedal ramp/brake priority, pause release, all safe-course completions, frame-rate independence, road bounds.');
+
+for(let i=0;i<3;i++)for(const safe of [true,false])for(const correct of [true,false]){
+ const d=new Drive(i);d.start();assert.equal(d.answerReview(i),false);d.firstBrake={beforeAppearance:true};d.checks={left:true,right:true};d.finish(safe,'test');
+ assert.equal(d.answerReview(-1),false);assert.equal(d.answerReview(3),false);assert.equal(d.answerReview(.5),false);
+ assert.equal(d.answerReview(correct?i:(i+1)%3),true);assert.equal(d.outcome.detection,correct?30:0);assert.ok(d.outcome.score<=(safe?100:59));
+ if(safe)assert.equal(d.outcome.score,correct?100:70);
+ const score=d.outcome.score;assert.equal(d.answerReview(i),false);assert.equal(d.outcome.score,score);
+}
+console.log('PASS: post-drive answers, wrong answers, one-shot grading, invalid input, safe score and unsafe score cap.');
