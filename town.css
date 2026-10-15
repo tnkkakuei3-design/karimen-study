@@ -22,7 +22,7 @@
 .town-topline{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}.town-topline .textbtn{font-size:14px}
 .town-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0 20px}.town-heading-copy{min-width:0;flex:1}
 .town-eyebrow{font-size:12px;font-weight:400;letter-spacing:0;color:var(--muted);margin:0 0 6px}.town-heading h2{font-size:27px;line-height:1.45;letter-spacing:0}
-.town-character{display:block;width:52px;height:52px;object-fit:contain;flex:none;pointer-events:none}
+.town-character{display:block;width:52px;height:76px;object-fit:contain;flex:none;pointer-events:none}
 .town-modes{display:flex;gap:24px;border-bottom:1px solid var(--line);margin:0 0 16px}
 .town-modes button{display:flex;justify-content:center;align-items:center;gap:7px;min-width:84px;min-height:44px;padding:9px 5px;background:transparent;border:0;border-bottom:2px solid transparent;border-radius:0;font-size:14px;font-weight:500;color:var(--muted)}
 .town-modes button[aria-pressed=true]{border-bottom-color:var(--fg);color:var(--fg);font-weight:700}.town-modes .icon{width:18px;height:18px}
@@ -75,16 +75,14 @@
 .town-photo-dialog-head,.town-photo-dialog-nav{display:flex;align-items:center;justify-content:space-between;gap:12px}.town-photo-dialog-head{margin-bottom:12px}.town-photo-dialog-head strong{font-size:16px}.town-photo-dialog-head button{flex:none}
 .town-photo-dialog figure{margin:0}.town-expanded-photo{display:block;width:100%;height:auto;max-height:60dvh;object-fit:contain;background:var(--soft)}.town-expanded-kind{font-size:12px;margin-top:10px;line-height:1.7}.town-photo-dialog-nav{margin-top:16px}.town-photo-dialog-nav .btn{font-size:13px;min-height:44px;padding:8px 12px}
 @media(max-width:649px){.town-grid{grid-template-columns:1fr}.town-heading h2{font-size:25px}.town-detail-heading h2{font-size:25px}.town-map-layout{display:flex;flex-direction:column;gap:14px}.town-map-picker{display:flex;overflow-x:auto;width:100%;max-height:none;padding:3px 3px 9px;gap:4px}.town-map-picker button{flex-shrink:0;max-width:200px}.town-map-selected{width:100%}.town-map-frame{height:280px}.town-detail-actions{bottom:calc(74px + env(safe-area-inset-bottom))}.town-detail-actions>.btn{padding:10px 12px}.town-teaser{margin:16px 0 20px}}
-@media(max-width:380px){.town-heading{gap:8px}.town-heading h2{font-size:23px}.town-character{width:44px;height:44px}.town-directory-entry{gap:8px;flex-wrap:wrap}.town-entry-meta{margin-left:auto}.town-entry-cta{font-size:11px}}
+@media(max-width:380px){.town-heading{gap:8px}.town-heading h2{font-size:23px}.town-character{width:44px;height:68px}.town-directory-entry{gap:8px;flex-wrap:wrap}.town-entry-meta{margin-left:auto}.town-entry-cta{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.town-photo-gallery{scroll-behavior:auto}}
 
-/* Existing guide character restored to voucher guidance and saved empty state. */
+/* Voucher guidance and saved empty state keep attention on their text. */
 .town-voucher-info{display:flex;align-items:center;gap:14px;padding:20px 0;border-top:1px solid var(--line)}
-.town-voucher-info>.town-character{width:64px;height:64px}
 .town-voucher-info>div{min-width:0}
 .town-voucher-info h3{font-size:15px;margin:0 0 6px}
 .town-voucher-info p{font-size:13px;line-height:1.8;color:var(--muted);margin:0}
-.town-empty>.town-character{width:80px;height:80px}
 
 /* Individual restaurants stay grouped under their market. */
 .town-market-directory{padding-top:8px}.town-market-directory h3{display:flex;align-items:center;gap:10px}.town-market-directory h3 span{font-size:13px;color:var(--muted);font-weight:500}

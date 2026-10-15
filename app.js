@@ -234,7 +234,7 @@ function renderReview() {
   displayedReviewSignature = reviewSignature(due);
   const session = model.sessionFor('review'), unfinished = !!session;
   const completed = !unfinished && !all.length && completedReviewToday();
-  const reviewArt = all.length || unfinished ? 'D051' : completed ? 'D011' : 'D012';
+  const reviewArt = all.length || unfinished ? 'D051' : completed ? 'master01' : 'D051';
   $('review').innerHTML = `<div class="page-heading character-heading"><div><h2>復習</h2><p class="muted">${completed ? '今日の復習は完了です。' : '初回はすぐに。次は30分あけて。'}</p></div>${characterArt(reviewArt,'review-guide')}</div>
     ${unfinished ? entryCard('resume', '途中の復習を続ける', `途中の復習があります · ${session.answers.filter(a => a !== null).length} / ${session.ids.length}問 回答済み`, 'play', 'review') : ''}
     ${all.length || unfinished ? `<section class="review-now-card" aria-labelledby="review-now-title"><h3 id="review-now-title">今すぐ復習</h3><p class="review-now-count">${due.length}<small>問</small></p>${due.length ? `<button class="btn wide" data-action="review-ready">${due.length}問を復習する ${icon('arrow')}</button>` : `<p class="muted">${unfinished ? '未回答の問題は「途中の復習を続ける」から確認できます。' : all.length ? '今すぐの復習は完了です。' : '今すぐ復習する問題はありません。'}${later.length ? ` 次は${reviewWaitHTML(state.stats[later[0].id]?.reviewAt)}です。` : ''}</p>`}</section>

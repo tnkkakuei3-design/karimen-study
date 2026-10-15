@@ -239,5 +239,27 @@
     "height": 440,
     "adopted_usage": "運転体験トップの案内役",
     "retrieved_date_jst": "2026-10-15"
+  },
+  {
+    "id": "kiriko01",
+    "name": "嵐山キリコ",
+    "alt": "嵐山キリコ",
+    "src": "https://dondondrive.jp/wp/wp-content/themes/dondora/assets/img/friends/kiriko01.png",
+    "file": "assets/characters/kiriko01.png",
+    "width": 310,
+    "height": 500,
+    "adopted_usage": "食事一覧の見出しのみ",
+    "retrieved_date_jst": "2026-10-15"
+  },
+  {
+    "id": "master01",
+    "name": "マスター・シャドウ",
+    "alt": "マスター・シャドウ",
+    "src": "https://dondondrive.jp/wp/wp-content/themes/dondora/assets/img/friends/master01.png",
+    "file": "assets/characters/master01.png",
+    "width": 350,
+    "height": 410,
+    "adopted_usage": "復習完了時",
+    "retrieved_date_jst": "2026-10-15"
   }
 ]
