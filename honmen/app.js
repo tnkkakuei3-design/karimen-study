@@ -68,8 +68,18 @@
     for(const id of ordered){const q=model.byId.get(id),concept=q.imageHash||q.concept||window.HonmenNotes?.related(q)[0]?.id||q.text.replace(/\s/g,'');if(seen.has(concept))deferred.push(id);else{seen.add(concept);selected.push(id);}}
     return [...selected,...deferred].slice(0,n);
   }
-  function noteLinks(q) {
-    return (window.HonmenNotes?.related(q)||[]).map(n=>btn('answer-note','図解ノートで確認：'+esc(n.t),`data-note="${esc(n.id)}"`,true)).join('');
+  function explanationExtras(q) {
+    const n=window.HonmenNotes?.related(q)[0];
+    return `<div class="explanation">${window.HonmenNotes?.inline(q)||''}<div class="question-links">${n?`<button class="textbtn" data-h="answer-note" data-note="${esc(n.id)}">図解ノートで確認 ${icon('chevron')}</button>`:''}<a class="source-link" href="${esc(REFS.rules.url)}" target="_blank" rel="noopener">公式の根拠資料 ↗</a></div>${source(q)}</div>`;
+  }
+  function learningPoints(q) {
+    const sentences=(q.explanation||'').match(/[^。]+(?:。|$)/g)||[],first=sentences.shift()||'';
+    return `<section class="learning-points"><h3>${icon('book')}覚えるポイント</h3><p class="point-main">${esc(first)}</p>${sentences.length?`<div class="point-detail"><h4>補足</h4>${sentences.map(t=>`<p>${esc(t)}</p>`).join('')}</div>`:''}${statementReasons(q)}</section>`;
+  }
+  function reviewNote(q) {
+    const s=model.state.stats[q.id],schedule=model.schedule(),waiting=schedule.waiting.includes(q.id);if(!waiting&&!schedule.due.includes(q.id))return '';
+    const reset=waiting&&!s.passes&&(s.last===false||s.uncertain);
+    return `<section class="review-schedule-note review-again-card"><h3>次の復習：${waiting?waitHTML(s.reviewAt):'今すぐ復習'}</h3>${reset?`<p>${s.uncertain?'自信なしのため':'不正解のため'}、卒業に向けた正解回数をリセットしました。</p>`:''}<small>卒業まで正解あと${Math.max(1,2-s.passes)}回。${waiting?'表示の時間が過ぎたら、もう一度挑戦しましょう。':'今すぐ復習できます。'}自信をもって答えられた正解が対象です。</small></section>`;
   }
   function reviewProgress(a) {
     if(a.mode!=='review'||a.contentVersion!==version)return '';
@@ -80,7 +90,7 @@
   }
   function topicResult(g,a,current) {
     const schedule=model.schedule(),ids=a.ids.filter(id=>model.byId.get(id)?.category===g.cat),due=ids.filter(id=>schedule.due.includes(id)),waiting=ids.filter(id=>schedule.waiting.includes(id));
-    return `<div class="h-topic-result"><strong>${esc(g.cat)}</strong><span>正解 ${g.correct} / ${g.total}問 · ${pct(g.correct,g.total)}%</span>${current&&due.length?btn('result-category',`${due.length}問を復習する`,`data-category="${esc(g.cat)}"`,true):''}${current&&waiting.length?`<small>次の復習待ち ${waiting.length}問 · ${waitHTML(Math.min(...waiting.map(id=>model.state.stats[id].reviewAt)))}</small>`:''}</div>`;
+    return `<article class="weak-topic"><div class="topic-summary"><span class="topic-name">${icon(symbols[categories.indexOf(g.cat)]||'book')}${esc(g.cat)}</span><b class="topic-accuracy">正解率 ${pct(g.correct,g.total)}<small>%</small></b></div>${current&&(due.length||waiting.length)?`<button class="textbtn" data-h="result-category" data-category="${esc(g.cat)}" ${due.length?'':'disabled'}>${due.length?due.length+'問を復習':'次の復習待ち'}</button>`:''}<details class="topic-metrics"><summary>内訳</summary><small class="topic-answer-count">正解 ${g.correct} / 回答済み ${g.total}問</small>${g.total<5?'<small class="category-sample-note">まだ回答少なめ（5問未満）</small>':''}${current&&(due.length||waiting.length)?`<small>今すぐ ${due.length}問 · 待機中 ${waiting.length}問</small>`:''}</details></article>`;
   }
   function categoryCard(cat,i) {
     const qs=bank.filter(q=>q.category===cat),answered=qs.filter(q=>model.state.stats[q.id]?.total),correct=answered.filter(q=>model.state.stats[q.id].last),schedule=model.schedule();
@@ -131,15 +141,15 @@
   }
   function renderNotes() {HonmenNotes.render($('learn-notes'),{search:noteSearch,filter:noteFilter,bank});}
   function time(ms) { const seconds=Math.ceil(ms/1000);return `${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`; }
-  function image(q) { return q.image?`<button class="h-figure" data-h="figure" data-id="${q.id}" aria-label="問題の図を拡大"><img src="./${esc(q.image)}?v=${esc(q.imageHash||'')}" alt="${esc(q.imageAlt||'問題の図')}" decoding="async"><small>タップして拡大</small></button>`:''; }
+  function image(q) { return q.image?`<figure class="question-visual"><div class="question-visual-head"><span>問題の図</span><button class="textbtn" data-h="figure" data-id="${q.id}" aria-label="問題の図を拡大">拡大 ↗</button></div><div class="sourced-pictures single"><img src="./${esc(q.image)}?v=${esc(q.imageHash||'')}" alt="${esc(q.imageAlt||'問題の図')}" decoding="async"></div></figure>`:''; }
   function source(q) {
     const review=q.editorial;
-    return `<a class="source-link" href="${esc(REFS.rules.url)}" target="_blank" rel="noopener">交通ルールの公式資料 ↗</a>`+(review?`<details><summary>原資料からの補正について</summary><p class="muted">${esc(review.reason)}</p>${(review.sourceUrls||[]).map((url,i)=>`<a class="source-link" href="${esc(url)}" target="_blank" rel="noopener">確認資料${i+1} ↗</a>`).join(' ')}</details>`:'');
+    return (review?`<details><summary>原資料からの補正について</summary><p class="muted">${esc(review.reason)}</p>${(review.sourceUrls||[]).map((url,i)=>`<a class="source-link" href="${esc(url)}" target="_blank" rel="noopener">確認資料${i+1} ↗</a>`).join(' ')}</details>`:'');
   }
   function answerLines(keys,answers) { return keys.map((v,i)=>`<div class="h-answer-line"><b>${keys.length===3?['①','②','③'][i]:''} 正解 ${mark(v)}</b><span>あなたの回答 ${mark(answers[i])}</span></div>`).join(''); }
   function feedback(q,keys,answers,uncertain=false) {
     const ok=HonmenModel.correct(keys,answers),s=model.state.stats[q.id],schedule=model.schedule(),waiting=schedule.waiting.includes(q.id),due=schedule.due.includes(q.id);
-    return `<div class="feedback answer-result ${ok?'':'incorrect'}" role="status" tabindex="-1" aria-labelledby="answer-result-title"><p class="answer-state">${icon(ok?'check':'book')}${ok?'正解です':'ここを覚え直そう'}${q.type==='hazard'?(ok?'・2点':'・0点'):''}</p><h2 id="answer-result-title" class="answer-result-title">正解は <strong>${keys.map(mark).join('・')}</strong></h2>${!ok?`<p class="answer-choice">あなたの回答 <strong>${answers.map(mark).join('・')}</strong></p>`:''}${uncertain?'<p class="answer-uncertain">自信なし：正解でも復習に残しました。</p>':''}</div><div class="learning-points"><h3>押さえるポイント</h3><p class="h-explanation">${esc(q.explanation)}</p>${statementReasons(q)}</div><details class="answered-question" open><summary>${icon('search')}問題文を確認<span class="question-chevron" aria-hidden="true">⌄</span></summary><div class="answered-question-body"><h3 class="question" id="question-title" tabindex="-1">${esc(q.text)}</h3>${image(q)}${q.statements?`<ol>${q.statements.map(t=>`<li>${esc(t)}</li>`).join('')}</ol>`:''}</div></details>${noteLinks(q)}${source(q)}<div class="review-schedule"><p>${waiting?`次の復習待ち · ${waitHTML(s.reviewAt)} · 卒業まで正解あと${2-s.passes}回`:due?'今すぐ復習できます。':s?.passes===0&&ok?'この問題の回答を保存しました。':''}</p></div>`;
+    return `<div class="feedback answer-result ${ok?'':'incorrect'}" role="status" tabindex="-1" aria-labelledby="answer-result-title"><p class="answer-state">${icon(ok?'check':'book')}${ok?'正解です':'ここを覚え直そう'}${q.type==='hazard'?(ok?'・2点':'・0点'):''}</p><h2 id="answer-result-title" class="answer-result-title">正解は <strong>${keys.map(mark).join('・')}</strong></h2>${!ok?`<p class="answer-choice">あなたの回答 <strong>${answers.map(mark).join('・')}</strong></p>`:''}${uncertain?'<p class="answer-uncertain">自信なし：正解でも復習に残しました。</p>':''}</div>${learningPoints(q)}<details class="answered-question" open><summary>${icon('search')}問題文を確認<span class="question-chevron" aria-hidden="true">⌄</span></summary><div class="answered-question-body"><h3 class="question" id="question-title" tabindex="-1">${esc(q.text)}</h3>${image(q)}${q.statements?`<ol>${q.statements.map(t=>`<li>${esc(t)}</li>`).join('')}</ol>`:''}</div></details>${explanationExtras(q)}${reviewNote(q)}`;
   }
   function choices(a,index,part,locked) {
     return `<div class="choices" role="group" aria-label="${a.keys[index].length===3?(part+1)+'つ目の':'問題の'}正誤">${[true,false].map(value=>{
@@ -173,7 +183,7 @@
   }
   function resultQuestion(a,index) {
     const q=model.byId.get(a.ids[index]),ok=a.correctness[index];if(!q)return '';
-    return `<details class="h-result-question"><summary><span class="badge ${ok===true?'success':ok===false?'error':''}">${ok===true?'正解':ok===false?'不正解':'未回答'}</span><span>${index+1}問目 / 第${displaySet(q.set)}回・問${q.number}<br>${esc(q.text)}</span></summary>${image(q)}${q.statements?`<ol>${q.statements.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>`:''}${answerLines(a.keys[index],a.answers[index])}<p class="h-explanation">${esc(q.explanation)}</p>${statementReasons(q)}${noteLinks(q)}${source(q)}</details>`;
+    return `<details class="review-item h-result-question"><summary><span class="answer-status ${ok===true?'ok':''}">${ok===null?'—':ok?'✓':'×'}</span><span><span class="muted">出題${index+1} · ${esc(q.category)}${a.flags?.[index]||a.uncertain?.[index]?' · 自信なし・見直し':''}</span><br><small class="muted">元の問題：第${displaySet(q.set)}回・問${q.number}</small><br>${esc(q.text)}</span></summary><div class="review-body"><p>あなたの回答：${a.answers[index].map(mark).join('・')}</p>${image(q)}<div class="feedback ${ok?'':'incorrect'}" role="status" tabindex="-1"><h3>${ok===null?'未回答':ok?'正解です':'ここを覚え直そう'} · 答えは ${a.keys[index].map(mark).join('・')}</h3><p>${esc(q.explanation)}</p>${statementReasons(q)}</div>${explanationExtras(q)}</div></details>`;
   }
   function renderResult(a) {
     if(!a){changeView('review');return;}
@@ -244,8 +254,8 @@
     const a=model.state.sessions[slot];if(!a)return;
     if(key==='skip'){if(a.index===a.ids.length-1){$('answer-map').open=true;$('answer-map').scrollIntoView({block:'center'});}else if(checked(model.move(slot,a.index+1))){renderPlay();top();focusQuestion();}return;}
     if(key==='unanswered'){const next=a.ids.findIndex((id,i)=>i>a.index&&!HonmenModel.answered(a.answers[i]));const index=next>=0?next:a.answers.findIndex(v=>!HonmenModel.answered(v));if(index>=0&&checked(model.move(slot,index))){renderPlay();focusQuestion();}else toast('すべて回答済みです');return;}
-    if(key==='answer'){if(a.mode==='review'&&!a.committed[a.index]&&model.schedule().waiting.includes(a.ids[a.index])){renderPlay();return;}if(checked(model.answer(slot,a.index,b.dataset.value==='true',Number(b.dataset.part)))){if(a.mode!=='mock'&&a.keys[a.index].length===1)window.HonmenSound?.play(HonmenModel.correct(a.keys[a.index],model.state.sessions[slot].answers[a.index]));renderPlay();const active=document.querySelector(`#play [data-h="answer"][data-part="${Number(b.dataset.part)}"][data-value="${b.dataset.value==='true'}"]`);if(active&&!active.disabled)active.focus({preventScroll:true});else document.querySelector('#play .feedback')?.focus({preventScroll:true});}return;}
-    if(key==='commit'){if(checked(model.commitHazard(slot,a.index))){window.HonmenSound?.play(HonmenModel.correct(a.keys[a.index],a.answers[a.index]));renderPlay();document.querySelector('#play .feedback')?.focus({preventScroll:true});document.querySelector('#play .feedback')?.scrollIntoView({block:'nearest'});}return;}
+    if(key==='answer'){if(a.mode==='review'&&!a.committed[a.index]&&model.schedule().waiting.includes(a.ids[a.index])){renderPlay();return;}if(checked(model.answer(slot,a.index,b.dataset.value==='true',Number(b.dataset.part)))){if(a.mode!=='mock'&&a.keys[a.index].length===1)window.HonmenSound?.play(HonmenModel.correct(a.keys[a.index],model.state.sessions[slot].answers[a.index]));renderPlay();const active=document.querySelector(`#play [data-h="answer"][data-part="${Number(b.dataset.part)}"][data-value="${b.dataset.value==='true'}"]`);if(active&&!active.disabled)active.focus({preventScroll:true});else {document.querySelector('#play .feedback')?.focus({preventScroll:true});document.querySelector('#play .answer-layout')?.scrollIntoView({block:'start',behavior:'instant'});}}return;}
+    if(key==='commit'){if(checked(model.commitHazard(slot,a.index))){window.HonmenSound?.play(HonmenModel.correct(a.keys[a.index],a.answers[a.index]));renderPlay();document.querySelector('#play .feedback')?.focus({preventScroll:true});document.querySelector('#play .answer-layout')?.scrollIntoView({block:'start',behavior:'instant'});}return;}
     if(key==='flag'){if(checked(model.flag(slot,a.index))){renderPlay();document.querySelector('#play [data-h="flag"]')?.focus({preventScroll:true});}return;}
     if(['next','prev','jump'].includes(key)){const index=key==='next'?a.index+1:key==='prev'?a.index-1:Number(b.dataset.index);if(checked(model.move(slot,index))){renderPlay();top();focusQuestion();}}
   }
