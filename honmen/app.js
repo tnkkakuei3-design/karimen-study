@@ -4,7 +4,7 @@
   const $ = id => document.getElementById(id);
   const esc = value => String(value ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const mark = value => value === true ? '○' : value === false ? '×' : '未回答';
-  const btn = (action,label,extra='',secondary=false) => `<button class="btn${secondary?' secondary':''}" data-h="${action}" ${extra}>${label}</button>`;
+  const btn = (action,label,extra='',secondary=false,compact=false) => `<button class="btn${secondary?' secondary':''}${compact||['pause','note-return'].includes(action)?' compact':''}" data-h="${action}" ${extra}>${label}</button>`;
   const date = value => new Intl.DateTimeFormat('ja-JP',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}).format(value);
   const categories = ['標識・標示','信号・合図','交差点・通行','歩行者保護','速度・車間距離','駐停車','高速道路','二輪車','危険予測','運転・点検','免許・心得'];
   const symbols = ['sign','signal','junction','person','speed','park','road','carStart','flag','gear','license'];
@@ -36,25 +36,27 @@
     document.documentElement.dataset.theme=dark?'dark':'light';
     document.body.dataset.reduceMotion=String(s.reduceMotion);
   }
-  function changeView(next) {
+  function changeView(next,preserve=false) {
+    if(view==='notes'&&next!=='notes')$('notes').replaceChildren();
     view=next;
     document.body.classList.toggle('town-active',next==='town');
     window.KarimenTown?.onView(next);
-    for(const id of ['mock','learn','review','play','result','town'])$(id).hidden=id!==next;
-    for(const id of ['mock','learn','review']) { const selected=id===(['play','result','town'].includes(next)?(next==='town'?townReturn:returnTab):next);$('tab-'+id).setAttribute('aria-selected',String(selected));$('tab-'+id).tabIndex=selected?0:-1; }
+    for(const id of ['mock','learn','review','play','result','town','notes'])$(id).hidden=id!==next;
+    for(const id of ['mock','learn','review']) { const selected=id===(['play','result','town','notes'].includes(next)?(next==='town'?townReturn:returnTab):next);$('tab-'+id).setAttribute('aria-selected',String(selected));$('tab-'+id).tabIndex=selected?0:-1; }
     document.body.classList.toggle('play-active',next==='play');
-    document.body.classList.toggle('focused-view',next==='play'||next==='result');
-    $('footer').hidden=next==='play'||next==='result'||next==='town';
+    document.body.classList.toggle('focused-view',next==='play'||next==='result'||next==='notes');
+    $('footer').hidden=next==='play'||next==='result'||next==='town'||next==='notes';
     $('settings-button').disabled=next==='play';
     $('tabs').hidden=next==='play';
-    if(next==='play')renderPlay();else if(next==='result'){resultFilter=defaultResultFilter(lastResult);renderResult(lastResult);}else if(next!=='town')renderHome(next);
+    if(preserve){}else if(next==='notes')renderNotes();else if(next==='play')renderPlay();else if(next==='result'){resultFilter=defaultResultFilter(lastResult);renderResult(lastResult);}else if(next!=='town')renderHome(next);
     window.KarimenHomeInstall?.sync();
     top();$('main').focus({preventScroll:true});
   }
   const pct = (n,total) => total ? Math.round(n / total * 100) : 0;
   const characterArt = (id,cls='') => `<img class="placement-character ${cls}" src="./assets/characters/${id}.png" alt="" aria-hidden="true" decoding="async">`;
   let mockFilter='all',categoryFilter='all',categorySort='default',learnSection='categories',reviewMore=false,resultFilter='wrong',townReturn='mock';
-  let noteSearch='',noteFilter='';
+  let noteSearch='',noteFilter='',noteReturn=null;
+  const celebrated=new Set();
   const filters = (action,current,items) => `<div class="seg" role="group" aria-label="表示を絞り込む">${items.map(([value,label])=>`<button data-h="${action}" data-value="${value}" aria-pressed="${value===current}">${label}</button>`).join('')}</div>`;
   function entryCard(action,title,description,glyph='book',extra='') {return `<button class="recommend${action==='resume'?' resume-card':''}" data-h="${action}" ${extra}>${icon(glyph)}<span class="recommend-copy"><strong>${esc(title)}</strong><small>${esc(description)}</small></span>${icon('arrow')}</button>`;}
   function resumes(which) {
@@ -74,7 +76,7 @@
   }
   function learningPoints(q) {
     const sentences=(q.explanation||'').match(/[^。]+(?:。|$)/g)||[],first=sentences.shift()||'';
-    return `<section class="learning-points"><h3>${icon('book')}覚えるポイント</h3><p class="point-main">${esc(first)}</p>${sentences.length?`<div class="point-detail"><h4>補足</h4>${sentences.map(t=>`<p>${esc(t)}</p>`).join('')}</div>`:''}${statementReasons(q)}</section>`;
+    return `<section class="learning-points"><h3>${icon('book')}覚えるポイント</h3><p class="point-main">${esc(first)}</p>${sentences.length?`<div class="point-detail"><h4>補足</h4>${sentences.map(t=>`<p>${esc(t)}</p>`).join('')}</div>`:''}</section>`;
   }
   function reviewNote(q) {
     const s=model.state.stats[q.id],schedule=model.schedule(),waiting=schedule.waiting.includes(q.id);if(!waiting&&!schedule.due.includes(q.id))return '';
@@ -86,7 +88,7 @@
     const rows=a.ids.filter((id,i)=>a.correctness[i]!==null).map(id=>model.state.stats[id]).filter(Boolean);
     if(!rows.length)return '';
     const pending=rows.filter(s=>s.reviewAt),one=pending.filter(s=>s.passes===1).length;
-    return `<p class="review-schedule">現在の復習状況：卒業 ${rows.length-pending.length}問 · 正解あと1回 ${one}問 · あと2回 ${pending.length-one}問</p>`;
+    return pending.length?`<div class="notice"><p>次の復習：${pending.some(s=>s.reviewAt<=Date.now())?'今すぐ復習':waitHTML(Math.min(...pending.map(s=>s.reviewAt)))}</p><small>卒業 ${rows.length-pending.length}問 · 正解あと1回 ${one}問 · あと2回 ${pending.length-one}問</small></div>`:'<p class="notice">今回復習した問題は卒業しました。</p>';
   }
   function topicResult(g,a,current) {
     const schedule=model.schedule(),ids=a.ids.filter(id=>model.byId.get(id)?.category===g.cat),due=ids.filter(id=>schedule.due.includes(id)),waiting=ids.filter(id=>schedule.waiting.includes(id));
@@ -139,7 +141,17 @@
     const records=model.state.attempts.filter(a=>a.set===set),best=model.best(set),recent=records.filter(a=>a.mode==='mock'&&!a.partial&&a.contentVersion===version).slice(-3);
     open(`第${displaySet(set)}回`,`<span class="badge">教習問題ベース</span><div class="details-list"><div><b>95問</b><span>文章90問＋危険予測5問</span></div><div><b>50分</b><span>採点後に解説</span></div></div><p class="detail-pass">90点以上で、このアプリ内の合格です。</p><p class="detail-timer muted">${icon('clock')}中断中や別アプリを開いている間は、タイマーが止まります。</p><div class="stack">${btn('start-set','50分模試を始める '+icon('arrow'),`data-set="${set}" data-mode="mock"`)}${btn('start-set','この回を解説付きで練習',`data-set="${set}" data-mode="guided"`,true)}</div><details class="detail-rules"><summary>模試のルール・問題の内訳</summary><div class="detail-rules-body"><h3>出題の順番</h3><p>文章問題90問、危険予測5問の順で、それぞれ毎回並べ替えます。途中再開では同じ順番です。解説付き練習は教材の順番で進みます。</p><h3>配点</h3><p>文章は1問1点。危険予測は3つすべて正解で2点、部分点はありません。</p><h3>途中終了・時間切れ</h3><p>途中終了は合否・最高点の対象外です。時間切れは100点満点で採点します。未回答は学習の正解率・復習に含めません。</p></div></details><h3>50分模試の記録</h3>${best?`<p class="inline"><span class="badge success">最高 ${best.score}点</span></p>`:''}${recent.length?`<p class="recent-mock">直近${recent.length}回：${recent.map(a=>a.score+'点').join(' → ')}</p>`:'<p class="muted">まだ受験していません。</p>'}${historyGroups(records)}`);
   }
-  function renderNotes() {HonmenNotes.render($('learn-notes'),{search:noteSearch,filter:noteFilter,bank});}
+  function renderNotes() {
+    const dedicated=view==='notes',root=dedicated?$('notes'):$('learn-notes');
+    const schedule=model.schedule();
+    HonmenNotes.render(root,{search:noteSearch,filter:noteFilter,bank,weak:[...schedule.due,...schedule.waiting]});
+    if(dedicated){
+      const label=noteReturn?.view==='play'?'解いていた問題に戻る':noteReturn?.view==='result'?'結果に戻る':'学習に戻る';
+      root.insertAdjacentHTML('afterbegin',`${btn('note-return',icon('back')+label,'',true)}<div class="page-heading notes-heading"><div><h2>図解ノート</h2><p class="muted">要点をつかんで、問題で確かめよう。</p></div><img class="section-character" src="./image-a5b30a44fd43.png" width="332" height="380" alt="DON!DON!ドライブのロボット教官"></div>`);
+      root.querySelector('.learn-notes-intro')?.remove();
+      root.insertAdjacentHTML('beforeend',`<div class="stack">${btn('note-return',icon('back')+label,'',true)}</div>`);
+    }
+  }
   function time(ms) { const seconds=Math.ceil(ms/1000);return `${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`; }
   function image(q) { return q.image?`<figure class="question-visual"><div class="question-visual-head"><span>問題の図</span><button class="textbtn" data-h="figure" data-id="${q.id}" aria-label="問題の図を拡大">拡大 ↗</button></div><div class="sourced-pictures single"><img src="./${esc(q.image)}?v=${esc(q.imageHash||'')}" alt="${esc(q.imageAlt||'問題の図')}" decoding="async"></div></figure>`:''; }
   function source(q) {
@@ -150,7 +162,7 @@
   function answerLines(keys,answers) { return keys.map((v,i)=>`<div class="h-answer-line"><b>${keys.length===3?['①','②','③'][i]:''} 正解 ${mark(v)}</b><span>あなたの回答 ${mark(answers[i])}</span></div>`).join(''); }
   function feedback(q,keys,answers,uncertain=false) {
     const ok=HonmenModel.correct(keys,answers),s=model.state.stats[q.id],schedule=model.schedule(),waiting=schedule.waiting.includes(q.id),due=schedule.due.includes(q.id);
-    return `<div class="feedback answer-result ${ok?'':'incorrect'}" role="status" tabindex="-1" aria-labelledby="answer-result-title"><p class="answer-state">${icon(ok?'check':'book')}${ok?'正解です':'ここを覚え直そう'}${q.type==='hazard'?(ok?'・2点':'・0点'):''}</p><h2 id="answer-result-title" class="answer-result-title">正解は <strong>${keys.map(mark).join('・')}</strong></h2>${!ok?`<p class="answer-choice">あなたの回答 <strong>${answers.map(mark).join('・')}</strong></p>`:''}${uncertain?'<p class="answer-uncertain">自信なし：正解でも復習に残しました。</p>':''}</div>${learningPoints(q)}<details class="answered-question" open><summary>${icon('search')}問題文を確認<span class="question-chevron" aria-hidden="true">⌄</span></summary><div class="answered-question-body"><h3 class="question" id="question-title" tabindex="-1">${esc(q.text)}</h3>${image(q)}${q.statements?`<ol>${q.statements.map(t=>`<li>${esc(t)}</li>`).join('')}</ol>`:''}</div></details>${explanationExtras(q)}${reviewNote(q)}`;
+    return `<div class="feedback answer-result ${ok?'':'incorrect'}" role="status" tabindex="-1" aria-labelledby="answer-result-title"><p class="answer-state">${icon(ok?'check':'book')}${ok?'正解です':'ここを覚え直そう'}${q.type==='hazard'?(ok?'・2点':'・0点'):''}</p><h2 id="answer-result-title" class="answer-result-title">正解は <strong>${keys.map(mark).join('・')}</strong></h2>${!ok?`<p class="answer-choice">あなたの回答 <strong>${answers.map(mark).join('・')}</strong></p>`:''}${uncertain?'<p class="answer-uncertain">自信なし：正解でも復習に残しました。</p>':''}</div>${learningPoints(q)}<details class="answered-question" open><summary>${icon('search')}問題文を確認<span class="question-chevron" aria-hidden="true">⌄</span></summary><div class="answered-question-body"><h3 class="question" id="question-title" tabindex="-1">${esc(q.text)}</h3>${image(q)}${statementReasons(q)}</div></details>${explanationExtras(q)}${reviewNote(q)}`;
   }
   function choices(a,index,part,locked) {
     return `<div class="choices" role="group" aria-label="${a.keys[index].length===3?(part+1)+'つ目の':'問題の'}正誤">${[true,false].map(value=>{
@@ -195,7 +207,7 @@
     const schedule=model.schedule(),due=a.ids.filter(id=>schedule.due.includes(id)),waiting=a.ids.filter(id=>schedule.waiting.includes(id)),unanswered=a.ids.filter((id,i)=>a.correctness[i]===null);
     const groups=categories.map(cat=>{const rows=a.ids.map((id,i)=>({q:model.byId.get(id),i})).filter(x=>x.q?.category===cat&&a.correctness[x.i]!==null);return {cat,total:rows.length,correct:rows.filter(x=>a.correctness[x.i]).length};}).filter(x=>x.total).sort((x,y)=>x.correct/x.total-y.correct/y.total);
     const visible=a.ids.map((id,i)=>i).filter(i=>resultFilter==='all'||(resultFilter==='wrong'?a.correctness[i]===false:resultFilter==='unanswered'?a.correctness[i]===null:!!a.flags?.[i]||!!a.uncertain?.[i]));
-    $('result').innerHTML=`<div class="playhead">${btn('home',icon('back')+'一覧へ','',true)}<span class="muted">${date(a.completedAt)}</span></div><article class="result-card"><h2 class="result-label" id="result-title" tabindex="-1">${esc(displayLabel(a))}の結果</h2><div class="result-hero"><div><div class="score">${a.score}<small>/ ${a.maxScore}点</small></div></div>${characterArt(passed?'D011':'D013',passed?'result-character':'result-character result-character-solo')}</div>${a.timeout?'<p class="muted">制限時間になったため100点満点で採点しました。未回答は0点ですが、学習の正解率・復習には含めません。</p>':''}${a.partial?`<div class="notice partial-result">途中終了 · ${a.answered} / ${a.ids.length}問に回答。未回答は学習の正解率・復習に含めません。合否・最高点の対象外です。</div>`:achievement(a)}<details class="result-score-details"><summary>成績の詳細</summary><p class="accuracy">回答した問題の正解率 <strong>${a.answered?pct(a.correctness.filter(v=>v===true).length,a.answered)+'%':'—'}</strong></p><p>${a.correctness.filter(v=>v===true).length} / ${a.ids.length}問 正解。危険予測は3つすべて正解で2点です。</p>${full?`<div class="comparison"><div><span>前回との比較</span><b>${diff===null?'<small>はじめての記録</small>':(diff>0?'+':'')+diff+'点'}</b></div><div><span>${a.bestScoreAtCompletion==null?'保存記録内の最高点':'今回までの最高点'}</span><b>${bestScore}<small> / 100点</small></b></div></div>`:''}</details>${reviewProgress(a)}<div class="result-actions">${due.length&&current?btn('result-review',`${Math.min(95,due.length)}問を復習する ${icon('arrow')}`):btn('tab',waiting.length?'復習の予定を見る':'学習を続ける',`data-tab="${waiting.length?'review':'learn'}"`)}${waiting.length?`<p class="muted">次の復習待ち ${waiting.length}問 · 最短 ${waitHTML(Math.min(...waiting.map(id=>model.state.stats[id].reviewAt)))}</p>`:''}${unanswered.length&&current?btn('result-unanswered',`未回答の${unanswered.length}問を学ぶ ${icon('book')}`,'',true):''}${a.set&&current?btn('start-set','この回を解説付きで練習',`data-set="${a.set}" data-mode="guided"`,true):''}</div>${groups.length?`<section class="result-weak"><h3>分野別の成績</h3><p class="muted">回答済みの問題を、正解率の低い順に表示。</p><div class="weak-topics">${groups.map(g=>topicResult(g,a,current)).join('')}</div></section>`:''}</article><div class="section-heading"><h3>回答を振り返る</h3></div>${filters('result-filter',resultFilter,[['wrong','間違い'],['unanswered','未回答'],['uncertain','自信なし'],['all','すべて']])}${current?`<div class="h-results">${visible.map(i=>resultQuestion(a,i)).join('')||'<div class="empty">該当する問題はありません。「すべて」で全回答を確認できます。</div>'}</div>`:'<div class="notice">以前の問題版での成績です。当時の回答・正解を表示します。</div>'+visible.map(i=>`<div class="card"><b>${i+1}問目</b>${answerLines(a.keys[i],a.answers[i])}</div>`).join('')}`;
+    $('result').innerHTML=`<div class="playhead">${btn('home',icon('back')+'一覧へ','',true,true)}<span class="muted">${date(a.completedAt)}</span></div><article class="result-card"><h2 class="result-label" id="result-title" tabindex="-1">${esc(displayLabel(a))}の結果</h2><div class="result-hero"><div><div class="score">${a.score}<small>/ ${a.maxScore}点</small></div></div>${a.answered?characterArt(!a.partial&&a.score===a.maxScore?'D006':passed?'D004':'D013',!a.partial&&(passed||a.score===a.maxScore)?'result-character':'result-character result-character-solo'):''}</div>${a.timeout?'<p class="muted">制限時間になったため100点満点で採点しました。未回答は0点ですが、学習の正解率・復習には含めません。</p>':''}${a.partial?`<div class="notice partial-result">途中終了 · ${a.answered} / ${a.ids.length}問に回答。未回答は学習の正解率・復習に含めません。合否・最高点の対象外です。</div>`:achievement(a)}<details class="result-score-details"><summary>成績の詳細</summary><p class="accuracy">回答した問題の正解率 <strong>${a.answered?pct(a.correctness.filter(v=>v===true).length,a.answered)+'%':'—'}</strong></p><p>${a.correctness.filter(v=>v===true).length} / ${a.ids.length}問 正解。危険予測は3つすべて正解で2点です。</p>${full?`<div class="comparison"><div><span>前回との比較</span><b>${diff===null?'<small>はじめての記録</small>':(diff>0?'+':'')+diff+'点'}</b></div><div><span>${a.bestScoreAtCompletion==null?'保存記録内の最高点':'今回までの最高点'}</span><b>${bestScore}<small> / 100点</small></b></div></div>`:''}</details>${reviewProgress(a)}<div class="result-actions">${current&&(due.length||waiting.length)?`<div id="result-review-plan"><p class="result-review-count">要復習 ${due.length+waiting.length}問</p>${btn('result-review',due.length?`今すぐ${Math.min(95,due.length)}問を復習する ${icon('arrow')}`:'次の復習待ち',due.length?'':'disabled')}</div>`:btn('home',returnTab==='mock'?'模試一覧へ':returnTab==='review'?'復習一覧へ':'学習を続ける')}${waiting.length?`<p class="muted">次の復習待ち ${waiting.length}問 · 最短 ${waitHTML(Math.min(...waiting.map(id=>model.state.stats[id].reviewAt)))}</p>`:''}${unanswered.length&&current?btn('result-unanswered',`未回答の${unanswered.length}問を学ぶ ${icon('book')}`,'',true):''}${a.set&&current?btn('start-set','この回を解説付きで練習',`data-set="${a.set}" data-mode="guided"`,true):''}${due.length||waiting.length?btn('home',icon('back')+'一覧へ戻る','',true):''}</div>${groups.length?`<section class="result-weak"><h3>分野別の成績</h3><p class="muted">回答済みの問題を、正解率の低い順に表示。</p><div class="weak-topics">${groups.map(g=>topicResult(g,a,current)).join('')}</div></section>`:''}</article><div class="section-heading"><h3>回答を振り返る</h3></div>${filters('result-filter',resultFilter,[['wrong','間違い'],['unanswered','未回答'],['uncertain','自信なし'],['all','すべて']])}${current?`<div class="h-results">${visible.map(i=>resultQuestion(a,i)).join('')||'<div class="empty">該当する問題はありません。「すべて」で全回答を確認できます。</div>'}</div>`:'<div class="notice">以前の問題版での成績です。当時の回答・正解を表示します。</div>'+visible.map(i=>`<div class="card"><b>${i+1}問目</b>${answerLines(a.keys[i],a.answers[i])}</div>`).join('')}`;
   }
   function settings() {
     const s=model.state.settings,hasSessions=Object.values(model.state.sessions).some(Boolean);
@@ -203,7 +215,10 @@
   }
   function achievement(a) {
     const full=a.mode==='mock'&&!a.partial&&a.maxScore===100,passed=full&&a.score>=90,perfect=passed&&a.score===100;
-    return `<section class="result-achievement ${perfect?'perfect':passed?'pass':full?'retry':'practice'}" aria-label="${passed?'合格':'学習結果'}">${passed?flowerStamp(perfect?'満点':'合格'):`<span class="achievement-symbol" aria-hidden="true">${icon(full?'flag':a.score===a.maxScore?'check':'book')}</span>`}<div class="achievement-copy"><h3>${perfect?'満点合格！':passed?'合格！よくできました':full?'合格まであと'+(90-a.score)+'点！':a.score===a.maxScore?'全問正解！':'おつかれさまでした'}</h3>${full?'<small>このアプリ内の判定：100点中90点以上で合格</small>':''}</div></section>`;
+    const motion=passed&&!celebrated.has(a.id)&&!model.state.settings.reduceMotion&&!window.matchMedia?.('(prefers-reduced-motion:reduce)').matches;
+    celebrated.add(a.id);
+    const pieces=motion?`<span class="result-confetti" aria-hidden="true">${Array.from({length:perfect?32:20},(_,i)=>`<i style="--x:${(i*37+7)%100}%;--delay:${(i%5)*35}ms;--spin:${i%2?'-':'+'}${150+i*13}deg;--color:${['#dc6577','#e2b751','#5c9dd6','#82b39d'][i%4]}"></i>`).join('')}</span>`:'';
+    return `<section class="result-achievement ${perfect?'perfect':passed?'pass':full?'retry':'practice'} ${motion?'celebrate':''}" aria-label="${passed?'合格':'学習結果'}">${pieces}${passed?flowerStamp(perfect?'満点':'合格'):`<span class="achievement-symbol" aria-hidden="true">${icon(full?'flag':a.score===a.maxScore?'check':'book')}</span>`}<div class="achievement-copy"><h3>${perfect?'満点合格！':passed?'合格！よくできました':full?'合格まであと'+(90-a.score)+'点！':a.score===a.maxScore?'全問正解！':'おつかれさまでした'}</h3>${full?'<small>このアプリ内の判定：100点中90点以上で合格</small>':''}</div></section>`;
   }
   function sources() { open('内容の補正と確認資料',`<p class="muted">原資料の正誤や文面が現行ルールと合わない問題は、条件・答え・解説を補正しています。判読が不確かな箇所は、同じテーマの明確な設問に置き換えています。</p><ul class="h-source-list">${HONMEN_DATA.rules.map(r=>`<li><b>${esc(r.title)}</b><p>${esc(r.summary)}</p><a href="${esc(r.url)}" target="_blank" rel="noopener">確認資料 ↗</a></li>`).join('')}</ul>`); }
   async function action(b) {
@@ -221,8 +236,20 @@
     if(key==='review-more'){reviewMore=true;renderHome('review');return;}
     if(key==='review-one'){if(!model.schedule().due.includes(b.dataset.id))return;start([b.dataset.id],'review','間違いの復習');return;}
     if(key==='answer-note'){
-      open(HonmenNotes.title(b.dataset.note),`<details open data-h-note="${esc(b.dataset.note)}"><summary>図解と要点</summary><div class="note-content"></div></details>${btn('close','問題に戻る','',true)}`);
-      const el=$('h-dialog-body').querySelector('[data-h-note]');HonmenNotes.populate(el,bank);el.querySelector('.note-bottom')?.remove();return;
+      if(view!=='notes')noteReturn={view,y:window.scrollY,focus:b,filter:resultFilter};
+      noteSearch='';noteFilter='';
+      $('learn-notes')?.replaceChildren();
+      changeView('notes');
+      const el=$('notes').querySelector(`[data-h-note="${b.dataset.note}"]`);
+      if(el){el.open=true;HonmenNotes.populate(el,bank);el.scrollIntoView?.({block:'start'});}
+      return;
+    }
+    if(key==='note-return'){
+      const previous=noteReturn||{view:'learn',y:0};
+      $('notes').replaceChildren();
+      changeView(previous.view,previous.view==='play'||previous.view==='result');
+      window.scrollTo({top:previous.y,behavior:'instant'});previous.focus?.focus({preventScroll:true});
+      noteReturn=null;return;
     }
     if(key==='result-category'){const due=model.schedule().due;start(lastResult.ids.filter(id=>due.includes(id)&&model.byId.get(id)?.category===b.dataset.category),'review',b.dataset.category+'の復習');return;}
     if(key==='result-review'){start(lastResult.ids.filter(id=>model.schedule().due.includes(id)).slice(0,95),'review','間違いの復習');return;}
@@ -270,7 +297,7 @@
   });
   document.addEventListener('toggle',event=>{if(event.target.matches?.('[data-h-note]')&&event.target.open)HonmenNotes.populate(event.target,bank);},true);
   let noteComposing=false;
-  function updateNoteSearch(target){noteSearch=target.value;const pos=target.selectionStart;renderNotes();$('note-search').focus();try{$('note-search').setSelectionRange(pos,pos);}catch{}}
+  function updateNoteSearch(target){noteSearch=target.value;const pos=target.selectionStart;renderNotes();const input=$(view==='notes'?'notes':'learn-notes').querySelector('#note-search');input.focus();try{input.setSelectionRange(pos,pos);}catch{}}
   document.addEventListener('compositionstart',e=>{if(e.target.id==='note-search')noteComposing=true;});
   document.addEventListener('compositionend',e=>{if(e.target.id==='note-search'){noteComposing=false;updateNoteSearch(e.target);}});
   document.addEventListener('input',e=>{if(e.target.id==='note-search'&&!noteComposing)updateNoteSearch(e.target);});

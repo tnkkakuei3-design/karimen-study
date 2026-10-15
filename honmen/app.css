@@ -41,10 +41,8 @@
 .h-source-list{padding-left:20px;font-size:14px}
 .h-source-list li{margin:16px 0}
 .h-source-list a{display:inline-flex;min-height:44px;align-items:center}
-.honmen-app .figure-scroll{max-height:75vh;overflow:auto}
 .honmen-app #figure-content img{display:block;width:100%;height:auto;background:#fff}
 .honmen-app.play-active .header,.honmen-app.play-active #tabs{display:none}
-.honmen-app.play-active .shell{padding-top:20px;padding-bottom:36px}
 .honmen-app #storage-warning{position:relative;z-index:3}
 .honmen-app[data-reduce-motion=true] *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 @media(max-width:480px){.h-overview strong{font-size:23px}.h-overview small{font-size:11px}.h-category{gap:8px;padding:12px}.h-category>.icon{width:22px;height:22px}.h-category b{font-size:14px}.h-set-mark{width:36px;height:36px}.h-set-mark .flower-stamp{width:46px;height:46px}.h-feature{padding:16px}.h-feature>.icon{display:none}.h-statement{padding:12px 10px}.h-statement legend{font-size:16px}.h-result-score strong{font-size:56px}}
@@ -71,3 +69,5 @@
 .h-statement-reasons p {margin:5px 0 0}
 .h-note-example {margin:18px 0;padding:12px 0;border-top:1px solid var(--line)}
 .h-note-example summary {cursor:pointer;line-height:1.6;font-weight:600}
+
+.honmen-app #result-review-plan>.btn{width:100%}
