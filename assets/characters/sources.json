@@ -248,7 +248,7 @@
     "file": "assets/characters/kiriko01.png",
     "width": 310,
     "height": 500,
-    "adopted_usage": "食事一覧の見出しのみ",
+    "adopted_usage": "旧食事一覧の見出し（よりともさんへ変更済み）",
     "retrieved_date_jst": "2026-10-15"
   },
   {
@@ -260,6 +260,17 @@
     "width": 350,
     "height": 410,
     "adopted_usage": "復習完了時",
+    "retrieved_date_jst": "2026-10-15"
+  },
+  {
+    "id": "yoritomo02",
+    "name": "よりともさん",
+    "alt": "よりともさん",
+    "src": "https://dondondrive.jp/wp/wp-content/themes/dondora/assets/img/friends/yoritomo02.png",
+    "file": "assets/characters/yoritomo02.png",
+    "width": 310,
+    "height": 476,
+    "adopted_usage": "食事一覧の見出しのみ",
     "retrieved_date_jst": "2026-10-15"
   }
 ]
