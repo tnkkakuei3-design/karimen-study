@@ -19,10 +19,31 @@ export function advanceFrame(drive,dt){
   const count=Math.ceil(dt/(1/120)),step=dt/count;
   for(let i=0;i<count&&drive.phase==='running';i++)drive.stepPhysics(step);
 }
+
+// Game rubric: 30 recognition + 30 deceleration + 30 stopping + 10 observation.
+export function crossingEnd(index){
+ for(let t=0;t<=60;t+=0.02){
+  const x=index===0?(childMotion(t).x+3.7)/.86-5.05:index===1?(pedestrianMotion(t).x+4.3)/.91-5.05:5.3-Math.max(0,t-.85)*2.2;
+  if(index===2?x < -4.8:x > 4.8)return t;
+ }
+ return 60;
+}
+const CROSSING_ENDS=SCENES.map((_,i)=>crossingEnd(i));
+export function gradeDriving(d){
+ const m=d.grading;
+ const reduction=m.entrySpeed===null?0:clamp((m.entrySpeed-m.minimumSpeed)/Math.max(m.entrySpeed,.25),0,1);
+ const anticipation=m.deceleration===null?0:Math.round(30*reduction*(.4+.6*m.deceleration));
+ const stopping=Math.round(30*m.bestStop);
+ const waitFraction=m.waitStart===null?0:clamp(m.waitSeconds/Math.max(.02,CROSSING_ENDS[d.index]-m.waitStart),0,1);
+ const confirmation=d.scene.id==='intersection'?5*(Number(d.checks.left)+Number(d.checks.right)):d.waitedForCrossing?10:Math.min(9,Math.round(10*waitFraction));
+ return {anticipation,stopping,confirmation,grading:{reduction:Math.round(reduction*100),timing:Math.round((m.deceleration??0)*100),stopHold:m.bestStopHold,stopMargin:m.bestStopMargin,waitPercent:d.waitedForCrossing?100:Math.min(99,Math.round(waitFraction*100))}};
+}
+
 export class Drive {
   constructor(index=0,guided=true){
     this.index=index;this.scene=SCENES[index];this.guided=guided;this.time=0;this.z=0;this.v=this.scene.initialSpeed/3.6;
     this.x=-1.38;this.lane=0;this.steering=0;this.phase='ready';this.input={brake:false,gas:false};this.detected=null;this.firstBrake=null;this.slowedEarly=false;this.slowedLate=false;this.waitInterrupted=false;this.waitedForCrossing=false;this.events=[];
+    this.grading={entrySpeed:null,minimumSpeed:Infinity,deceleration:null,bestStop:0,bestStopHold:0,bestStopMargin:null,hold:0,waitStart:null,waitSeconds:0};
     this.eventTime=null;this.actorX=this.scene.actor==='bike'?5.3:-5.05;this.actorClear=false;this.stopHold=0;
     this.impact=null;this.missedLine=false;this.stopped=false;this.stopDistance=null;this.checks={left:false,right:false};this.closest=Infinity;this.idle=0;this.outcome=null;
   }
@@ -55,8 +76,17 @@ export class Drive {
   stepPhysics(dt){
     if(this.phase!=='running')return;
     this.time+=dt;if(this.impact){this.v=0;if(this.time-this.impact.at>2.2)this.finish(false,'接触しました');return;}const previousZ=this.z;
+    const m=this.grading;
+    if(this.cueVisible&&m.entrySpeed===null)m.entrySpeed=this.v;
     if(this.input.brake&&this.firstBrake===null&&this.cueVisible){this.firstBrake={time:this.time,distance:this.distance,speed:this.speed,beforeAppearance:this.eventTime===null||this.eventTime<0.85};this.events.push({type:'brake',time:this.time,distance:this.distance,label:'ブレーキ開始'});}
     const a=advanceVehicle(this,dt),target=this.x;
+    if(m.entrySpeed!==null){
+      m.minimumSpeed=Math.min(m.minimumSpeed,this.v);
+      if(m.deceleration===null&&m.entrySpeed-this.v>=Math.min(.5,m.entrySpeed*.5)&&m.entrySpeed>.25){
+        const needed=m.entrySpeed*m.entrySpeed/6+m.entrySpeed;
+        m.deceleration=clamp((this.distance-this.scene.line)/Math.max(needed,1),0,1);
+      }
+    }
     // Award braking only after a real speed reduction, not a momentary press.
     if(this.firstBrake&&this.speed<=Math.max(0.9,this.firstBrake.speed-3)){
       const early=this.eventTime===null||this.eventTime<(this.scene.actor==='adult'?1.4:0.85);
@@ -77,6 +107,17 @@ export class Drive {
       this.stopHold+=dt;
       if(this.stopHold>=0.8&&!this.stopped){this.stopped=true;this.stopDistance=this.distance;this.events.push({type:'stop',time:this.time,distance:this.distance,label:'停止'});}
     }else this.stopHold=0;
+    const margin=this.distance-this.scene.line;
+    if(this.v<.25&&this.cueVisible&&margin>=-5){
+      m.hold+=dt;
+      const position=margin<0?.5*clamp(1+margin/5,0,1):this.scene.id==='intersection'?clamp(1-Math.max(0,margin-2)/10,0,1):1;
+      const quality=position*clamp(m.hold/.8,0,1);
+      if(quality>m.bestStop){m.bestStop=quality;m.bestStopHold=Math.min(m.hold,.8);m.bestStopMargin=margin;}
+    }else m.hold=0;
+    if(this.scene.id!=='intersection'&&this.stopped&&this.eventTime!==null){
+      if(m.waitStart===null)m.waitStart=this.eventTime;
+      if(!this.waitInterrupted&&!this.missedLine&&this.stopZone&&this.v<.25)m.waitSeconds+=Math.min(dt,Math.max(0,CROSSING_ENDS[this.index]-this.eventTime+dt));
+    }
     if(this.distance<this.scene.line)this.missedLine=true;
     if(this.scene.id!=='intersection'&&this.stopped&&this.actorClear&&!this.waitInterrupted&&!this.missedLine&&this.v<0.25)this.waitedForCrossing=true;
     const actorWorldX=this.index===0?-3.7+Math.max(0,this.actorX+5.05)*.86:this.index===1?-4.3+Math.max(0,this.actorX+5.05)*.91:this.actorX;
@@ -89,10 +130,8 @@ export class Drive {
     if(this.outcome)return;
     this.phase='result';this.release();
     const detection=0;
-    const anticipation=this.slowedEarly?30:this.slowedLate?18:0;
-    const stopping=this.stopped?30:0;
-    const confirmation=this.scene.id==='intersection'?5*(Number(this.checks.left)+Number(this.checks.right)):(this.waitedForCrossing?10:0);
+    const {anticipation,stopping,confirmation,grading}=gradeDriving(this);
     const score=detection+anticipation+stopping+confirmation;
-    this.outcome={safe,reason,score,detection,anticipation,stopping,confirmation,rank:!safe?'もう一度':score>=90?'S':score>=75?'A':score>=60?'B':'もう一度',events:this.events.map(e=>({...e})),seconds:this.time,stopDistance:this.stopDistance};
+    this.outcome={safe,reason,score,detection,anticipation,stopping,confirmation,grading,rank:!safe?'もう一度':score>=90?'S':score>=75?'A':score>=60?'B':'もう一度',events:this.events.map(e=>({...e})),seconds:this.time,stopDistance:this.stopDistance};
   }
 }
