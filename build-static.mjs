@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.dirname(fileURLToPath(import.meta.url));
 const output = path.join(root, 'dist');
 const files = [
+  'drive',
   'honmen.html', 'course-switch.css', 'honmen/app.css', 'honmen/app.js', 'honmen/model.js',
   'honmen/teaching.js', 'honmen/storage.js', 'honmen/notes.js', 'honmen/sound.js', 'honmen/ui.js', 'honmen/questions.js', 'honmen/assets',
   'cloud-record.js', 'cloud-sync.js', 'privacy.html',

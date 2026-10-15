@@ -11,3 +11,7 @@
 .course-town-entry-meta{display:flex;align-items:center;gap:12px;flex-shrink:0;font-size:26px}
 .course-town-entry:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
 .play-active .course-town-entry,.focused-view .course-town-entry,.town-active .course-town-entry{display:none}
+
+.course-drive-entry{display:flex;align-items:center;gap:12px;padding:13px 18px;margin:-10px 0 24px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--blue);text-decoration:none;min-height:64px;box-sizing:border-box}
+.course-drive-entry>span:first-of-type{flex:1}.course-drive-entry strong{display:block;font-size:15px}.course-drive-entry small{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:3px}.course-drive-entry>span:last-child{font-size:26px}.course-drive-entry:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.play-active .course-drive-entry,.focused-view .course-drive-entry,.town-active .course-drive-entry{display:none}
