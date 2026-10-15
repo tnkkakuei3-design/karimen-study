@@ -103,10 +103,21 @@ const current=app.model.state.sessions.study,q=app.model.byId.get(current.ids[0]
 q.answer.forEach((v,i)=>click(`#play [data-h="answer"][data-part="${i}"][data-value="${v}"]`));
 assert.ok(!doc.querySelector('#play .feedback'));click('[data-h="commit"]');assert.match(doc.querySelector('#play .feedback').textContent,/正解です・2点/);
 assert.equal(doc.querySelectorAll('#play [data-h="answer"]').length,0,'answered practice shows feedback instead of duplicate answer controls');
+assert.equal(doc.querySelectorAll('.h-statement-reasons li').length,3);
 click('[data-h="figure"]');assert.ok(doc.getElementById('figure-dialog').open);click('[data-h="close-figure"]');
 click('[data-h="pause"]');await settle();click('[data-h="settings"]');
 click('[data-h="theme"][data-value="dark"]');assert.equal(doc.documentElement.dataset.theme,'dark');
 assert.ok(doc.querySelector('[data-h="reset"]').disabled,'unfinished work protects reset');click('[data-h="close"]');click('[data-h="resume"][data-slot="study"]');click('[data-h="finish"]');click('[data-h="confirm-finish"]');click('[data-h="settings"]');click('[data-h="reset"]');click('[data-h="confirm-reset"]');await settle();assert.equal(Object.keys(app.model.state.stats).length,0);assert.equal(w.localStorage.getItem('karimen-study-v4'),'keep-this-existing-progress');
+// Every hazard has three specific reasons; topic drills must respect the selected note.
+for(const question of bank.filter(q=>q.type==='hazard'))assert.equal(w.HonmenTeaching[question.id].length,3);
+click('[data-h="tab"][data-tab="learn"]');click('[data-h="learn-section"][data-value="notes"]');
+assert.equal(doc.querySelectorAll('[data-h-note]').length,71);
+for(const el of doc.querySelectorAll('[data-h-note]')){w.HonmenNotes.populate(el,bank);assert.ok(el.querySelector('.note-content').textContent.length>20);}
+assert.ok(w.HonmenNotes.questions('n-rail',bank).every(q=>/踏切/.test(q.text)));
+assert.equal(w.HonmenNotes.questions('h-hazard',bank).length,40);
+click('[data-h="note-drill"][data-note="n-rail"]');
+assert.ok(app.model.state.sessions.study.ids.every(id=>/踏切/.test(app.model.byId.get(id).text)));
+assert.match(app.model.state.sessions.study.label,/踏切/);
 const ids=[...doc.querySelectorAll('[id]')].map(el=>el.id);assert.equal(new Set(ids).size,ids.length);
 await app.storage.flush();app.storage.close();dom.window.close();
 console.log('Honmen tests passed: weighted grading, boundaries, timer, resumes, spaced review, storage recovery/isolation, stale tabs, import protection, and UI flows.');

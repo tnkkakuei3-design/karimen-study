@@ -224,7 +224,7 @@ window.KarimenTownData.marketShops = [
     "price": "料理例：メカジキのソテー 1,350円",
     "priceSource": "https://knowrysfriedfish.owst.jp/foods",
     "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る A1",
-    "voucherStatus": "unconfirmed",
+    "voucherStatus": "confirmed",
     "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
     "checkedOn": "2026-10-15",
     "note": ""
@@ -252,7 +252,7 @@ window.KarimenTownData.marketShops = [
     "price": "海鮮丼の掲載例：1,000〜1,300円",
     "priceSource": "https://www.itoman-itomaru.okinawa/shop/food/",
     "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る",
-    "voucherStatus": "unconfirmed",
+    "voucherStatus": "confirmed",
     "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
     "checkedOn": "2026-10-15",
     "note": ""
@@ -280,7 +280,7 @@ window.KarimenTownData.marketShops = [
     "price": "来店前にメニューで確認",
     "priceSource": "",
     "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る D3",
-    "voucherStatus": "unconfirmed",
+    "voucherStatus": "confirmed",
     "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
     "checkedOn": "2026-10-15",
     "note": ""
@@ -307,7 +307,7 @@ window.KarimenTownData.marketShops = [
     "price": "来店前にメニューで確認",
     "priceSource": "",
     "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る",
-    "voucherStatus": "unconfirmed",
+    "voucherStatus": "confirmed",
     "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
     "checkedOn": "2026-10-15",
     "note": ""
@@ -337,7 +337,7 @@ window.KarimenTownData.marketShops = [
     "price": "掲載例：チャーハン650円／ラーメン700円",
     "priceSource": "https://www.itoman-itomaru.okinawa/shop/food/",
     "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る",
-    "voucherStatus": "unconfirmed",
+    "voucherStatus": "confirmed",
     "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
     "checkedOn": "2026-10-15",
     "note": ""
@@ -365,7 +365,7 @@ window.KarimenTownData.marketShops = [
     "price": "来店前にメニューで確認",
     "priceSource": "",
     "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る",
-    "voucherStatus": "unconfirmed",
+    "voucherStatus": "confirmed",
     "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
     "checkedOn": "2026-10-15",
     "note": ""
@@ -393,7 +393,7 @@ window.KarimenTownData.marketShops = [
     "price": "来店前にメニューで確認",
     "priceSource": "",
     "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る",
-    "voucherStatus": "unconfirmed",
+    "voucherStatus": "confirmed",
     "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
     "checkedOn": "2026-10-15",
     "note": ""
@@ -421,7 +421,7 @@ window.KarimenTownData.marketShops = [
     "price": "セット1,000円（2025年12月取材時）",
     "priceSource": "https://www.otv.co.jp/okitive/article/90482/",
     "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る",
-    "voucherStatus": "unconfirmed",
+    "voucherStatus": "confirmed",
     "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
     "checkedOn": "2026-10-15",
     "note": ""
@@ -450,7 +450,7 @@ window.KarimenTownData.marketShops = [
     "price": "そば・天ぷらセット1,400円（2026年8月掲載）",
     "priceSource": "https://omalblog.com/2026/08/02/itoman-machigwa-2/",
     "address": "沖縄県糸満市糸満989-83 糸満市場いとま〜る",
-    "voucherStatus": "unconfirmed",
+    "voucherStatus": "confirmed",
     "menuSourceNote": "店舗・市場の公開情報より。価格は掲載時点の参考です。",
     "checkedOn": "2026-10-15",
     "note": "フードコート奥、総合案内所の隣。"
@@ -547,6 +547,9 @@ const googleTownAudit = {
   "itomaru-machigwa": {"googleName":"町小 まちぐゎぁ","googleCheckedOn":"2026-10-15","googleSourceUrl":"https://www.google.com/maps?cid=4833090588919273832","fields":{"name":"町小 まちぐゎぁ","address":"沖縄県糸満市糸満989-83 糸満市場いとま〜る D6","hours":"月〜金 11:00〜17:00／土 11:00〜16:30（売り切れ次第終了）","closed":"日曜日"},"weekly":[[],[[660,1020]],[[660,1020]],[[660,1020]],[[660,1020]],[[660,1020]],[[660,990]]]}
 };
 for (const shop of [...window.KarimenTownData.shops, ...window.KarimenTownData.marketShops]) {
+  // All listed restaurants confirmed by the listing owner on 2026-10-15.
+  shop.voucherStatus = 'confirmed';
+  shop.voucherCheckedOn = '2026-10-15';
   const audit = googleTownAudit[shop.id];
   const oldName = shop.name;
   const oldShortName = shop.shortName;

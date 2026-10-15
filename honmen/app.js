@@ -13,6 +13,10 @@
   const displaySet = set => { const index=sets.indexOf(Number(set)); return index < 0 ? set : index+1; };
   const displayLabel = record => record.set && ['mock','guided'].includes(record.mode) ? `第${displaySet(record.set)}回・${record.mode==='mock'?'模試':'解説付き'}` : record.label;
   const dialog = $('h-dialog');
+  function statementReasons(q) {
+    const reasons=window.HonmenTeaching?.[q.id];
+    return reasons?`<ol class="h-statement-reasons">${reasons.map((reason,i)=>`<li><strong>${mark(q.answer[i])} ${esc(q.statements[i])}</strong><p>${esc(reason)}</p></li>`).join('')}</ol>`:'';
+  }
   function toast(message) { $('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4500); }
   function warn() {
     if(!model||!storage)return;
@@ -99,7 +103,7 @@
   function answerLines(keys,answers) { return keys.map((v,i)=>`<div class="h-answer-line"><b>${keys.length===3?['①','②','③'][i]:''} 正解 ${mark(v)}</b><span>あなたの回答 ${mark(answers[i])}</span></div>`).join(''); }
   function feedback(q,keys,answers,uncertain=false) {
     const ok=HonmenModel.correct(keys,answers),s=model.state.stats[q.id],schedule=model.schedule(),waiting=schedule.waiting.includes(q.id),due=schedule.due.includes(q.id);
-    return `<div class="feedback answer-result ${ok?'':'incorrect'}" role="status" tabindex="-1" aria-labelledby="answer-result-title"><p class="answer-state">${icon(ok?'check':'book')}${ok?'正解です':'ここを覚え直そう'}${q.type==='hazard'?(ok?'・2点':'・0点'):''}</p><h2 id="answer-result-title" class="answer-result-title">正解は <strong>${keys.map(mark).join('・')}</strong></h2>${!ok?`<p class="answer-choice">あなたの回答 <strong>${answers.map(mark).join('・')}</strong></p>`:''}${uncertain?'<p class="answer-uncertain">自信なし：正解でも復習に残しました。</p>':''}</div><div class="learning-points"><h3>押さえるポイント</h3><p class="h-explanation">${esc(q.explanation)}</p></div><details class="answered-question" open><summary>${icon('search')}問題文を確認<span class="question-chevron" aria-hidden="true">⌄</span></summary><div class="answered-question-body"><h3 class="question" id="question-title" tabindex="-1">${esc(q.text)}</h3>${image(q)}${q.statements?`<ol>${q.statements.map(t=>`<li>${esc(t)}</li>`).join('')}</ol>`:''}</div></details>${source(q)}<div class="review-schedule"><p>${waiting?`次の復習待ち · ${waitHTML(s.reviewAt)} · 卒業まで正解あと${2-s.passes}回`:due?'今すぐ復習できます。':s?.passes===0&&ok?'この問題の回答を保存しました。':''}</p></div>`;
+    return `<div class="feedback answer-result ${ok?'':'incorrect'}" role="status" tabindex="-1" aria-labelledby="answer-result-title"><p class="answer-state">${icon(ok?'check':'book')}${ok?'正解です':'ここを覚え直そう'}${q.type==='hazard'?(ok?'・2点':'・0点'):''}</p><h2 id="answer-result-title" class="answer-result-title">正解は <strong>${keys.map(mark).join('・')}</strong></h2>${!ok?`<p class="answer-choice">あなたの回答 <strong>${answers.map(mark).join('・')}</strong></p>`:''}${uncertain?'<p class="answer-uncertain">自信なし：正解でも復習に残しました。</p>':''}</div><div class="learning-points"><h3>押さえるポイント</h3><p class="h-explanation">${esc(q.explanation)}</p>${statementReasons(q)}</div><details class="answered-question" open><summary>${icon('search')}問題文を確認<span class="question-chevron" aria-hidden="true">⌄</span></summary><div class="answered-question-body"><h3 class="question" id="question-title" tabindex="-1">${esc(q.text)}</h3>${image(q)}${q.statements?`<ol>${q.statements.map(t=>`<li>${esc(t)}</li>`).join('')}</ol>`:''}</div></details>${source(q)}<div class="review-schedule"><p>${waiting?`次の復習待ち · ${waitHTML(s.reviewAt)} · 卒業まで正解あと${2-s.passes}回`:due?'今すぐ復習できます。':s?.passes===0&&ok?'この問題の回答を保存しました。':''}</p></div>`;
   }
   function choices(a,index,part,locked) {
     return `<div class="choices" role="group" aria-label="${a.keys[index].length===3?(part+1)+'つ目の':'問題の'}正誤">${[true,false].map(value=>{
@@ -133,7 +137,7 @@
   }
   function resultQuestion(a,index) {
     const q=model.byId.get(a.ids[index]),ok=a.correctness[index];if(!q)return '';
-    return `<details class="h-result-question"><summary><span class="badge ${ok===true?'success':ok===false?'error':''}">${ok===true?'正解':ok===false?'不正解':'未回答'}</span><span>${index+1}問目 / 本免${q.set}・問${q.number}<br>${esc(q.text)}</span></summary>${image(q)}${q.statements?`<ol>${q.statements.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>`:''}${answerLines(a.keys[index],a.answers[index])}<p class="h-explanation">${esc(q.explanation)}</p>${source(q)}</details>`;
+    return `<details class="h-result-question"><summary><span class="badge ${ok===true?'success':ok===false?'error':''}">${ok===true?'正解':ok===false?'不正解':'未回答'}</span><span>${index+1}問目 / 第${displaySet(q.set)}回・問${q.number}<br>${esc(q.text)}</span></summary>${image(q)}${q.statements?`<ol>${q.statements.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>`:''}${answerLines(a.keys[index],a.answers[index])}<p class="h-explanation">${esc(q.explanation)}</p>${statementReasons(q)}${source(q)}</details>`;
   }
   function renderResult(a) {
     if(!a){changeView('review');return;}
@@ -174,7 +178,7 @@
     if(key==='preview'){const score=Number(b.dataset.score);open('花丸の見本',`<p class="muted">見本です。学習記録には保存されません。</p><div class="seg">${[89,90,96,100].map(n=>`<button data-h="preview" data-score="${n}">${n}点</button>`).join('')}</div><div class="score">${score}<small>/ 100点</small></div>${achievement({mode:'mock',partial:false,maxScore:100,score})}<button class="btn secondary" data-h="settings">設定に戻る</button>`);return;}
     if(key==='records'){open('これまでの学習記録',model.state.attempts.length?[...model.state.attempts].reverse().map(a=>`<button class="h-history-row" data-h="history" data-record="${a.id}"><span>${esc(displayLabel(a))}<small>${date(a.completedAt)}${a.partial?' · 途中終了':''}</small></span><strong>${a.score}<small>/ ${a.maxScore}点</small></strong></button>`).join(''):'<p class="muted">学習が終わると記録されます。</p>');return;}
     if(key==='note-reset'){noteSearch='';noteFilter='';renderNotes();return;}
-    if(key==='note-category'){start(studySample(bank.filter(q=>q.category===b.dataset.category)),'study',b.dataset.category+'・10問');return;}
+    if(key==='note-drill'){const qs=HonmenNotes.questions(b.dataset.note,bank);if(!qs.length){toast('このテーマの対応問題はありません。');return;}const ids=studySample(qs);start(ids,'study',HonmenNotes.title(b.dataset.note)+'・'+ids.length+'問');return;}
     if(key==='note-figure'){$('figure-content').innerHTML=HonmenNotes.figure(b.dataset.fig);$('figure-zoom').value='100';$('figure-content').style.width='100%';$('figure-dialog').showModal();return;}
 
     if(key==='set') {setDetail(Number(b.dataset.set));return;}

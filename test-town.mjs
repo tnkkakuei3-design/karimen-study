@@ -96,7 +96,7 @@ assert.match(read('town.css'),/data-town-state=open/,'only scheduled-open photos
 const original=a.run('JSON.stringify(state)');
 a.click('.course-town-entry');
 assert.equal(a.query('#town').hidden,false);assert.equal(a.w.location.hash,'#town');
-assert.equal(a.all('.town-card').length,14);assert.equal(a.all('.town-card .town-hours').length,14);assert.equal(a.all('.town-card .town-hours dl').length,14);assert.equal(a.query('#town-title'),a.w.document.activeElement);
+assert.equal(a.all('.town-card').length,14);assert.equal(a.all('.town-card .town-hours').length,14);assert.equal(a.all('.town-card .town-hours dl').length,0);assert.equal(a.query('#town-title'),a.w.document.activeElement);
 assert.equal(a.query('#town-title').textContent,'食券が使えるお店');
 assert.equal(a.all('#town .town-character').length,1,'one small header character, not repeated promotional blocks');
 a.click('[data-town-action="filter"][data-value="saved"]');
@@ -338,8 +338,8 @@ assert.equal(new Set(tenants.map(s=>s.id)).size,9);
 for(const tenant of tenants){
  a.w.KarimenTown.open(tenant.id);await settle();
  assert.equal(a.query('#town-title').textContent,tenant.name);
- assert.match(a.query('.town-ticket').textContent,/店舗へ確認/);
- assert.match(a.query('.town-voucher-info').textContent,/未確認/);
+ assert.match(a.query('.town-ticket').textContent,/食券利用可/);
+ assert.doesNotMatch(a.query('.town-voucher-info').textContent,/未確認/);
  assert.ok(new URL(a.query('.town-detail-actions a').href).searchParams.get('destination').includes(tenant.name));
  assert.ok(a.query('.town-details').textContent.includes(tenant.price));
  assert.equal(a.all('.town-media-detail img').length,(a.w.KarimenTownConfig.suppliedPhotos[tenant.id]||[]).length);
