@@ -99,9 +99,10 @@
       const record = {id:a.id, mode:a.mode, set:a.set, label:a.label, contentVersion:a.contentVersion,
         ids:a.ids, answers:a.answers, keys:a.keys, flags:a.flags, uncertain:a.uncertain, correctness, score, maxScore, answered:count,
         partial:count < a.ids.length && !timeout, timeout, completedAt:now()};
-      if(record.mode==='mock'&&!record.partial){
-        record.previousScoreAtCompletion=[...s.attempts].reverse().find(r=>r.mode==='mock'&&r.set===record.set&&!r.partial&&r.contentVersion===record.contentVersion)?.score??null;
-        record.bestScoreAtCompletion=Math.max(record.score,s.bestRecords[record.contentVersion+':'+record.set]?.score??0);
+      if(['mock','guided'].includes(record.mode)&&!record.partial){
+        const earlier=s.attempts.filter(r=>r.mode===record.mode&&r.set===record.set&&!r.partial&&r.contentVersion===record.contentVersion);
+        record.previousScoreAtCompletion=earlier.at(-1)?.score??null;
+        record.bestScoreAtCompletion=Math.max(record.score,...earlier.map(r=>r.bestScoreAtCompletion??r.score),record.mode==='mock'?(s.bestRecords[record.contentVersion+':'+record.set]?.score??0):0);
       }
       s.attempts.push(record); s.attempts = s.attempts.slice(-60); s.sessions[slot] = null;
       if (record.mode==='mock'&&!record.partial) {

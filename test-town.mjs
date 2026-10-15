@@ -100,7 +100,9 @@ assert.equal(a.all('.town-card').length,14);assert.equal(a.all('.town-card .town
 assert.equal(a.query('#town-title').textContent,'食券が使えるお店');
 assert.equal(a.all('#town .town-character').length,1,'one small header character, not repeated promotional blocks');
 a.click('[data-town-action="filter"][data-value="saved"]');
-assert.equal(a.all('.town-empty .town-character').length,1,'saved empty state restores the existing guide');
+assert.equal(a.all('.town-empty .town-character').length,0,'empty state uses a bookmark instead of repeating the header guide');
+assert.equal(a.all('#town .town-character').length,1,'one Yoritomo guide remains in the header');
+assert.match(a.query('#town .town-character').getAttribute('src'),/yoritomo02/);
 a.click('[data-town-action="reset"]');
 assert.equal(a.all('.town-card .town-ticket,.town-guide-note,.town-voucher-info').length,0,'no repeated voucher badges or coloured promo panels');
 assert.doesNotMatch(a.query('#town').textContent,/どこ行こう|まちのごはん|食券を持って、地域のお店へ/);
@@ -149,7 +151,7 @@ assert.equal(a.all('.town-media-detail img').length,3);a.w.KarimenTown.open();aw
 // Each detail view must show only that store's configured, intact photographs.
 for(const shop of shops){
  a.w.KarimenTown.open(shop.id);await settle();
- assert.equal(a.all('.town-voucher-info .town-character').length,1,'each store retains its voucher guide character');
+ assert.equal(a.all('.town-voucher-info .town-character').length,0,'store details retain voucher information without repeating the character');
  assert.equal(a.all('.town-save').length,1,'the save action remains available beside the store title');
  assert.ok(a.query('.town-voucher-info').textContent.includes('差額'),'voucher limitations are retained');
  const expected=[...(a.w.KarimenTownConfig.suppliedPhotos[shop.id]||[])];

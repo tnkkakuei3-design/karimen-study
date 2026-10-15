@@ -26,7 +26,7 @@
     if(model.conflicted) { $('main').inert=true;$('tabs').inert=true;$('settings-button').disabled=true; }
   }
   function checked(ok) { if(!ok) {warn();toast(model.error||'操作できませんでした。途中の記録を確認してください。');}return ok; }
-  function open(title,body) { $('h-dialog-title').textContent=title;$('h-dialog-body').innerHTML=body;if(!dialog.open)dialog.showModal(); }
+  function open(title,body) { $('h-dialog-title').textContent=title;$('h-dialog-body').innerHTML=body;dialog.querySelector('.h-dialog-close').hidden=!!$('h-dialog-body').querySelector('[data-h="close"]');if(!dialog.open)dialog.showModal(); }
   function close() { dialog.close(); }
   function focusQuestion() { $('question-title')?.focus({preventScroll:true}); }
   function top() { window.scrollTo({top:0,behavior:'instant'}); }
@@ -149,7 +149,7 @@
       const label=noteReturn?.view==='play'?'解いていた問題に戻る':noteReturn?.view==='result'?'結果に戻る':'学習に戻る';
       root.insertAdjacentHTML('afterbegin',`${btn('note-return',icon('back')+label,'',true)}<div class="page-heading notes-heading"><div><h2>図解ノート</h2><p class="muted">要点をつかんで、問題で確かめよう。</p></div><img class="section-character" src="./image-a5b30a44fd43.png" width="332" height="380" alt="DON!DON!ドライブのロボット教官"></div>`);
       root.querySelector('.learn-notes-intro')?.remove();
-      root.insertAdjacentHTML('beforeend',`<div class="stack">${btn('note-return',icon('back')+label,'',true)}</div>`);
+      root.dataset.returnLabel=label;
     }
   }
   function time(ms) { const seconds=Math.ceil(ms/1000);return `${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`; }
@@ -201,7 +201,7 @@
   function renderResult(a) {
     if(!a){changeView('review');return;}
     resultSchedule=JSON.stringify(model.schedule());
-    const current=a.contentVersion===version,full=a.mode==='mock'&&!a.partial&&a.maxScore===100,passed=full&&a.score>=90;
+    const current=a.contentVersion===version,full=['mock','guided'].includes(a.mode)&&!a.partial&&a.maxScore===100,passed=full&&a.score>=90;
     const index=model.state.attempts.findIndex(r=>r.id===a.id),earlier=model.state.attempts.slice(0,Math.max(0,index)).filter(r=>r.mode===a.mode&&r.set===a.set&&!r.partial&&r.contentVersion===a.contentVersion);
     const previousScore=a.previousScoreAtCompletion??earlier.at(-1)?.score,diff=previousScore==null?null:a.score-previousScore,bestScore=a.bestScoreAtCompletion??Math.max(a.score,...earlier.map(r=>r.score));
     const schedule=model.schedule(),due=a.ids.filter(id=>schedule.due.includes(id)),waiting=a.ids.filter(id=>schedule.waiting.includes(id)),unanswered=a.ids.filter((id,i)=>a.correctness[i]===null);
@@ -213,12 +213,12 @@
     const s=model.state.settings,hasSessions=Object.values(model.state.sessions).some(Boolean);
     open('表示と学習記録',`${window.KarimenHomeInstall?.settingsMarkup()||''}<div class="settings-group"><h3>画面の明るさ</h3><div class="seg">${[['auto','自動'],['light','ライト'],['dark','ダーク']].map(([key,label])=>`<button data-h="theme" data-value="${key}" aria-pressed="${s.theme===key}">${label}</button>`).join('')}</div></div><div class="settings-group"><h3>効果音</h3><div class="seg">${[[true,'オン'],[false,'オフ']].map(([v,label])=>`<button data-h="sound" data-value="${v}" aria-pressed="${s.sound===v}">${label}</button>`).join('')}</div><p class="muted">学習で答えたときに鳴ります。模試中は鳴りません。</p></div><div class="settings-group"><label class="confidence-control"><input id="reduce-motion" type="checkbox" ${s.reduceMotion?'checked':''}>動きを抑える</label><p class="muted">端末の「視差効果を減らす」設定にも対応します。</p><button class="textbtn" data-h="preview" data-score="90">花丸の見本を見る ${icon('chevron')}</button></div><div class="settings-group"><h3>学習記録の保存</h3><p class="muted">回答・成績・復習予定は自動で保存します。同じ端末・ブラウザでのサイト更新後も、そのまま続けられます。本免の記録は仮免とは別に、この端末内に保存します。</p><p id="save-status" role="status">${storage.status.message|| (storage.status.pending?'バックアップ中…':storage.status.backupSaved?'自動保存・バックアップ済み':'自動保存済み')}</p><details><summary>予備の書き出し・読み込み</summary><p class="muted">通常の更新では操作不要です。別の端末へ記録を渡す場合などに使用できます。</p><div class="btnrow">${btn('export','書き出す','',true)}${btn('import','読み込む','',true)}</div></details></div><div class="settings-group"><button class="textbtn" data-h="records">これまでの学習記録を見る ${icon('chevron')}</button></div><div class="settings-group"><button class="textbtn danger" data-h="reset" ${hasSessions?'disabled':''}>現在の学習記録を初期化する</button>${hasSessions?'<p class="muted">各モードの途中の学習を終えると初期化できます。</p>':''}</div>`);
   }
-  function achievement(a) {
-    const full=a.mode==='mock'&&!a.partial&&a.maxScore===100,passed=full&&a.score>=90,perfect=passed&&a.score===100;
-    const motion=passed&&!celebrated.has(a.id)&&!model.state.settings.reduceMotion&&!window.matchMedia?.('(prefers-reduced-motion:reduce)').matches;
-    celebrated.add(a.id);
+  function achievement(a,preview=false) {
+    const full=['mock','guided'].includes(a.mode)&&!a.partial&&a.maxScore===100,passed=full&&a.score>=90,perfect=passed&&a.score===100;
+    const motion=passed&&(preview||!celebrated.has(a.id))&&!model.state.settings.reduceMotion&&!window.matchMedia?.('(prefers-reduced-motion:reduce)').matches;
+    if(!preview&&a.id)celebrated.add(a.id);
     const pieces=motion?`<span class="result-confetti" aria-hidden="true">${Array.from({length:perfect?32:20},(_,i)=>`<i style="--x:${(i*37+7)%100}%;--delay:${(i%5)*35}ms;--spin:${i%2?'-':'+'}${150+i*13}deg;--color:${['#dc6577','#e2b751','#5c9dd6','#82b39d'][i%4]}"></i>`).join('')}</span>`:'';
-    return `<section class="result-achievement ${perfect?'perfect':passed?'pass':full?'retry':'practice'} ${motion?'celebrate':''}" aria-label="${passed?'合格':'学習結果'}">${pieces}${passed?flowerStamp(perfect?'満点':'合格'):`<span class="achievement-symbol" aria-hidden="true">${icon(full?'flag':a.score===a.maxScore?'check':'book')}</span>`}<div class="achievement-copy"><h3>${perfect?'満点合格！':passed?'合格！よくできました':full?'合格まであと'+(90-a.score)+'点！':a.score===a.maxScore?'全問正解！':'おつかれさまでした'}</h3>${full?'<small>このアプリ内の判定：100点中90点以上で合格</small>':''}</div></section>`;
+    return `<section class="result-achievement ${perfect?'perfect':passed?'pass':full?'retry':'practice'} ${motion?'celebrate':''}" aria-label="${passed?'合格':'学習結果'}">${pieces}${passed?flowerStamp(perfect?'満点':'合格'):`<span class="achievement-symbol" aria-hidden="true">${icon(full?'flag':a.score===a.maxScore?'check':'book')}</span>`}<div class="achievement-copy"><h3>${perfect?'満点合格！':passed?'合格！よくできました':full?'合格まであと'+(90-a.score)+'点！':a.score===a.maxScore?'全問正解！':'おつかれさまでした'}</h3>${full?`<small>${a.mode==='guided'?'解説付き95問練習：90点以上で合格の目安（模試とは別記録）':'このアプリ内の判定：100点中90点以上で合格'}</small>`:''}</div></section>`;
   }
   function sources() { open('内容の補正と確認資料',`<p class="muted">原資料の正誤や文面が現行ルールと合わない問題は、条件・答え・解説を補正しています。判読が不確かな箇所は、同じテーマの明確な設問に置き換えています。</p><ul class="h-source-list">${HONMEN_DATA.rules.map(r=>`<li><b>${esc(r.title)}</b><p>${esc(r.summary)}</p><a href="${esc(r.url)}" target="_blank" rel="noopener">確認資料 ↗</a></li>`).join('')}</ul>`); }
   async function action(b) {
@@ -256,11 +256,11 @@
     if(key==='result-unanswered'){start(lastResult.ids.filter((id,i)=>lastResult.correctness[i]===null&&model.byId.has(id)),'study','未回答の練習');return;}
     if(key==='result-filter'){resultFilter=b.dataset.value;renderResult(lastResult);return;}
     if(key==='theme'||key==='sound'){if(checked(model.settings(key==='theme'?{theme:b.dataset.value}:{sound:b.dataset.value==='true'}))){applySettings();settings();if(key==='sound'){window.HonmenSound?.release();if(b.dataset.value==='true')window.HonmenSound?.play(true);}}return;}
-    if(key==='preview'){const score=Number(b.dataset.score);open('花丸の見本',`<p class="muted">見本です。学習記録には保存されません。</p><div class="seg">${[89,90,96,100].map(n=>`<button data-h="preview" data-score="${n}">${n}点</button>`).join('')}</div><div class="score">${score}<small>/ 100点</small></div>${achievement({mode:'mock',partial:false,maxScore:100,score})}<button class="btn secondary" data-h="settings">設定に戻る</button>`);return;}
+    if(key==='preview'){const score=Number(b.dataset.score);open('花丸の見本',`<p class="muted">見本です。学習記録には保存されません。</p><div class="seg">${[89,90,96,100].map(n=>`<button data-h="preview" data-score="${n}">${n}点</button>`).join('')}</div><div class="score">${score}<small>/ 100点</small></div>${achievement({mode:'mock',partial:false,maxScore:100,score},true)}<button class="btn secondary" data-h="settings">設定に戻る</button>`);return;}
     if(key==='records'){open('これまでの学習記録',model.state.attempts.length?[...model.state.attempts].reverse().map(a=>`<button class="h-history-row" data-h="history" data-record="${a.id}"><span>${esc(displayLabel(a))}<small>${date(a.completedAt)}${a.partial?' · 途中終了':''}</small></span><strong>${a.score}<small>/ ${a.maxScore}点</small></strong></button>`).join(''):'<p class="muted">学習が終わると記録されます。</p>');return;}
     if(key==='note-reset'){noteSearch='';noteFilter='';renderNotes();return;}
     if(key==='note-drill'){const qs=HonmenNotes.questions(b.dataset.note,bank);if(!qs.length){toast('このテーマの対応問題はありません。');return;}const ids=studySample(qs);start(ids,'study',HonmenNotes.title(b.dataset.note)+'・'+ids.length+'問');return;}
-    if(key==='note-figure'){$('figure-content').innerHTML=HonmenNotes.figure(b.dataset.fig);$('figure-zoom').value='100';$('figure-content').style.width='100%';$('figure-dialog').showModal();return;}
+    if(key==='note-figure'){$('figure-content').innerHTML=HonmenNotes.figure(b.dataset.fig);resetFigureZoom();$('figure-dialog').showModal();return;}
 
     if(key==='set') {setDetail(Number(b.dataset.set));return;}
     if(key==='start-set'){const set=Number(b.dataset.set),mode=b.dataset.mode;start(bank.filter(q=>q.set===set).map(q=>q.id),mode,'本免練習 '+set+(mode==='mock'?'・模試':'・解説付き'),set);return;}
@@ -273,7 +273,7 @@
     if(key==='confirm-finish'){const result=model.finish(b.dataset.slot);if(!checked(!!result))return;lastResult=result;resultFilter='wrong';close();changeView('result');return;}
     if(key==='history'){close();lastResult=model.state.attempts.find(a=>a.id===b.dataset.record);returnTab=view==='mock'?'mock':'review';resultFilter='wrong';changeView('result');return;}
     if(key==='retry'){start(lastResult.ids.filter((id,i)=>lastResult.correctness[i]!==true&&model.byId.has(id)),'study','間違い・未回答の練習');return;}
-    if(key==='figure'){const q=model.byId.get(b.dataset.id);if(!q?.image)return;$('figure-content').innerHTML=`<img src="./${esc(q.image)}?v=${esc(q.imageHash||'')}" alt="${esc(q.imageAlt||'問題の図')}">`;$('figure-zoom').value='100';$('figure-content').style.width='100%';$('figure-dialog').showModal();return;}
+    if(key==='figure'){const q=model.byId.get(b.dataset.id);if(!q?.image)return;$('figure-content').innerHTML=`<img src="./${esc(q.image)}?v=${esc(q.imageHash||'')}" alt="${esc(q.imageAlt||'問題の図')}">`;resetFigureZoom();$('figure-dialog').showModal();return;}
     if(key==='export'){const blob=new Blob([model.export()],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='honmen-progress-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('本免の記録を書き出しました');return;}
     if(key==='import'){$('import-file').click();return;}
     if(key==='confirm-import'){if(!pendingImport)return;if(!checked(model.import(pendingImport)))return;pendingImport=null;await storage.flush();applySettings();close();changeView('review');toast('本免の記録を読み込みました');return;}
@@ -301,7 +301,14 @@
   document.addEventListener('compositionstart',e=>{if(e.target.id==='note-search')noteComposing=true;});
   document.addEventListener('compositionend',e=>{if(e.target.id==='note-search'){noteComposing=false;updateNoteSearch(e.target);}});
   document.addEventListener('input',e=>{if(e.target.id==='note-search'&&!noteComposing)updateNoteSearch(e.target);});
-  $('figure-zoom').addEventListener('input',event=>$('figure-content').style.width=event.target.value+'%');
+  function resetFigureZoom(){ $('figure-zoom').value='100';$('figure-content').style.zoom='1';$('figure-content').style.width='100%'; }
+  function setFigureZoom(percent){
+    const width=$('figure-dialog').querySelector('.figure-scroll').clientWidth;
+    if(width)$('figure-content').style.width=width+'px';
+    $('figure-content').style.zoom=String(percent/100);
+  }
+  $('figure-zoom').addEventListener('input',event=>setFigureZoom(Number(event.target.value)));
+  window.addEventListener('resize',()=>{if($('figure-dialog').open)setFigureZoom(Number($('figure-zoom').value));});
   $('import-file').addEventListener('change',async event=>{
     const file=event.target.files[0];event.target.value='';if(!file)return;
     try {
