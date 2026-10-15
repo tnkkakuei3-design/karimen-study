@@ -2,3 +2,5 @@
 .home-intro h2{font-size:clamp(32px,8.5vw,44px);line-height:1.45}.home-intro{margin-bottom:26px}.mock-heading h3{font-size:20px;margin-bottom:10px}.home-intro .home-character{width:43%;max-width:220px}.home-intro>div{min-width:0}.home-intro p{font-size:13px}@media(min-width:650px){.home-intro h2{font-size:46px}.home-intro p{font-size:15px}}
 
 .header-tools #settings-button{padding:0;border:0;border-radius:6px;background:transparent;color:var(--muted);font-family:inherit;line-height:normal;cursor:pointer;box-shadow:none}.header-tools #settings-button:focus-visible{outline:3px solid var(--blue);outline-offset:3px}.header-tools #settings-button:disabled{cursor:default;opacity:.45}@media(hover:hover){.header-tools #settings-button:hover:not(:disabled){color:var(--fg);background:var(--soft)}}
+
+.header-tools #settings-button svg{stroke-width:1.7}

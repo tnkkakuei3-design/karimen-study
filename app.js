@@ -586,7 +586,7 @@ window.addEventListener('storage', e => { if ((e.key === KarimenModel.STORE || e
 window.addEventListener('karimen-storage-status', updateChrome);
 setInterval(() => { try { progressStorage.retry?.(); } catch {} }, 10000);
 matchMedia('(prefers-color-scheme:dark)').addEventListener?.('change',theme);
-$('brandmark').innerHTML = icon('road'); $('settings-button').innerHTML = icon('settings') + '<span>設定</span>';
+$('brandmark').innerHTML = icon('road'); $('settings-button').innerHTML = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.5 3.8 10 2h4l.5 1.8 1.6.9 1.8-.5 2 3.5-1.3 1.3v2l1.3 1.3-2 3.5-1.8-.5-1.6.9L14 18h-4l-.5-1.8-1.6-.9-1.8.5-2-3.5L5.4 11V9L4.1 7.7l2-3.5 1.8.5Z" transform="translate(0 2)"/><circle cx="12" cy="12" r="3.2"/></svg><span>設定</span>';
 $('nav-mock').innerHTML = icon('exam'); $('nav-learn').innerHTML = icon('book'); $('nav-review').innerHTML = icon('review');
 theme(); navigate('mock'); updateTimer(); setInterval(updateTimer,500);
 window.KarimenHomeInstall?.init({
