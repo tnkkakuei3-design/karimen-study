@@ -20,7 +20,7 @@ button,a,summary{touch-action:manipulation}
 .mode-switch button.selected{color:#066be9;border-color:#066be9;background:transparent;box-shadow:none}.mode-switch small{font-size:12px!important}
 .course-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .course{border-radius:12px;transition:border-color .15s;background:#fff}.course:hover{transform:none;border-color:#066be9}
-.course-thumb{height:144px}.course-info{padding:15px}.course-info>small{font-size:12px}.course-info h3{font-size:17px;line-height:1.5;margin:5px 0 12px;letter-spacing:-.025em;min-height:3em}
+.course-thumb{height:144px}.course-info{padding:15px}.course-info>small{font-size:12px}.course-info h3{font-size:17px;line-height:1.5;margin:5px 0 10px;letter-spacing:-.025em;min-height:0}
 .course-bottom{padding-top:10px;font-size:12px;gap:8px;align-items:center}.course-bottom>span:first-child{min-width:0}.course-state{display:inline-flex;align-items:center;gap:3px;flex:none}.course-state.is-clear{color:#167349}.course-state.is-clear svg{width:15px;color:inherit}
 .arcade-card{display:flex;align-items:center;gap:14px;background:transparent;border:0;border-top:1px solid #e4e9ed;border-bottom:1px solid #e4e9ed;border-radius:0;padding:20px 0;margin:24px 0 0}
 .arcade-card>div{flex:1;min-width:0}.arcade-card h2{font-size:18px;margin:0 0 4px}.arcade-card p{font-size:13px;color:#627389;margin:0}.arcade-icon{width:27px;height:27px;color:#066be9}.arcade-card .secondary{min-width:80px;padding:10px 12px;flex:none;font-size:14px}

@@ -873,7 +873,7 @@ h2,h3{font-weight:700}
 .note>summary{padding:16px 0;min-height:108px}
 .note[open]>summary{background:transparent}
 .note-summary-copy strong{font-weight:650;font-size:16px;line-height:1.55}
-.note-summary-copy small{font-size:12px;font-weight:400}
+.note-summary-copy small{font-size:14px;font-weight:400;line-height:1.6;color:var(--fg);opacity:.75}
 .note-preview{border-radius:6px;background:#fff}
 .note-content{padding:12px 0 24px}
 .note-content>.fig:first-child{margin-top:0}
@@ -917,7 +917,7 @@ h2,h3{font-weight:700}
 .category-entry>.icon{grid-column:1;grid-row:1;width:27px;height:27px;color:var(--fg)}
 .category-entry>.card-chevron{grid-column:2;grid-row:1}
 .category-entry>.category-copy{grid-column:1/-1;grid-row:2}
-#learn .category-entry .category-copy>strong{min-height:3.1em;font-size:16px}
+#learn .category-entry .category-copy>strong{min-height:0;font-size:16px}
 #learn .category-entry .category-coverage{font-size:13px;margin:6px 0}
 .category-entry .category-review-badge{align-self:flex-start;background:transparent;padding:0;font-size:12px}
 .category-metrics{padding-bottom:8px;color:var(--muted);font-size:12px}
@@ -950,7 +950,8 @@ h2,h3{font-weight:700}
 .fig svg .ts,.note-preview svg .ts{font-size:11px;font-weight:400;fill:#243b53}
 .category-entry:disabled{opacity:1;color:var(--muted);background:var(--pale);cursor:default}
 .category-entry:disabled .card-chevron{visibility:hidden}
-.category-entry .category-review-badge{display:block;min-height:2.8em;line-height:1.4}
+.category-entry .category-review-badge{display:block;min-height:0;line-height:1.5}
+.category-entry .category-review-badge:empty{display:none}
 .category-entry .category-wait-time{display:block;font-weight:400;color:var(--muted)}
 
 /* Learning tab: one primary action; secondary fresh start. */
