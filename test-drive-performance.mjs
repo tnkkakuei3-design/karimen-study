@@ -74,6 +74,16 @@ if(!baseline){
  assert.equal(advance(1).draws,0);
  $('close-settings').click();const prior=run('drive.time');advance(1,15);
  assert.ok(Math.abs(run('drive.time')-prior-1)<.001,'A slow display does not slow physics');
+ // Foreground stalls must not produce repeated pause dialogs or unbounded catch-up.
+ for(const gap of [350,800,5000]){
+  const before=run('drive.time');now+=gap;const callbacks=[...pending.values()];pending.clear();
+  for(const callback of callbacks)callback(now);
+  assert.equal(run('drive.phase'),'running');assert.equal($('pause-overlay').hidden,true);
+  assert.ok(Math.abs(run('drive.time')-before-.1)<.001,'Stall catch-up is bounded to 100 ms');
+ }
+ run('drive.input.gas=true;drive.steer(1)');w.dispatchEvent(new w.Event('blur'));
+ assert.equal(run('drive.phase'),'running','Visible browser focus changes do not pause');
+ assert.equal(run('drive.input.gas'),false);assert.equal(run('drive.input.steer'),0);
  w.fake3D.render=()=>{throw new Error('lost context');};advance(.1);
  assert.equal(run('drive.phase'),'paused');assert.equal(run('threeError'),true);
  advance(.1);assert.equal(advance(1).callbacks,0,'Fallback is paused, with no runaway loop');

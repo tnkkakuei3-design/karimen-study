@@ -162,7 +162,9 @@ window.addEventListener('keydown',e=>{
  e.preventDefault();activeKeys.add(e.key);syncControls();
 });
 window.addEventListener('keyup',e=>{activeKeys.delete(e.key);syncControls();});
-window.addEventListener('blur',()=>{activeKeys.clear();pause();release();});
+// Browser chrome can steal focus while the page remains visible (especially in-app iOS browsers).
+// Release held inputs, but reserve automatic pause for actual visibility/page changes.
+window.addEventListener('blur',()=>{activeKeys.clear();release();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){activeKeys.clear();pause();release();stopFrames();}else{requestFrame();if(screen==='home')load3DPreviews();}});
 window.addEventListener('resize',()=>{
  renderer.invalidateSize();three?.invalidateSize();requestFrame();clearTimeout(resizeTimer);
@@ -185,7 +187,9 @@ function frame(now){
  frameId=0;
  if(screen!=='game'||!drive||document.hidden)return;
  const dt=last?(now-last)/1000:0;last=now;
- if(dt>.3&&drive.phase==='running')pause();else drive.step(dt);
+ // A foreground rendering stall is not a request to pause. Bound catch-up work
+ // so a slow device neither opens the pause dialog nor jumps down the road.
+ drive.step(Math.min(dt,.1));
  if(dirty||now-lastHUD>=100-.01){updateHUD();lastHUD=now;}
  const interval=1000/(lightQuality?30:60);
  if(dirty||now-lastDraw>=interval-.01){
