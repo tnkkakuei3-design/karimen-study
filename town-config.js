@@ -61,6 +61,34 @@ window.KarimenTownConfig = Object.freeze({
         "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47020162/",
         "title": "センター食堂の写真掲載ページ",
         "sha256": "503382b9679de96cdca4d7bbb902c4157a406687fbc9a7fd5fd5f3ac52e7dd28"
+      },
+      {
+        "url": "./assets/town/selected-20261015-center-11.jpg",
+        "shopId": "center",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "センター食堂のチャンプルー定食",
+        "caption": "チャンプルー定食",
+        "credit": "掲載元：食べログ",
+        "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47020162/",
+        "title": "センター食堂 - 糸満市/食堂 | 食べログ",
+        "sha256": "11583ec9c49433b74b4bd5a0b595e8c74553575d56af0944df1436423452e17a"
+      },
+      {
+        "url": "./assets/town/selected-20261015-center-04.jpg",
+        "shopId": "center",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "センター食堂の店内",
+        "caption": "店内",
+        "credit": "掲載元：食べログ",
+        "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47020162/",
+        "title": "センター食堂 - 糸満市/食堂 | 食べログ",
+        "sha256": "15a896df6d2f5e4af8d268c8dbd7c103f4fae9c6719ad565440f53a33910a451"
       }
     ],
     "umibozu": [
@@ -77,6 +105,34 @@ window.KarimenTownConfig = Object.freeze({
         "sourceUrl": "https://www.okinawa41.go.jp/archives/29174",
         "title": "海ぼうずの写真掲載ページ",
         "sha256": "5c425e88b88316351c313ae29bba94bab30c5b57bacb65394fb1d5f3a016e80c"
+      },
+      {
+        "url": "./assets/town/selected-20261015-umibozu-06.jpg",
+        "shopId": "umibozu",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "海ぼうずの刺身の定食",
+        "caption": "刺身の定食",
+        "credit": "掲載元：食べログ",
+        "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47012704/",
+        "title": "海ぼうず - 糸満市/海鮮 | 食べログ",
+        "sha256": "ca3015fa75389eb92aa2463dda8b7a5f4c70ef5eb15a66fcab5412961f1d671c"
+      },
+      {
+        "url": "./assets/town/selected-20261015-umibozu-18.jpg",
+        "shopId": "umibozu",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "海ぼうずの店舗入口",
+        "caption": "店舗入口",
+        "credit": "掲載元：食べログ",
+        "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47012704/",
+        "title": "海ぼうず - 糸満市/海鮮 | 食べログ",
+        "sha256": "67790c6bced55d482a4a91fde8fde6eaf4aa6866f800fab23f1f7c44bd3e97c3"
       }
     ],
     "kirakira": [
@@ -93,23 +149,37 @@ window.KarimenTownConfig = Object.freeze({
         "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033114/",
         "title": "きらきらの写真掲載ページ",
         "sha256": "8363041bff69933a31a359d0c3a6c90605395f286d62967ee3ee64ac7eacdeb4"
-      }
-    ],
-    "kinta": [
+      },
       {
-        "url": "./assets/town/venue-kinta-1.jpg",
-        "shopId": "kinta",
+        "url": "./assets/town/selected-20261015-kirakira-08.jpg",
+        "shopId": "kirakira",
         "kind": "venue",
         "selectedForDisplay": true,
         "rightsStatus": "unconfirmed",
-        "sourceCheckedOn": "2026-10-13",
-        "alt": "きんたの店舗外観",
-        "caption": "店舗外観 · 2020年掲載",
-        "credit": "iroiro沖縄",
-        "sourceUrl": "https://iroiro-okinawa.com/gourmet/bar/post-4637/",
-        "title": "きんたの写真掲載ページ",
-        "sha256": "73a69da765061a193cd5cf21541f8c70f7e96403a3a141640e6220f9a7225c93"
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "きらきらのオムライス",
+        "caption": "オムライス",
+        "credit": "掲載元：食べログ",
+        "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033114/",
+        "title": "お食事 きらきら - 糸満市/食堂 | 食べログ",
+        "sha256": "13797d05c6334704ad4307206810a4b9262fbe82b30a43410ae8bb2cb6261cf4"
       },
+      {
+        "url": "./assets/town/selected-20261015-kirakira-14.jpg",
+        "shopId": "kirakira",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "きらきらの店舗入口",
+        "caption": "店舗入口",
+        "credit": "掲載元：食べログ",
+        "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033114/",
+        "title": "お食事 きらきら - 糸満市/食堂 | 食べログ",
+        "sha256": "158dedfaba21ee68506a3dfb65ffbc11d07a5617d47818f064b6ce3a1f6e6caf"
+      }
+    ],
+    "kinta": [
       {
         "url": "./assets/town/venue-kinta-2.jpg",
         "shopId": "kinta",
@@ -139,6 +209,20 @@ window.KarimenTownConfig = Object.freeze({
         "sha256": "4e56341ff9dd71b0a31ccf07be3c57faf107bae533bd88bd844129e3dd9ecc9d"
       },
       {
+        "url": "./assets/town/venue-kinta-1.jpg",
+        "shopId": "kinta",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-13",
+        "alt": "きんたの店舗外観",
+        "caption": "店舗外観 · 2020年掲載",
+        "credit": "iroiro沖縄",
+        "sourceUrl": "https://iroiro-okinawa.com/gourmet/bar/post-4637/",
+        "title": "きんたの写真掲載ページ",
+        "sha256": "73a69da765061a193cd5cf21541f8c70f7e96403a3a141640e6220f9a7225c93"
+      },
+      {
         "url": "./assets/town/venue-kinta-4.jpg",
         "shopId": "kinta",
         "kind": "venue",
@@ -155,6 +239,34 @@ window.KarimenTownConfig = Object.freeze({
     ],
     "chiquita": [
       {
+        "url": "./assets/town/selected-20261015-chiquita-02.jpg",
+        "shopId": "chiquita",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "チキータのとんかつの定食",
+        "caption": "とんかつの定食",
+        "credit": "掲載元：食べログ",
+        "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47008573/",
+        "title": "チキータ - 糸満市/喫茶店 | 食べログ",
+        "sha256": "acca58a96089d44956529e595d411bf09dfd55694e6d3afe87fd561291a1cfc6"
+      },
+      {
+        "url": "./assets/town/selected-20261015-chiquita-13.jpg",
+        "shopId": "chiquita",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "チキータのグラタンとトースト",
+        "caption": "グラタンとトースト",
+        "credit": "掲載元：食べログ",
+        "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47008573/",
+        "title": "チキータ - 糸満市/喫茶店 | 食べログ",
+        "sha256": "36b657b3871f4ae1231532ff1bdd759e8e3afba75110882fc4242a73ad40c00b"
+      },
+      {
         "url": "./assets/town/venue-chiquita-1.jpg",
         "shopId": "chiquita",
         "kind": "venue",
@@ -170,6 +282,34 @@ window.KarimenTownConfig = Object.freeze({
       }
     ],
     "mahoroba": [
+      {
+        "url": "./assets/town/selected-20261015-mahoroba-food-02.jpg",
+        "shopId": "mahoroba",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "食工房まほろばのメガシャークバーガー",
+        "caption": "メガシャークバーガー",
+        "credit": "掲載元：食べログ",
+        "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47015924/",
+        "title": "食工房まほろば - 糸満市/食堂 | 食べログ",
+        "sha256": "74790aa7c75e9b2006b1bfa7769128db59254413dc82197dbc83619178417859"
+      },
+      {
+        "url": "./assets/town/selected-20261015-mahoroba-food-13.jpg",
+        "shopId": "mahoroba",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "食工房まほろばの金目鯛の煮付け定食",
+        "caption": "金目鯛の煮付け定食",
+        "credit": "掲載元：食べログ",
+        "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47015924/",
+        "title": "食工房まほろば - 糸満市/食堂 | 食べログ",
+        "sha256": "3b5cb3c3746f6fea39ffabad824432721706ebe7cfa3c521b1b2e4cadc4396bd"
+      },
       {
         "url": "./assets/town/venue-mahoroba-1.jpg",
         "shopId": "mahoroba",
@@ -199,23 +339,37 @@ window.KarimenTownConfig = Object.freeze({
         "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47012641/",
         "title": "リッツの写真掲載ページ",
         "sha256": "c0a5e391361448e7db348dc35f5e00fa19faa6529e8ee9183488eab3ebcf51e9"
-      }
-    ],
-    "uminchu": [
+      },
       {
-        "url": "./assets/town/venue-uminchu-1.jpg",
-        "shopId": "uminchu",
+        "url": "./assets/town/selected-20261015-ritz-02.jpg",
+        "shopId": "ritz",
         "kind": "venue",
         "selectedForDisplay": true,
         "rightsStatus": "unconfirmed",
-        "sourceCheckedOn": "2026-10-13",
-        "alt": "糸満海人食堂の店内",
-        "caption": "店内 · 2021年6月放送時",
-        "credit": "沖縄テレビ／OKITIVE",
-        "sourceUrl": "https://www.otv.co.jp/okitive/article/376/",
-        "title": "糸満海人食堂の写真掲載ページ",
-        "sha256": "88737f3f00a2be0332805bf460e643555750850902ca79a14a03c11f349bb587"
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "リッツ・パンとケーキのお店のパン",
+        "caption": "パン",
+        "credit": "掲載元：食べログ",
+        "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47012641/",
+        "title": "リッツ - 糸満市/ケーキ | 食べログ",
+        "sha256": "3ebf65b167f33700d6e10b5d560d8e40c2e581d780dacdb7af48cb0b95c4964c"
       },
+      {
+        "url": "./assets/town/selected-20261015-ritz-12.jpg",
+        "shopId": "ritz",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "リッツ・パンとケーキのお店の店舗外観",
+        "caption": "店舗外観",
+        "credit": "掲載元：食べログ",
+        "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47012641/",
+        "title": "リッツ - 糸満市/ケーキ | 食べログ",
+        "sha256": "eb84c300bcf892669c12047b419f59b4be138df3382970b2162b461a3a06171e"
+      }
+    ],
+    "uminchu": [
       {
         "url": "./assets/town/venue-uminchu-2.jpg",
         "shopId": "uminchu",
@@ -229,23 +383,37 @@ window.KarimenTownConfig = Object.freeze({
         "sourceUrl": "https://www.otv.co.jp/okitive/article/376/",
         "title": "糸満海人食堂の写真掲載ページ",
         "sha256": "0c9ffa5f9c164688a6415fe1d2ef9edb3675c1b20b819c9e9b1343f8241feed6"
-      }
-    ],
-    "konaya": [
+      },
       {
-        "url": "./assets/town/venue-konaya-1.jpg",
-        "shopId": "konaya",
+        "url": "./assets/town/selected-20261015-uminchu-13.jpg",
+        "shopId": "uminchu",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "糸満海人食堂のイカスミ汁（夜メニュー） · 2021年6月放送時",
+        "caption": "イカスミ汁（夜メニュー） · 2021年6月放送時",
+        "credit": "沖縄テレビ／OKITIVE",
+        "sourceUrl": "https://www.otv.co.jp/okitive/article/376/",
+        "title": "ウミンチュの町で本格海鮮料理「糸満海人食堂」 | OKITIVE",
+        "sha256": "ed9c8fa433723965ffb96dc480bd60f1a10cf3c50de9ac91fa97f3c43267991a"
+      },
+      {
+        "url": "./assets/town/venue-uminchu-1.jpg",
+        "shopId": "uminchu",
         "kind": "venue",
         "selectedForDisplay": true,
         "rightsStatus": "unconfirmed",
         "sourceCheckedOn": "2026-10-13",
-        "alt": "こなや本家の店内",
-        "caption": "店内 · 2025年6月放送時",
+        "alt": "糸満海人食堂の店内",
+        "caption": "店内 · 2021年6月放送時",
         "credit": "沖縄テレビ／OKITIVE",
-        "sourceUrl": "https://www.otv.co.jp/okitive/article/81821/",
-        "title": "こなや本家の写真掲載ページ",
-        "sha256": "af4ce13e0ae6fd1d7abab7d03822f40c1b6c2ad6fea101c26c6d1e5ba60d4fbe"
-      },
+        "sourceUrl": "https://www.otv.co.jp/okitive/article/376/",
+        "title": "糸満海人食堂の写真掲載ページ",
+        "sha256": "88737f3f00a2be0332805bf460e643555750850902ca79a14a03c11f349bb587"
+      }
+    ],
+    "konaya": [
       {
         "url": "./assets/town/venue-konaya-2.jpg",
         "shopId": "konaya",
@@ -259,6 +427,34 @@ window.KarimenTownConfig = Object.freeze({
         "sourceUrl": "https://www.otv.co.jp/okitive/article/81821/",
         "title": "こなや本家の写真掲載ページ",
         "sha256": "840b97910c40170bafe0e31513606399912e524e35243a16950061a5dc24ce04"
+      },
+      {
+        "url": "./assets/town/selected-20261015-konaya-16.jpg",
+        "shopId": "konaya",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "こなや本家の肉かすうどん · 2025年6月放送時",
+        "caption": "肉かすうどん · 2025年6月放送時",
+        "credit": "沖縄テレビ／OKITIVE",
+        "sourceUrl": "https://www.otv.co.jp/okitive/article/81821/",
+        "title": "古民家で味わう 職人技が光るとろとろたこ焼き！「こなや 本家」（糸満市） | OKITIVE",
+        "sha256": "4b28de7edcb40a39a051c86d44a3cdb86263071e5748e80823afded112b52adc"
+      },
+      {
+        "url": "./assets/town/venue-konaya-1.jpg",
+        "shopId": "konaya",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-13",
+        "alt": "こなや本家の店内",
+        "caption": "店内 · 2025年6月放送時",
+        "credit": "沖縄テレビ／OKITIVE",
+        "sourceUrl": "https://www.otv.co.jp/okitive/article/81821/",
+        "title": "こなや本家の写真掲載ページ",
+        "sha256": "af4ce13e0ae6fd1d7abab7d03822f40c1b6c2ad6fea101c26c6d1e5ba60d4fbe"
       }
     ],
     "yotsuba": [
@@ -275,6 +471,20 @@ window.KarimenTownConfig = Object.freeze({
         "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033137/",
         "title": "よつばキッチンの写真掲載ページ",
         "sha256": "49bb5972ec8aa48e95b49c28924c1ac61c9bc986cc8020c3da99724a33ab6f49"
+      },
+      {
+        "url": "./assets/town/selected-20261015-yotsuba-05.jpg",
+        "shopId": "yotsuba",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "よつばキッチンの唐揚げ弁当",
+        "caption": "唐揚げ弁当",
+        "credit": "掲載元：食べログ",
+        "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033137/",
+        "title": "よつばキッチン - 糸満市/弁当 | 食べログ",
+        "sha256": "5211cbbe5445acc3a12af663b6d44d97872aba3b8d9964992285c2c7b99c13e4"
       }
     ],
     "ichiman-yokocho": [
@@ -335,6 +545,34 @@ window.KarimenTownConfig = Object.freeze({
         "sourceUrl": "https://www.okinawastory.jp/news/tourism/4711",
         "title": "ゼロ番地の写真掲載ページ",
         "sha256": "040c6b6ed915c9f7756aa148121b9f135aab55e0c9ec82e9c102e1ac71540303"
+      },
+      {
+        "url": "./assets/town/selected-20261015-zero-25.jpg",
+        "shopId": "zero",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "喫茶&BAR ゼロ番地のプリン · 2026年6月掲載",
+        "caption": "プリン · 2026年6月掲載",
+        "credit": "掲載元：おきなわ物語",
+        "sourceUrl": "https://www.okinawastory.jp/news/tourism/4711",
+        "title": "沖縄のニューオープンスポット 2026年6月 | 沖縄観光情報WEBサイト おきなわ物語",
+        "sha256": "2c1c2a8765ba83d1ec093d13c66842443cb0bbb91963c30211cea42a9b09b139"
+      },
+      {
+        "url": "./assets/town/selected-20261015-zero-36.jpg",
+        "shopId": "zero",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "喫茶&BAR ゼロ番地の店舗外観 · 2026年6月掲載",
+        "caption": "店舗外観 · 2026年6月掲載",
+        "credit": "掲載元：おきなわ物語",
+        "sourceUrl": "https://www.okinawastory.jp/news/tourism/4711",
+        "title": "沖縄のニューオープンスポット 2026年6月 | 沖縄観光情報WEBサイト おきなわ物語",
+        "sha256": "d58fb0b50227e6e4235c58129c94ad567fe5847f4c9bd3bb95cacee6a5100de1"
       }
     ],
     "itomaru-knowry": [
@@ -351,6 +589,20 @@ window.KarimenTownConfig = Object.freeze({
         "sourceUrl": "https://www.itoman-itomaru.okinawa/",
         "title": "フィッシュ＆チップス",
         "sha256": "206c5d7e5dae2a6ed8d83e348c18f80444002704634890cdfd833832b08e9c90"
+      },
+      {
+        "url": "./assets/town/selected-20261015-knowry-10.jpg",
+        "shopId": "itomaru-knowry",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "Knowry's Fried Fishの店内",
+        "caption": "店内",
+        "credit": "掲載元：Knowry's Fried Fish 公式",
+        "sourceUrl": "https://knowrysfriedfish.owst.jp/",
+        "title": "Knowry s Fried Fish ノウリーズフライドフィッシュ【公式】",
+        "sha256": "265c14adc9495e2f393ee7e79731f02198c50cad34bdd74482e1817933ebbba9"
       }
     ],
     "itomaru-gajimaru": [
@@ -367,6 +619,20 @@ window.KarimenTownConfig = Object.freeze({
         "sourceUrl": "https://www.itoman-itomaru.okinawa/",
         "title": "鶏の半身揚げ",
         "sha256": "b3f98d261cfbe2cdf372c30bb72bbe242f08fcb3002f34deb8c417aa8870e089"
+      },
+      {
+        "url": "./assets/town/selected-20261015-machigwa-06.jpg",
+        "shopId": "itomaru-gajimaru",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "琉球半身揚げ がじまるや〜の店舗外観 · 2026年8月掲載",
+        "caption": "店舗外観 · 2026年8月掲載",
+        "credit": "掲載元：おまるブログ",
+        "sourceUrl": "https://omalblog.com/2026/08/02/itoman-machigwa-2/",
+        "title": "糸満市『町小(まちぐゎぁ)』いとまーるへ移転！2年ぶりの沖縄そば＆天ぷら",
+        "sha256": "b7ff95f0fc97fe9749f2c879576db655fbfb8744779179db4bfc3ffabc581194"
       }
     ],
     "itomaru-naminami": [
@@ -383,6 +649,20 @@ window.KarimenTownConfig = Object.freeze({
         "sourceUrl": "https://www.itoman-itomaru.okinawa/shop/food/",
         "title": "スパイスカレー",
         "sha256": "bcffc073cd321ae4c8088149f5bf30a7695bda7eb4241f8b71b64e1f4e207dee"
+      },
+      {
+        "url": "./assets/town/selected-20261015-market-39.jpg",
+        "shopId": "itomaru-naminami",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "沖縄のスパイスカレー スパイスキッチンナミナミ spice Kitchen naminamiの店舗入口",
+        "caption": "店舗入口",
+        "credit": "掲載元：糸満市場いとま〜る公式",
+        "sourceUrl": "https://www.itoman-itomaru.okinawa/shop/food/",
+        "title": "飲食・食材 - 糸満市場「いとま〜る」",
+        "sha256": "2f5e2099acf93bfa9fd21fc4708a084007497160d4a8957e139ef5c00e082c38"
       }
     ],
     "itomaru-lazy-pub": [
@@ -415,6 +695,20 @@ window.KarimenTownConfig = Object.freeze({
         "sourceUrl": "https://www.itoman-itomaru.okinawa/shop/food/",
         "title": "海鮮丼",
         "sha256": "39a20f7ba24816adc60b3cc0549eede0d068d628d8eb810bb4a64f75c595c9f2"
+      },
+      {
+        "url": "./assets/town/selected-20261015-minatomachi-18.jpg",
+        "shopId": "itomaru-minatomachi",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "港町パーラーの店舗外観",
+        "caption": "店舗外観",
+        "credit": "掲載元：食べログ",
+        "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033407/",
+        "title": "港町パーラー - 糸満市/海鮮 | 食べログ",
+        "sha256": "b7afd70ca7eee7ca4f8cc579dc7d612d318d566a7fe5ee62310b527daafbda5f"
       }
     ],
     "itomaru-manjuen": [
@@ -431,6 +725,34 @@ window.KarimenTownConfig = Object.freeze({
         "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033118/",
         "title": "ラーメン",
         "sha256": "29ae4fc1ecf83f307783cd261ec00730190d808e0d1841a3f197ea295a62b548"
+      },
+      {
+        "url": "./assets/town/selected-20261015-manjuen-07.jpg",
+        "shopId": "itomaru-manjuen",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "万寿園のチャーハン",
+        "caption": "チャーハン",
+        "credit": "掲載元：食べログ",
+        "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033118/",
+        "title": "万寿園 - 糸満市/中華料理 | 食べログ",
+        "sha256": "2d3fe57d3336fa3e2baae5825a467683a91b9104d0e652773b65ae223385f857"
+      },
+      {
+        "url": "./assets/town/selected-20261015-market-44.jpg",
+        "shopId": "itomaru-manjuen",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "万寿園の店舗入口",
+        "caption": "店舗入口",
+        "credit": "掲載元：糸満市場いとま〜る公式",
+        "sourceUrl": "https://www.itoman-itomaru.okinawa/shop/food/",
+        "title": "飲食・食材 - 糸満市場「いとま〜る」",
+        "sha256": "b52b2a2dd5cb5862cb7112885270bd0a5d9d9c080b54581fc1d1664d87300782"
       }
     ],
     "itomaru-fullhouse": [
@@ -463,6 +785,20 @@ window.KarimenTownConfig = Object.freeze({
         "sourceUrl": "https://www.otv.co.jp/okitive/article/90482/",
         "title": "スープと酵素玄米",
         "sha256": "92cb19735e66e8945aa15a10f2e8feb978ed1c7c0861bd336fc88f050d06a262"
+      },
+      {
+        "url": "./assets/town/selected-20261015-chef-more-3.jpg",
+        "shopId": "itomaru-chef-vegeta",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "シェフ＆ベジタの店舗カウンター · 2025年11月掲載",
+        "caption": "店舗カウンター · 2025年11月掲載",
+        "credit": "沖縄テレビ／OKITIVE",
+        "sourceUrl": "https://www.otv.co.jp/okitive/article/90482/",
+        "title": "店舗カウンター · 2025年11月掲載",
+        "sha256": "0ee37484cf8b1d751de75e6a630ca9c79bb5334dedd685d5046f4eac17460a57"
       }
     ],
     "itomaru-machigwa": [
@@ -479,6 +815,20 @@ window.KarimenTownConfig = Object.freeze({
         "sourceUrl": "https://omalblog.com/2026/08/02/itoman-machigwa-2/",
         "title": "沖縄そば・天ぷらセット",
         "sha256": "603a2cfcb66e7d560b5ba1330470cf68fa2bc050fd7568334671f3c79c303c0b"
+      },
+      {
+        "url": "./assets/town/selected-20261015-machigwa-01.jpg",
+        "shopId": "itomaru-machigwa",
+        "kind": "venue",
+        "selectedForDisplay": true,
+        "rightsStatus": "unconfirmed",
+        "sourceCheckedOn": "2026-10-15",
+        "alt": "町小 まちぐゎぁの店舗入口 · 2026年8月掲載",
+        "caption": "店舗入口 · 2026年8月掲載",
+        "credit": "掲載元：おまるブログ",
+        "sourceUrl": "https://omalblog.com/2026/08/02/itoman-machigwa-2/",
+        "title": "糸満市『町小(まちぐゎぁ)』いとまーるへ移転！2年ぶりの沖縄そば＆天ぷら",
+        "sha256": "5b6d4659bbb56de2e275b57325cf605a4d923c7b3ae5f05b87d397b4418c64ae"
       }
     ],
     "cafe-itoman": [

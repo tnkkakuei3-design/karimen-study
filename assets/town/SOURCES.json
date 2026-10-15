@@ -502,6 +502,431 @@
       "modifications": "向き補正・長辺800px以内に縮小しJPEG圧縮。画像内容の生成・差し替えなし。",
       "caption": "イナムドゥチの食事 · 2025年7月掲載",
       "sourceCheckedOn": "2026-10-15"
+    },
+    {
+      "file": "selected-20261015-center-11.jpg",
+      "shopId": "center",
+      "sha256": "11583ec9c49433b74b4bd5a0b595e8c74553575d56af0944df1436423452e17a",
+      "title": "チャンプルー定食",
+      "credit": "掲載元：食べログ",
+      "source": "https://tabelog.com/okinawa/A4704/A470402/47020162/",
+      "download": "https://tblg.k-img.com/restaurant/images/Rvw/370157/640x640_rect_03f6c096e8cfded977bacb3446067b57.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 640,
+      "height": 480,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-center-04.jpg",
+      "shopId": "center",
+      "sha256": "15a896df6d2f5e4af8d268c8dbd7c103f4fae9c6719ad565440f53a33910a451",
+      "title": "店内",
+      "credit": "掲載元：食べログ",
+      "source": "https://tabelog.com/okinawa/A4704/A470402/47020162/",
+      "download": "https://tblg.k-img.com/restaurant/images/Rvw/161883/640x640_rect_161883167.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 640,
+      "height": 479,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-umibozu-06.jpg",
+      "shopId": "umibozu",
+      "sha256": "ca3015fa75389eb92aa2463dda8b7a5f4c70ef5eb15a66fcab5412961f1d671c",
+      "title": "刺身の定食",
+      "credit": "掲載元：食べログ",
+      "source": "https://tabelog.com/okinawa/A4704/A470402/47012704/",
+      "download": "https://tblg.k-img.com/restaurant/images/Rvw/156953/640x640_rect_156953590.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 640,
+      "height": 480,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-umibozu-18.jpg",
+      "shopId": "umibozu",
+      "sha256": "67790c6bced55d482a4a91fde8fde6eaf4aa6866f800fab23f1f7c44bd3e97c3",
+      "title": "店舗入口",
+      "credit": "掲載元：食べログ",
+      "source": "https://tabelog.com/okinawa/A4704/A470402/47012704/",
+      "download": "https://tblg.k-img.com/restaurant/images/Rvw/156953/640x640_rect_156953587.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 480,
+      "height": 640,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-kirakira-08.jpg",
+      "shopId": "kirakira",
+      "sha256": "13797d05c6334704ad4307206810a4b9262fbe82b30a43410ae8bb2cb6261cf4",
+      "title": "オムライス",
+      "credit": "掲載元：食べログ",
+      "source": "https://tabelog.com/okinawa/A4704/A470402/47033114/",
+      "download": "https://tblg.k-img.com/restaurant/images/Rvw/295110/640x640_rect_ab788636466e6640d0a47f5a0185cc3f.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 640,
+      "height": 379,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-kirakira-14.jpg",
+      "shopId": "kirakira",
+      "sha256": "158dedfaba21ee68506a3dfb65ffbc11d07a5617d47818f064b6ce3a1f6e6caf",
+      "title": "店舗入口",
+      "credit": "掲載元：食べログ",
+      "source": "https://tabelog.com/okinawa/A4704/A470402/47033114/",
+      "download": "https://tblg.k-img.com/restaurant/images/Rvw/294627/640x640_rect_5b3cd3e794d7218fbbed511ee1d83b5c.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 480,
+      "height": 640,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-chiquita-02.jpg",
+      "shopId": "chiquita",
+      "sha256": "acca58a96089d44956529e595d411bf09dfd55694e6d3afe87fd561291a1cfc6",
+      "title": "とんかつの定食",
+      "credit": "掲載元：食べログ",
+      "source": "https://tabelog.com/okinawa/A4704/A470402/47008573/",
+      "download": "https://tblg.k-img.com/restaurant/images/Rvw/296691/640x640_rect_c8d7660ab22243623ff079d9626798cf.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 640,
+      "height": 571,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-chiquita-13.jpg",
+      "shopId": "chiquita",
+      "sha256": "36b657b3871f4ae1231532ff1bdd759e8e3afba75110882fc4242a73ad40c00b",
+      "title": "グラタンとトースト",
+      "credit": "掲載元：食べログ",
+      "source": "https://tabelog.com/okinawa/A4704/A470402/47008573/",
+      "download": "https://tblg.k-img.com/restaurant/images/Rvw/295242/640x640_rect_b3cc95f185e443fb4fa4d93598f02b55.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 640,
+      "height": 463,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-mahoroba-food-02.jpg",
+      "shopId": "mahoroba",
+      "sha256": "74790aa7c75e9b2006b1bfa7769128db59254413dc82197dbc83619178417859",
+      "title": "メガシャークバーガー",
+      "credit": "掲載元：食べログ",
+      "source": "https://tabelog.com/okinawa/A4704/A470402/47015924/",
+      "download": "https://tblg.k-img.com/restaurant/images/Rvw/262462/640x640_rect_0399cddc4ee5f8e6a3af99ccdd3cddbb.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 640,
+      "height": 350,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-mahoroba-food-13.jpg",
+      "shopId": "mahoroba",
+      "sha256": "3b5cb3c3746f6fea39ffabad824432721706ebe7cfa3c521b1b2e4cadc4396bd",
+      "title": "金目鯛の煮付け定食",
+      "credit": "掲載元：食べログ",
+      "source": "https://tabelog.com/okinawa/A4704/A470402/47015924/",
+      "download": "https://tblg.k-img.com/restaurant/images/Rvw/162412/640x640_rect_162412890.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 640,
+      "height": 480,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-ritz-02.jpg",
+      "shopId": "ritz",
+      "sha256": "3ebf65b167f33700d6e10b5d560d8e40c2e581d780dacdb7af48cb0b95c4964c",
+      "title": "パン",
+      "credit": "掲載元：食べログ",
+      "source": "https://tabelog.com/okinawa/A4704/A470402/47012641/",
+      "download": "https://tblg.k-img.com/restaurant/images/Rvw/61273/640x640_rect_61273406.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 480,
+      "height": 640,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-ritz-12.jpg",
+      "shopId": "ritz",
+      "sha256": "eb84c300bcf892669c12047b419f59b4be138df3382970b2162b461a3a06171e",
+      "title": "店舗外観",
+      "credit": "掲載元：食べログ",
+      "source": "https://tabelog.com/okinawa/A4704/A470402/47012641/",
+      "download": "https://tblg.k-img.com/restaurant/images/Rvw/351316/640x640_rect_4cbea5d2f3607f739db1be84b64d21cf.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 474,
+      "height": 640,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-uminchu-13.jpg",
+      "shopId": "uminchu",
+      "sha256": "ed9c8fa433723965ffb96dc480bd60f1a10cf3c50de9ac91fa97f3c43267991a",
+      "title": "イカスミ汁（夜メニュー） · 2021年6月放送時",
+      "credit": "沖縄テレビ／OKITIVE",
+      "source": "https://www.otv.co.jp/okitive/article/376/",
+      "download": "https://data.otv.co.jp/okitive/wp-content/uploads/2021/12/ageagemeshi_20210608_02_11.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 800,
+      "height": 450,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-konaya-16.jpg",
+      "shopId": "konaya",
+      "sha256": "4b28de7edcb40a39a051c86d44a3cdb86263071e5748e80823afded112b52adc",
+      "title": "肉かすうどん · 2025年6月放送時",
+      "credit": "沖縄テレビ／OKITIVE",
+      "source": "https://www.otv.co.jp/okitive/article/81821/",
+      "download": "https://data.otv.co.jp/okitive/wp-content/uploads/2025/06/ageagemeshi_20250620_konaya_14.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 1200,
+      "height": 675,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-yotsuba-05.jpg",
+      "shopId": "yotsuba",
+      "sha256": "5211cbbe5445acc3a12af663b6d44d97872aba3b8d9964992285c2c7b99c13e4",
+      "title": "唐揚げ弁当",
+      "credit": "掲載元：食べログ",
+      "source": "https://tabelog.com/okinawa/A4704/A470402/47033137/",
+      "download": "https://tblg.k-img.com/restaurant/images/Rvw/295488/640x640_rect_75982318298e1be0b920697a31d334d2.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 640,
+      "height": 461,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-zero-25.jpg",
+      "shopId": "zero",
+      "sha256": "2c1c2a8765ba83d1ec093d13c66842443cb0bbb91963c30211cea42a9b09b139",
+      "title": "プリン · 2026年6月掲載",
+      "credit": "掲載元：おきなわ物語",
+      "source": "https://www.okinawastory.jp/news/tourism/4711",
+      "download": "https://www.okinawastory.jp/files/contents/000/001/107/block_Q2Mt63Xq_6aaf0e0f5af02613ce3864950ea17c12790cccf2-w1500.jpeg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 1280,
+      "height": 853,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-zero-36.jpg",
+      "shopId": "zero",
+      "sha256": "d58fb0b50227e6e4235c58129c94ad567fe5847f4c9bd3bb95cacee6a5100de1",
+      "title": "店舗外観 · 2026年6月掲載",
+      "credit": "掲載元：おきなわ物語",
+      "source": "https://www.okinawastory.jp/news/tourism/4711",
+      "download": "https://www.okinawastory.jp/files/contents/000/001/107/block_jjg8W7Da_7470962708b872889e54bffb1560ac157b216a0f-w800.jpeg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 800,
+      "height": 533,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-knowry-10.jpg",
+      "shopId": "itomaru-knowry",
+      "sha256": "265c14adc9495e2f393ee7e79731f02198c50cad34bdd74482e1817933ebbba9",
+      "title": "店内",
+      "credit": "掲載元：Knowry's Fried Fish 公式",
+      "source": "https://knowrysfriedfish.owst.jp/",
+      "download": "https://cdn.r-corona.jp/prd.rb.r-corona.jp/assets/site_files/rl33l2x4/64478095/7o5k_w1140h600.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 677,
+      "height": 479,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-machigwa-06.jpg",
+      "shopId": "itomaru-gajimaru",
+      "sha256": "b7ff95f0fc97fe9749f2c879576db655fbfb8744779179db4bfc3ffabc581194",
+      "title": "店舗外観 · 2026年8月掲載",
+      "credit": "掲載元：おまるブログ",
+      "source": "https://omalblog.com/2026/08/02/itoman-machigwa-2/",
+      "download": "https://omalblog.com/wp-content/uploads/2026/08/IMG_4613.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 1280,
+      "height": 960,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-market-39.jpg",
+      "shopId": "itomaru-naminami",
+      "sha256": "2f5e2099acf93bfa9fd21fc4708a084007497160d4a8957e139ef5c00e082c38",
+      "title": "店舗入口",
+      "credit": "掲載元：糸満市場いとま〜る公式",
+      "source": "https://www.itoman-itomaru.okinawa/shop/food/",
+      "download": "https://image.jimcdn.com/app/cms/image/transf/none/path/s5f69658bd2870024/image/ib90637a69e3dd110/version/1600345494/image.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 1024,
+      "height": 1023,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-manjuen-07.jpg",
+      "shopId": "itomaru-manjuen",
+      "sha256": "2d3fe57d3336fa3e2baae5825a467683a91b9104d0e652773b65ae223385f857",
+      "title": "チャーハン",
+      "credit": "掲載元：食べログ",
+      "source": "https://tabelog.com/okinawa/A4704/A470402/47033118/",
+      "download": "https://tblg.k-img.com/restaurant/images/Rvw/294769/640x640_rect_fe5f220145891304905dc8a6b39c042c.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 640,
+      "height": 603,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-market-44.jpg",
+      "shopId": "itomaru-manjuen",
+      "sha256": "b52b2a2dd5cb5862cb7112885270bd0a5d9d9c080b54581fc1d1664d87300782",
+      "title": "店舗入口",
+      "credit": "掲載元：糸満市場いとま〜る公式",
+      "source": "https://www.itoman-itomaru.okinawa/shop/food/",
+      "download": "https://image.jimcdn.com/app/cms/image/transf/dimension=2048x2048:format=jpg/path/s5f69658bd2870024/image/i77d8de97ddf55969/version/1728520929/image.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 1280,
+      "height": 1279,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-chef-more-3.jpg",
+      "shopId": "itomaru-chef-vegeta",
+      "sha256": "0ee37484cf8b1d751de75e6a630ca9c79bb5334dedd685d5046f4eac17460a57",
+      "title": "店舗カウンター · 2025年11月掲載",
+      "credit": "沖縄テレビ／OKITIVE",
+      "source": "https://www.otv.co.jp/okitive/article/90482/",
+      "download": "https://data.otv.co.jp/okitive/wp-content/uploads/2025/11/chefvegeta_3.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 1280,
+      "height": 853,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-machigwa-01.jpg",
+      "shopId": "itomaru-machigwa",
+      "sha256": "5b6d4659bbb56de2e275b57325cf605a4d923c7b3ae5f05b87d397b4418c64ae",
+      "title": "店舗入口 · 2026年8月掲載",
+      "credit": "掲載元：おまるブログ",
+      "source": "https://omalblog.com/2026/08/02/itoman-machigwa-2/",
+      "download": "https://omalblog.com/wp-content/uploads/2026/08/IMG_4506-1280x960.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 1280,
+      "height": 960,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
+    },
+    {
+      "file": "selected-20261015-minatomachi-18.jpg",
+      "shopId": "itomaru-minatomachi",
+      "sha256": "b7afd70ca7eee7ca4f8cc579dc7d612d318d566a7fe5ee62310b527daafbda5f",
+      "title": "店舗外観",
+      "credit": "掲載元：食べログ",
+      "source": "https://tabelog.com/okinawa/A4704/A470402/47033407/",
+      "download": "https://tblg.k-img.com/restaurant/images/Rvw/379851/640x640_rect_a3b241bdac4b4d3dceb0dd9844dcc1aa.jpg",
+      "kind": "venue",
+      "actualListedRestaurantPhoto": true,
+      "selectedForDisplay": true,
+      "rightsStatus": "unconfirmed",
+      "sourceCheckedOn": "2026-10-15",
+      "width": 640,
+      "height": 426,
+      "modifications": "EXIFの向きを反映。最大辺1280pxに縮小し、メタデータなしの標準JPEGで保存。内容・透かし・表示文字は変更していません。"
     }
   ],
   "shopImages": {
@@ -511,39 +936,54 @@
       "itomaru-interior"
     ],
     "center": [
-      "venue-center-1"
+      "venue-center-1",
+      "selected-20261015-center-11",
+      "selected-20261015-center-04"
     ],
     "umibozu": [
-      "venue-umibozu-1"
+      "venue-umibozu-1",
+      "selected-20261015-umibozu-06",
+      "selected-20261015-umibozu-18"
     ],
     "kirakira": [
-      "venue-kirakira-1"
+      "venue-kirakira-1",
+      "selected-20261015-kirakira-08",
+      "selected-20261015-kirakira-14"
     ],
     "kinta": [
-      "venue-kinta-1",
       "venue-kinta-2",
       "venue-kinta-3",
+      "venue-kinta-1",
       "venue-kinta-4"
     ],
     "chiquita": [
+      "selected-20261015-chiquita-02",
+      "selected-20261015-chiquita-13",
       "venue-chiquita-1"
     ],
     "mahoroba": [
+      "selected-20261015-mahoroba-food-02",
+      "selected-20261015-mahoroba-food-13",
       "venue-mahoroba-1"
     ],
     "ritz": [
-      "venue-ritz-1"
+      "venue-ritz-1",
+      "selected-20261015-ritz-02",
+      "selected-20261015-ritz-12"
     ],
     "uminchu": [
-      "venue-uminchu-1",
-      "venue-uminchu-2"
+      "venue-uminchu-2",
+      "selected-20261015-uminchu-13",
+      "venue-uminchu-1"
     ],
     "konaya": [
-      "venue-konaya-1",
-      "venue-konaya-2"
+      "venue-konaya-2",
+      "selected-20261015-konaya-16",
+      "venue-konaya-1"
     ],
     "yotsuba": [
-      "venue-yotsuba-1"
+      "venue-yotsuba-1",
+      "selected-20261015-yotsuba-05"
     ],
     "ichiman-yokocho": [
       "venue-ichiman-yokocho-1",
@@ -551,10 +991,52 @@
       "venue-ichiman-yokocho-3"
     ],
     "zero": [
-      "venue-zero-1"
+      "venue-zero-1",
+      "selected-20261015-zero-25",
+      "selected-20261015-zero-36"
+    ],
+    "itomaru-knowry": [
+      "market-knowry",
+      "selected-20261015-knowry-10"
+    ],
+    "itomaru-gajimaru": [
+      "market-gajimaru",
+      "selected-20261015-machigwa-06"
+    ],
+    "itomaru-naminami": [
+      "market-naminami",
+      "selected-20261015-market-39"
+    ],
+    "itomaru-lazy-pub": [
+      "market-lazy-pub"
+    ],
+    "itomaru-minatomachi": [
+      "market-minatomachi",
+      "selected-20261015-minatomachi-18"
+    ],
+    "itomaru-manjuen": [
+      "market-manjuen",
+      "selected-20261015-manjuen-07",
+      "selected-20261015-market-44"
+    ],
+    "itomaru-fullhouse": [
+      "market-fullhouse"
+    ],
+    "itomaru-chef-vegeta": [
+      "market-chef-vegeta",
+      "selected-20261015-chef-more-3"
+    ],
+    "itomaru-machigwa": [
+      "market-machigwa",
+      "selected-20261015-machigwa-01"
+    ],
+    "cafe-itoman": [
+      "cafe-itoman-taco-rice-v2",
+      "curated-cafe-itoman-10"
     ]
   },
   "displayNote": "掲載店舗・施設の実写のみ。汎用料理写真・生成画像は掲載しません。",
   "checkedOn": "2026-10-13",
-  "rightsNote": "表示対象への選択と転載許可の確認は別項目です。rightsStatus=unconfirmed は撮影者・権利者の転載許可を未確認であり、許可済みまたは自由利用可能であることを示しません。"
+  "rightsNote": "表示対象への選択と転載許可の確認は別項目です。rightsStatus=unconfirmed は撮影者・権利者の転載許可を未確認であり、許可済みまたは自由利用可能であることを示しません。",
+  "selectionUpdatedOn": "2026-10-15"
 }

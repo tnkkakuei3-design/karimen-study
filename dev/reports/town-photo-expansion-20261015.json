@@ -1,0 +1,514 @@
+{
+  "updatedOn": "2026-10-15",
+  "purpose": "既存店舗の実写真を選び、料理の種類や店舗の雰囲気が分かる写真を補完。仮免・本免の共通ガイドへ反映。",
+  "baseline": {
+    "venues": 23,
+    "photos": 33,
+    "singlePhotoVenues": 17
+  },
+  "result": {
+    "addedPhotos": 25,
+    "updatedVenues": 17,
+    "photos": 58
+  },
+  "selectionCriteria": [
+    "同じ店であることを出典ページで確認",
+    "料理・外観・店内の役割が異なる写真を選択",
+    "同じ皿の寄り写真や開封前後の重複は不採用",
+    "料理のある店舗は料理写真を先頭に表示",
+    "価格入りの放送写真は放送年月と夜メニューの条件を明記"
+  ],
+  "venues": [
+    {
+      "id": "itomaru",
+      "name": "糸満市場いとま〜る",
+      "before": 3,
+      "after": 3,
+      "photos": [
+        {
+          "url": "./assets/town/itomaru-02.jpg",
+          "caption": "2022年3月撮影",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Itoman_Market_202203_02.jpg"
+        },
+        {
+          "url": "./assets/town/itomaru-01.jpg",
+          "caption": "2022年3月撮影",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Itoman_Market_202203_01.jpg"
+        },
+        {
+          "url": "./assets/town/itomaru-interior.jpg",
+          "caption": "2022年3月撮影・当時の装飾です",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hanged_umbrellas_at_Itoman_Market_202203.jpg"
+        }
+      ]
+    },
+    {
+      "id": "center",
+      "name": "センター食堂",
+      "before": 1,
+      "after": 3,
+      "photos": [
+        {
+          "url": "./assets/town/venue-center-1.jpg",
+          "caption": "料理",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47020162/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-center-11.jpg",
+          "caption": "チャンプルー定食",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47020162/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-center-04.jpg",
+          "caption": "店内",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47020162/"
+        }
+      ]
+    },
+    {
+      "id": "umibozu",
+      "name": "海ぼうず",
+      "before": 1,
+      "after": 3,
+      "photos": [
+        {
+          "url": "./assets/town/venue-umibozu-1.jpg",
+          "caption": "海鮮丼と小鉢",
+          "sourceUrl": "https://www.okinawa41.go.jp/archives/29174"
+        },
+        {
+          "url": "./assets/town/selected-20261015-umibozu-06.jpg",
+          "caption": "刺身の定食",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47012704/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-umibozu-18.jpg",
+          "caption": "店舗入口",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47012704/"
+        }
+      ]
+    },
+    {
+      "id": "kirakira",
+      "name": "きらきら",
+      "before": 1,
+      "after": 3,
+      "photos": [
+        {
+          "url": "./assets/town/venue-kirakira-1.jpg",
+          "caption": "定食",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033114/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-kirakira-08.jpg",
+          "caption": "オムライス",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033114/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-kirakira-14.jpg",
+          "caption": "店舗入口",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033114/"
+        }
+      ]
+    },
+    {
+      "id": "kinta",
+      "name": "きんた",
+      "before": 4,
+      "after": 4,
+      "photos": [
+        {
+          "url": "./assets/town/venue-kinta-2.jpg",
+          "caption": "刺身 · 2020年掲載",
+          "sourceUrl": "https://iroiro-okinawa.com/gourmet/bar/post-4637/"
+        },
+        {
+          "url": "./assets/town/venue-kinta-3.jpg",
+          "caption": "魚料理 · 2020年掲載",
+          "sourceUrl": "https://iroiro-okinawa.com/gourmet/bar/post-4637/"
+        },
+        {
+          "url": "./assets/town/venue-kinta-1.jpg",
+          "caption": "店舗外観 · 2020年掲載",
+          "sourceUrl": "https://iroiro-okinawa.com/gourmet/bar/post-4637/"
+        },
+        {
+          "url": "./assets/town/venue-kinta-4.jpg",
+          "caption": "揚げ出し豆腐 · 2020年掲載",
+          "sourceUrl": "https://iroiro-okinawa.com/gourmet/bar/post-4637/"
+        }
+      ]
+    },
+    {
+      "id": "chiquita",
+      "name": "チキータ",
+      "before": 1,
+      "after": 3,
+      "photos": [
+        {
+          "url": "./assets/town/selected-20261015-chiquita-02.jpg",
+          "caption": "とんかつの定食",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47008573/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-chiquita-13.jpg",
+          "caption": "グラタンとトースト",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47008573/"
+        },
+        {
+          "url": "./assets/town/venue-chiquita-1.jpg",
+          "caption": "ドリンク",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47008573/"
+        }
+      ]
+    },
+    {
+      "id": "mahoroba",
+      "name": "食工房まほろば",
+      "before": 1,
+      "after": 3,
+      "photos": [
+        {
+          "url": "./assets/town/selected-20261015-mahoroba-food-02.jpg",
+          "caption": "メガシャークバーガー",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47015924/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-mahoroba-food-13.jpg",
+          "caption": "金目鯛の煮付け定食",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47015924/"
+        },
+        {
+          "url": "./assets/town/venue-mahoroba-1.jpg",
+          "caption": "店舗外観・看板",
+          "sourceUrl": "https://okinawashokuzainomise.kuwachii-okinawa.com/registered-shop/shop-2671/"
+        }
+      ]
+    },
+    {
+      "id": "ritz",
+      "name": "リッツ・パンとケーキのお店",
+      "before": 1,
+      "after": 3,
+      "photos": [
+        {
+          "url": "./assets/town/venue-ritz-1.jpg",
+          "caption": "カマンベールデニッシュ",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47012641/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-ritz-02.jpg",
+          "caption": "パン",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47012641/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-ritz-12.jpg",
+          "caption": "店舗外観",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47012641/"
+        }
+      ]
+    },
+    {
+      "id": "uminchu",
+      "name": "糸満海人食堂",
+      "before": 2,
+      "after": 3,
+      "photos": [
+        {
+          "url": "./assets/town/venue-uminchu-2.jpg",
+          "caption": "魚のマース煮 · 2021年6月放送時",
+          "sourceUrl": "https://www.otv.co.jp/okitive/article/376/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-uminchu-13.jpg",
+          "caption": "イカスミ汁（夜メニュー） · 2021年6月放送時",
+          "sourceUrl": "https://www.otv.co.jp/okitive/article/376/"
+        },
+        {
+          "url": "./assets/town/venue-uminchu-1.jpg",
+          "caption": "店内 · 2021年6月放送時",
+          "sourceUrl": "https://www.otv.co.jp/okitive/article/376/"
+        }
+      ]
+    },
+    {
+      "id": "konaya",
+      "name": "こなや本家",
+      "before": 2,
+      "after": 3,
+      "photos": [
+        {
+          "url": "./assets/town/venue-konaya-2.jpg",
+          "caption": "たこ焼き · 2025年6月放送時",
+          "sourceUrl": "https://www.otv.co.jp/okitive/article/81821/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-konaya-16.jpg",
+          "caption": "肉かすうどん · 2025年6月放送時",
+          "sourceUrl": "https://www.otv.co.jp/okitive/article/81821/"
+        },
+        {
+          "url": "./assets/town/venue-konaya-1.jpg",
+          "caption": "店内 · 2025年6月放送時",
+          "sourceUrl": "https://www.otv.co.jp/okitive/article/81821/"
+        }
+      ]
+    },
+    {
+      "id": "yotsuba",
+      "name": "よつばキッチン",
+      "before": 1,
+      "after": 2,
+      "photos": [
+        {
+          "url": "./assets/town/venue-yotsuba-1.jpg",
+          "caption": "弁当",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033137/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-yotsuba-05.jpg",
+          "caption": "唐揚げ弁当",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033137/"
+        }
+      ]
+    },
+    {
+      "id": "ichiman-yokocho",
+      "name": "いちまん横丁",
+      "before": 3,
+      "after": 3,
+      "photos": [
+        {
+          "url": "./assets/town/venue-ichiman-yokocho-1.jpg",
+          "caption": "施設外観",
+          "sourceUrl": "https://www.okinawastory.jp/gourmet/600011430"
+        },
+        {
+          "url": "./assets/town/venue-ichiman-yokocho-2.jpg",
+          "caption": "施設内",
+          "sourceUrl": "https://www.okinawastory.jp/gourmet/600011430"
+        },
+        {
+          "url": "./assets/town/venue-ichiman-yokocho-3.jpg",
+          "caption": "施設内",
+          "sourceUrl": "https://www.okinawastory.jp/gourmet/600011430"
+        }
+      ]
+    },
+    {
+      "id": "zero",
+      "name": "喫茶&BAR ゼロ番地",
+      "before": 1,
+      "after": 3,
+      "photos": [
+        {
+          "url": "./assets/town/venue-zero-1.jpg",
+          "caption": "料理・デザート・ドリンク",
+          "sourceUrl": "https://www.okinawastory.jp/news/tourism/4711"
+        },
+        {
+          "url": "./assets/town/selected-20261015-zero-25.jpg",
+          "caption": "プリン · 2026年6月掲載",
+          "sourceUrl": "https://www.okinawastory.jp/news/tourism/4711"
+        },
+        {
+          "url": "./assets/town/selected-20261015-zero-36.jpg",
+          "caption": "店舗外観 · 2026年6月掲載",
+          "sourceUrl": "https://www.okinawastory.jp/news/tourism/4711"
+        }
+      ]
+    },
+    {
+      "id": "itomaru-knowry",
+      "name": "Knowry's Fried Fish",
+      "before": 1,
+      "after": 2,
+      "photos": [
+        {
+          "url": "./assets/town/market-knowry.jpg",
+          "caption": "フィッシュ＆チップス",
+          "sourceUrl": "https://www.itoman-itomaru.okinawa/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-knowry-10.jpg",
+          "caption": "店内",
+          "sourceUrl": "https://knowrysfriedfish.owst.jp/"
+        }
+      ]
+    },
+    {
+      "id": "itomaru-gajimaru",
+      "name": "琉球半身揚げ がじまるや〜",
+      "before": 1,
+      "after": 2,
+      "photos": [
+        {
+          "url": "./assets/town/market-gajimaru.jpg",
+          "caption": "鶏の半身揚げ",
+          "sourceUrl": "https://www.itoman-itomaru.okinawa/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-machigwa-06.jpg",
+          "caption": "店舗外観 · 2026年8月掲載",
+          "sourceUrl": "https://omalblog.com/2026/08/02/itoman-machigwa-2/"
+        }
+      ]
+    },
+    {
+      "id": "itomaru-naminami",
+      "name": "沖縄のスパイスカレー スパイスキッチンナミナミ spice Kitchen naminami",
+      "before": 1,
+      "after": 2,
+      "photos": [
+        {
+          "url": "./assets/town/market-naminami.jpg",
+          "caption": "スパイスカレー",
+          "sourceUrl": "https://www.itoman-itomaru.okinawa/shop/food/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-market-39.jpg",
+          "caption": "店舗入口",
+          "sourceUrl": "https://www.itoman-itomaru.okinawa/shop/food/"
+        }
+      ]
+    },
+    {
+      "id": "itomaru-lazy-pub",
+      "name": "LAZY_PUB",
+      "before": 1,
+      "after": 1,
+      "photos": [
+        {
+          "url": "./assets/town/market-lazy-pub.jpg",
+          "caption": "ケバブ",
+          "sourceUrl": "https://www.itoman-itomaru.okinawa/shop/food/"
+        }
+      ]
+    },
+    {
+      "id": "itomaru-minatomachi",
+      "name": "港町パーラー",
+      "before": 1,
+      "after": 2,
+      "photos": [
+        {
+          "url": "./assets/town/market-minatomachi.jpg",
+          "caption": "海鮮丼",
+          "sourceUrl": "https://www.itoman-itomaru.okinawa/shop/food/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-minatomachi-18.jpg",
+          "caption": "店舗外観",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033407/"
+        }
+      ]
+    },
+    {
+      "id": "itomaru-manjuen",
+      "name": "万寿園",
+      "before": 1,
+      "after": 3,
+      "photos": [
+        {
+          "url": "./assets/town/market-manjuen.jpg",
+          "caption": "ラーメン",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033118/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-manjuen-07.jpg",
+          "caption": "チャーハン",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033118/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-market-44.jpg",
+          "caption": "店舗入口",
+          "sourceUrl": "https://www.itoman-itomaru.okinawa/shop/food/"
+        }
+      ]
+    },
+    {
+      "id": "itomaru-fullhouse",
+      "name": "THE BURGER STADIUM FULL HOUSE",
+      "before": 1,
+      "after": 1,
+      "photos": [
+        {
+          "url": "./assets/town/market-fullhouse.jpg",
+          "caption": "チーズバーガー",
+          "sourceUrl": "https://tabelog.com/okinawa/A4704/A470402/47033757/"
+        }
+      ]
+    },
+    {
+      "id": "itomaru-chef-vegeta",
+      "name": "シェフ＆ベジタ",
+      "before": 1,
+      "after": 2,
+      "photos": [
+        {
+          "url": "./assets/town/market-chef-vegeta.jpg",
+          "caption": "スープと酵素玄米",
+          "sourceUrl": "https://www.otv.co.jp/okitive/article/90482/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-chef-more-3.jpg",
+          "caption": "店舗カウンター · 2025年11月掲載",
+          "sourceUrl": "https://www.otv.co.jp/okitive/article/90482/"
+        }
+      ]
+    },
+    {
+      "id": "itomaru-machigwa",
+      "name": "町小 まちぐゎぁ",
+      "before": 1,
+      "after": 2,
+      "photos": [
+        {
+          "url": "./assets/town/market-machigwa.jpg",
+          "caption": "沖縄そば・天ぷらセット",
+          "sourceUrl": "https://omalblog.com/2026/08/02/itoman-machigwa-2/"
+        },
+        {
+          "url": "./assets/town/selected-20261015-machigwa-01.jpg",
+          "caption": "店舗入口 · 2026年8月掲載",
+          "sourceUrl": "https://omalblog.com/2026/08/02/itoman-machigwa-2/"
+        }
+      ]
+    },
+    {
+      "id": "cafe-itoman",
+      "name": "Ceramic Art Cafe Itoman",
+      "before": 2,
+      "after": 2,
+      "photos": [
+        {
+          "url": "./assets/town/cafe-itoman-taco-rice-v2.jpg",
+          "caption": "タコライス",
+          "sourceUrl": "https://www.google.com/maps?cid=2923301630253285552"
+        },
+        {
+          "url": "./assets/town/curated-cafe-itoman-10.jpg",
+          "caption": "イナムドゥチの食事 · 2025年7月掲載",
+          "sourceUrl": "https://okinawa-labo.com/ceramicartcafeitoman-69136"
+        }
+      ]
+    }
+  ],
+  "keptSingle": [
+    {
+      "id": "itomaru-fullhouse",
+      "reason": "取得できた同店舗の実料理写真は既存写真と同一。重複を増やさず1枚を維持。"
+    },
+    {
+      "id": "itomaru-lazy-pub",
+      "reason": "公式掲載のケバブ写真が既存と同一。別店舗の写真や不明な写真で補わず1枚を維持。"
+    }
+  ],
+  "validation": {
+    "browser": "画面確認用クラウドブラウザがタイムアウトしたため、この更新の実ブラウザ表示確認は未完了。",
+    "assetFormat": "25枚すべて標準JPEGへ書き出し・デコード確認。",
+    "build": "npm run build 成功（500問・本免760問・配信用ファイルの生成）。",
+    "localAssets": "設定内の58枚すべて実ファイルとSHA-256が一致。25枚の追加画像をJPEGとしてデコード確認。",
+    "integration": "test-town.mjs と test-course-unification.mjs 成功。写真の拡大・前後移動・市場内の店舗表示・仮免と本免の学習記録保持をDOMで検証。"
+  }
+}
