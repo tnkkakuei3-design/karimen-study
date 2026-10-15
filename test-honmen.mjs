@@ -93,14 +93,14 @@ const settle=async()=>{await new Promise(resolve=>setTimeout(resolve,10));await 
 assert.equal(doc.querySelectorAll('#mock .set-card').length,8);
 assert.equal(doc.querySelector('.course-picker a[aria-current]').textContent.trim(),'本免95問・50分');
 click('[data-h="set"][data-set="2"]');click('[data-h="start-set"][data-mode="mock"]');assert.equal(app.view,'play');
-assert.ok(!doc.querySelector('#play .feedback'));assert.equal(doc.getElementById('timer').textContent,'50:00');
+assert.ok(!doc.querySelector('#play .feedback'));assert.equal(doc.getElementById('timer').textContent,'残り 50:00');
 const beforeBlur=app.model.remaining();w.dispatchEvent(new w.Event('blur'));uiTime+=60000;assert.equal(app.model.remaining(),beforeBlur,'blur pauses timer without hiding document');
 w.dispatchEvent(new w.Event('focus'));uiTime+=1000;assert.equal(app.model.remaining(),beforeBlur-1000);
 w.dispatchEvent(new w.Event('focus'));uiTime+=1000;assert.equal(app.model.remaining(),beforeBlur-2000,'duplicate focus must not add time');
 
 click('#play [data-h="answer"][data-value="true"]');assert.ok(!doc.querySelector('#play .feedback'),'mock does not leak answers');
 click('[data-h="jump"][data-index="90"]');assert.equal(doc.querySelectorAll('#play fieldset').length,3);assert.equal(doc.querySelectorAll('#play [data-h="answer"]').length,6);
-click('#play [data-h="answer"][data-part="0"][data-value="true"]');click('[data-h="pause"]');await settle();assert.equal(app.view,'mock');
+click('#play [data-h="answer"][data-part="0"][data-value="true"]');click('[data-h="pause"]');assert.ok(doc.querySelector('[data-h="confirm-pause"]'));click('[data-h="confirm-pause"]');await settle();assert.equal(app.view,'mock');
 click('[data-h="resume"][data-slot="mock"]');assert.equal(app.model.state.sessions.mock.index,90);assert.equal(doc.querySelector('#play [data-part="0"][data-value="true"]').getAttribute('aria-pressed'),'true');
 click('[data-h="finish"]');assert.ok(doc.querySelector('#h-dialog .h-dialog-close').hidden,'confirmation has no duplicate close action');click('[data-h="confirm-finish"]');assert.equal(app.view,'result');assert.ok(app.model.state.attempts.at(-1).partial);
 click('[data-h="tab"][data-tab="learn"]');click('[data-h="hazard"]');assert.equal(app.view,'play');assert.ok(doc.querySelector('[data-h="commit"]').disabled);
@@ -187,7 +187,7 @@ click('[data-h="tab"][data-tab="mock"]');click('[data-h="set"][data-set="2"]');c
 assert.equal(doc.querySelector('#result [data-h="result-filter"][aria-pressed="true"]').dataset.value,'uncertain');
 uiTime++;app.model.begin({ids:bank.filter(q=>q.set===2).map(q=>q.id),mode:'guided',set:2});app.model.finish('study');
 click('[data-h="tab"][data-tab="mock"]');click('[data-h="set"][data-set="2"]');
-const headings=[...doc.querySelectorAll('.h-history-group h3')].map(el=>el.textContent);assert.ok(headings.includes('50分模試の記録'));assert.ok(headings.includes('途中終了の記録'));
+const headings=[...doc.querySelectorAll('#h-dialog h3')].map(el=>el.textContent);assert.ok(headings.includes('50分模試の記録'));assert.ok(headings.includes('途中終了の記録'));
 click('[data-h="close"]');click('[data-h="settings"]');assert.ok(!doc.querySelector('#h-dialog .h-dialog-close').hidden);
 const snapshotBeforePreview=JSON.stringify(app.model.state);
 click('[data-h="preview"][data-score="90"]');assert.ok(doc.querySelector('.result-confetti'));

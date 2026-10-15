@@ -27,7 +27,7 @@
     }
     function validateRow(a, session) {
       if (!object(a) || typeof a.id !== 'string' || !['mock','study','review','guided'].includes(a.mode) ||
-          typeof a.contentVersion !== 'string' || !Array.isArray(a.ids) || !a.ids.length || a.ids.length > 95 ||
+          typeof a.contentVersion !== 'string' || !Array.isArray(a.ids) || !a.ids.length || a.ids.length > 760 ||
           new Set(a.ids).size !== a.ids.length || !a.ids.every(id => /^h\d+-\d{3}$/.test(id)) ||
           !Array.isArray(a.answers) || !Array.isArray(a.keys) || a.answers.length !== a.ids.length || a.keys.length !== a.ids.length ||
           !a.keys.every(k => Array.isArray(k) && [1,3].includes(k.length) && k.every(bool)) ||
@@ -131,7 +131,7 @@
       begin({ids,mode='study',set=null,label='10問学習'}) {
         const slot = mode === 'mock' ? 'mock' : mode === 'review' ? 'review' : 'study';
         let list = [...new Set(ids)].filter(id => byId.has(id));
-        if (!list.length || list.length !== ids.length || list.length > 95 || state.sessions[slot]) return false;
+        if (!list.length || list.length !== ids.length || list.length > 760 || state.sessions[slot]) return false;
         if (mode === 'mock') {
           const qs = list.map(id => byId.get(id));
           if (qs.length !== 95 || qs.some(q => q.set !== set) || qs.filter(q=>q.type==='boolean').length!==90 || qs.filter(q=>q.type==='hazard').length!==5) return false;

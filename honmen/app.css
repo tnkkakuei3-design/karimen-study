@@ -1,21 +1,6 @@
-.h-overview{display:grid;grid-template-columns:repeat(3,1fr);margin:20px 0 24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;text-align:center}
-.h-overview>div+div{border-left:1px solid var(--line)}
-.h-overview strong{display:block;font-size:25px;line-height:1.35;letter-spacing:-.03em}
-.h-overview small{display:block;color:var(--muted);font-size:12px;margin-top:4px}
 .h-rules{font-size:14px;background:var(--soft);padding:16px 18px;border-radius:12px;margin:18px 0}
 .h-rules strong{color:var(--fg)}
-.h-resume{padding:16px 18px;background:var(--pale);border:1px solid var(--line);border-radius:14px;margin:14px 0}
-.h-resume h3{font-size:16px}
-.h-resume .btnrow{margin-top:12px}
-.h-category{display:flex;align-items:center;gap:12px;min-height:90px;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:14px}
-.h-category>.icon{color:var(--blue);width:26px;height:26px}
-.h-category b{display:block;font-size:15px}
-.h-category small{color:var(--muted);font-size:12px}
-.h-feature{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--pale);padding:20px;border-radius:16px;margin:20px 0}
-.h-feature h3{font-size:19px}
-.h-feature p{font-size:13px;color:var(--muted);margin:4px 0 12px}
-.h-feature>.icon{height:44px;width:44px;color:var(--blue)}
-.h-question-source{font-size:12px;color:var(--muted);margin:8px 0}
+
 .h-figure{display:block;max-width:100%;width:100%;padding:12px;margin:16px auto;background:#fff;border:1px solid var(--line);border-radius:12px;cursor:zoom-in}
 .h-figure img{display:block;max-width:100%;max-height:360px;width:auto;height:auto;margin:auto;object-fit:contain}
 .h-figure small{display:block;color:#536477;text-align:center;font-size:12px;margin-top:8px}
@@ -25,18 +10,11 @@
 .h-statement .answer-btn{min-height:65px}
 .h-statement .answer-btn span{font-size:28px}
 .h-answer-line{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;margin:8px 0}
-.h-explanation{white-space:pre-line}
-.h-result-score{display:flex;align-items:baseline;gap:8px;justify-content:center;margin:18px 0 8px;font-variant-numeric:tabular-nums}
-.h-result-score strong{font-size:64px;line-height:1.2;letter-spacing:-.06em}
-.h-result-score span{color:var(--muted);font-size:22px}
-.h-result-heading{text-align:center}
-.h-result-stamp{height:112px;display:flex;justify-content:center;margin:16px auto}
-.h-result-stamp .flower-stamp{height:112px;width:112px}
+
 .h-history-row{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;text-align:left;padding:14px 0;background:transparent;border:0;border-bottom:1px solid var(--line)}
 .h-history-row small{display:block;color:var(--muted);font-size:12px}
 .h-history-row strong{white-space:nowrap;font-size:20px}
-.h-setting{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:18px 0}
-.h-setting select{max-width:55%;padding:8px;border:1px solid var(--line);border-radius:8px;color:var(--fg);background:var(--surface)}
+
 .h-dialog-close{margin-top:20px}
 .h-source-list{padding-left:20px;font-size:14px}
 .h-source-list li{margin:16px 0}
@@ -45,20 +23,15 @@
 .honmen-app.play-active .header,.honmen-app.play-active #tabs{display:none}
 .honmen-app #storage-warning{position:relative;z-index:3}
 .honmen-app[data-reduce-motion=true] *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-@media(max-width:480px){.h-overview strong{font-size:23px}.h-overview small{font-size:11px}.h-category{gap:8px;padding:12px}.h-category>.icon{width:22px;height:22px}.h-category b{font-size:14px}.h-set-mark{width:36px;height:36px}.h-set-mark .flower-stamp{width:46px;height:46px}.h-feature{padding:16px}.h-feature>.icon{display:none}.h-statement{padding:12px 10px}.h-statement legend{font-size:16px}.h-result-score strong{font-size:56px}}
-@media(max-width:340px){.h-category>.icon{display:none}.h-set-mark{display:none}.honmen-app .home-intro .home-character{width:110px}}
+@media(max-width:480px){.h-statement{padding:12px 10px}.h-statement legend{font-size:16px}}
 /* Home cards, headings and progress use the shared karimen stylesheet. */
 
-.honmen-app .playhead{align-items:center}
 .h-hazard-entry{margin-top:20px}
 .honmen-app .course-town-entry{font-family:inherit}
 .h-note-example{margin:16px 0;padding-bottom:16px;border-bottom:1px solid var(--line)}
 .h-note-example p,.h-note-example li{font-size:15px;line-height:1.85}
-.h-topic-result{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}
+
 .honmen-app .review-now-card>.btn{width:100%}
-@media(max-width:480px){.h-topic-result{align-items:flex-start;flex-direction:column;gap:4px}}
-#learn .recommend[data-h="random"]{background:var(--action-bg);color:var(--action-fg);border-color:transparent;border-left:0;border-radius:12px;min-height:68px;padding:12px 16px}
-#learn .recommend[data-h="random"] .icon,#learn .recommend[data-h="random"] small{color:inherit}
 
 /* Topic notes and per-statement teaching */
 .h-note-flow {list-style:none;counter-reset:steps;padding:0;display:grid;gap:12px;margin:20px 0}
