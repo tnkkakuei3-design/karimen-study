@@ -72,7 +72,7 @@
   }
   function explanationExtras(q) {
     const n=window.HonmenNotes?.related(q)[0];
-    return `<div class="explanation">${window.HonmenNotes?.inline(q)||''}<div class="question-links">${n?`<button class="textbtn" data-h="answer-note" data-note="${esc(n.id)}">図解ノートで確認 ${icon('chevron')}</button>`:''}<a class="source-link" href="${esc(REFS.rules.url)}" target="_blank" rel="noopener">公式の根拠資料 ↗</a></div>${source(q)}</div>`;
+    return `<div class="explanation">${window.HonmenNotes?.inline(q)||''}<div class="question-links"><button class="textbtn" data-h="answer-note" data-note="${n?esc(n.id):''}">${n?'図解ノートで確認':'図解ノートを開く'} ${icon('chevron')}</button><a class="source-link" href="${esc(REFS.rules.url)}" target="_blank" rel="noopener">公式の根拠資料 ↗</a></div>${source(q)}</div>`;
   }
   function learningPoints(q) {
     const sentences=(q.explanation||'').match(/[^。]+(?:。|$)/g)||[],first=sentences.shift()||'';
@@ -100,8 +100,9 @@
     return `<article class="category-card"><button class="category-entry" data-h="category" data-category="${esc(cat)}" ${categoryFilter==='weak'&&!due.length?'disabled':''}>${icon(symbols[i])}<span class="category-copy"><strong>${esc(cat)}</strong><span class="category-accuracy">${answered.length?`正解率 <b>${pct(correct.length,answered.length)}<span>%</span></b>`:'未学習'}</span><small class="category-coverage">学習進捗 ${answered.length} / ${qs.length}問</small><span class="category-review-badge">${due.length?`要復習 ${weak}問 · 今すぐ ${due.length}問`:waiting.length?`復習待ち ${waiting.length}問`:''}${waiting.length?`<span class="category-wait-time">${due.length?'待機中 '+waiting.length+'問 · ':''}最短 ${waitHTML(Math.min(...waiting.map(q=>model.state.stats[q.id].reviewAt)))}</span>`:''}</span></span><span class="card-chevron">${icon('chevron')}</span></button><details class="category-metrics"><summary>成績を見る</summary><small class="category-answer-count">${answered.length?`正解 ${correct.length} / 回答済み ${answered.length}問`:`回答済み 0 / ${qs.length}問`}</small><span class="progress" aria-hidden="true"><i style="width:${pct(correct.length,answered.length)}%"></i></span>${answered.length&&answered.length<5?'<small class="category-sample-note">まだ回答少なめ（5問未満）</small>':''}</details></article>`;
   }
   function reviewRow(id,waiting=false) {const q=model.byId.get(id),s=model.state.stats[id];return `<button class="review-row" data-h="review-one" data-id="${id}" ${waiting?'disabled':''}>${icon('book')}<span class="row-copy"><strong>${esc(q.category)}</strong><small>第${displaySet(q.set)}回・問${q.number}</small><small class="review-progress">卒業まで正解あと${Math.max(1,2-s.passes)}回</small></span><span class="review-row-status badge ${waiting?'':'blue'}">${waiting?icon('clock')+waitHTML(s.reviewAt):'今すぐ'}</span>${waiting?'':icon('chevron')}</button>`;}
+  const homeScheduleKey = (schedule=model.schedule()) => JSON.stringify([new Date().toDateString(),schedule]);
   function renderHome(tab) {
-    const schedule=model.schedule(),all=[...schedule.due,...schedule.waiting];$('review-dot').hidden=!schedule.due.length;reviewSchedule=JSON.stringify(schedule);
+    const schedule=model.schedule(),all=[...schedule.due,...schedule.waiting];$('review-dot').hidden=!schedule.due.length;reviewSchedule=homeScheduleKey(schedule);
     if(tab==='mock') {
       const passed=sets.filter(set=>model.best(set)?.score>=90).length;
       const list=sets.filter(set=>mockFilter==='all'||(mockFilter==='new'?!model.latest(set):(model.best(set)?.score??-1)<90));
@@ -121,13 +122,14 @@
   }
   function refreshHomeSchedule() {
     // Notes do not depend on review timing: preserve their input, selection and lazy content.
-    if(view==='learn'&&learnSection==='notes'){reviewSchedule=JSON.stringify(model.schedule());return;}
+    if(view==='learn'&&learnSection==='notes'){reviewSchedule=homeScheduleKey();return;}
     const root=$(view),opened=[...root.querySelectorAll('details')].map(el=>el.open),active=document.activeElement,y=window.scrollY;
-    const action=active?.dataset.h,category=active?.dataset.category,id=active?.id;
+    const hadFocus=root.contains(active),action=active?.dataset.h,category=active?.dataset.category,id=active?.id,rowId=active?.dataset.id;
+    const summaryIndex=active?.tagName==='SUMMARY'?[...root.querySelectorAll('details')].indexOf(active.parentElement):-1;
     renderHome(view);
     root.querySelectorAll('details').forEach((el,i)=>el.open=!!opened[i]);
-    const replacement=id?$(id):[...root.querySelectorAll('[data-h]')].find(el=>el.dataset.h===action&&el.dataset.category===category);
-    if(root.contains(active)||action||id)replacement?.focus({preventScroll:true});
+    const replacement=summaryIndex>=0?root.querySelectorAll('details')[summaryIndex]?.querySelector('summary'):id?$(id):[...root.querySelectorAll('[data-h]')].find(el=>el.dataset.h===action&&el.dataset.category===category&&el.dataset.id===rowId);
+    if(hadFocus)replacement?.focus({preventScroll:true});
     window.scrollTo({top:y,behavior:'instant'});
   }
   function historyGroups(records) {
@@ -372,7 +374,7 @@
           if(!model.state.sessions.mock)return;
           if(model.remaining()===0||Date.now()-checkpoint>=15000){const expired=model.tick();checkpoint=Date.now();if(expired){lastResult=model.state.attempts.at(-1);close();$('figure-dialog').close();changeView('result');return;}warn();}
           if($('timer')){$('timer').textContent='残り '+time(model.remaining());$('timer').classList.toggle('low',model.remaining()<=5*60000);}
-        } else if(['review','learn'].includes(view)&&!dialog.open&&reviewSchedule!==JSON.stringify(model.schedule()))refreshHomeSchedule();
+        } else if(['review','learn'].includes(view)&&!dialog.open&&reviewSchedule!==homeScheduleKey())refreshHomeSchedule();
       },1000);
       return true;
     } catch(error) { $('startup-status').textContent=(error.message||'本免の画面を読み込めませんでした。')+' ページを再読み込みしてください。';$('startup-status').setAttribute('role','alert');return false; }

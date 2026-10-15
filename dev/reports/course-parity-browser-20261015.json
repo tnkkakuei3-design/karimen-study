@@ -1,0 +1,16 @@
+{
+  "sourceCommit": "1688de543a226d2390c55b9a102f49da74f78cf8",
+  "environment": "Cloud Chrome, isolated synthetic-record iframes; not physical iPhone",
+  "widths": [360,390,430,1200],
+  "themes": ["light","dark"],
+  "basicStates": 256,
+  "initialStartupFailures": [
+    {"course":"karimen","screen":"result-pass","width":1200,"theme":"light","error":"Startup"},
+    {"course":"honmen","screen":"result-pass","width":1200,"theme":"light","error":"Startup"}
+  ],
+  "overflow": [],
+  "unloadedVisibleImages": [],
+  "targetsUnder44px": [],
+  "measuredCommonStyleDifferences": [],
+  "scope": "14 common component selectors; font family/size/weight, letter spacing, line height, border radius, padding, text and background colors. No pixel-identical claim across different question content."
+}
