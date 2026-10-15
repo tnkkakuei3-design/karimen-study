@@ -99,7 +99,24 @@ function showHazardReview(){
  resultShown=true;release();controls(false);const q=HAZARD_REVIEWS[drive.index];
  $('result').innerHTML=`<div class="hazard-review"><span class="eyebrow">コース ${drive.scene.number} · 運転後の振り返り</span><h1>どんな危険があった？</h1><p>運転は終了しました。時間制限はありません。</p><div class="replay-scene"><canvas id="hazard-review-canvas" aria-label="走った場面の振り返り"></canvas></div><fieldset><legend>${q.question}</legend><div class="hazard-choices">${q.options.map((label,i)=>`<button type="button" data-answer="${i}"><span>${i+1}</span>${label}</button>`).join('')}</div></fieldset><p class="hint-note">回答後に、運転の結果と解説を表示します。</p></div>`;
  show('result');const preview=new Drive(drive.index);preview.z=preview.scene.hazard-25;new Renderer($('hazard-review-canvas')).render(preview,{hero:true});
- for(const b of $('result').querySelectorAll('[data-answer]'))b.onclick=()=>{if(drive.answerReview(Number(b.dataset.answer)))showResult();};
+ for(const b of $('result').querySelectorAll('[data-answer]')){
+  let tap=null,submitted=false;
+  const answer=()=>{if(submitted)return;if(drive.answerReview(Number(b.dataset.answer))){submitted=true;showResult();}};
+  b.addEventListener('pointerdown',e=>{
+   if(e.pointerType!=='touch'||!e.isPrimary)return;
+   tap={id:e.pointerId,x:e.clientX,y:e.clientY,scroll:window.scrollY};
+  });
+  b.addEventListener('pointermove',e=>{
+   if(tap?.id===e.pointerId&&Math.hypot(e.clientX-tap.x,e.clientY-tap.y)>10)tap=null;
+  });
+  b.addEventListener('pointercancel',()=>{tap=null;});
+  b.addEventListener('pointerup',e=>{
+   const start=tap;tap=null;
+   if(!start||start.id!==e.pointerId||Math.hypot(e.clientX-start.x,e.clientY-start.y)>10||Math.abs(window.scrollY-start.scroll)>2)return;
+   e.preventDefault();answer();
+  });
+  b.onclick=()=>answer();
+ }
  $('result').setAttribute('tabindex','-1');$('result').focus({preventScroll:true});
 }
 function showResult(){
