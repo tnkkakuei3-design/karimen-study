@@ -411,7 +411,7 @@ for(const kind of ['study','guided']){
  const originalSession=a.run('JSON.stringify(state.session)'),originalStats=a.run('JSON.stringify(state.stats)');
  a.click('[data-action="pause"]');a.click('#tab-learn');
  assert.equal(a.all('#learn .learn-actions button').length,2);
- assert.match(a.query('#learn [data-action="resume"]').textContent,/途中から続ける/);
+ assert.match(a.query('#learn [data-action="resume"]').textContent,/続きから学ぶ/);
  assert.match(a.query('#learn [data-action="resume"]').textContent,/1 \/ (3|10|50)問 回答済み/);
  const savedLearning=a.w.localStorage.getItem('karimen-study-v4');a.close();a=app({'karimen-study-v4':savedLearning});
  a.click('#tab-learn');a.click('#learn [data-action="resume"]');
