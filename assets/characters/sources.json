@@ -272,5 +272,16 @@
     "height": 476,
     "adopted_usage": "食事一覧の見出しのみ",
     "retrieved_date_jst": "2026-10-15"
+  },
+  {
+    "id": "motedora02",
+    "name": "モテドラ師",
+    "alt": "モテドラ師",
+    "src": "https://dondondrive.jp/wp/wp-content/themes/dondora/assets/img/friends/motedora02.png",
+    "file": "assets/characters/motedora02.png",
+    "width": 310,
+    "height": 440,
+    "adopted_usage": "連続ドライブ・ゲーム結果（トップとは別ポーズ）",
+    "retrieved_date_jst": "2026-10-15"
   }
 ]
