@@ -1,6 +1,6 @@
-import {SCENES,Drive,clamp} from './engine.mjs?v=090';
-import {Renderer} from './renderer.mjs?v=20261015-perf1';
-import {ArcadeDrive} from './arcade.mjs?v=090';
+import {SCENES,Drive,clamp} from './engine.mjs?v=20261015-cockpit1';
+import {Renderer} from './renderer.mjs?v=20261015-cockpit1';
+import {ArcadeDrive} from './arcade.mjs?v=20261015-cockpit1';
 import {DriveAudio} from './audio.mjs?v=090';
 const drivingAudio=new DriveAudio();let seenEvents=0;
 const $=id=>document.getElementById(id),icon=id=>`<svg aria-hidden="true"><use href="#i-${id}"/></svg>`;
@@ -16,7 +16,7 @@ let three=null,threePromise=null,threeError=false,threeEnabled=true,lightQuality
 function using3D(){return !!(drive&&three&&!three.failed&&threeEnabled&&!threeError);}
 function refresh3DUI(){$('view-toolbar').hidden=false;$('road3d').hidden=!using3D();$('road').hidden=using3D();$('view-controls').hidden=!(using3D()&&!drive?.arcade&&drive?.phase==='running');$('compare-view').disabled=threeError||!three;$('quality').disabled=!three||threeError||!threeEnabled;$('compare-view').setAttribute('aria-pressed',String(threeEnabled&&!threeError));$('compare-view').textContent=threeEnabled&&!threeError?'3D表示':'2D表示';$('render-label').textContent=threeError?'3Dを利用できないため、2Dで表示':three?(threeEnabled?'3D表示。ドラッグで左右を見られます。':'2Dで表示しています。'):'3Dを準備しています…';renderer.invalidateSize();three?.invalidateSize();requestFrame();}
 function fallback3D(){threeError=true;threeEnabled=false;if(screen==='game'&&drive){pause();refresh3DUI();toast('3D描画が中断したため、2D表示に切り替えました',5);}}
-async function get3D(){if(threePromise)return threePromise;threePromise=(async()=>{try{const {Renderer3D}=await import('./renderer3d.mjs?v=20261015-perf1');three=new Renderer3D($('road3d'),{onContextLost:fallback3D,onResize:requestFrame});return three;}catch(error){threeError=true;console.warn('3D unavailable; using the 2D renderer.',error?.message);return null;}})();return threePromise;}
+async function get3D(){if(threePromise)return threePromise;threePromise=(async()=>{try{const {Renderer3D}=await import('./renderer3d.mjs?v=20261015-cockpit1');three=new Renderer3D($('road3d'),{onContextLost:fallback3D,onResize:requestFrame});return three;}catch(error){threeError=true;console.warn('3D unavailable; using the 2D renderer.',error?.message);return null;}})();return threePromise;}
 function previewDrive(index){const d=new Drive(index);d.z=d.scene.hazard-25;d.eventTime=2.5;d.actorX=index===2?1.8:-2.8;return d;}
 function fill3DPreviews(){if(!preview3d)return;for(let i=0;i<SCENES.length;i++){const thumb=$('thumb-'+i);if(!thumb||!preview3d.thumbs[i])continue;thumb.hidden=true;let img=thumb.parentNode.querySelector('img');if(!img){img=document.createElement('img');img.alt='';thumb.parentNode.prepend(img);}if(img.src!==preview3d.thumbs[i])img.src=preview3d.thumbs[i];}}
 let previewLoading=false;
@@ -52,7 +52,7 @@ function renderHome(){
  load3DPreviews();
 }
 function choose(index){
- drive=index===3?new ArcadeDrive():new Drive(index,guided);seenEvents=0;arcadePreview=null;$('combo-hud').hidden=index!==3;$('impact-fx').classList.remove('hit');$('steering-controls').hidden=false;$('steering-label').textContent='車線変更できます';$('start-tip-copy').innerHTML=index===3?'3場面を続けて走ります。<br>接触コンボはこのゲームモードだけの記録です。':'危険がありそうな場所をタップ。<br>ブレーキ長押しで、完全に止まろう。';drag=null;if(three){three.yaw=0;three.currentYaw=0;}$('view-left').textContent='← 左を見る';$('view-right').textContent='右を見る →';for(const id of ['view-left','view-front','view-right'])$(id).classList.toggle('active',id==='view-front');resultShown=false;hintShown=false;panning=0;panUntil=0;clearTimeout(toastTimer);
+ drive=index===3?new ArcadeDrive():new Drive(index,guided);seenEvents=0;arcadePreview=null;$('combo-hud').hidden=index!==3;$('impact-fx').classList.remove('hit');$('steering-controls').hidden=false;$('steering-label').textContent='ハンドルで操作';$('start-tip-copy').innerHTML=index===3?'3場面を続けて走ります。<br>接触コンボはこのゲームモードだけの記録です。':'危険がありそうな場所をタップ。<br>ブレーキ長押しで、完全に止まろう。';drag=null;if(three){three.yaw=0;three.currentYaw=0;}$('view-left').textContent='← 左を見る';$('view-right').textContent='右を見る →';for(const id of ['view-left','view-front','view-right'])$(id).classList.toggle('active',id==='view-front');resultShown=false;hintShown=false;panning=0;panUntil=0;clearTimeout(toastTimer);
  $('scene-number').textContent=index===3?'ゲームモード':`コース ${drive.scene.number} · ${guided?'ガイドあり':'チャレンジ'}`;$('scene-title').textContent=index===3?'連続ドライブ':drive.scene.title;$('zone-badge').textContent=drive.scene.area;
  $('start-title').textContent=index===3?'連続ドライブ':drive.scene.title;$('start-description').textContent=index===3?'3つの場面を続けて走ります。接触するとコンボが増えるゲームモードです。':drive.scene.desc;
  $('start-overlay').hidden=false;$('pause-overlay').hidden=true;$('look-controls').hidden=true;$('toast').hidden=true;
@@ -60,8 +60,8 @@ function choose(index){
  $('instruction').textContent='危険がありそうな場所を、画面でタップ。';show('game');controls(false);updateHUD();requestFrame();$('start').focus({preventScroll:true});
  refresh3DUI();if(!threeError){const selected=drive;$('start').disabled=true;get3D().then(()=>{if(drive!==selected||screen!=='game')return;$('start').disabled=false;if(three)three.yaw=0;refresh3DUI();});}else $('start').disabled=false;
 }
-function controls(active){$('brake').disabled=!active;$('gas').disabled=!active;$('pause').disabled=!active;for(const side of ['left','right'])$('steer-'+side).disabled=!active;}
-function release(){drivingAudio.silence();if(drive)drive.release();$('brake').classList.remove('pressed');$('gas').classList.remove('pressed');}
+function controls(active){$('steering-wheel').setAttribute('aria-disabled',String(!active));$('steering-wheel').tabIndex=active?0:-1;$('brake').disabled=!active;$('gas').disabled=!active;$('pause').disabled=!active;for(const side of ['left','right'])$('steer-'+side).disabled=!active;}
+function release(){activeKeys.clear();pedalPointers.gas.clear();pedalPointers.brake.clear();steerPointers.clear();wheelDrag=null;drivingAudio.silence();if(drive)drive.release();$('brake').classList.remove('pressed');$('gas').classList.remove('pressed');}
 function pause(){if(!drive||drive.phase!=='running')return;drive.pause();release();controls(false);$('pause-overlay').hidden=false;$('resume').focus({preventScroll:true});stopFrames();requestFrame();}
 function resume(){if(!drive)return;drivingAudio.unlock();drive.resume();last=performance.now();controls(true);$('pause-overlay').hidden=true;requestFrame();$(using3D()?'road3d':'road').focus({preventScroll:true});}
 function home(){release();drive=null;show('home');renderHome();}
@@ -71,8 +71,8 @@ function setPressed(id,value){const el=$(id),text=String(value);if(el.getAttribu
 function setProgress(value){const el=$('progress'),width=`${clamp(value*100,0,100).toFixed(1)}%`;if(el.style.width!==width)el.style.width=width;}
 function updateHUD(){
  if(!drive)return;
- for(const side of ['left','right'])setPressed('steer-'+side,drive.lane===(side==='right'?1:0));
- if(drive.arcade){setText('speed',Math.round(drive.speed));setProgress(drive.z/255);const a=drive.actors.find(x=>!x.passed);setText('zone-badge',a?`${a.index+1}/3 · ${SCENES[a.index].area}`:'ゴール');setText('drive-status',drive.input.brake?'ブレーキ':drive.speed<1?'アクセルで進もう':'連続ドライブ');setText('instruction','左右ボタンで車線変更。アクセル・ブレーキは長押し。');setText('combo-hud',`${drive.points} pt`);setHidden('view-controls',true);setHidden('look-controls',true);return;}
+ for(const side of ['left','right'])setPressed('steer-'+side,side==='right'?drive.steering>.05:drive.steering<-.05);
+ if(drive.arcade){setText('speed',Math.round(drive.speed));setProgress(drive.z/255);const a=drive.actors.find(x=>!x.passed);setText('zone-badge',a?`${a.index+1}/3 · ${SCENES[a.index].area}`:'ゴール');setText('drive-status',drive.input.brake?'ブレーキ':drive.speed<1?'アクセルで進もう':'連続ドライブ');setText('instruction','ハンドルを左右にドラッグ。ペダルは長押し。');setText('combo-hud',`${drive.points} pt`);setHidden('view-controls',true);setHidden('look-controls',true);return;}
 setText('speed',Math.round(drive.speed));setProgress(drive.z/drive.scene.hazard);
  const stopped=drive.stopped&&drive.v<.25,inter=drive.scene.id==='intersection';
  let status='周囲をよく見て走ろう';
@@ -112,8 +112,21 @@ function showResult(){
  $('retry').onclick=()=>choose(drive.index);$('next').onclick=()=>drive.index<2?choose(drive.index+1):home();$('result-home').onclick=home;
  show3DReview();$('result').setAttribute('tabindex','-1');$('result').focus({preventScroll:true});
 }
-function bindPedal(id,key){const b=$(id);b.addEventListener('pointerdown',e=>{if(!drive||drive.phase!=='running')return;e.preventDefault();b.setPointerCapture(e.pointerId);drive.input[key]=true;b.classList.add('pressed');});for(const type of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(type,()=>{if(drive)drive.input[key]=false;b.classList.remove('pressed');});b.addEventListener('contextmenu',e=>e.preventDefault());}
+const pedalPointers={gas:new Set(),brake:new Set()},steerPointers=new Map();let wheelDrag=null;
+function syncControls(){
+ if(!drive||drive.phase!=='running')return;
+ for(const key of ['gas','brake']){const held=pedalPointers[key].size>0||(key==='gas'?activeKeys.has('ArrowUp'):activeKeys.has('ArrowDown')||activeKeys.has(' '));drive.input[key]=held;$(key).classList.toggle('pressed',held);}
+ const buttons=[...steerPointers.values()].reduce((a,b)=>a+b,0),keys=Number(activeKeys.has('ArrowRight'))-Number(activeKeys.has('ArrowLeft'));
+ drive.steer(wheelDrag?.value??clamp(buttons+keys,-1,1));
+}
+function bindPedal(id,key){const b=$(id);b.addEventListener('pointerdown',e=>{if(!drive||drive.phase!=='running')return;e.preventDefault();b.setPointerCapture(e.pointerId);pedalPointers[key].add(e.pointerId);syncControls();});for(const type of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(type,e=>{pedalPointers[key].delete(e.pointerId);syncControls();});b.addEventListener('contextmenu',e=>e.preventDefault());}
 bindPedal('brake','brake');bindPedal('gas','gas');
+const wheel=$('steering-wheel');
+wheel.addEventListener('pointerdown',e=>{if(!drive||drive.phase!=='running'||wheelDrag)return;e.preventDefault();wheel.setPointerCapture(e.pointerId);wheelDrag={id:e.pointerId,x:e.clientX,value:drive.input.steer||0,start:drive.input.steer||0,travel:Math.max(45,wheel.getBoundingClientRect().width*.65)};});
+wheel.addEventListener('pointermove',e=>{if(!wheelDrag||wheelDrag.id!==e.pointerId)return;wheelDrag.value=clamp(wheelDrag.start+(e.clientX-wheelDrag.x)/wheelDrag.travel,-1,1);syncControls();});
+for(const type of ['pointerup','pointercancel','lostpointercapture'])wheel.addEventListener(type,e=>{if(wheelDrag?.id!==e.pointerId)return;wheelDrag=null;syncControls();});
+wheel.addEventListener('contextmenu',e=>e.preventDefault());
+function updateWheel(){const amount=drive?.steering||0,transform=`rotate(${(amount*110).toFixed(1)}deg)`;if($('wheel-art').style.transform!==transform)$('wheel-art').style.transform=transform;const value=String(Math.round(amount*100));if(wheel.getAttribute('aria-valuenow')!==value)wheel.setAttribute('aria-valuenow',value);}
 $('road').addEventListener('pointerup',markAt);
 let drag=null;
 $('road3d').addEventListener('pointerdown',e=>{if(!using3D()||drive.phase!=='running')return;drag={id:e.pointerId,x:e.clientX,y:e.clientY,yaw:three.yaw,moved:false};$('road3d').setPointerCapture(e.pointerId);});
@@ -140,17 +153,15 @@ $('help').onclick=()=>{resumeAfterHelp=drive?.phase==='running';if(resumeAfterHe
 const closeHelp=()=>{$('help-dialog').close();if(resumeAfterHelp)resume();resumeAfterHelp=false;};
 document.querySelector('.close-dialog').onclick=closeHelp;document.querySelector('.close-help').onclick=closeHelp;
 $('help-dialog').addEventListener('cancel',e=>{e.preventDefault();closeHelp();});
-for(const side of ['left','right'])$('steer-'+side).addEventListener('pointerdown',e=>{e.preventDefault();drive?.steer?.(side==='right'?1:-1);});
-for(const side of ['left','right'])$('steer-'+side).addEventListener('click',()=>drive?.steer?.(side==='right'?1:-1));
+for(const side of ['left','right']){const b=$('steer-'+side);b.addEventListener('pointerdown',e=>{if(!drive||drive.phase!=='running')return;e.preventDefault();b.setPointerCapture(e.pointerId);steerPointers.set(e.pointerId,side==='right'?1:-1);syncControls();});for(const type of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(type,e=>{steerPointers.delete(e.pointerId);syncControls();});b.addEventListener('contextmenu',e=>e.preventDefault());}
 const activeKeys=new Set();
 window.addEventListener('keydown',e=>{
  if(screen!=='game'||$('help-dialog').open||$('drive-settings').open)return;
  if(e.key==='Escape'){e.preventDefault();if(drive?.phase==='running')pause();else if(drive?.phase==='paused')resume();return;}
- if(drive?.phase==='running'&&['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();drive.steer(e.key==='ArrowRight'?1:-1);return;}
- if(!drive||drive.phase!=='running'||!['ArrowUp','ArrowDown',' '].includes(e.key))return;
- e.preventDefault();activeKeys.add(e.key);const key=e.key==='ArrowUp'?'gas':'brake';drive.input[key]=true;$(key).classList.add('pressed');
+ if(!drive||drive.phase!=='running'||!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' '].includes(e.key))return;
+ e.preventDefault();activeKeys.add(e.key);syncControls();
 });
-window.addEventListener('keyup',e=>{activeKeys.delete(e.key);if(!drive)return;if(e.key==='ArrowUp'){drive.input.gas=false;$('gas').classList.remove('pressed');}if(['ArrowDown',' '].includes(e.key)&&!activeKeys.has('ArrowDown')&&!activeKeys.has(' ')){drive.input.brake=false;$('brake').classList.remove('pressed');}});
+window.addEventListener('keyup',e=>{activeKeys.delete(e.key);syncControls();});
 window.addEventListener('blur',()=>{activeKeys.clear();pause();release();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){activeKeys.clear();pause();release();stopFrames();}else{requestFrame();if(screen==='home')load3DPreviews();}});
 window.addEventListener('resize',()=>{
@@ -162,7 +173,7 @@ window.addEventListener('resize',()=>{
 });
 function renderRoad(d,options={}){
  if(!d.arcade){renderer.render(d,options);if(d.impact){const t=d.time-d.impact.at,c=renderer.ctx,w=renderer.w,h=renderer.h;c.save();c.translate(w*.5+t*w*.12,h*.5-Math.sin(Math.min(t,2.2)/2.2*Math.PI)*h*.33);c.rotate(t*3);c.fillStyle='#e9b452';c.beginPath();c.arc(0,-14,7,0,Math.PI*2);c.fill();c.fillRect(-7,-7,14,24);c.fillStyle='#334c65';c.fillRect(-8,17,6,16);c.fillRect(2,17,6,16);c.restore();}return;}
- const a=d.actors.find(x=>!x.passed)||d.actors[2];if(arcadePreview?.index!==a.index)arcadePreview=new Drive(a.index);const local=arcadePreview;local.phase=d.phase;local.z=d.z-a.z+local.scene.hazard;local.v=d.v;local.x=d.x;local.input=d.input;local.eventTime=a.started===null?null:a.elapsed;local.actorX=a.index===0?(a.x+3.7)/.86-5.05:a.index===1?(a.x+4.3)/.91-5.05:a.x;local.actorClear=!!a.hit;renderer.render(local,options);
+ const a=d.actors.find(x=>!x.passed)||d.actors[2];if(arcadePreview?.index!==a.index)arcadePreview=new Drive(a.index);const local=arcadePreview;local.phase=d.phase;local.z=d.z-a.z+local.scene.hazard;local.v=d.v;local.x=d.x;local.heading=d.heading;local.bodyPitch=d.bodyPitch;local.input=d.input;local.eventTime=a.started===null?null:a.elapsed;local.actorX=a.index===0?(a.x+3.7)/.86-5.05:a.index===1?(a.x+4.3)/.91-5.05:a.x;local.actorClear=!!a.hit;renderer.render(local,options);
  if(a.hit){const t=d.time-a.hit.at,c=renderer.ctx,w=renderer.w,h=renderer.h;if(t<2.5){c.save();c.translate(w*.5+t*w*.12,h*.5-Math.sin(Math.min(t,2.2)/2.2*Math.PI)*h*.33);c.rotate(t*3);c.fillStyle='#e9b452';c.beginPath();c.arc(0,-14,7,0,Math.PI*2);c.fill();c.fillRect(-7,-7,14,24);c.fillStyle='#334c65';c.fillRect(-8,17,6,16);c.fillRect(2,17,6,16);c.restore();}}
 }
 function showArcadeResult(){
@@ -178,7 +189,7 @@ function frame(now){
  if(dirty||now-lastHUD>=100-.01){updateHUD();lastHUD=now;}
  const interval=1000/(lightQuality?30:60);
  if(dirty||now-lastDraw>=interval-.01){
-  const forced=dirty;dirty=false;
+  const forced=dirty;dirty=false;updateWheel();
   const pan=now<panUntil&&!reduceMotion?panning:0;
   if(using3D()){try{three.render(drive,{reducedMotion:reduceMotion});}catch{fallback3D();renderRoad(drive,{pan});}}
   else renderRoad(drive,{pan});

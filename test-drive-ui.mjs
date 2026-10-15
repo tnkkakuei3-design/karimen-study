@@ -29,6 +29,16 @@ for(const from of ['karimen','honmen']){
  for(let i=0;i<3;i++){
   w.document.querySelector(`[data-course="${i}"]`).click();assert.equal($('start-title').textContent,SCENES[i].title);
   $('start').click();assert.equal(run('drive.phase'),'running');
+  const pointer=(id,type,pointerId,clientX=0)=>{const e=new w.Event(type,{bubbles:true,cancelable:true});Object.assign(e,{pointerId,clientX});$(id).dispatchEvent(e);};
+  for(const id of ['gas','brake','steering-wheel','steer-left','steer-right'])$(id).setPointerCapture=()=>{};
+  pointer('gas','pointerdown',1);pointer('steering-wheel','pointerdown',2,20);pointer('steering-wheel','pointermove',2,45);
+  assert.equal(run('drive.input.gas'),true);assert.ok(run('drive.input.steer')>0);
+  pointer('steering-wheel','pointercancel',2);assert.equal(run('drive.input.steer'),0);assert.equal(run('drive.input.gas'),true);
+  w.dispatchEvent(new w.KeyboardEvent('keydown',{key:'ArrowUp'}));pointer('gas','pointerup',1);assert.equal(run('drive.input.gas'),true,'keyboard and touch ownership are independent');
+  w.dispatchEvent(new w.KeyboardEvent('keyup',{key:'ArrowUp'}));assert.equal(run('drive.input.gas'),false);
+  w.dispatchEvent(new w.KeyboardEvent('keydown',{key:'ArrowLeft'}));assert.equal(run('drive.input.steer'),-1);
+  w.dispatchEvent(new w.KeyboardEvent('keyup',{key:'ArrowLeft'}));assert.equal(run('drive.input.steer'),0);
+  pointer('brake','pointerdown',3);pointer('brake','pointerdown',4);pointer('brake','pointerup',3);assert.equal(run('drive.input.brake'),true);pointer('brake','lostpointercapture',4);assert.equal(run('drive.input.brake'),false);
   $('game-settings').click();assert.equal(run('drive.phase'),'paused');
   w.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape'}));assert.equal(run('drive.phase'),'paused');
   $('drive-settings').dispatchEvent(new w.Event('cancel',{cancelable:true}));assert.equal(run('drive.phase'),'running');

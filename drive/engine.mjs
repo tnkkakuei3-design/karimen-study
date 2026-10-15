@@ -1,4 +1,5 @@
-import {pedestrianMotion,childMotion,MAX_SPEED,driveAcceleration,interceptDistance} from './pedestrian-motion.mjs?v=090';
+import {advanceVehicle,steerVehicle,releaseVehicle} from './vehicle.mjs?v=20261015-cockpit1';
+import {pedestrianMotion,childMotion,interceptDistance} from './pedestrian-motion.mjs?v=090';
 export const SCENES = [
   {id:'parked',number:'01',name:'車の陰に、誰かいる？',area:'住宅街',level:'基本',duration:'約30秒',title:'駐車車両の陰',desc:'見えない場所を予測して、余裕を持って止まろう。',hazard:88,cue:60,trigger:26,line:4,initialSpeed:24,actor:'child',target:'van',clue:'駐車車両の向こう側は、見えていません。',lesson:'車の陰には、歩行者や自転車がいるかもしれません。姿が見える前から速度を落とし、いつでも止まれるように備えましょう。',point:'「見えない」ことも、危険の手がかり。',color:'#e7ad50'},
   {id:'crosswalk',number:'02',name:'渡りたい人、見えてる？',area:'横断歩道',level:'基本',duration:'約30秒',title:'横断歩道の歩行者',desc:'横断しようとしている人を見つけて、手前で停止。',hazard:94,cue:65,trigger:26,line:6,initialSpeed:27,actor:'adult',target:'person',clue:'左側の歩行者は、横断歩道の方を向いています。',lesson:'横断しようとしている歩行者がいたら、横断歩道の手前で一時停止して進路を譲ります。歩行者だけでなく、周囲の状況も確認しましょう。',point:'道路に出てくる前に、渡りたい人を見つける。',color:'#799dca'},
@@ -25,11 +26,11 @@ export class Drive {
   get cueVisible(){return this.distance<=this.scene.cue;}
   get actorVisible(){return this.scene.actor==='adult'||(this.eventTime!==null&&this.eventTime>0.85);}
   get stopZone(){return this.distance>=this.scene.line&&(this.scene.id==='intersection'?this.distance<=this.scene.line+5:this.distance<=this.scene.cue);}
-  steer(direction){if(this.phase==='running')this.lane=direction>0?1:0;}
+  steer(direction){steerVehicle(this,direction);}
   start(){this.phase='running';}
-  pause(){if(this.phase==='running')this.phase='paused';this.input.brake=false;this.input.gas=false;}
+  pause(){if(this.phase==='running')this.phase='paused';this.release();}
   resume(){if(this.phase==='paused')this.phase='running';}
-  release(){this.input.brake=false;this.input.gas=false;}
+  release(){releaseVehicle(this);}
   mark(){
     if(this.phase!=='running'||!this.cueVisible||this.detected)return false;
     this.detected={time:this.time,distance:this.distance,beforeAppearance:this.eventTime===null||this.eventTime<0.85};
@@ -44,9 +45,7 @@ export class Drive {
     if(this.phase!=='running')return;
     this.time+=dt;if(this.impact){this.v=0;if(this.time-this.impact.at>2.2)this.finish(false,'接触しました');return;}const previousZ=this.z;
     if(this.input.brake&&this.firstBrake===null&&this.cueVisible){this.firstBrake={time:this.time,distance:this.distance,speed:this.speed,beforeAppearance:this.eventTime===null||this.eventTime<0.85};this.events.push({type:'brake',time:this.time,distance:this.distance,label:'ブレーキ開始'});}
-    const target=this.lane?1.38:-1.38,shift=clamp(target-this.x,-Math.min(2.8,this.v*.3)*dt,Math.min(2.8,this.v*.3)*dt);this.x+=shift;this.steering=shift/dt/2.8;
-    const a=driveAcceleration(this.input);
-    const oldV=this.v;this.v=clamp(this.v+a*dt,0,MAX_SPEED);this.z+=(oldV+this.v)/2*dt;
+    const a=advanceVehicle(this,dt),target=this.x;
     this.idle=this.v<0.1?this.idle+dt:0;
     if(this.eventTime===null&&(this.distance<=interceptDistance(this.index,target,this.v,a)||(this.stopZone&&this.v<0.25)))this.eventTime=0;
     if(this.eventTime!==null){

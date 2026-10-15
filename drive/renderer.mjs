@@ -1,10 +1,10 @@
-import {clamp} from './engine.mjs?v=090';
+import {clamp} from './engine.mjs?v=20261015-cockpit1';
 const COLORS={sky:'#dcebf0',skyTop:'#b5d5e4',road:'#7f9098',edge:'#f8f4e7',pavement:'#dadbd2',grass:'#a7bda7',ink:'#18374b'};
 export class Renderer{
  constructor(canvas,{observe=false,onResize=()=>{}}={}){this.canvas=canvas;this.ctx=canvas.getContext('2d');this.w=1;this.h=1;this.hits=[];this.pan=0;this.sizeDirty=true;if(observe&&globalThis.ResizeObserver){this.observer=new ResizeObserver(()=>{this.invalidateSize();onResize();});this.observer.observe(canvas);}}
  invalidateSize(){this.sizeDirty=true;}
  size(){if(this.sizeDirty){const b=this.canvas.getBoundingClientRect();this.w=Math.max(1,b.width);this.h=Math.max(1,b.height);this.sizeDirty=false;}const w=this.w,h=this.h,dpr=Math.min(globalThis.devicePixelRatio||1,2);if(this.canvas.width!==Math.round(w*dpr)||this.canvas.height!==Math.round(h*dpr)){this.canvas.width=Math.round(w*dpr);this.canvas.height=Math.round(h*dpr);}this.ctx.setTransform(dpr,0,0,dpr,0,0);}
- project(x,z,y=0){const d=z-this.pos+4;return{x:this.w*.5+(x-(this.cameraX??-1.65))*this.focal/d+this.pan*this.w*.3,y:this.horizon+(1.6-y)*this.focal/d,s:this.focal/d,d};}
+ project(x,z,y=0){const d=z-this.pos+4;return{x:this.w*.5+(x-(this.cameraX??-1.65))*this.focal/d+this.pan*this.w*.3-Math.tan(this.heading||0)*this.focal,y:this.horizon+(1.6-y)*this.focal/d,s:this.focal/d,d};}
  poly(points,color,stroke){let c=this.ctx;c.beginPath();points.forEach((p,i)=>i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y));c.closePath();c.fillStyle=color;c.fill();if(stroke){c.strokeStyle=stroke;c.lineWidth=.6;c.stroke();}}
  ground(x1,x2,z1,z2,color){if(z2<this.pos-1)return;z1=Math.max(z1,this.pos-1);this.poly([this.project(x1,z1),this.project(x2,z1),this.project(x2,z2),this.project(x1,z2)],color);}
  box(x,z,width,depth,height,front,side,top){
@@ -70,7 +70,7 @@ export class Renderer{
  }
  marker(hit,label){const c=this.ctx,x=hit.x+hit.w/2,y=hit.y+hit.h*.38;if(x<-60||x>this.w+60)return;c.strokeStyle='#e4aa43';c.lineWidth=2;c.setLineDash([5,4]);c.beginPath();c.ellipse(x,y,Math.max(22,hit.w*.58),Math.max(24,hit.h*.57),0,0,Math.PI*2);c.stroke();c.setLineDash([]);const ly=clamp(hit.y-22,42,this.h-100),lx=clamp(x,65,this.w-65);c.font='700 11px sans-serif';c.textAlign='center';const tw=c.measureText(label).width+22;c.fillStyle='#fffcf1';c.beginPath();c.roundRect(lx-tw/2,ly-15,tw,24,5);c.fill();c.fillStyle='#815e1f';c.fillText(label,lx,ly+1);}
  render(drive,{hero=false,highlight=false,thumbnail=false,pan=0}={}){
-   this.size();let c=this.ctx,w=this.w,h=this.h;this.pos=drive.z;this.cameraX=drive.x;this.pan=pan;this.focal=Math.min(w*1.65,Math.max(w*.85,h*1.45));this.horizon=h*(hero?.31:.34);this.hits=[];
+   this.size();let c=this.ctx,w=this.w,h=this.h;this.pos=drive.z;this.heading=drive.heading||0;this.cameraX=drive.x;this.pan=pan;this.focal=Math.min(w*1.65,Math.max(w*.85,h*1.45));this.horizon=h*(hero?.31:.34);this.hits=[];
    const grad=c.createLinearGradient(0,0,0,this.horizon);grad.addColorStop(0,COLORS.skyTop);grad.addColorStop(1,COLORS.sky);c.fillStyle=grad;c.fillRect(0,0,w,h);
    c.fillStyle='#f8f8eb9c';for(const cloud of [{x:.19,y:.13,r:.05},{x:.7,y:.09,r:.035}]){c.beginPath();c.ellipse(w*cloud.x,h*cloud.y,w*cloud.r,w*cloud.r*.26,0,0,Math.PI*2);c.fill();}
    c.fillStyle='#bdcfca';c.fillRect(0,this.horizon-5,w,h);c.fillStyle=COLORS.pavement;c.fillRect(0,this.horizon,w,h);

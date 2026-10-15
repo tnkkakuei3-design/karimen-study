@@ -30,7 +30,7 @@ const ctx=dom.getInternalVMContext(),run=code=>vm.runInContext(code,ctx);
 run(fs.readFileSync('drive/app.mjs','utf8').replace(/^import .*;\n/gm,''));
 await new Promise(resolve=>setTimeout(resolve,0));
 const observer=new w.MutationObserver(()=>{});
-observer.observe($('stage'),{childList:true,attributes:true,subtree:true});
+observer.observe($('game'),{childList:true,attributes:true,subtree:true});
 observer.observe($('instruction'),{childList:true,subtree:true});
 function advance(seconds,hz=120){
  const before={frames,draws,audio};observer.takeRecords();
