@@ -61,7 +61,7 @@
 .honmen-app .course-town-entry{font-family:inherit}
 .h-note-example{margin:16px 0;padding-bottom:16px;border-bottom:1px solid var(--line)}
 .h-note-example p,.h-note-example li{font-size:15px;line-height:1.85}
-.h-topic-result{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}
+.h-topic-result{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}
 .honmen-app .learning-points{margin:18px 0}
 .honmen-app .learning-points h3{font-size:17px;margin-bottom:8px}
 .honmen-app .h-results .review-body{padding:12px 0}

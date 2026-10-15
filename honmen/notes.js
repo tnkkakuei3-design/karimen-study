@@ -18,6 +18,10 @@ window.HonmenNotes = (()=>{
       return re.test([q.text,...(q.statements||[])].join(' '));
     });
   }
+  function related(q) {
+    if(q.type==='hazard')return extraNotes.filter(n=>n.id==='h-hazard');
+    return all().filter(n=>group(n)===q.category&&questions(n.id,[q]).length).sort((a,b)=>Number(!!b.hCategory)-Number(!!a.hCategory)).slice(0,2);
+  }
   function title(id){return all().find(n=>n.id===id)?.t||'テーマ学習';}
   function drill(n,bank){const count=questions(n.id,bank).length;return count?`<button class="btn" data-h="note-drill" data-note="${n.id}">このテーマを${Math.min(count,10)}問学ぶ ${icon('arrow')}</button>`:'<p class="muted">このテーマは参考ノートです。対応する本免問題はありません。</p>';}
   function render(root,{search='',filter='',bank}) {
@@ -34,5 +38,5 @@ window.HonmenNotes = (()=>{
     body.innerHTML=diagram+`<div class="note-keypoints"><h3>押さえるポイント</h3><ul>${n.pts.map(t=>`<li>${esc(t)}</li>`).join('')}</ul></div><div class="note-caution"><div class="caution-heading"><h3>間違えやすいところ</h3><img class="placement-character caution-guide" src="./assets/characters/D042.png" alt="" aria-hidden="true"></div><p>${esc(n.trap)}</p></div>${examples}<div class="note-bottom">${drill(n,bank)}<a class="source-link" href="${esc(n.id==='h-emergency'?'https://www.npa.go.jp/bureau/traffic/highway/':n.source?.url||REFS.rules.url)}" target="_blank" rel="noopener">公式資料で確認 ↗</a></div>`;
     el.dataset.loaded='true';
   }
-  return {render,populate,questions,title,figure:k=>figHTML(k).replace(/<button[^>]*>拡大 ↗<\/button>/g,'')};
+  return {render,populate,questions,title,related,figure:k=>figHTML(k).replace(/<button[^>]*>拡大 ↗<\/button>/g,'')};
 })();
