@@ -47,7 +47,7 @@ for(const from of ['karimen','honmen']){
   $('pause').click();$('game-settings').click();$('close-settings').click();assert.equal(run('drive.phase'),'paused');
   $('resume').click();run("drive.finish(false,'止まる余裕が足りませんでした');showResult()");
   assert.equal($('result').hidden,false);assert.equal($('result').querySelectorAll('[data-answer]').length,3);assert.equal(run('drive.outcome.reviewAnswered'),undefined);assert.equal(w.document.querySelector('.score-circle'),null);
-  $('result').querySelector(`[data-answer="${(i+1)%3}"]`).click();assert.equal(run('drive.outcome.detection'),0);assert.ok(w.document.querySelector('.result-mascot[src$="D047.png"]'));
+  $('result').querySelector(`[data-answer="${(i+1)%3}"]`).click();assert.equal(run('drive.outcome.detection'),0);assert.ok(w.document.querySelector('.result-mascot[src$="motedora02.png"]'));
   assert.ok(w.document.querySelector('details.timeline'));$('retry').click();$('start').click();
   run("drive.stopDistance=8;drive.finish(true,'安全に止まれました');showResult()");
   $('result').querySelector(`[data-answer="${i}"]`).click();assert.equal(run('drive.outcome.detection'),30);assert.equal(run('drive.answerReview(0)'),false);

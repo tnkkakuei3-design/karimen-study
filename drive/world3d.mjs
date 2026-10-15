@@ -1,6 +1,7 @@
+import {crowdStyle} from './crowd-appearance.mjs';
 import {visibleCrowd,CROWD_LIMIT} from './arcade.mjs?v=20261015-crowd1';
 import {impactMotion} from './impact-motion.mjs?v=20261015-fx1';
-import {makePedestrian,posePedestrian,poseCyclist} from './pedestrian.mjs?v=20261015-perf1';
+import {makePedestrian,posePedestrian,poseCyclist,dressCrowd,poseCrowd} from './pedestrian.mjs?v=20261015-characters1';
 import {pedestrianMotion,childMotion} from './pedestrian-motion.mjs?v=090';
 import * as THREE from './vendor/three.module.min.js';
 import {mergeGeometries} from './vendor/BufferGeometryUtils.js';
@@ -315,19 +316,25 @@ export function createIntegratedWorld(){
  box(additions,0,-.035,-220,100,.08,8,'#626f70');box(additions,-1.72,.02,-213,3.1,.025,.4,'#f2eddf');
  const corner=new THREE.Group();corner.name='arcade-corner';box(corner,6,2.25,-211.8,4.8,4.5,7.6,'#d9d2c1');box(corner,6,4.55,-211.8,5,.15,7.8,'#8d9b94');for(let z=-214;z<=-209;z+=2)box(corner,3.57,2.8,z,.04,1.2,1.1,'#819fa7');
  const sign=new THREE.Group();stopSign(sign,true);sign.position.z=-120;corner.add(sign);w.scene.add(freezeStatic(corner));w.scene.add(freezeStatic(compact(additions)));
- // Reuse a fixed pool of simple figures instead of dozens of animated skeletons.
- w.crowd=Array.from({length:CROWD_LIMIT},(_,i)=>{
-  const g=new THREE.Group(),shirt=['#e6ab42','#6489ba','#bd6963','#7eaa8d'][i%4];
-  box(g,0,1.05,0,.46,.58,.27,shirt);sphere(g,0,1.57,0,.19,'#d3aa88');
-  const limbs=[];for(const side of [-1,1]){const leg=new THREE.Group();leg.position.set(side*.13,.78,0);box(leg,0,-.33,0,.16,.62,.18,'#334b60');g.add(leg);limbs.push(leg);const arm=new THREE.Group();arm.position.set(side*.29,1.29,0);box(arm,0,-.22,0,.13,.47,.14,shirt);g.add(arm);limbs.push(arm);}
-  g.userData.limbs=limbs;g.traverse(o=>{if(o.isMesh){o.castShadow=false;o.receiveShadow=false;}});w.scene.add(g);g.visible=false;return g;
+ // Fixed skeleton pool; geometry is shared with the normal-course model.
+ w.crowd=Array.from({length:CROWD_LIMIT},()=>{
+  const g=makePedestrian();dressCrowd(g,crowdStyle(0));
+  g.traverse(o=>{o.updateMatrix();o.matrixAutoUpdate=false;if(o.isMesh){o.castShadow=false;o.receiveShadow=false;}});
+  g.matrixAutoUpdate=true;g.userData.actorId=null;g.userData.poseAt=-Infinity;w.scene.add(g);g.visible=false;return g;
  });return w;
 }
 export function updateIntegratedWorld(w,d,options={}){
  w.index=0;updateWorld(w,{...d,scene:{hazard:88},speed:d.speed,eventTime:null,actorX:-5.05,actorClear:true,detected:null},options);w.index=3;w.child.visible=false;if(w.actorShadow)w.actorShadow.visible=false;
- const actors=visibleCrowd(d);
- w.crowd.forEach((g,i)=>{const a=actors[i];g.visible=!!a;if(!a)return;g.rotation.set(0,a.side>0?-Math.PI/2:Math.PI/2,0);g.position.set(a.x,0,-a.z);
+ const actors=visibleCrowd(d),ids=new Set(actors.map(a=>a.id));
+ for(const g of w.crowd)if(!ids.has(g.userData.actorId)){g.visible=false;g.userData.actorId=null;}
+ for(const a of actors){
+  const g=w.crowd.find(g=>g.userData.actorId===a.id)||w.crowd.find(g=>g.userData.actorId===null);
+  if(g.userData.actorId!==a.id){g.userData.actorId=a.id;dressCrowd(g,crowdStyle(a.id));g.userData.poseAt=-Infinity;}
+  g.visible=true;
+  // Near actors animate at 30 Hz, distant actors at 15 Hz; translation stays smooth.
+  const interval=Math.abs(a.z-d.z)<22?1/30:1/15;
+  if(d.time-g.userData.poseAt>=interval||d.time<g.userData.poseAt){poseCrowd(g,a,d.time);g.traverse(o=>{if(o!==g)o.updateMatrix();});g.userData.poseAt=d.time;}
+  g.rotation.set(0,a.side>0?-Math.PI/2:Math.PI/2,0);g.position.set(a.x,0,-a.z);
   if(a.hit){const f=impactMotion(d.time-a.hit.at,a.hit.speed);g.position.set(a.hit.x+f.x,f.y,-a.hit.z-f.z);g.rotation.x=f.pitch;g.rotation.z=f.roll;}
-  const stride=a.hit?0:Math.sin(a.elapsed*12)*.9;g.userData.limbs.forEach((l,j)=>l.rotation.x=(j<2?1:-1)*(j%2?-1:1)*stride);
- });
+ }
 }

@@ -1,3 +1,4 @@
+import {crowdStyle} from './crowd-appearance.mjs';
 import {impactMotion} from './impact-motion.mjs?v=20261015-fx1';
 import {clamp} from './engine.mjs?v=20261015-cockpit1';
 const COLORS={sky:'#dcebf0',skyTop:'#b5d5e4',road:'#7f9098',edge:'#f8f4e7',pavement:'#dadbd2',grass:'#a7bda7',ink:'#18374b'};
@@ -38,14 +39,15 @@ export class Renderer{
    const plate=this.project(x,z-.05,.42);c.fillStyle='#e4d8a2';c.fillRect(plate.x-s*.27,plate.y-s*.12,s*.54,s*.21);
    this.hits.push({type:'van',x:b.x-7,y:b.y-6,w:b.w+14,h:b.h+13});
  }
- person(x,z,type,time){
-   const p=this.project(x,z),c=this.ctx,s=p.s,child=type==='child',h=child?1.18:1.7;
+ person(x,z,type,time,style=null){
+   const p=this.project(x,z),c=this.ctx,s=p.s,child=type==='child',h=style?1.76*style.height:child?1.18:1.7;
    if(p.d<2||p.d>200)return;
-   const walk=Math.sin(time*6.5)*.22;c.fillStyle='#203f5130';c.beginPath();c.ellipse(p.x,p.y,s*.45,s*.12,0,0,Math.PI*2);c.fill();
-   c.lineCap='round';c.strokeStyle='#334857';c.lineWidth=Math.max(2,s*.12);c.beginPath();c.moveTo(p.x,p.y-s*h*.45);c.lineTo(p.x+s*walk,p.y-s*.06);c.moveTo(p.x,p.y-s*h*.45);c.lineTo(p.x-s*walk,p.y-s*.06);c.stroke();
-   c.strokeStyle=child?'#daa64c':'#b76f60';c.lineWidth=s*.29;c.beginPath();c.moveTo(p.x,p.y-s*h*.75);c.lineTo(p.x,p.y-s*h*.4);c.stroke();
+   const walk=Math.sin(time*6.5*(style?.pace||1))*.22;c.fillStyle='#203f5130';c.beginPath();c.ellipse(p.x,p.y,s*.45,s*.12,0,0,Math.PI*2);c.fill();
+   c.lineCap='round';c.strokeStyle=style?.pants||'#334857';c.lineWidth=Math.max(2,s*.12);c.beginPath();c.moveTo(p.x,p.y-s*h*.45);c.lineTo(p.x+s*walk,p.y-s*.06);c.moveTo(p.x,p.y-s*h*.45);c.lineTo(p.x-s*walk,p.y-s*.06);c.stroke();
+   c.strokeStyle=style?.shirt||(child?'#daa64c':'#b76f60');c.lineWidth=s*.29;c.beginPath();c.moveTo(p.x,p.y-s*h*.75);c.lineTo(p.x,p.y-s*h*.4);c.stroke();
    c.lineWidth=s*.08;c.beginPath();c.moveTo(p.x-s*.08,p.y-s*h*.7);c.lineTo(p.x-s*.23,p.y-s*h*.45+s*walk);c.moveTo(p.x+s*.08,p.y-s*h*.7);c.lineTo(p.x+s*.25,p.y-s*h*.45-s*walk);c.stroke();
-   c.fillStyle='#e7b89a';c.beginPath();c.arc(p.x,p.y-s*h*.88,s*.17,0,Math.PI*2);c.fill();c.fillStyle=child?'#efcc67':'#453f3b';c.beginPath();c.ellipse(p.x,p.y-s*h*.96,s*.2,s*.09,0,Math.PI,Math.PI*2);c.fill();
+   c.fillStyle=style?.skin||'#e7b89a';c.beginPath();c.arc(p.x,p.y-s*h*.88,s*.17,0,Math.PI*2);c.fill();c.fillStyle=style?.hair||(child?'#efcc67':'#453f3b');c.beginPath();c.ellipse(p.x,p.y-s*h*.96,s*.2,s*.09,0,Math.PI,Math.PI*2);c.fill();
+   if(style?.bun){c.beginPath();c.arc(p.x+s*.15,p.y-s*h*.94,s*.1,0,Math.PI*2);c.fill();}
    if(child){c.fillStyle='#e8ba59';c.fillRect(p.x-s*.26,p.y-s*h*.95,s*.52,s*.035);}
    this.hits.push({type:'person',x:p.x-s*.4-12,y:p.y-s*h-12,w:s*.8+24,h:s*h+25});
  }
@@ -101,7 +103,7 @@ export class Renderer{
    if(sc.id==='parked')objects.push({z:hh-3.6,draw:()=>this.van(-3.95,hh-3.6)});
    const actorX=clamp(drive.actorX,-7,7);
    if(!drive.impact&&!drive.actorClear&&(sc.actor==='adult'||drive.eventTime!==null||hero||highlight)){objects.push({z:hh,draw:()=>sc.actor==='bike'?this.bike(actorX,hh,drive.time):this.person(actorX,hh,sc.actor,drive.eventTime||0)});}
-   if(drive.crowd)for(const a of drive.crowd){const f=a.hit?impactMotion(drive.time-a.hit.at,a.hit.speed):null,x=f?a.hit.x+f.x:a.x,z=f?a.hit.z+f.z:a.z;objects.push({z,draw:()=>{if(f){const p=this.project(x,z);c.save();c.translate(p.x,p.y-f.y*p.s);c.rotate(f.roll);c.translate(-p.x,-p.y);}this.person(x,z,'adult',a.elapsed);if(f)c.restore();}});}
+   if(drive.crowd)for(const a of drive.crowd){const f=a.hit?impactMotion(drive.time-a.hit.at,a.hit.speed):null,x=f?a.hit.x+f.x:a.x,z=f?a.hit.z+f.z:a.z;objects.push({z,draw:()=>{if(f){const p=this.project(x,z);c.save();c.translate(p.x,p.y-f.y*p.s);c.rotate(f.roll);c.translate(-p.x,-p.y);}this.person(x,z,'adult',a.elapsed,crowdStyle(a.id));if(f)c.restore();}});}
    objects.sort((a,b)=>b.z-a.z);objects.forEach(o=>o.draw());
    if(sc.id==='parked'&&drive.distance<70&&drive.distance>10){const p=this.project(-4.95,hh-4.5,.22);c.fillStyle='#bb7b5b';c.beginPath();c.arc(p.x,p.y,p.s*.16,0,Math.PI*2);c.fill();}
    if(highlight||drive.detected){const hit=this.hits.find(hh=>hh.type===sc.target);if(hit)this.marker(hit,drive.detected?'危険を発見':sc.id==='parked'?'車の陰に注意':sc.id==='crosswalk'?'渡りたい人':'交差点の死角');}

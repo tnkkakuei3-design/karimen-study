@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "node validate.mjs && node build-honmen.mjs && node build-static.mjs",
-    "test": "node validate.mjs && node build-honmen.mjs --check && node test-honmen.mjs && node test-course-unification.mjs && node test-notebook.mjs && node test-progress.mjs && node test-storage.mjs && node test-ui.mjs && node test-home-install.mjs && node test-town.mjs && node test-cloud.mjs && node test-cloud-client.mjs && node test-migration.mjs && node test-audio.mjs && node test-drive-ui.mjs && node test-drive-vehicle.mjs && node test-drive-effects.mjs && node test-drive-crowds.mjs && node test-character-placement.mjs && node test-drive-performance.mjs && node test-drive-renderer.mjs"
+    "test": "node validate.mjs && node build-honmen.mjs --check && node test-honmen.mjs && node test-course-unification.mjs && node test-notebook.mjs && node test-progress.mjs && node test-storage.mjs && node test-ui.mjs && node test-home-install.mjs && node test-town.mjs && node test-cloud.mjs && node test-cloud-client.mjs && node test-migration.mjs && node test-audio.mjs && node test-drive-ui.mjs && node test-drive-vehicle.mjs && node test-drive-effects.mjs && node test-drive-crowds.mjs && node test-drive-characters.mjs && node test-character-placement.mjs && node test-drive-performance.mjs && node test-drive-renderer.mjs"
   },
   "devDependencies": {
     "fake-indexeddb": "6.2.5",

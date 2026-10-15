@@ -38,6 +38,20 @@ export function posePedestrian(actor,{elapsed=null,time=0,flight=null,impactSpee
  }
  // The renderer (or cyclist IK below) updates world matrices after posing.
 }
+// Pool actors retain their skeleton/geometry; only their palette and proportions change.
+export function dressCrowd(actor,style){
+ const rig=actor.userData.rig;rig.crowdStyle=style;
+ actor.scale.set(style.height*style.width,style.height,style.height);
+ rig.head?.scale.setScalar(style.head);
+ rig.body.traverse(o=>{if(o.isMesh){const colors={Shirt:style.shirt,Pants:style.pants,Hair:style.hair,Skin:style.skin};if(colors[o.material.name])o.material.color.set(colors[o.material.name]);}});
+ if(!rig.bun){rig.bun=new THREE.Mesh(new THREE.SphereGeometry(.0013,10,8),new THREE.MeshStandardMaterial({roughness:.95}));rig.bun.name='hair-bun';rig.bun.position.set(0,.003,-.002);rig.head.add(rig.bun);}
+ rig.bun.visible=style.bun;rig.bun.material.color.set(style.hair);
+}
+export function poseCrowd(actor,a,time){
+ const rig=actor.userData.rig,style=rig.crowdStyle;
+ posePedestrian(actor,{elapsed:a.started===null?null:1+a.elapsed*style.pace,time:time+a.id*.31,flight:a.hit?time-a.hit.at:null,impactSpeed:a.hit?.speed});
+ if(!a.hit&&rig.torso)rig.torso.rotation.x+=style.stoop;
+}
 // Two-bone IK keeps hands on the bars and ankles on the rotating pedals.
 const V=()=>new THREE.Vector3();
 function aim(bone,child,target){
