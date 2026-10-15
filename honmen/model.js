@@ -33,6 +33,7 @@
           !a.keys.every(k => Array.isArray(k) && [1,3].includes(k.length) && k.every(bool)) ||
           !a.answers.every((v, i) => Array.isArray(v) && v.length === a.keys[i].length && v.every(x => x === null || bool(x))))
         throw new Error('本免の途中記録を確認できません。元の記録は保持しています。');
+      if(!session&&['previousScoreAtCompletion','bestScoreAtCompletion'].some(k=>a[k]!=null&&(!finite(a[k])||a[k]>a.maxScore)))throw new Error('本免の比較記録を確認できません。');
       if (a.uncertain == null) a.uncertain = a.ids.map(() => false);
       if (!Array.isArray(a.uncertain) || a.uncertain.length !== a.ids.length || !a.uncertain.every(bool)) throw new Error('自信の記録を確認できません。');
       if (session && (!Number.isInteger(a.index) || a.index < 0 || a.index >= a.ids.length || !finite(a.remainingMs) ||
@@ -98,6 +99,10 @@
       const record = {id:a.id, mode:a.mode, set:a.set, label:a.label, contentVersion:a.contentVersion,
         ids:a.ids, answers:a.answers, keys:a.keys, flags:a.flags, uncertain:a.uncertain, correctness, score, maxScore, answered:count,
         partial:count < a.ids.length && !timeout, timeout, completedAt:now()};
+      if(record.mode==='mock'&&!record.partial){
+        record.previousScoreAtCompletion=[...s.attempts].reverse().find(r=>r.mode==='mock'&&r.set===record.set&&!r.partial&&r.contentVersion===record.contentVersion)?.score??null;
+        record.bestScoreAtCompletion=Math.max(record.score,s.bestRecords[record.contentVersion+':'+record.set]?.score??0);
+      }
       s.attempts.push(record); s.attempts = s.attempts.slice(-60); s.sessions[slot] = null;
       if (record.mode==='mock'&&!record.partial) {
         const key=record.contentVersion+':'+record.set, previous=s.bestRecords[key];

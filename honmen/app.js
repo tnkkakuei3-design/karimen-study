@@ -8,7 +8,7 @@
   const date = value => new Intl.DateTimeFormat('ja-JP',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}).format(value);
   const categories = ['標識・標示','信号・合図','交差点・通行','歩行者保護','速度・車間距離','駐停車','高速道路','二輪車','危険予測','運転・点検','免許・心得'];
   const symbols = ['sign','signal','junction','person','speed','park','road','carStart','flag','gear','license'];
-  let model, storage, view='mock', slot=null, returnTab='mock', lastResult=null, toastTimer, pendingImport=null, checkpoint=0;
+  let model, storage, view='mock', slot=null, returnTab='mock', lastResult=null, toastTimer, pendingImport=null, checkpoint=0, resultSchedule='', windowFocused=true, pageActive=true;
   let bank, sets, version, reviewSchedule='';
   const displaySet = set => { const index=sets.indexOf(Number(set)); return index < 0 ? set : index+1; };
   const displayLabel = record => record.set && ['mock','guided'].includes(record.mode) ? `第${displaySet(record.set)}回・${record.mode==='mock'?'模試':'解説付き'}` : record.label;
@@ -47,7 +47,7 @@
     $('footer').hidden=next==='play'||next==='result'||next==='town';
     $('settings-button').disabled=next==='play';
     $('tabs').hidden=next==='play';
-    if(next==='play')renderPlay();else if(next==='result')renderResult(lastResult);else if(next!=='town')renderHome(next);
+    if(next==='play')renderPlay();else if(next==='result'){resultFilter=defaultResultFilter(lastResult);renderResult(lastResult);}else if(next!=='town')renderHome(next);
     window.KarimenHomeInstall?.sync();
     top();$('main').focus({preventScroll:true});
   }
@@ -107,10 +107,27 @@
       $('review').innerHTML=`<div class="page-heading character-heading"><div><h2>復習</h2><p class="muted">${completed?'今日の復習は完了です。':'初回はすぐに。次は30分あけて。'}</p></div>${characterArt(all.length||model.state.sessions.review?'D051':completed?'D011':'D012','review-guide')}</div>${resumes(['review'])}${all.length||model.state.sessions.review?`<section class="review-now-card" aria-labelledby="review-now-title"><h3 id="review-now-title">今すぐ復習</h3><p class="review-now-count">${schedule.due.length}<small>問</small></p>${schedule.due.length?btn('review-start',`${Math.min(95,schedule.due.length)}問を復習する ${icon('arrow')}`):`<p class="muted">今すぐの復習は完了です。${schedule.waiting.length?' 次は'+waitHTML(model.state.stats[schedule.waiting[0]].reviewAt)+'です。':''}</p>`}</section><section class="review-timing${schedule.waiting.length?'':' is-empty'}"><div class="review-timing-heading"><h3>${icon('clock')}次の復習待ち</h3><p class="review-wait-count">${schedule.waiting.length}<small>問</small></p></div>${schedule.waiting.length?`<p class="review-next-time">最短 ${waitHTML(model.state.stats[schedule.waiting[0]].reviewAt)}</p><p class="hintline">30分たつと「今すぐ復習」に移ります。待機中の問題は解けません。</p>`:''}</section>`:''}${all.length?`<div class="section-heading"><h3>復習する問題</h3><small>${all.length}問</small></div>${all.slice(0,reviewMore?all.length:10).map(id=>reviewRow(id,schedule.waiting.includes(id))).join('')}${all.length>10&&!reviewMore?'<button class="textbtn wide" data-h="review-more">すべての問題を見る</button>':''}`:`<div class="empty"><p>間違い・自信なしの問題がここに集まります。</p>${btn('tab','学習へ進む '+icon('arrow'),'data-tab="learn"',true)}</div>`}<details class="review-graduation"><summary>復習リストから卒業するには？</summary><p>初回の間違いはすぐ復習できます。1回正解したら30分後にもう一度。自信をもって2回正解すると卒業します。間違い・自信なしは回数をリセットし、30分後に再挑戦です。危険予測は3つすべての正解で1回に数えます。</p></details>`;
     }
   }
+  function historyGroups(records) {
+    const groups=[['50分模試',a=>a.contentVersion===version&&a.mode==='mock'&&!a.partial],['解説付き練習',a=>a.contentVersion===version&&a.mode==='guided'&&!a.partial],['途中終了',a=>a.contentVersion===version&&a.partial],['以前の問題版',a=>a.contentVersion!==version]];
+    return groups.map(([title,test])=>{const rows=records.filter(test).slice(-10).reverse();return rows.length?`<section class="h-history-group"><h3>${title}の記録</h3>${rows.map(a=>`<div class="history-row"><div>${a.mode==='mock'?'50分模試':'解説付き練習'}<small>${date(a.completedAt)}${a.partial?' · 途中終了':''}</small></div><b>${a.score}<small> / ${a.maxScore}点</small></b><button class="textbtn" data-h="history" data-record="${a.id}">回答を見る</button></div>`).join('')}</section>`:'';}).join('');
+  }
+  function defaultResultFilter(a) {
+    if(a?.correctness.some(v=>v===false))return 'wrong';
+    if(a?.ids.some((id,i)=>a.correctness[i]!==null&&(a.flags?.[i]||a.uncertain?.[i])))return 'uncertain';
+    return 'all';
+  }
+  function refreshResultReview() {
+    if(view!=='result'||!lastResult||dialog.open||$('figure-dialog').open||resultSchedule===JSON.stringify(model.schedule()))return;
+    const root=$('result'),opened=[...root.querySelectorAll('details')].map(el=>el.open),active=document.activeElement,buttons=[...root.querySelectorAll('button')],focusIndex=buttons.indexOf(active),y=window.scrollY;
+    renderResult(lastResult);
+    root.querySelectorAll('details').forEach((el,i)=>el.open=!!opened[i]);
+    if(focusIndex>=0){const replacement=[...root.querySelectorAll('button')].find(el=>el.dataset.h===active.dataset.h&&el.dataset.category===active.dataset.category&&el.dataset.value===active.dataset.value);(replacement||$('result-title')).focus({preventScroll:true});}
+    window.scrollTo({top:y,behavior:'instant'});
+  }
   function setDetail(set) {
     if(model.state.sessions.mock?.set===set){resume('mock');return;}
     const records=model.state.attempts.filter(a=>a.set===set),best=model.best(set),recent=records.filter(a=>a.mode==='mock'&&!a.partial&&a.contentVersion===version).slice(-3);
-    open(`第${displaySet(set)}回`,`<span class="badge">教習問題ベース</span><div class="details-list"><div><b>95問</b><span>文章90問＋危険予測5問</span></div><div><b>50分</b><span>採点後に解説</span></div></div><p class="detail-pass">90点以上で、このアプリ内の合格です。</p><p class="detail-timer muted">${icon('clock')}中断中や別アプリを開いている間は、タイマーが止まります。</p><div class="stack">${btn('start-set','50分模試を始める '+icon('arrow'),`data-set="${set}" data-mode="mock"`)}${btn('start-set','この回を解説付きで練習',`data-set="${set}" data-mode="guided"`,true)}</div><details class="detail-rules"><summary>模試のルール・問題の内訳</summary><div class="detail-rules-body"><h3>出題の順番</h3><p>文章問題90問、危険予測5問の順で、それぞれ毎回並べ替えます。途中再開では同じ順番です。解説付き練習は教材の順番で進みます。</p><h3>配点</h3><p>文章は1問1点。危険予測は3つすべて正解で2点、部分点はありません。</p><h3>途中終了・時間切れ</h3><p>途中終了は合否・最高点の対象外です。時間切れは100点満点で採点します。未回答は学習の正解率・復習に含めません。</p></div></details><h3>50分模試の記録</h3>${best?`<p class="inline"><span class="badge success">最高 ${best.score}点</span></p>`:''}${recent.length?`<p class="recent-mock">直近${recent.length}回：${recent.map(a=>a.score+'点').join(' → ')}</p>`:'<p class="muted">まだ受験していません。</p>'}${records.slice(-10).reverse().map(a=>`<div class="history-row"><div>${a.mode==='mock'?'50分模試':'解説付き練習'}<small>${date(a.completedAt)}${a.partial?' · 途中終了':''}${a.contentVersion!==version?' · 以前の問題版':''}</small></div><b>${a.score}<small> / ${a.maxScore}点</small></b><button class="textbtn" data-h="history" data-record="${a.id}">回答を見る</button></div>`).join('')}`);
+    open(`第${displaySet(set)}回`,`<span class="badge">教習問題ベース</span><div class="details-list"><div><b>95問</b><span>文章90問＋危険予測5問</span></div><div><b>50分</b><span>採点後に解説</span></div></div><p class="detail-pass">90点以上で、このアプリ内の合格です。</p><p class="detail-timer muted">${icon('clock')}中断中や別アプリを開いている間は、タイマーが止まります。</p><div class="stack">${btn('start-set','50分模試を始める '+icon('arrow'),`data-set="${set}" data-mode="mock"`)}${btn('start-set','この回を解説付きで練習',`data-set="${set}" data-mode="guided"`,true)}</div><details class="detail-rules"><summary>模試のルール・問題の内訳</summary><div class="detail-rules-body"><h3>出題の順番</h3><p>文章問題90問、危険予測5問の順で、それぞれ毎回並べ替えます。途中再開では同じ順番です。解説付き練習は教材の順番で進みます。</p><h3>配点</h3><p>文章は1問1点。危険予測は3つすべて正解で2点、部分点はありません。</p><h3>途中終了・時間切れ</h3><p>途中終了は合否・最高点の対象外です。時間切れは100点満点で採点します。未回答は学習の正解率・復習に含めません。</p></div></details><h3>50分模試の記録</h3>${best?`<p class="inline"><span class="badge success">最高 ${best.score}点</span></p>`:''}${recent.length?`<p class="recent-mock">直近${recent.length}回：${recent.map(a=>a.score+'点').join(' → ')}</p>`:'<p class="muted">まだ受験していません。</p>'}${historyGroups(records)}`);
   }
   function renderNotes() {HonmenNotes.render($('learn-notes'),{search:noteSearch,filter:noteFilter,bank});}
   function time(ms) { const seconds=Math.ceil(ms/1000);return `${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`; }
@@ -160,12 +177,14 @@
   }
   function renderResult(a) {
     if(!a){changeView('review');return;}
+    resultSchedule=JSON.stringify(model.schedule());
     const current=a.contentVersion===version,full=a.mode==='mock'&&!a.partial&&a.maxScore===100,passed=full&&a.score>=90;
-    const previous=model.state.attempts.filter(r=>r.id!==a.id&&r.mode===a.mode&&r.set===a.set&&!r.partial&&r.contentVersion===a.contentVersion&&r.completedAt<a.completedAt).at(-1),diff=previous?a.score-previous.score:null;
+    const index=model.state.attempts.findIndex(r=>r.id===a.id),earlier=model.state.attempts.slice(0,Math.max(0,index)).filter(r=>r.mode===a.mode&&r.set===a.set&&!r.partial&&r.contentVersion===a.contentVersion);
+    const previousScore=a.previousScoreAtCompletion??earlier.at(-1)?.score,diff=previousScore==null?null:a.score-previousScore,bestScore=a.bestScoreAtCompletion??Math.max(a.score,...earlier.map(r=>r.score));
     const schedule=model.schedule(),due=a.ids.filter(id=>schedule.due.includes(id)),waiting=a.ids.filter(id=>schedule.waiting.includes(id)),unanswered=a.ids.filter((id,i)=>a.correctness[i]===null);
     const groups=categories.map(cat=>{const rows=a.ids.map((id,i)=>({q:model.byId.get(id),i})).filter(x=>x.q?.category===cat&&a.correctness[x.i]!==null);return {cat,total:rows.length,correct:rows.filter(x=>a.correctness[x.i]).length};}).filter(x=>x.total).sort((x,y)=>x.correct/x.total-y.correct/y.total);
     const visible=a.ids.map((id,i)=>i).filter(i=>resultFilter==='all'||(resultFilter==='wrong'?a.correctness[i]===false:resultFilter==='unanswered'?a.correctness[i]===null:!!a.flags?.[i]||!!a.uncertain?.[i]));
-    $('result').innerHTML=`<div class="playhead">${btn('home',icon('back')+'一覧へ','',true)}<span class="muted">${date(a.completedAt)}</span></div><article class="result-card"><h2 class="result-label" id="result-title" tabindex="-1">${esc(displayLabel(a))}の結果</h2><div class="result-hero"><div><div class="score">${a.score}<small>/ ${a.maxScore}点</small></div></div>${characterArt(passed?'D011':'D013',passed?'result-character':'result-character result-character-solo')}</div>${a.timeout?'<p class="muted">制限時間になったため100点満点で採点しました。未回答は0点ですが、学習の正解率・復習には含めません。</p>':''}${a.partial?`<div class="notice partial-result">途中終了 · ${a.answered} / ${a.ids.length}問に回答。未回答は学習の正解率・復習に含めません。合否・最高点の対象外です。</div>`:achievement(a)}<details class="result-score-details"><summary>成績の詳細</summary><p class="accuracy">回答した問題の正解率 <strong>${a.answered?pct(a.correctness.filter(v=>v===true).length,a.answered)+'%':'—'}</strong></p><p>${a.correctness.filter(v=>v===true).length} / ${a.ids.length}問 正解。危険予測は3つすべて正解で2点です。</p>${full?`<div class="comparison"><div><span>前回との比較</span><b>${diff===null?'<small>はじめての記録</small>':(diff>0?'+':'')+diff+'点'}</b></div><div><span>最高点</span><b>${model.best(a.set)?.score??a.score}<small> / 100点</small></b></div></div>`:''}</details>${reviewProgress(a)}<div class="result-actions">${due.length&&current?btn('result-review',`${Math.min(95,due.length)}問を復習する ${icon('arrow')}`):btn('tab',waiting.length?'復習の予定を見る':'学習を続ける',`data-tab="${waiting.length?'review':'learn'}"`)}${waiting.length?`<p class="muted">次の復習待ち ${waiting.length}問 · 最短 ${waitHTML(Math.min(...waiting.map(id=>model.state.stats[id].reviewAt)))}</p>`:''}${unanswered.length&&current?btn('result-unanswered',`未回答の${unanswered.length}問を学ぶ ${icon('book')}`,'',true):''}${a.set&&current?btn('start-set','この回を解説付きで練習',`data-set="${a.set}" data-mode="guided"`,true):''}</div>${groups.length?`<section class="result-weak"><h3>分野別の成績</h3><p class="muted">回答済みの問題を、正解率の低い順に表示。</p><div class="weak-topics">${groups.map(g=>topicResult(g,a,current)).join('')}</div></section>`:''}</article><div class="section-heading"><h3>回答を振り返る</h3></div>${filters('result-filter',resultFilter,[['wrong','間違い'],['unanswered','未回答'],['uncertain','自信なし'],['all','すべて']])}${current?`<div class="h-results">${visible.map(i=>resultQuestion(a,i)).join('')||'<div class="empty">該当する問題はありません。「すべて」で全回答を確認できます。</div>'}</div>`:'<div class="notice">以前の問題版での成績です。当時の回答・正解を表示します。</div>'+visible.map(i=>`<div class="card"><b>${i+1}問目</b>${answerLines(a.keys[i],a.answers[i])}</div>`).join('')}`;
+    $('result').innerHTML=`<div class="playhead">${btn('home',icon('back')+'一覧へ','',true)}<span class="muted">${date(a.completedAt)}</span></div><article class="result-card"><h2 class="result-label" id="result-title" tabindex="-1">${esc(displayLabel(a))}の結果</h2><div class="result-hero"><div><div class="score">${a.score}<small>/ ${a.maxScore}点</small></div></div>${characterArt(passed?'D011':'D013',passed?'result-character':'result-character result-character-solo')}</div>${a.timeout?'<p class="muted">制限時間になったため100点満点で採点しました。未回答は0点ですが、学習の正解率・復習には含めません。</p>':''}${a.partial?`<div class="notice partial-result">途中終了 · ${a.answered} / ${a.ids.length}問に回答。未回答は学習の正解率・復習に含めません。合否・最高点の対象外です。</div>`:achievement(a)}<details class="result-score-details"><summary>成績の詳細</summary><p class="accuracy">回答した問題の正解率 <strong>${a.answered?pct(a.correctness.filter(v=>v===true).length,a.answered)+'%':'—'}</strong></p><p>${a.correctness.filter(v=>v===true).length} / ${a.ids.length}問 正解。危険予測は3つすべて正解で2点です。</p>${full?`<div class="comparison"><div><span>前回との比較</span><b>${diff===null?'<small>はじめての記録</small>':(diff>0?'+':'')+diff+'点'}</b></div><div><span>${a.bestScoreAtCompletion==null?'保存記録内の最高点':'今回までの最高点'}</span><b>${bestScore}<small> / 100点</small></b></div></div>`:''}</details>${reviewProgress(a)}<div class="result-actions">${due.length&&current?btn('result-review',`${Math.min(95,due.length)}問を復習する ${icon('arrow')}`):btn('tab',waiting.length?'復習の予定を見る':'学習を続ける',`data-tab="${waiting.length?'review':'learn'}"`)}${waiting.length?`<p class="muted">次の復習待ち ${waiting.length}問 · 最短 ${waitHTML(Math.min(...waiting.map(id=>model.state.stats[id].reviewAt)))}</p>`:''}${unanswered.length&&current?btn('result-unanswered',`未回答の${unanswered.length}問を学ぶ ${icon('book')}`,'',true):''}${a.set&&current?btn('start-set','この回を解説付きで練習',`data-set="${a.set}" data-mode="guided"`,true):''}</div>${groups.length?`<section class="result-weak"><h3>分野別の成績</h3><p class="muted">回答済みの問題を、正解率の低い順に表示。</p><div class="weak-topics">${groups.map(g=>topicResult(g,a,current)).join('')}</div></section>`:''}</article><div class="section-heading"><h3>回答を振り返る</h3></div>${filters('result-filter',resultFilter,[['wrong','間違い'],['unanswered','未回答'],['uncertain','自信なし'],['all','すべて']])}${current?`<div class="h-results">${visible.map(i=>resultQuestion(a,i)).join('')||'<div class="empty">該当する問題はありません。「すべて」で全回答を確認できます。</div>'}</div>`:'<div class="notice">以前の問題版での成績です。当時の回答・正解を表示します。</div>'+visible.map(i=>`<div class="card"><b>${i+1}問目</b>${answerLines(a.keys[i],a.answers[i])}</div>`).join('')}`;
   }
   function settings() {
     const s=model.state.settings,hasSessions=Object.values(model.state.sessions).some(Boolean);
@@ -259,14 +278,17 @@
     const tabs=['mock','learn','review'],i=tabs.indexOf(view);if(i<0)return;event.preventDefault();
     const index=event.key==='Home'?0:event.key==='End'?2:(i+(event.key==='ArrowRight'?1:2))%3;changeView(tabs[index]);$('tab-'+tabs[index]).focus();
   });
-  document.addEventListener('visibilitychange',()=>{
+  function syncActivity() {
     if(!model||view!=='play')return;
-    if(document.hidden){model.pause();storage.flush();}
+    if(document.hidden||!windowFocused||!pageActive){model.pause();storage.flush();}
     else if(checked(model.resume(slot))){renderPlay();checkpoint=Date.now();}
     warn();
-  });
-  window.addEventListener('pagehide',()=>{if(model&&view==='play')model.pause();storage?.flush();});
-  window.addEventListener('pageshow',event=>{if(event.persisted&&model&&view==='play'){if(checked(model.resume(slot)))renderPlay();}});
+  }
+  document.addEventListener('visibilitychange',syncActivity);
+  window.addEventListener('blur',()=>{windowFocused=false;syncActivity();});
+  window.addEventListener('focus',()=>{windowFocused=true;syncActivity();refreshResultReview();});
+  window.addEventListener('pagehide',()=>{pageActive=false;syncActivity();storage?.flush();});
+  window.addEventListener('pageshow',()=>{pageActive=true;syncActivity();refreshResultReview();});
   window.addEventListener('storage',()=>warn());
   window.matchMedia?.('(prefers-color-scheme:dark)').addEventListener?.('change',()=>model&&applySettings());
   window.HonmenReady=(async()=>{
@@ -283,6 +305,7 @@
       window.KarimenTown?.init({canOpen:()=>view!=='play',open:()=>{if(view!=='town')townReturn=view;changeView('town');},back:()=>changeView(['mock','learn','review'].includes(townReturn)?townReturn:'mock'),notify:toast});
       setInterval(()=>{
         if(!model||document.hidden)return;
+        refreshResultReview();
         document.querySelectorAll('[data-review-at]').forEach(el=>{const at=Number(el.dataset.reviewAt);el.textContent=at<=Date.now()?'今すぐ復習':waitLabel(at);});
         if(view==='play'&&slot==='mock') {
           if(!model.state.sessions.mock)return;
