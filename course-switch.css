@@ -1,9 +1,9 @@
-.course-switch{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;margin:-8px 0 26px;background:var(--soft);border:1px solid var(--line);border-radius:12px}
-.course-switch a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:7px 12px;color:var(--muted);font-weight:700;text-decoration:none;border-radius:8px}
+.course-switch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:4px;margin:-8px 0 26px;background:var(--soft);border:1px solid var(--line);border-radius:12px}
+.course-switch a{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;min-width:0;min-height:54px;padding:7px 4px;line-height:1.4;white-space:nowrap;color:var(--muted);font-weight:700;text-decoration:none;border-radius:8px}
 .course-switch a[aria-current=page]{background:var(--surface);color:var(--blue);box-shadow:0 1px 4px #16375312}
 .course-switch small{font-size:11px;font-weight:500}
 .play-active .course-switch,.focused-view .course-switch{display:none}
-@media(max-width:360px){.course-switch small{display:none}}
+@media(max-width:360px){.course-switch a{font-size:14px}.course-switch small{font-size:10px}}
 
 .course-town-entry{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;text-align:left;padding:14px 18px;margin:-10px 0 24px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--fg);min-height:64px;cursor:pointer;font:inherit}
 .course-town-entry strong{display:block;font-size:15px;color:var(--blue)}
@@ -11,7 +11,3 @@
 .course-town-entry-meta{display:flex;align-items:center;gap:12px;flex-shrink:0;font-size:26px}
 .course-town-entry:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
 .play-active .course-town-entry,.focused-view .course-town-entry,.town-active .course-town-entry{display:none}
-
-.course-drive-entry{display:flex;align-items:center;gap:12px;padding:13px 18px;margin:-10px 0 24px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--blue);text-decoration:none;min-height:64px;box-sizing:border-box}
-.course-drive-entry>span:first-of-type{flex:1}.course-drive-entry strong{display:block;font-size:15px}.course-drive-entry small{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:3px}.course-drive-entry>span:last-child{font-size:26px}.course-drive-entry:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
-.play-active .course-drive-entry,.focused-view .course-drive-entry,.town-active .course-drive-entry{display:none}
