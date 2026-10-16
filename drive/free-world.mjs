@@ -1,3 +1,4 @@
+import {installExternalAssets} from './external-assets.mjs?v=1';
 import {createCar} from './free-car.mjs?v=1';
 import {addRoadSurfaces} from './road-surfaces.mjs?v=2';
 import {addDistricts} from './district-scenery.mjs?v=4';
@@ -28,18 +29,20 @@ export function createWorld(canvas){
  for(const p of PLACES){box(p.x,.12,p.z,9,.15,9,0xd2c9a8);box(p.x,2.5,p.z+4,.15,5,.15,0x5e7478);label(p.name,p.x,5.4,p.z+4,p.color);}
  function label(text,x,y,z,color){const c=document.createElement('canvas');c.width=512;c.height=128;const ctx=c.getContext('2d');ctx.fillStyle='#faf8ee';ctx.fillRect(0,0,512,128);ctx.fillStyle='#'+color.toString(16).padStart(6,'0');ctx.fillRect(0,0,16,128);ctx.font='bold 48px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,262,66);const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;const sign=new T.Sprite(new T.SpriteMaterial({map:tex,depthTest:true}));sign.position.set(x,y,z);sign.scale.set(12,3,1);scene.add(sign);}
  const trunks=[],crowns=[];for(let i=0;i<65;i++){const x=i<35?-101+(i%7)*14:137,z=i<35?-101+Math.floor(i/7)*15:-132+(i-35)*9;if(i<35&&Math.abs(x+58)<8)continue;trunks.push([x,1.2,z]);crowns.push([x,3.5,z]);}
- function instances(geometry,color,positions,scale){const mesh=new T.InstancedMesh(geometry,mat(color),positions.length),dummy=new T.Object3D();positions.forEach((p,i)=>{dummy.position.set(...p);dummy.scale.set(...scale);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.castShadow=true;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);}
- instances(cube,0x80684b,trunks,[.5,2.4,.5]);instances(new T.IcosahedronGeometry(1,0),0x547e58,crowns,[2.5,2.8,2.5]);
+ function instances(geometry,color,positions,scale){const mesh=new T.InstancedMesh(geometry,mat(color),positions.length),dummy=new T.Object3D();positions.forEach((p,i)=>{dummy.position.set(...p);dummy.scale.set(...scale);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.castShadow=true;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);return mesh;}
+ const treeMeshes=[];
+ treeMeshes.push(instances(cube,0x80684b,trunks,[.5,2.4,.5]));treeMeshes.push(instances(new T.IcosahedronGeometry(1,0),0x547e58,crowns,[2.5,2.8,2.5]));
  addRoadSurfaces(box);
  addShopBlock({scene,box,mat});
  addDistricts({scene,box,mat});
  // Thin ground layers and facade decals receive shadows but never cast onto themselves.
  for(const {color,cast,items:arr}of batches.values()){const mesh=new T.InstancedMesh(cube,mat(color),arr.length),dummy=new T.Object3D();arr.forEach((b,i)=>{dummy.position.set(b.x,b.y,b.z);dummy.scale.set(b.w,b.h,b.d);dummy.rotation.y=b.ry;dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.castShadow=cast;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);}
  const {car,wheels,lamps,red,braking}=createCar();scene.add(car);
+ const assetsReady=installExternalAssets({scene,renderer,materials,car,wheels,lamps,trunks,treeMeshes});
  const target=new T.Vector3(),look=new T.Vector3();let first=true,low=false,inside=false,lastW=0,lastH=0;
  function render(d,dt){const w=canvas.clientWidth,h=canvas.clientHeight;if(w!==lastW||h!==lastH){renderer.setPixelRatio(low?1:Math.min(devicePixelRatio,2,Math.sqrt(1400000/Math.max(1,w*h))));renderer.setSize(w,h,false);camera.aspect=w/Math.max(h,1);camera.updateProjectionMatrix();lastW=w;lastH=h;}
  car.position.set(d.x,0,d.z);car.rotation.y=-d.heading;car.visible=!inside;wheels.forEach(m=>m.rotation.y=-d.steer*.4);lamps.forEach(m=>m.material=d.input.brake?braking:red);
  const sx=Math.sin(d.heading),sz=-Math.cos(d.heading);target.set(d.x-sx*(inside?-.6:9),inside?1.65:5.4,d.z-sz*(inside?-.6:9));look.set(d.x+sx*18,inside?1.45:1.4,d.z+sz*18);
  if(first||inside)camera.position.copy(target);else camera.position.lerp(target,1-Math.exp(-dt*9));first=false;camera.lookAt(look);renderer.render(scene,camera);}
- return{render,reset(){first=true;},camera(){inside=!inside;first=true;return inside;},quality(){low=!low;renderer.shadowMap.enabled=!low;renderer.shadowMap.needsUpdate=true;renderer.setPixelRatio(low?1:Math.min(devicePixelRatio,2));lastW=0;return low;}};
+ return{render,assetsReady,reset(){first=true;},camera(){inside=!inside;first=true;return inside;},quality(){low=!low;renderer.shadowMap.enabled=!low;renderer.shadowMap.needsUpdate=true;renderer.setPixelRatio(low?1:Math.min(devicePixelRatio,2));lastW=0;return low;}};
 }
