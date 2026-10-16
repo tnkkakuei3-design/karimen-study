@@ -1,3 +1,4 @@
+import {wheelSurface} from './road-surfaces.mjs?v=1';
 import {districtProps} from './district-layout.mjs?v=1';
 export const STREETS=[-120,0,120];
 export const LIMIT=145;
@@ -29,6 +30,9 @@ export class FreeDrive{
  if(brake)this.v=Math.sign(this.v)*Math.max(0,Math.abs(this.v)-9*dt);
  else if(gas)this.v+=this.gear*(this.gear===1?4.6:3)*dt;
  else this.v=Math.sign(this.v)*Math.max(0,Math.abs(this.v)-.75*dt);
+ const surface=wheelSurface(this.x,this.z,this.heading);
+ // Wheel contact applies resistance in either gear, while allowing escape at low speed.
+ if(surface!=='road'){const limit=surface==='curb'?2:3;this.v=Math.sign(this.v)*Math.max(0,Math.abs(this.v)-(Math.abs(this.v)>limit?12:1.2)*dt);}
  const top=onRoad(this.x,this.z)?22:5;this.v=Math.max(-5,Math.min(top,this.v));
  const angle=this.steer*.58/(1+Math.abs(this.v)*.07),h=this.heading+this.v/2.7*Math.tan(angle)*dt;
  const x=this.x+Math.sin(h)*this.v*dt,z=this.z-Math.cos(h)*this.v*dt;

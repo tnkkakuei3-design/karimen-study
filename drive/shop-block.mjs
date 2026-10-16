@@ -1,5 +1,5 @@
 import * as T from './vendor/three.module.min.js';
-import {STREET_PROPS} from './free-model.mjs?v=district1';
+import {STREET_PROPS} from './free-model.mjs?v=curb1';
 // Six west-facing shopfronts on the central street. All dimensions are metres.
 export const SHOPS=[
  {z:-90,name:'みなと食堂',sub:'定食・沖縄そば',color:0x925044},
@@ -42,7 +42,6 @@ export function addShopBlock({scene,box,mat}){
  // Curbs and drainage stay outside the sixteen-metre carriageway, with intersection gaps.
  for(const side of [-1,1])for(const [a,b] of [[-108,-14],[14,108]]){
   const z=(a+b)/2,len=b-a;
-  box(side*9,.2,z,1.7,.3,len,0xc8c2ae);box(side*8.08,.25,z,.16,.36,len,0xe4ded1);
   box(side*7.8,.15,z,.32,.025,len,0x697777);
   for(let n=a+3;n<b;n+=6){box(side*9,.36,n,1.7,.015,.035,0xb5b2a6);box(side*7.8,.18,n,.32,.025,.55,0x424e4c);}
  }
