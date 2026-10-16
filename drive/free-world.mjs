@@ -1,9 +1,11 @@
 import * as T from './vendor/three.module.min.js';
-import {STREETS,BUILDINGS,PLACES} from './free-model.mjs?v=1';
+import {addShopBlock} from './shop-block.mjs?v=1';
+import {STREETS,BUILDINGS,PLACES} from './free-model.mjs?v=shop1';
 export function createWorld(canvas){
  const renderer=new T.WebGLRenderer({canvas,antialias:false,powerPreference:'low-power'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.outputColorSpace=T.SRGBColorSpace;
- const scene=new T.Scene();scene.background=new T.Color(0xb8d5df);scene.fog=new T.Fog(0xb8d5df,110,330);
- const camera=new T.PerspectiveCamera(58,1,.15,430);scene.add(new T.HemisphereLight(0xf2f7ff,0x69724d,2.5));const sun=new T.DirectionalLight(0xffecd1,2.1);sun.position.set(-80,130,60);scene.add(sun);
+ const scene=new T.Scene();scene.background=new T.Color(0xc5d9dd);scene.fog=new T.Fog(0xc5d9dd,100,300);
+ const camera=new T.PerspectiveCamera(58,1,.15,430);scene.add(new T.HemisphereLight(0xf2f7ff,0x69724d,2.5));const sun=new T.DirectionalLight(0xffecd1,2.1);sun.position.set(-65,95,45);scene.add(sun);
+ renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFShadowMap;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-170,right:170,top:170,bottom:-170,near:1,far:320});sun.shadow.bias=-.001;sun.shadow.normalBias=.15;
  const cube=new T.BoxGeometry(1,1,1),batches=new Map(),materials=new Map();
  function mat(color){if(!materials.has(color))materials.set(color,new T.MeshLambertMaterial({color}));return materials.get(color);}
  function box(x,y,z,w,h,d,color,ry=0){const arr=batches.get(color)||[];arr.push({x,y,z,w,h,d,ry});batches.set(color,arr);}
@@ -19,9 +21,10 @@ export function createWorld(canvas){
  for(const p of PLACES){box(p.x,.12,p.z,9,.15,9,0xd2c9a8);box(p.x,2.5,p.z+4,.15,5,.15,0x5e7478);label(p.name,p.x,5.4,p.z+4,p.color);}
  function label(text,x,y,z,color){const c=document.createElement('canvas');c.width=512;c.height=128;const ctx=c.getContext('2d');ctx.fillStyle='#faf8ee';ctx.fillRect(0,0,512,128);ctx.fillStyle='#'+color.toString(16).padStart(6,'0');ctx.fillRect(0,0,16,128);ctx.font='bold 48px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,262,66);const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;const sign=new T.Sprite(new T.SpriteMaterial({map:tex,depthTest:true}));sign.position.set(x,y,z);sign.scale.set(12,3,1);scene.add(sign);}
  const trunks=[],crowns=[];for(let i=0;i<65;i++){const x=i<35?-101+(i%7)*14:137,z=i<35?-101+Math.floor(i/7)*15:-132+(i-35)*9;if(i<35&&Math.abs(x+58)<8)continue;trunks.push([x,1.2,z]);crowns.push([x,3.5,z]);}
- function instances(geometry,color,positions,scale){const mesh=new T.InstancedMesh(geometry,mat(color),positions.length),dummy=new T.Object3D();positions.forEach((p,i)=>{dummy.position.set(...p);dummy.scale.set(...scale);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.computeBoundingSphere();scene.add(mesh);}
+ function instances(geometry,color,positions,scale){const mesh=new T.InstancedMesh(geometry,mat(color),positions.length),dummy=new T.Object3D();positions.forEach((p,i)=>{dummy.position.set(...p);dummy.scale.set(...scale);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.castShadow=true;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);}
  instances(cube,0x80684b,trunks,[.5,2.4,.5]);instances(new T.IcosahedronGeometry(1,0),0x547e58,crowns,[2.5,2.8,2.5]);
- for(const [color,arr]of batches){const mesh=new T.InstancedMesh(cube,mat(color),arr.length),dummy=new T.Object3D();arr.forEach((b,i)=>{dummy.position.set(b.x,b.y,b.z);dummy.scale.set(b.w,b.h,b.d);dummy.rotation.y=b.ry;dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.computeBoundingSphere();scene.add(mesh);}
+ addShopBlock({scene,box,mat});
+ for(const [color,arr]of batches){const mesh=new T.InstancedMesh(cube,mat(color),arr.length),dummy=new T.Object3D();arr.forEach((b,i)=>{dummy.position.set(b.x,b.y,b.z);dummy.scale.set(b.w,b.h,b.d);dummy.rotation.y=b.ry;dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.castShadow=true;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);}
  const car=new T.Group();function part(x,y,z,w,h,d,color){const m=new T.Mesh(cube,mat(color));m.position.set(x,y,z);m.scale.set(w,h,d);car.add(m);return m;}
  part(0,.7,0,1.8,.65,4.1,0xf0cd68);part(0,1.22,.12,1.56,.65,2.12,0xe9e7db);part(0,1.3,-.96,1.4,.42,.04,0x54777f);part(0,1.3,1.2,1.4,.42,.04,0x54777f);part(-.79,1.3,.12,.03,.4,1.8,0x54777f);part(.79,1.3,.12,.03,.4,1.8,0x54777f);
  const wheels=[];for(const x of [-.94,.94])for(const z of [-1.25,1.25]){const m=new T.Mesh(new T.CylinderGeometry(.36,.36,.22,12),mat(0x293435));m.rotation.z=Math.PI/2;m.position.set(x,.38,z);car.add(m);if(z<0)wheels.push(m);}
@@ -31,5 +34,5 @@ export function createWorld(canvas){
  car.position.set(d.x,0,d.z);car.rotation.y=-d.heading;car.visible=!inside;wheels.forEach(m=>m.rotation.y=-d.steer*.4);lamps.forEach(m=>m.material=mat(d.input.brake?0xff483b:0x9e4037));
  const sx=Math.sin(d.heading),sz=-Math.cos(d.heading);target.set(d.x-sx*(inside?-.6:9),inside?1.65:5.4,d.z-sz*(inside?-.6:9));look.set(d.x+sx*18,inside?1.45:1.4,d.z+sz*18);
  if(first||inside)camera.position.copy(target);else camera.position.lerp(target,1-Math.exp(-dt*9));first=false;camera.lookAt(look);renderer.render(scene,camera);}
- return{render,reset(){first=true;},camera(){inside=!inside;first=true;return inside;},quality(){low=!low;renderer.setPixelRatio(low?1:Math.min(devicePixelRatio,1.5));lastW=0;return low;}};
+ return{render,reset(){first=true;},camera(){inside=!inside;first=true;return inside;},quality(){low=!low;renderer.shadowMap.enabled=!low;renderer.shadowMap.needsUpdate=true;renderer.setPixelRatio(low?1:Math.min(devicePixelRatio,1.5));lastW=0;return low;}};
 }

@@ -3,12 +3,14 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import {JSDOM} from 'jsdom';
 import * as Three from './drive/vendor/three.module.min.js';
-import {FreeDrive,STREETS,BUILDINGS,PLACES} from './drive/free-model.mjs';
+import {FreeDrive,STREETS,BUILDINGS,PLACES,STREET_PROPS,blocked} from './drive/free-model.mjs';
 const dom=new JSDOM('<canvas id="world"></canvas>',{runScripts:'outside-only'}),w=dom.window;
 w.HTMLCanvasElement.prototype.getContext=()=>new Proxy({},{get:()=>()=>{}});
 let renders=0,scene;
-class Renderer{setPixelRatio(){}setSize(){}render(s,c){scene=s;renders++;assert.ok(c.projectionMatrix.elements.every(Number.isFinite));s.traverse(o=>{assert.ok(o.position.toArray().every(Number.isFinite));if(o.isInstancedMesh)assert.ok(o.instanceMatrix.array.every(Number.isFinite));});}}
-Object.assign(w,{T:{...Three,WebGLRenderer:Renderer},STREETS,BUILDINGS,PLACES});
+class Renderer{shadowMap={};setPixelRatio(){}setSize(){}render(s,c){scene=s;renders++;assert.ok(c.projectionMatrix.elements.every(Number.isFinite));s.traverse(o=>{assert.ok(o.position.toArray().every(Number.isFinite));if(o.isInstancedMesh)assert.ok(o.instanceMatrix.array.every(Number.isFinite));});}}
+Object.assign(w,{T:{...Three,WebGLRenderer:Renderer},STREETS,BUILDINGS,PLACES,STREET_PROPS});
 const source=fs.readFileSync(new URL('./drive/free-world.mjs',import.meta.url),'utf8').replace(/^import .*;\n/gm,'').replace('export function createWorld','function createWorld');
-vm.runInContext(source+'\nglobalThis.worldTest=createWorld(document.getElementById("world"));',dom.getInternalVMContext());
-const d=new FreeDrive();w.worldTest.render(d,.016);w.worldTest.camera();w.worldTest.render(d,.016);w.worldTest.quality();d.heading=Math.PI;w.worldTest.render(d,.016);assert.equal(renders,3);assert.ok(scene.children.length<60);console.log('PASS: 3D scene construction, finite geometry/camera state, both views and quality switch; static world uses instanced geometry. GPU pixels not tested.');dom.window.close();
+const shops=fs.readFileSync(new URL('./drive/shop-block.mjs',import.meta.url),'utf8').replace(/^import .*;\n/gm,'').replace(/^export /gm,'');
+vm.runInContext(shops+'\n'+source+'\nglobalThis.worldTest=createWorld(document.getElementById("world"));',dom.getInternalVMContext());
+for(const p of STREET_PROPS)assert.ok(blocked(p.x,p.z));assert.equal(blocked(0,-60),false);
+const d=new FreeDrive();w.worldTest.render(d,.016);w.worldTest.camera();w.worldTest.render(d,.016);w.worldTest.quality();d.heading=Math.PI;w.worldTest.render(d,.016);assert.equal(renders,3);assert.ok(scene.children.length<100, `draw objects: ${scene.children.length}`);let count=0;scene.traverse(o=>{if(o.isInstancedMesh)count+=o.count});assert.ok(count<3000);console.log({drawObjects:scene.children.length,instances:count});console.log('PASS: 3D scene construction, finite geometry/camera state, both views and quality switch; static world uses instanced geometry. GPU pixels not tested.');dom.window.close();
