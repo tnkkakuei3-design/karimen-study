@@ -8,7 +8,7 @@ const output = path.join(root, 'dist');
 const files = [
   'dev/parity-review.html', 'drive', 'brand.css',
   'honmen.html', 'course-switch.css', 'honmen/app.css', 'honmen/app.js', 'honmen/model.js',
-  'honmen/teaching.js', 'honmen/storage.js', 'honmen/notes.js', 'honmen/sound.js', 'honmen/ui.js', 'honmen/questions.js', 'honmen/assets',
+  'honmen/teaching.js', 'honmen/storage.js', 'honmen/notes.js', 'honmen/note-links.js', 'honmen/sound.js', 'honmen/ui.js', 'honmen/questions.js', 'honmen/assets',
   'cloud-record.js', 'cloud-sync.js', 'privacy.html',
   'migration.html', 'migration.js', 'migration-entry.js', 'index.html', 'styles.css', 'app.js', 'town.css', 'town-data.js', 'town-config.js', 'town.js', 'model.js', 'questions.js',
   'learning-content.js', 'visuals.js', 'notebook-content.js', 'question-guides.js', 'home-install.js', 'progress-storage.js', 'startup.js',
