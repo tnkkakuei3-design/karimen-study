@@ -4,7 +4,7 @@ import vm from 'node:vm';
 import {JSDOM,VirtualConsole} from 'jsdom';
 import {FreeDrive,STREETS,PLACES} from './drive/free-model.mjs';
 const html=fs.readFileSync(new URL('./drive/free.html',import.meta.url),'utf8');
-const source=fs.readFileSync(new URL('./drive/free-app.mjs',import.meta.url),'utf8').replace(/^import .*;\n/gm,'').replace("await import('./free-world.mjs?v=shop1')",'await Promise.resolve({createWorld:globalThis.makeWorld})');
+const source=fs.readFileSync(new URL('./drive/free-app.mjs',import.meta.url),'utf8').replace(/^import .*;\n/gm,'').replace("await import('./free-world.mjs?v=district1')",'await Promise.resolve({createWorld:globalThis.makeWorld})');
 for(const from of ['karimen','honmen']){
  const errors=[],vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e));const dom=new JSDOM(html,{url:`https://example.org/drive/free.html?from=${from}`,runScripts:'outside-only',virtualConsole:vc});const w=dom.window,$=id=>w.document.getElementById(id);
  w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};w.HTMLCanvasElement.prototype.getContext=()=>new Proxy({},{get:()=>()=>{}});
