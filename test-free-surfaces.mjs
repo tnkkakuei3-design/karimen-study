@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
-import {wheelSurface,ROAD_SURFACES,addRoadSurfaces} from './drive/road-surfaces.mjs';
+import {wheelSurface,ROAD_SURFACES,ROAD_DETAILS,addRoadSurfaces} from './drive/road-surfaces.mjs';
 import {FreeDrive} from './drive/free-model.mjs';
-const boxes=[];addRoadSurfaces((...args)=>boxes.push(args));assert.equal(boxes.length,ROAD_SURFACES.length);
+const boxes=[];addRoadSurfaces((...args)=>boxes.push(args));assert.equal(boxes.length,ROAD_SURFACES.length+ROAD_DETAILS.length);
 for(const [i,s]of ROAD_SURFACES.entries())assert.deepEqual(boxes[i].slice(0,6),[s.x,s.y,s.z,s.w,s.h,s.d]);
 assert.equal(wheelSurface(7.14,-50,0),'curb');assert.equal(wheelSurface(9.5,-50,0),'sidewalk');
 assert.equal(wheelSurface(7.14,0,0),'road','intersection opening stays clear');
@@ -16,3 +16,9 @@ for(const gear of [1,-1]){
  assert.ok(escape.x<7,'can leave sidewalk');assert.equal(escape.impact,false);
 }
 console.log('PASS: shared surface rendering, wheel contact, intersection gaps, slowing in both gears and escape.');
+
+for(const t of [-120,0,120])for(const side of [-1,1]){
+ assert.equal(wheelSurface(t+side*7.14,50,0),'curb');
+ assert.equal(wheelSurface(50,t+side*7.14,Math.PI/2),'curb');
+ for(const cross of [-120,0,120])assert.equal(wheelSurface(t+side*7.14,cross,0),'road');
+}

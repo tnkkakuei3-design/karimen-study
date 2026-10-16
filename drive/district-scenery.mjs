@@ -1,5 +1,5 @@
 import * as T from './vendor/three.module.min.js';
-import {BUILDINGS,DISTRICT_PROPS} from './free-model.mjs?v=curb1';
+import {BUILDINGS,DISTRICT_PROPS} from './free-model.mjs?v=finish1';
 import {houseFront} from './district-layout.mjs?v=1';
 export function addDistricts({scene,box,mat}){
  const homes=BUILDINGS.filter(b=>b.x!==30),dummy=new T.Object3D();
