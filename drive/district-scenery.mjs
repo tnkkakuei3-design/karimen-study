@@ -31,6 +31,7 @@ export function addDistricts({scene,box,mat}){
    for(const u of [-5,5]){front(u,.5,5,6,.85,.25,0xb5b2a6);front(u,.96,5,6.2,.12,.35,0xe4ded1);}
    front(1.9,1,4.9,.45,1.8,.45,0xb5b2a6);front(1.9,1.4,4.65,.38,.35,.16,0x776959);continue;
   }
+  if(b.detailed)continue;
   // A recessed front garden with a clear path from the gate to the door.
   front(0,.12,5.5,17,.13,9,0x8caa77);front(0,.24,5.5,3.4,.06,9,0xbabcb1);
   for(const u of [-7,7]){const p=f.point(u,6);greens.push([p.x,1,p.z]);front(u,.4,6,2.3,.65,2.3,0xb5b2a6);}

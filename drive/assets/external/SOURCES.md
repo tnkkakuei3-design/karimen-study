@@ -19,3 +19,5 @@ Conversion script: dev/scripts/convert-town-assets.py. No generated replacement 
 - House geometry is original code; no Blender or PLATEAU assets used.
 
 `house-siding.webp`: derivative of the existing Plastered Wall 02 CC0 diffuse, with subtle siding joints added at 31cm intervals; 1024px WebP.
+
+`house-roof-slate.webp`: desaturated, cool-grey derivative of Clay Roof Tiles 02 (CC0, above). `house-timber.webp`: original procedural grain, generated locally; not a photographic asset.
