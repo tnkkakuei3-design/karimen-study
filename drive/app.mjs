@@ -53,7 +53,8 @@ function renderHome(){
  load3DPreviews();
 }
 function choose(index){
- drive=index===3?new ArcadeDrive():new Drive(index,guided);seenEvents=0;arcadePreview=null;$('combo-hud').hidden=index!==3;$('impact-fx').classList.remove('hit');$('steering-controls').hidden=false;$('steering-label').textContent='ハンドルで操作';$('start-tip-copy').innerHTML=index===3?'左右から48人が飛び出すボーナスステージ。<br>連続ヒットでコンボを伸ばそう。':'周囲を見て、早めにブレーキ。<br>走行後に、危険だった場所を振り返ります。';drag=null;if(three){three.yaw=0;three.currentYaw=0;}$('view-left').textContent='← 左を見る';$('view-right').textContent='右を見る →';for(const id of ['view-left','view-front','view-right'])$(id).classList.toggle('active',id==='view-front');resultShown=false;hintShown=false;panning=0;panUntil=0;clearTimeout(toastTimer);
+ if(!Number.isInteger(index)||index<0||index>=SCENES.length)return;
+ drive=new Drive(index,guided);seenEvents=0;arcadePreview=null;$('combo-hud').hidden=index!==3;$('impact-fx').classList.remove('hit');$('steering-controls').hidden=false;$('steering-label').textContent='ハンドルで操作';$('start-tip-copy').innerHTML=index===3?'左右から48人が飛び出すボーナスステージ。<br>連続ヒットでコンボを伸ばそう。':'周囲を見て、早めにブレーキ。<br>走行後に、危険だった場所を振り返ります。';drag=null;if(three){three.yaw=0;three.currentYaw=0;}$('view-left').textContent='← 左を見る';$('view-right').textContent='右を見る →';for(const id of ['view-left','view-front','view-right'])$(id).classList.toggle('active',id==='view-front');resultShown=false;hintShown=false;panning=0;panUntil=0;clearTimeout(toastTimer);
  $('scene-number').textContent=index===3?'ゲームモード':`コース ${drive.scene.number} · ${guided?'ガイドあり':'チャレンジ'}`;$('scene-title').textContent=index===3?'連続ドライブ':drive.scene.title;$('zone-badge').textContent=drive.scene.area;
  $('start-title').textContent=index===3?'連続ドライブ':drive.scene.title;$('start-description').textContent=index===3?'左右から次々と人が飛び出す、全8ウェーブのラッシュ。':drive.scene.desc;
  $('start-overlay').hidden=false;$('pause-overlay').hidden=true;$('look-controls').hidden=true;$('toast').hidden=true;
@@ -162,7 +163,7 @@ $('quality').onclick=()=>{if(!three)return;lightQuality=!lightQuality;three.qual
 
 $('course-list').onclick=e=>{const b=e.target.closest('[data-course]');if(b)choose(Number(b.dataset.course));};
 for(const mode of ['guided','challenge'])$(mode).onclick=()=>{guided=mode==='guided';for(const m of ['guided','challenge']){$(m).classList.toggle('selected',m===mode);$(m).setAttribute('aria-pressed',String(m===mode));}renderHome();};
-$('arcade-start').onclick=()=>choose(3);
+$('free-start').onclick=()=>{const from=new URLSearchParams(location.search).get('from')==='honmen'?'honmen':'karimen';location.href='./free.html?from='+from;};
 $('sound').setAttribute('aria-pressed','true');$('sound').setAttribute('aria-label','音をオフにする');$('sound').querySelector('.slash').hidden=true;
 $('start').onclick=()=>{drivingAudio.setEnabled(soundEnabled);drivingAudio.unlock();drive.start();$('start-overlay').hidden=true;controls(true);last=performance.now();tone('mark');requestFrame();$(using3D()?'road3d':'road').focus({preventScroll:true});};
 $('pause').onclick=pause;$('resume').onclick=resume;$('restart').onclick=()=>choose(drive.index);$('leave').onclick=home;

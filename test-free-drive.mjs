@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {FreeDrive,blocked,PLACES} from './drive/free-model.mjs';
+const move=(d,n)=>{for(let i=0;i<n;i++)d.step(1/120)};
+let d=new FreeDrive();d.phase='running';d.input.gas=true;move(d,360);assert.ok(d.z<100);assert.ok(d.speed>0);assert.equal(d.changeGear(),false);
+d.input.gas=false;d.input.brake=true;move(d,360);assert.equal(d.speed,0);assert.equal(d.changeGear(),true);d.input.brake=false;d.input.gas=true;const z=d.z;move(d,240);assert.ok(d.z>z);assert.ok(d.speed<=18.001);
+d=new FreeDrive();Object.assign(d,{x:0,z:0,v:3,phase:'running'});d.input.steer=1;d.input.gas=true;move(d,120);assert.ok(d.heading>0);assert.ok(d.x>0);
+d=new FreeDrive();Object.assign(d,{x:0,z:0,v:-3,phase:'running',gear:-1});d.input.steer=1;d.input.gas=true;move(d,120);assert.ok(d.heading<0);
+d=new FreeDrive();Object.assign(d,{x:120,z:-144,v:22,phase:'running'});d.input.gas=true;move(d,120);assert.ok(d.z>=-145);assert.equal(d.v,0);
+d=new FreeDrive();Object.assign(d,{x:30,z:44,heading:0,v:20,phase:'running'});d.input.gas=true;move(d,240);assert.ok(d.z>=40.3);assert.ok(!blocked(d.x,d.z));d.recover();assert.equal(d.v,0);assert.ok(!blocked(d.x,d.z));
+d=new FreeDrive();d.phase='running';for(const p of PLACES){Object.assign(d,{x:p.x,z:p.z,v:0});d.step(.02);}assert.equal(d.visited.size,4);const copy=new FreeDrive();assert.equal(copy.restore(d.snapshot()),true);assert.equal(copy.visited.size,4);assert.equal(copy.restore({x:NaN,z:0,heading:0,distance:0}),false);assert.equal(copy.restore({x:999,z:0,heading:0,distance:0}),false);
+d.phase='paused';const before=d.snapshot();d.input.gas=true;move(d,100);assert.deepEqual(d.snapshot(),before);
+console.log('PASS: free driving forward/reverse, steering in both gears, stopped gear changes, boundaries/building collision, recovery, destinations, persistence validation and pause.');
