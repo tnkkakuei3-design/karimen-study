@@ -57,9 +57,8 @@ for(const from of ['karimen','honmen']){
  assert.equal($('completed').textContent,'3 / 3 クリア');
  $('challenge').click();assert.equal($('completed').textContent,'0 / 3 クリア');
  $('guided').click();assert.equal($('completed').textContent,'3 / 3 クリア');
- $('arcade-start').click();$('start').click();run('drive.z=256;drive.step(.01);showResult()');
- assert.match($('result').textContent,/ゲームポイント/);$('arcade-retry').click();assert.equal($('start-title').textContent,'連続ドライブ');
- $('drive-home').click();assert.equal($('home').hidden,false);
+ assert.ok($('free-start'));assert.equal($('arcade-start'),null);
+ run('choose(3)');assert.equal($('home').hidden,false);
  assert.deepEqual(errors,[]);dom.window.close();
 }
-console.log('PASS: driving navigation, course titles, settings pause/resume/cancel, sound, 2D fallback, both result states, retry, mode-specific progress and arcade result.');
+console.log('PASS: driving navigation, course titles, settings pause/resume/cancel, sound, 2D fallback, both result states, retry, mode-specific progress and free-drive entry.');

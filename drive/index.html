@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#fcfcfa">
-<title>ドンドラ！危険予測ドライブ</title><meta name="description" content="見つけて、ゆるめて、止まる。3つの道路シーンで危険予測を練習できる、ドンドラのドライブゲーム。">
+<title>ドンドラ！危険予測ドライブ</title><meta name="description" content="見つけて、ゆるめて、止まる。3つの危険予測コースと、街を自由に走れるフリードライブ。">
 <link rel="icon" type="image/svg+xml" href="./favicon.svg"><link rel="stylesheet" href="./style.css?v=090"><link rel="stylesheet" href="./finish.css?v=spacing-finish-1"><link rel="stylesheet" href="./cockpit.css?v=20261015-review-tap">
 <link rel="stylesheet" href="../brand.css?v=dondora-finish-3"></head><body>
 <a class="skip-link" href="#home">本文へ</a>
@@ -25,7 +25,7 @@
    <div class="intro"><div><h1>危険に気づく練習</h1><p>1コース約30〜40秒。<br>見つけて、ゆるめて、止まる。</p></div><img class="home-mascot home-mascot-motedora" src="../assets/characters/motedora01.png" width="310" height="440" alt="モテドラ師"></div>
    <div class="course-heading"><h2>コースを選ぶ</h2><span id="completed">0 / 3 クリア</span></div>
    <div class="mode-switch" role="group" aria-label="ガイド設定"><button id="guided" class="selected" aria-pressed="true">ガイドあり<small>はじめての人に</small></button><button id="challenge" aria-pressed="false">チャレンジ<small>ヒントなしで挑戦</small></button></div>
-   <div id="course-list" class="course-list"></div><section class="arcade-card"><svg class="arcade-icon" aria-hidden="true"><use href="#i-wheel"/></svg><div><h2>連続ドライブ</h2><p>ボーナスステージ。左右から48人が飛び出す、全8ウェーブ。</p></div><button id="arcade-start" class="secondary">走る<svg aria-hidden="true"><use href="#i-arrow"/></svg></button></section>
+   <div id="course-list" class="course-list"></div><section class="arcade-card"><svg class="arcade-icon" aria-hidden="true"><use href="#i-wheel"/></svg><div><h2>フリードライブ</h2><p>住宅街から海沿いへ。好きな道を曲がって、自由に走ろう。</p></div><button id="free-start" class="secondary">街へ<svg aria-hidden="true"><use href="#i-arrow"/></svg></button></section>
    <details class="howto"><summary>操作方法</summary><div class="howto-guide"><img src="../assets/characters/D047.png" width="310" height="460" alt="" class="guide-mascot"><div><p><strong>アクセル・ブレーキ</strong>は長押し。</p><p><strong>走行後</strong>に危険だった場所を振り返ります。</p><p><strong>ハンドル</strong>を左右にドラッグ。</p></div></div><p class="hint-note">交差点では、止まってから「左を見る」「右を見る」で安全確認します。</p></details>
    <p class="disclaimer">危険に気づく練習用のゲームです。走行・制動の挙動と採点はゲーム用に簡略化しています。</p>
    <details class="reference"><summary>教材について</summary><p>全3コースを立体化した、危険予測の体験版です。実際の免許試験の問題・採点基準ではありません。3Dの街・車・人物は独自に制作しています。</p><p>学習ポイントの参考：<a href="https://jaf.or.jp/common/safety-drive/online-training/risk-prediction" target="_blank" rel="noopener">JAF 危険予知・事故回避トレーニング</a>、<a href="https://www.npa.go.jp/bureau/traffic/oudanhodou/info.html" target="_blank" rel="noopener">警察庁 横断歩道は歩行者優先</a>。</p><p>成績はこのブラウザに保存します。学科ドリルとは別の記録です。</p></details>
@@ -57,6 +57,6 @@
 </div>
 <dialog id="drive-settings" aria-labelledby="drive-settings-title"><h2 id="drive-settings-title">運転の設定</h2><div class="setting-row"><div><h3>効果音・走行音</h3><p id="sound-state">オン</p></div><button id="sound" class="iconbutton" aria-label="音をオンにする" aria-pressed="false"><svg><use href="#i-sound"/></svg><span class="slash"></span></button></div><div class="view-toolbar" id="view-toolbar"><h3>画面の表示</h3><p id="render-label">3Dを準備しています…</p><div><button id="compare-view" aria-pressed="true" disabled>3D表示</button><button id="quality" aria-pressed="false" disabled>軽量モード</button></div><p class="hint-note">動きが重いときは、軽量モードか2D表示をお試しください。</p></div><button id="close-settings" class="secondary">閉じる</button></dialog>
 <dialog id="help-dialog" aria-labelledby="help-title"><button class="close-dialog" aria-label="閉じる">×</button><h2 id="help-title">操作方法</h2><p><b>アクセルを長押し</b>すると前に進み、離すと少しずつ減速します。<b>ブレーキを長押し</b>して、完全に止まります。</p><p>走行中のタップは不要です。周囲の危険に備えて、早めに減速しましょう。走行後に、どんな危険があったかを3つの選択肢から答えます。危険の理解30点と、減速・停止・安全確認70点で採点します。</p><p><b>ハンドルを左右にドラッグ</b>すると、切った量に応じて曲がります。離すとハンドルが中央へ戻ります。左右のボタン・PCの ← → は長押しで操作します。速度に応じた操作補助があります。</p><p>交差点コースでは、停止線の手前で止まった後に「左を見る」「右を見る」で確認します。</p><p class="hint-note">停車中も、飛び出しや横断が終わるまで待ちましょう。実際の車の制動距離を再現するものではありません。</p><button class="primary close-help">わかった</button></dialog>
-<script type="module" src="./app.mjs?v=20261015-restart1"></script>
+<script type="module" src="./app.mjs?v=20261016-free1"></script>
 <script type="module" src="./study-return.mjs?v=20261015-1"></script>
 </body></html>
