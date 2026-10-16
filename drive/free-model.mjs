@@ -1,3 +1,4 @@
+import {districtProps} from './district-layout.mjs?v=1';
 export const STREETS=[-120,0,120];
 export const LIMIT=145;
 export const PLACES=[
@@ -12,7 +13,8 @@ for(const x of [-90,-60,-30,30,60,90])for(const z of [-90,-60,-30,30,60,90]){
  if((x<0&&z>0)||(x<0&&z<0&&x>-80&&z>-80))continue;
  BUILDINGS.push({x,z,w:18,d:18,h:7+((Math.abs(x)+Math.abs(z))%7),color:[0xd5c5af,0xdfe1d9,0xc9d3d4,0xc5bba9][BUILDINGS.length%4]});
 }
-const SOLIDS=[...BUILDINGS,...STREET_PROPS];
+export const DISTRICT_PROPS=districtProps(BUILDINGS);
+const SOLIDS=[...BUILDINGS,...STREET_PROPS,...DISTRICT_PROPS];
 export const onRoad=(x,z)=>STREETS.some(t=>Math.abs(x-t)<8||Math.abs(z-t)<8);
 export function blocked(x,z){return Math.abs(x)>LIMIT||Math.abs(z)>LIMIT||SOLIDS.some(b=>Math.abs(x-b.x)<b.w/2+1.3&&Math.abs(z-b.z)<b.d/2+1.3);}
 export class FreeDrive{
