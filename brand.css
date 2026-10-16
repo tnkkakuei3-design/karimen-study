@@ -1,60 +1,71 @@
-/* Shared DONDORA visual identity. Question/vehicle interfaces keep their own layout. */
+/* DONDORA identity: original artwork, quiet surfaces, readable type. */
 @font-face{font-family:DondoraDot;src:url('./assets/brand/dot-gothic-subset.ttf?v=2') format('truetype');font-weight:400;font-style:normal;font-display:swap}
 :root{--brand-cream:#fffaf0;--brand-blue:#1682b6;--brand-green:#4da532;--brand-red:#d6382d}
 :root:not([data-theme=dark]){--bg:#fffaf0;--line:#e7e3d7;--soft:#f4f2e9;--pale:#edf7fc}
 body:not(.in-game){background:var(--bg,var(--brand-cream))}
-.header{border-bottom:1px solid var(--line,#e7e3d7);margin-bottom:22px;padding:18px 0;gap:10px}
-.header .brand{gap:12px;min-width:0;line-height:1.4}
-.header .dondora-logo{display:block;width:112px;height:68px;object-fit:contain;flex:none}
+body.play-active{background:var(--surface)}
+.header{border-bottom:1px solid var(--line,#e7e3d7);margin-bottom:20px;padding:18px 0;gap:10px}
+.header .brand{display:flex;align-items:center;text-decoration:none;gap:12px;min-width:0;line-height:1.4}
 .header .brand h1,.header .brand>span{font-size:17px;letter-spacing:0}
-.home-intro{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:22px 24px;background:var(--surface,#fffdf7);border:1px solid var(--line,#e7e3d7);border-radius:12px;margin-bottom:24px;overflow:hidden}
-.home-intro h2{font-family:DondoraDot,sans-serif;font-weight:400;letter-spacing:0;font-size:40px;line-height:1.4}
-.home-intro .home-character{width:47%;max-width:270px;height:auto;object-fit:contain;flex:none}
-.home-intro p{font-size:14px}
-#learn .character-heading,#review .character-heading,.notes-heading{border-bottom:1px solid var(--line,#e7e3d7);padding:4px 0 16px;min-height:88px;margin-bottom:20px}
-#learn .character-heading h2,#review .character-heading h2,.notes-heading h2{font-family:DondoraDot,sans-serif;font-weight:400;letter-spacing:0;line-height:1.4}
-#learn .placement-character,#review .placement-character{width:72px;height:88px;object-fit:contain}
+/* A viewport preserves the unchanged producer logo. */
+.header .dondora-logo{display:block;position:relative;overflow:hidden;align-self:center;width:112px;height:68px;flex:none}
+.header .dondora-logo img{position:absolute;display:block;max-width:none;width:207%;height:auto;left:-50.5%;top:-5%}
+.header .header-tool{font-size:12px;line-height:1.4;gap:3px}
+.home-intro{display:flex;align-items:center;justify-content:flex-start;gap:24px;padding:4px 0 16px;border:0;border-radius:0;background:transparent;margin-bottom:12px;overflow:visible}
+.home-intro>div{min-width:0}
+.home-intro h2{font-family:DondoraDot,sans-serif;font-weight:400;letter-spacing:0;font-size:32px;line-height:1.35}
+.home-intro p{font-size:15px;line-height:1.7;margin-top:6px}
+.home-intro .home-character{width:160px;max-width:36%;height:auto;object-fit:contain;flex:none}
+#learn .character-heading,#review .character-heading,.notes-heading{justify-content:flex-start;align-items:center;gap:20px;min-height:88px;padding:0 0 8px;margin-bottom:8px;border:0}
+#learn .character-heading>div,#review .character-heading>div,.notes-heading>div{flex:0 1 auto;min-width:0}
+#learn .character-heading h2,#review .character-heading h2,.notes-heading h2{font-family:DondoraDot,sans-serif;font-weight:400;font-size:26px;letter-spacing:0;line-height:1.4}
+#learn .placement-character,#review .placement-character{width:72px;height:88px;object-fit:contain;flex:none}
+#review .character-heading p{font-size:14px;line-height:1.7}
+#learn .learn-switch{margin:0 0 16px}
+#learn-categories>.learn-actions{margin-top:0;margin-bottom:12px}
+#learn-categories>.learning-overview{margin-top:12px;padding:12px 0}
+#learn-categories>.learning-cumulative{margin-bottom:8px}
+#learn .learning-cumulative>summary,.learning-overview dt,.learning-overview small,.category-metrics summary,.topic-metrics summary{font-size:13px}
+#learn .recommend{border-radius:10px}
+#learn .category-entry,#mock .set-card{border-radius:10px}
+#mock .set-card{min-height:104px;padding:14px;gap:8px}
+#mock .mock-outcome,#mock .mock-best,.review-row .review-progress,.review-row .review-row-status,.review-timing .hintline{font-size:13px;line-height:1.65}
 .bottom-tabs{border-top:1px solid var(--line,#e7e3d7);background:var(--surface,#fff)}
 .bottom-tabs button[aria-selected=true]{background:var(--pale,#edf7fc)}
-#home .intro{padding:20px;border:1px solid var(--line,#e7e3d7);border-radius:12px;background:#fffdf7;margin-bottom:24px}
-#home .intro h1{font-family:DondoraDot,sans-serif;font-weight:400;letter-spacing:0}
-#home .home-mascot{width:106px;height:124px;object-fit:contain}
-#home .arcade-card{border-top:1px solid var(--line,#e7e3d7);border-bottom:1px solid var(--line,#e7e3d7)}
-:root[data-theme=dark] .header,:root[data-theme=dark] .character-heading,:root[data-theme=dark] .notes-heading{border-color:var(--line)}
-body.play-active{background:var(--surface)}
-@media(max-width:649px){.header{padding:12px 0;margin-bottom:18px}.header .brand{gap:8px}.header .dondora-logo{width:88px;height:56px}.header .brand h1,.header .brand>span{font-size:15px}.header-tools{gap:2px}.home-intro{padding:18px 16px;gap:4px}.home-intro h2{font-size:30px}.home-intro p{font-size:13px}.home-intro .home-character{width:46%;max-width:200px}#home .intro{padding:16px}#home .home-mascot{width:80px;height:102px}}
-@media(max-width:374px){.header .dondora-logo{width:65px;height:48px}.header .brand h1,.header .brand>span{font-size:14px}.header .brand{gap:6px}.home-intro{padding:16px 12px}.home-intro h2{font-size:27px}}
-/* A viewport onto the unchanged producer artwork keeps its original logo crisp. */
-.header .dondora-logo{position:relative;overflow:hidden;align-self:center}
-.header .dondora-logo img{position:absolute;display:block;max-width:none;width:207%;height:auto;left:-50.5%;top:-5%;}
-
-.header .brand{display:flex;align-items:center;text-decoration:none}
 .bottom-tabs button[aria-selected=true]::after{content:none}
-
-/* Stage 2: keep the heading and character together, with choices close below. */
-.home-intro{justify-content:flex-start;gap:24px;padding:8px 0 16px;border:0;border-radius:0;background:transparent;margin-bottom:12px;overflow:visible}
-.home-intro h2{font-size:32px;line-height:1.35}
-.home-intro .home-character{width:140px;max-width:32%;height:auto}
-.home-intro p{font-size:14px;margin-top:6px}
-#learn .character-heading,#review .character-heading,.notes-heading{justify-content:flex-start;gap:18px;min-height:64px;padding:0 0 12px;margin-bottom:12px;border:0}
-#learn .character-heading>div,#review .character-heading>div,.notes-heading>div{flex:0 1 auto}
-#learn .placement-character,#review .placement-character{width:52px;height:64px;flex:none}
-#learn .learn-switch{margin:0 0 16px}
-#learn-categories>.learn-actions{margin-top:0}
-#learn-categories>.learning-cumulative{margin-bottom:16px}
-#mock .set-card{min-height:94px;padding:12px 14px;gap:6px}
-#home .intro{justify-content:flex-start;gap:20px;padding:8px 0 16px;border:0;border-radius:0;background:transparent;margin-bottom:12px}
+#home .intro{justify-content:flex-start;gap:24px;padding:4px 0 16px;border:0;border-radius:0;background:transparent;margin-bottom:12px}
 #home .intro>div{flex:0 1 auto;min-width:0}
-#home .intro h1{font-size:28px;margin:0 0 6px}
-#home .home-mascot{width:72px;height:96px;flex:none}
+#home .intro h1{font-family:DondoraDot,sans-serif;font-weight:400;letter-spacing:0;font-size:28px;line-height:1.4;margin:0 0 6px}
+#home .intro p{font-size:15px;line-height:1.7}
+#home .home-mascot{width:88px;height:112px;object-fit:contain;flex:none}
 #home .course-heading{margin-top:16px}
+#home .course-info>small,#home .course-bottom{font-size:13px}
+#home .mode-switch button small{font-size:13px!important}
+#home .arcade-card{border-top:1px solid var(--line,#e7e3d7);border-bottom:1px solid var(--line,#e7e3d7)}
 @media(max-width:649px){
- .home-intro{gap:14px;padding:4px 0 12px}
- .home-intro h2{font-size:27px}
- .home-intro p{font-size:13px}
- .home-intro .home-character{width:108px;max-width:32%}
+ .header{padding:12px 0;margin-bottom:16px}
+ .header .brand{gap:8px}
+ .header .dondora-logo{width:88px;height:56px}
+ .header .brand h1,.header .brand>span{font-size:15px}
+ .header-tools{gap:2px}
+ .home-intro{gap:16px;padding:4px 0 12px}
+ .home-intro h2{font-size:28px}
+ .home-intro p{font-size:14px}
+ .home-intro .home-character{width:124px;max-width:36%}
+ #learn .character-heading,#review .character-heading,.notes-heading{gap:16px;min-height:80px;padding:0 0 4px;margin-bottom:4px}
+ #learn .character-heading h2,#review .character-heading h2,.notes-heading h2{font-size:24px}
+ #learn .placement-character,#review .placement-character{width:66px;height:80px}
  #home .intro{gap:12px;padding:4px 0 12px}
  #home .intro h1{font-size:24px}
- #home .home-mascot{width:58px;height:80px}
- #learn .character-heading,#review .character-heading,.notes-heading{gap:12px}
+ #home .intro p{font-size:14px}
+ #home .home-mascot{width:72px;height:96px}
+ #home .mode-switch button{flex-direction:column;gap:2px}
+}
+@media(max-width:374px){
+ .header .dondora-logo{width:65px;height:48px}
+ .header .brand h1,.header .brand>span{font-size:14px}
+ .header .brand{gap:6px}
+ .home-intro{gap:12px}
+ .home-intro h2{font-size:26px}
+ #home .intro h1{font-size:23px}
 }
