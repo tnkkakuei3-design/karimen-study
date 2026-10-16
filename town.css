@@ -111,3 +111,8 @@
 .town-teaser-footer{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-top:5px}.town-teaser-footer>.town-photo-credit{flex:1;min-width:0;font-size:10px;line-height:1.6;padding:0;color:var(--muted)}.town-teaser-footer .town-photo-credit summary{font-size:10px;font-weight:400;min-height:44px;display:flex;align-items:center;gap:4px;cursor:pointer;list-style:none}.town-teaser-footer .town-photo-credit summary::-webkit-details-marker{display:none}.town-teaser-footer .town-photo-credit summary::before{content:'＋';font-size:10px}.town-teaser-footer details[open] summary::before{content:'−'}
 .town-teaser .town-directory-entry{width:auto;flex:none;display:flex;align-items:center;justify-content:flex-end;gap:7px;min-height:44px;padding:8px 0;border:0;background:transparent;color:var(--town-green);font-size:12px;font-weight:600;line-height:1.5}.town-directory-entry>.icon{width:17px;height:17px}
 @media(max-width:360px){.town-home-shop{gap:13px}.town-home-shop strong{font-size:18px}.town-home-shop .town-shop-name-long{font-size:15px}.town-home-shop small{font-size:11px}.town-teaser-heading{font-size:13px}}
+
+/* Keep secondary copy readable alongside the shared study typography. */
+.town-home-shop small,.town-home-note,.town-home-empty,.town-home-label span,.town-directory-entry small,.town-entry-cta,.town-eyebrow,.town-hours-notice,.town-list-meta>span{font-size:13px}
+.town-teaser .town-directory-entry{font-size:13px}
+.town-teaser-footer>.town-photo-credit,.town-teaser-footer .town-photo-credit summary,.town-home-pick>.town-photo-credit{font-size:12px}
