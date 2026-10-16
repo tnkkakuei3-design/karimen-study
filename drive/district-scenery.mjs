@@ -1,6 +1,6 @@
 import * as T from './vendor/three.module.min.js';
-import {BUILDINGS,DISTRICT_PROPS} from './free-model.mjs?v=polish1';
-import {houseFront} from './district-layout.mjs?v=2';
+import {BUILDINGS,DISTRICT_PROPS} from './free-model.mjs?v=streets1';
+import {houseFront} from './district-layout.mjs?v=3';
 export function addDistricts({scene,box,mat}){
  const homes=BUILDINGS.filter(b=>b.x!==30),dummy=new T.Object3D();
  // One shared gabled roof geometry, two instance batches for tile colours.
@@ -23,9 +23,13 @@ export function addDistricts({scene,box,mat}){
   front(0,1.55,.06,1.6,2.8,.16,0x776959);front(-.45,1.9,.17,.22,1.1,.05,0x9fb5b3);front(.5,1.5,.2,.06,.3,.06,0xe4ded1);
   front(0,.24,1.1,2.6,.35,2,0xb5b2a6);front(0,3.1,1,3,.16,2.4,0x627275);
   for(const u of [-5,5]){front(u,1.9,.12,2.8,1.8,.15,0x607f87);front(u,1.9,.25,.1,1.8,.08,0xe4ded1);front(u,.95,.35,3,.12,.7,0xe4ded1);}
-  if(!(Math.abs(b.lotX??b.x)===90||Math.abs(b.lotZ??b.z)===90))continue;
+  if(!(Math.abs(b.lotX??b.x)===90||Math.abs(b.lotZ??b.z)===90)){
+   front(0,.14,2.6,17,.15,4.8,0x8caa77);front(0,.24,3.2,3.4,.06,5.8,0xbabcb1);
+   for(const u of [-5,5]){front(u,.5,5,6,.85,.25,0xb5b2a6);front(u,.96,5,6.2,.12,.35,0xe4ded1);}
+   front(1.9,1,4.9,.45,1.8,.45,0xb5b2a6);front(1.9,1.4,4.65,.38,.35,.16,0x776959);continue;
+  }
   // A recessed front garden with a clear path from the gate to the door.
-  front(0,.12,5.5,17,.13,9,0x8caa77);front(0,.22,5.5,2,.05,9,0xd8ceb0);
+  front(0,.12,5.5,17,.13,9,0x8caa77);front(0,.24,5.5,3.4,.06,9,0xbabcb1);
   for(const u of [-7,7]){const p=f.point(u,6);greens.push([p.x,1,p.z]);front(u,.4,6,2.3,.65,2.3,0xb5b2a6);}
   front(1.9,1,9.9,.45,1.8,.45,0xb5b2a6);front(1.9,1.4,9.65,.38,.35,.16,0x776959);
   for(const u of [-5,5]){front(u,.5,10,6,.85,.25,0xb5b2a6);front(u,.96,10,6.2,.12,.35,0xe4ded1);for(let j=-2;j<=2;j++)front(u+j,.6,10.14,.025,.7,.015,0x697777);}

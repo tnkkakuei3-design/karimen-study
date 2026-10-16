@@ -1,3 +1,5 @@
+import {STOP_APPROACHES,PARKING,STREET_DETAIL_SOLIDS} from './drive/street-details-layout.mjs';
+import {applySurface} from './drive/external-assets.mjs';
 import {addRoadSurfaces} from './drive/road-surfaces.mjs';
 import {houseFront} from './drive/district-layout.mjs';
 import assert from 'node:assert/strict';
@@ -10,13 +12,14 @@ const dom=new JSDOM('<canvas id="world"></canvas>',{runScripts:'outside-only'}),
 w.HTMLCanvasElement.prototype.getContext=()=>new Proxy({},{get:(_,key)=>(key==='createRadialGradient'||key==='createLinearGradient')?()=>({addColorStop(){}}):()=>{}});
 let renders=0,scene,renderer;
 class Renderer{constructor(options){renderer=this;this.options=options;}shadowMap={};setPixelRatio(value){this.ratio=value;}setSize(){}render(s,c){scene=s;renders++;assert.ok(c.projectionMatrix.elements.every(Number.isFinite));s.traverse(o=>{assert.ok(o.position.toArray().every(Number.isFinite));if(o.isInstancedMesh)assert.ok(o.instanceMatrix.array.every(Number.isFinite));});}}
-Object.assign(w,{installExternalAssets:()=>Promise.resolve({}),addRoadSurfaces,T:{...Three,WebGLRenderer:Renderer},STREETS,BUILDINGS,PLACES,STREET_PROPS,DISTRICT_PROPS,houseFront});
+Object.assign(w,{STOP_APPROACHES,PARKING,STREET_DETAIL_SOLIDS,applySurface,installExternalAssets:()=>Promise.resolve({}),addRoadSurfaces,T:{...Three,WebGLRenderer:Renderer},STREETS,BUILDINGS,PLACES,STREET_PROPS,DISTRICT_PROPS,houseFront});
 const source=fs.readFileSync(new URL('./drive/free-world.mjs',import.meta.url),'utf8').replace(/^import .*;\n/gm,'').replace('export function createWorld','function createWorld');
 const shops=fs.readFileSync(new URL('./drive/shop-block.mjs',import.meta.url),'utf8').replace(/^import .*;\n/gm,'').replace(/^export /gm,'');
 const districts=fs.readFileSync(new URL('./drive/district-scenery.mjs',import.meta.url),'utf8').replace(/^import .*;\n/gm,'').replace(/^export /gm,'');
 const carSource=fs.readFileSync(new URL('./drive/free-car.mjs',import.meta.url),'utf8').replace(/^import .*;\n/gm,'').replace(/^export /gm,'');
-vm.runInContext(carSource+'\n'+districts+'\n'+shops+'\n'+source+'\nglobalThis.worldTest=createWorld(document.getElementById("world"));',dom.getInternalVMContext());
-for(const p of [...STREET_PROPS,...DISTRICT_PROPS])assert.ok(blocked(p.x,p.z));assert.equal(blocked(0,-60),false);
+const details=fs.readFileSync(new URL('./drive/street-details.mjs',import.meta.url),'utf8').replace(/^import .*;\n/gm,'').replace(/^export /gm,'');
+vm.runInContext(details+'\n'+carSource+'\n'+districts+'\n'+shops+'\n'+source+'\nglobalThis.worldTest=createWorld(document.getElementById("world"));',dom.getInternalVMContext());
+for(const p of [...STREET_PROPS,...DISTRICT_PROPS,...STREET_DETAIL_SOLIDS])assert.ok(blocked(p.x,p.z));assert.equal(blocked(0,-60),false);
 for(const street of STREETS)for(const side of [-3,3])for(let n=-135;n<=135;n+=3){assert.equal(blocked(street+side,n),false,'north/south lane remains clear');assert.equal(blocked(n,street+side),false,'east/west lane remains clear');}
 assert.equal(renderer.options.antialias,true);const d=new FreeDrive();w.worldTest.render(d,.016);w.worldTest.camera();w.worldTest.render(d,.016);assert.equal(w.worldTest.quality(),true);assert.equal(renderer.shadowMap.enabled,false);assert.equal(renderer.ratio,1);assert.equal(w.worldTest.quality(),false);assert.equal(renderer.shadowMap.enabled,true);assert.ok(renderer.ratio<=2);assert.equal(renderer.shadowMap.autoUpdate,false);d.heading=Math.PI;w.worldTest.render(d,.016);assert.equal(renders,3);const sun=scene.children.find(o=>o.isDirectionalLight);assert.equal(sun.shadow.mapSize.x,2048);const asphalt=scene.children.filter(o=>o.isInstancedMesh&&o.material.color.getHex()===0x555f62);assert.ok(asphalt.length);assert.ok(asphalt.every(o=>!o.castShadow&&o.receiveShadow));const car=scene.children.find(o=>o.isGroup);assert.ok(car,'car group exists');
 for(const mesh of car.children.filter(o=>o.isMesh&&o.geometry.index&&[16,20].includes(o.geometry.attributes.position.count))){
