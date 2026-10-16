@@ -1,9 +1,9 @@
-import {createDetailedHouse,loadHouseTextures} from './detailed-house.mjs?v=2';
+import {createDetailedHouse,loadHouseTextures} from './detailed-house.mjs?v=3';
 import {addStreetDetails} from './street-details.mjs?v=1';
 import {installExternalAssets,applySurface} from './external-assets.mjs?v=2';
 import {createCar} from './free-car.mjs?v=1';
 import {addRoadSurfaces} from './road-surfaces.mjs?v=2';
-import {addDistricts} from './district-scenery.mjs?v=6';
+import {addDistricts} from './district-scenery.mjs?v=7';
 import * as T from './vendor/three.module.min.js';
 import {addShopBlock} from './shop-block.mjs?v=6';
 import {STREETS,BUILDINGS,PLACES} from './free-model.mjs?v=house1';
