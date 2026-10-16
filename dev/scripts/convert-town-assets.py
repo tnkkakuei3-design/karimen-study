@@ -1,6 +1,6 @@
 # Run with the downloaded Kenney packs and Poly Haven originals in /tmp/town-assets.
 from pathlib import Path
-from PIL import Image
+from PIL import Image,ImageEnhance,ImageDraw
 import json,math,shutil
 out=Path('drive/assets/external')
 for src,name,size in [('asphalt.jpg','asphalt.webp',(512,512)),('wall.jpg','plaster.webp',(512,512)),('sky.jpg','sky.webp',(1024,512))]:
@@ -36,3 +36,13 @@ def convert(pack,name,target):
 convert('cars','sedan','sedan.json');convert('nature','tree_detailed','tree.json');convert('nature','rock_smallA','rock.json')
 for pack in ['cars','nature']:shutil.copy('/tmp/town-assets/'+pack+'/License.txt',out/('kenney-'+pack+'-license.txt'))
 for p in out.iterdir():print(p.name,p.stat().st_size)
+
+# Style-unification derivatives (2026-10-17).
+asphalt=Image.open('/tmp/town-assets/asphalt.jpg').convert('RGB').resize((512,512),Image.Resampling.LANCZOS)
+ImageEnhance.Contrast(asphalt).enhance(.6).save(out/'asphalt.webp',quality=82,method=6)
+Image.open('/tmp/town-assets/sky.jpg').convert('RGB').resize((2048,1024),Image.Resampling.LANCZOS).save(out/'sky-background.webp',quality=88,method=6)
+paving=Image.open(out/'plaster.webp').convert('RGB');draw=ImageDraw.Draw(paving)
+for row in range(4):
+ y=row*128;draw.line((0,y,511,y),fill=(170,171,165),width=2)
+ for x in range((row%2)*64,512,128):draw.line((x,y,x,y+128),fill=(181,182,175),width=2)
+paving.save(out/'paving.webp',quality=84,method=6)
