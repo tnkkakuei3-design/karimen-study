@@ -1,4 +1,4 @@
-import {wheelSurface} from './road-surfaces.mjs?v=1';
+import {wheelSurface} from './road-surfaces.mjs?v=2';
 import {districtProps} from './district-layout.mjs?v=1';
 export const STREETS=[-120,0,120];
 export const LIMIT=145;

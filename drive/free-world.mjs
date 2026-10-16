@@ -1,8 +1,8 @@
-import {addRoadSurfaces} from './road-surfaces.mjs?v=1';
-import {addDistricts} from './district-scenery.mjs?v=2';
+import {addRoadSurfaces} from './road-surfaces.mjs?v=2';
+import {addDistricts} from './district-scenery.mjs?v=3';
 import * as T from './vendor/three.module.min.js';
-import {addShopBlock} from './shop-block.mjs?v=2';
-import {STREETS,BUILDINGS,PLACES} from './free-model.mjs?v=curb1';
+import {addShopBlock} from './shop-block.mjs?v=3';
+import {STREETS,BUILDINGS,PLACES} from './free-model.mjs?v=finish1';
 export function createWorld(canvas){
  const renderer=new T.WebGLRenderer({canvas,antialias:false,powerPreference:'low-power'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.outputColorSpace=T.SRGBColorSpace;
  const scene=new T.Scene();scene.background=new T.Color(0xc5d9dd);scene.fog=new T.Fog(0xc5d9dd,100,300);
@@ -15,7 +15,7 @@ export function createWorld(canvas){
  for(const s of STREETS){box(s,-.01,0,20,.2,292,0xbabcb1);box(0,-.01,s,292,.2,20,0xbabcb1);box(s,.11,0,16,.04,292,0x555f62);box(0,.12,s,292,.04,16,0x555f62);}
  for(const s of STREETS)for(let n=-138;n<140;n+=10){if(STREETS.some(k=>Math.abs(n-k)<13))continue;box(s,.16,n,.14,.025,4,0xe8ddbc);box(n,.17,s,4,.025,.14,0xe8ddbc);}
  for(const x of STREETS)for(const z of STREETS){for(let k=-5;k<=5;k+=2){box(x+k,.18,z+11,1,.02,3,0xeceae0);box(x+k,.18,z-11,1,.02,3,0xeceae0);box(x+11,.18,z+k,3,.02,1,0xeceae0);box(x-11,.18,z+k,3,.02,1,0xeceae0);}}
- for(const b of BUILDINGS){box(b.x,b.h/2,b.z,b.w,b.h,b.d,b.color);if(b.x===30)box(b.x,b.h+.3,b.z,b.w+1,.6,b.d+1,0x697777);for(let floor=3;floor<b.h;floor+=3)for(const off of [-5,0,5]){box(b.x+off,floor,b.z-9.05,2,1.5,.1,0x607f87);box(b.x-9.05,floor,b.z+off,.1,1.5,2,0x607f87);box(b.x+9.05,floor,b.z+off,.1,1.5,2,0x607f87);box(b.x+off,floor,b.z+9.05,2,1.5,.1,0x607f87);}}
+ for(const b of BUILDINGS){box(b.x,b.h/2,b.z,b.w,b.h,b.d,b.color);for(let floor=3;floor<b.h;floor+=3)for(const off of [-5,0,5]){box(b.x+off,floor,b.z-9.05,2,1.5,.1,0x607f87);box(b.x-9.05,floor,b.z+off,.1,1.5,2,0x607f87);box(b.x+9.05,floor,b.z+off,.1,1.5,2,0x607f87);box(b.x+off,floor,b.z+9.05,2,1.5,.1,0x607f87);}}
  // A spacious teaching ground and a shaded park form distinct western districts.
  box(-58,.03,65,84,.1,86,0xc0c3ad);for(let z=37;z<94;z+=15)box(-64,.1,z,58,.04,.16,0xf3eee0);
  box(-58,.08,-55,72,.15,72,0x78975c);box(-58,.2,-55,5,.05,72,0xd4c4a1);box(-58,.2,-55,72,.05,5,0xd4c4a1);
