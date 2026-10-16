@@ -1,3 +1,4 @@
+import {treeGeometryVariant} from './drive/external-assets.mjs';
 import fs from 'node:fs/promises';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
@@ -11,6 +12,7 @@ vm.runInContext(source+'\nglobalThis.api={assetGeometry,applySurface,installExte
 let triangles=0;for(const model of Object.values(data))for(const {geo}of context.api.assetGeometry(model)){assert.ok(geo.attributes.position.array.every(Number.isFinite));assert.ok(geo.attributes.normal.array.every(Number.isFinite));triangles+=geo.attributes.position.count/3;}
 assert.ok(triangles<3000);const scene=new Three.Scene(),car=new Three.Group(),oldBody=new Three.Mesh(new Three.BoxGeometry()),lamp=new Three.Mesh(),shadow=new Three.Mesh(undefined,new Three.MeshBasicMaterial({transparent:true}));car.add(oldBody,lamp,shadow);scene.add(car);
 const oldTree=new Three.InstancedMesh(new Three.BoxGeometry(),new Three.MeshLambertMaterial(),1);scene.add(oldTree);
+scene.fog=new Three.Fog(0xffffff,100,265);
 const renderer={shadowMap:{}},wheels=[],materials=new Map([[0x555f62,new Three.MeshLambertMaterial()],[0xdfe1d9,new Three.MeshLambertMaterial()]]);
 const result=await context.api.installExternalAssets({scene,renderer,materials,car,wheels,lamps:[lamp],trunks:[[0,1,20],[5,1,20]],treeMeshes:[oldTree]});
 assert.equal(Object.keys(result).length,6);assert.equal(oldBody.visible,false);assert.equal(lamp.visible,true);assert.equal(shadow.visible,true);assert.equal(wheels.length,2);assert.ok(wheels.every(w=>w.position.z>0));assert.equal(oldTree.parent,null);assert.equal(renderer.shadowMap.needsUpdate,true);assert.ok(scene.environment&&scene.background);assert.ok(scene.background.name.includes('sky-background.webp'),'late environment does not overwrite sharp sky');
@@ -20,3 +22,8 @@ for(const material of materials.values()){const shader={vertexShader:Three.Shade
 context.fetch=async()=>{throw new Error('simulated offline');};const fallback=new Three.Group(),body=new Three.Mesh();fallback.add(body);context.console={warn(){}};
 await context.api.installExternalAssets({scene:new Three.Scene(),renderer:{shadowMap:{}},materials:new Map(),car:fallback,wheels:[],lamps:[],trunks:[],treeMeshes:[]});assert.equal(body.visible,true);
 console.log('PASS: CC0 model geometry, dimensions, wheel orientation, asset installation, shader injection and offline model fallback.',{triangles});
+
+assert.equal(scene.backgroundIntensity,1);assert.equal(scene.backgroundBlurriness,0);assert.equal(scene.fog.color.getHex(),0xb8c3cf);
+const baseTree=context.api.assetGeometry(data.tree)[0].geo,variants=[0,1,2].map(i=>treeGeometryVariant(baseTree,i));
+assert.notDeepEqual(variants[0].attributes.position.array,variants[1].attributes.position.array);
+for(const g of variants){assert.equal(g.attributes.position.count,baseTree.attributes.position.count);assert.ok(g.attributes.normal.array.every(Number.isFinite));for(let i=0;i<g.attributes.position.count;i++)if(baseTree.attributes.position.getY(i)<.3){assert.equal(g.attributes.position.getX(i),baseTree.attributes.position.getX(i));assert.equal(g.attributes.position.getZ(i),baseTree.attributes.position.getZ(i));}}
