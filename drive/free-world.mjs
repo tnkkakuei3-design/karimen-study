@@ -1,12 +1,12 @@
 import {createDetailedShops} from './detailed-shops.mjs?v=1';
 import {createResidentialDistrict,loadHouseTextures} from './detailed-house.mjs?v=4';
 import {addStreetDetails} from './street-details.mjs?v=1';
-import {installExternalAssets,applySurface} from './external-assets.mjs?v=2';
+import {installExternalAssets,applySurface} from './external-assets.mjs?v=3';
 import {createCar} from './free-car.mjs?v=1';
-import {addRoadSurfaces} from './road-surfaces.mjs?v=2';
+import {addRoadSurfaces} from './road-surfaces.mjs?v=3';
 import {addDistricts} from './district-scenery.mjs?v=8';
 import * as T from './vendor/three.module.min.js';
-import {addShopBlock,SHOPS} from './shop-block.mjs?v=7';
+import {addShopBlock,SHOPS} from './shop-block.mjs?v=8';
 import {STREETS,BUILDINGS,PLACES} from './free-model.mjs?v=houses1';
 export function createWorld(canvas){
  const renderer=new T.WebGLRenderer({canvas,antialias:true,powerPreference:'low-power'});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;
@@ -20,7 +20,7 @@ export function createWorld(canvas){
  function grassTexture(){if(grass)return grass;const c=document.createElement('canvas');c.width=c.height=128;const ctx=c.getContext('2d');ctx.fillStyle='#ededdf';ctx.fillRect(0,0,128,128);let seed=2731;for(let i=0;i<5000;i++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;const x=(seed>>>16)%128;seed=(Math.imul(seed,1664525)+1013904223)>>>0;const y=(seed>>>16)%128,shade=200+seed%45;ctx.fillStyle=`rgb(${shade},${Math.min(255,shade+8)},${shade-10})`;ctx.fillRect(x,y,1,2);}grass=new T.CanvasTexture(c);grass.colorSpace=T.SRGBColorSpace;grass.wrapS=grass.wrapT=T.RepeatWrapping;return grass;}
  let grain;
  function grainTexture(){if(grain)return grain;const c=document.createElement('canvas');c.width=c.height=128;const ctx=c.getContext('2d');ctx.fillStyle='#f4f4f4';ctx.fillRect(0,0,128,128);let seed=7381;for(let i=0;i<2200;i++){seed=(seed*1664525+1013904223)>>>0;const x=seed%128;seed=(seed*1664525+1013904223)>>>0;const y=seed%128;const shade=220+seed%31;ctx.fillStyle=`rgb(${shade},${shade},${shade})`;ctx.fillRect(x,y,1,1);}grain=new T.CanvasTexture(c);grain.colorSpace=T.SRGBColorSpace;grain.wrapS=grain.wrapT=T.RepeatWrapping;grain.repeat.set(4,4);return grain;}
- function mat(color){if(!materials.has(color))materials.set(color,([0x607f87,0x8ea9ab,0x9fb5b3].includes(color)?new T.MeshStandardMaterial({color:0x91a9af,roughness:.22,metalness:.12,envMapIntensity:.65}):new T.MeshLambertMaterial({color,map:[0x555f62,0xc8c2ae,0xd8ceb0,0xd5c5af,0xdfe1d9,0xc9d3d4,0xc5bba9].includes(color)?grainTexture():null})));return materials.get(color);}
+ function mat(color){if(!materials.has(color))materials.set(color,([0xc8c2ae,0xd8ceb0].includes(color)?new T.MeshStandardMaterial({color,roughness:.94}):[0x607f87,0x8ea9ab,0x9fb5b3].includes(color)?new T.MeshStandardMaterial({color:0x91a9af,roughness:.22,metalness:.12,envMapIntensity:.65}):new T.MeshLambertMaterial({color,map:[0x555f62,0xc8c2ae,0xd8ceb0,0xd5c5af,0xdfe1d9,0xc9d3d4,0xc5bba9].includes(color)?grainTexture():null})));return materials.get(color);}
  function box(x,y,z,w,h,d,color,ry=0){const cast=y+h/2>.5&&Math.min(w,h,d)>.12,key=color+':'+cast;const batch=batches.get(key)||{color,cast,items:[]};batch.items.push({x,y,z,w,h,d,ry});batches.set(key,batch);}
  box(-350,-.3,0,1000,.5,1800,0x8caa77);box(1050,-.65,0,1800,.5,1800,0x5babbc);box(155,-.3,0,12,.3,1800,0xd8ceb0);
  for(const s of STREETS){box(s,-.01,0,20,.2,292,0xbabcb1);box(0,-.01,s,292,.2,20,0xbabcb1);box(s,.11,0,16,.04,292,0x555f62);box(0,.12,s,292,.04,16,0x555f62);}
@@ -43,13 +43,13 @@ export function createWorld(canvas){
  box(-58,.08,-55,72,.15,72,0x78975c);box(-58,.2,-55,5,.05,72,0xd4c4a1);box(-58,.2,-55,72,.05,5,0xd4c4a1);
  for(let z=-135;z<=135;z+=12){box(146,1,z,.18,2,.18,0xd5dcd9);box(146,1.6,z,.14,.12,12,0xd5dcd9);}
  for(const p of PLACES){box(p.x,.12,p.z,9,.15,9,0xd2c9a8);box(p.x,2.5,p.z+4,.15,5,.15,0x5e7478);label(p.name,p.x,5.4,p.z+4,p.color);}
- function label(text,x,y,z,color){const c=document.createElement('canvas');c.width=512;c.height=128;const ctx=c.getContext('2d');ctx.fillStyle='#faf8ee';ctx.fillRect(0,0,512,128);ctx.fillStyle='#'+color.toString(16).padStart(6,'0');ctx.fillRect(0,0,16,128);ctx.font='bold 48px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,262,66);const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=Math.min(8,renderer.capabilities?.getMaxAnisotropy?.()||1);const sign=new T.Sprite(new T.SpriteMaterial({map:tex,depthTest:true}));sign.position.set(x,y,z);sign.scale.set(12,3,1);scene.add(sign);}
+ function label(text,x,y,z,color){const c=document.createElement('canvas');c.width=512;c.height=128;const ctx=c.getContext('2d');ctx.fillStyle='#faf8ee';ctx.fillRect(0,0,512,128);ctx.fillStyle='#'+color.toString(16).padStart(6,'0');ctx.fillRect(0,0,16,128);ctx.font='bold 48px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,262,66);const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=Math.min(16,renderer.capabilities?.getMaxAnisotropy?.()||1);const sign=new T.Sprite(new T.SpriteMaterial({map:tex,depthTest:true}));sign.position.set(x,y,z);sign.scale.set(12,3,1);scene.add(sign);}
  const trunks=[],crowns=[];for(let i=0;i<65;i++){const x=i<35?-101+(i%7)*14:137,z=i<35?-101+Math.floor(i/7)*15:-132+(i-35)*9;if(i<35&&Math.abs(x+58)<8)continue;trunks.push([x,1.2,z]);crowns.push([x,3.5,z]);}
  function instances(geometry,color,positions,scale){const mesh=new T.InstancedMesh(geometry,mat(color),positions.length),dummy=new T.Object3D();positions.forEach((p,i)=>{dummy.position.set(...p);dummy.scale.set(...scale);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.castShadow=true;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);return mesh;}
  const treeMeshes=[];
  treeMeshes.push(instances(cube,0x80684b,trunks,[.5,2.4,.5]));treeMeshes.push(instances(new T.IcosahedronGeometry(1,0),0x547e58,crowns,[2.5,2.8,2.5]));
  addRoadSurfaces(box);
- addShopBlock({scene,box,mat,anisotropy:Math.min(8,renderer.capabilities?.getMaxAnisotropy?.()||1)});
+ addShopBlock({scene,box,mat,anisotropy:Math.min(16,renderer.capabilities?.getMaxAnisotropy?.()||1)});
  addDistricts({scene,box,mat});
  addStreetDetails({scene,box,mat,anisotropy:Math.min(8,renderer.capabilities?.getMaxAnisotropy?.()||1)});
 

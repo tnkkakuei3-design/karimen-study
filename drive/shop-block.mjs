@@ -12,8 +12,8 @@ export const SHOPS=[
 export function addShopBlock({scene,box,mat,anisotropy=1}){
  const atlas=document.createElement('canvas');atlas.width=1024;atlas.height=1024;
  const ctx=atlas.getContext('2d');ctx.scale(2,2);ctx.fillStyle='#f4efdf';ctx.fillRect(0,0,512,512);
- SHOPS.forEach((s,i)=>{const y=i*80;ctx.fillStyle='#'+s.color.toString(16).padStart(6,'0');ctx.fillRect(0,y,512,76);ctx.fillStyle='#fff9e8';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='bold 32px sans-serif';ctx.fillText(s.name,256,y+25);ctx.font='15px sans-serif';ctx.fillText(s.sub,256,y+57);});
- const texture=new T.CanvasTexture(atlas);texture.colorSpace=T.SRGBColorSpace;texture.anisotropy=anisotropy;
+ SHOPS.forEach((s,i)=>{const y=i*80;ctx.fillStyle='#'+s.color.toString(16).padStart(6,'0');ctx.fillRect(0,y,512,76);ctx.fillStyle='#fff9e8';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='bold 40px sans-serif';ctx.fillText(s.name,256,y+27);ctx.font='13px sans-serif';ctx.fillText(s.sub,256,y+61);});
+ const texture=new T.CanvasTexture(atlas);texture.colorSpace=T.SRGBColorSpace;texture.anisotropy=anisotropy;texture.minFilter=T.LinearMipmapLinearFilter;texture.magFilter=T.LinearFilter;texture.generateMipmaps=true;
  const signMat=new T.MeshLambertMaterial({map:texture});
  for(let i=0;i<SHOPS.length;i++){
   const s=SHOPS[i],z=s.z;
@@ -24,10 +24,10 @@ export function addShopBlock({scene,box,mat,anisotropy=1}){
   if(i===4)for(let j=-1;j<=5;j+=1)box(21.5,1.1,z+j,.1,.6,.5,[0x925044,0xb29152,0x577862][(j+1)%3]);
   if(i===5){box(20.7,1.8,z+5,.1,2.8,4,0x9c9e93);for(let y=.55;y<3.1;y+=.22)box(20.6,y,z+5,.1,.035,4,0x697777);}
   // Signboard and projecting canopy give the facades depth.
-  box(20.58,3.65,z,.3,1.05,16.4,0xe4ded1);
-  const geo=new T.PlaneGeometry(15.8,.92),uv=geo.attributes.uv;
+  box(20.58,3.9,z,.3,1.55,9.8,0xe4ded1);
+  const geo=new T.PlaneGeometry(9.3,1.38),uv=geo.attributes.uv;
   for(let k=0;k<uv.count;k++)uv.setY(k,1-(i*80+(1-uv.getY(k))*76)/512);
-  const sign=new T.Mesh(geo,signMat);sign.rotation.y=-Math.PI/2;sign.position.set(20.4,3.65,z);scene.add(sign);
+  const sign=new T.Mesh(geo,signMat);sign.rotation.y=-Math.PI/2;sign.position.set(20.4,3.9,z);scene.add(sign);
   box(19.6,3.08,z,2.3,.18,s.canopy,s.color);box(18.5,2.87,z,.13,.42,s.canopy,s.color);
   for(let j=-s.canopy/2+.6;j<s.canopy/2;j+=2)box(19.6,3.18,z+j,2.3,.03,.55,0xe4ded1);
   // Upper floor balconies and AC units use a shared material palette.
