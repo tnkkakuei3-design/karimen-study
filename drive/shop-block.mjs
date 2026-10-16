@@ -9,11 +9,11 @@ export const SHOPS=[
  {z:60,door:-5,window:2,windowW:9,roof:'stepped',canopy:14,name:'ひかり書店',sub:'本と文房具',color:0x776959},
  {z:90,door:0,window:-5,windowW:4.2,roof:'parapet',canopy:9,name:'まるい商店',sub:'日用品・飲みもの',color:0x597684}
 ];
-export function addShopBlock({scene,box,mat}){
- const atlas=document.createElement('canvas');atlas.width=512;atlas.height=512;
- const ctx=atlas.getContext('2d');ctx.fillStyle='#f4efdf';ctx.fillRect(0,0,512,512);
+export function addShopBlock({scene,box,mat,anisotropy=1}){
+ const atlas=document.createElement('canvas');atlas.width=1024;atlas.height=1024;
+ const ctx=atlas.getContext('2d');ctx.scale(2,2);ctx.fillStyle='#f4efdf';ctx.fillRect(0,0,512,512);
  SHOPS.forEach((s,i)=>{const y=i*80;ctx.fillStyle='#'+s.color.toString(16).padStart(6,'0');ctx.fillRect(0,y,512,76);ctx.fillStyle='#fff9e8';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='bold 32px sans-serif';ctx.fillText(s.name,256,y+25);ctx.font='15px sans-serif';ctx.fillText(s.sub,256,y+57);});
- const texture=new T.CanvasTexture(atlas);texture.colorSpace=T.SRGBColorSpace;
+ const texture=new T.CanvasTexture(atlas);texture.colorSpace=T.SRGBColorSpace;texture.anisotropy=anisotropy;
  const signMat=new T.MeshLambertMaterial({map:texture});
  for(let i=0;i<SHOPS.length;i++){
   const s=SHOPS[i],z=s.z;
