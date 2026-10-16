@@ -1,5 +1,5 @@
 import * as T from './vendor/three.module.min.js';
-import {BUILDINGS,DISTRICT_PROPS} from './free-model.mjs?v=house1';
+import {BUILDINGS,DISTRICT_PROPS} from './free-model.mjs?v=houses1';
 import {houseFront} from './district-layout.mjs?v=3';
 export function addDistricts({scene,box,mat}){
  const homes=BUILDINGS.filter(b=>b.x!==30),dummy=new T.Object3D();
@@ -10,9 +10,11 @@ export function addDistricts({scene,box,mat}){
  const greens=[];
  for(const [parity,color]of [[0,0x966951],[1,0x627275]]){
   const group=homes.filter((b,i)=>!b.detailed&&i%2===parity),mesh=new T.InstancedMesh(roof,mat(color),group.length);
+  if(!group.length)continue;
   group.forEach((b,i)=>{dummy.position.set(b.x,b.h+.15,b.z);dummy.rotation.set(0,0,0);dummy.scale.set(b.w+1.6,2.6,b.d+1.6);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.castShadow=true;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);
  }
  for(const [index,b] of homes.entries()){
+  if(b.detailed)continue;
 
   const f=houseFront(b);
   const front=(u,y,out,w,h,d,c)=>{const p=f.point(u,out);box(p.x,y,p.z,f.alongZ?w:d,h,f.alongZ?d:w,c);};

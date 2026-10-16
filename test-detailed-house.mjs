@@ -2,8 +2,8 @@ import * as T from './drive/vendor/three.module.min.js';
 import assert from 'node:assert/strict';
 import {createDetailedHouse} from './drive/detailed-house.mjs';
 import {BUILDINGS,blocked} from './drive/free-model.mjs';
-const houses=BUILDINGS.filter(b=>b.detailed);assert.equal(houses.length,1);
-const b=houses[0],{group,materials}=createDetailedHouse(b);assert.ok(group.children.length<=12);
+const houses=BUILDINGS.filter(b=>b.detailed);assert.equal(houses.length,BUILDINGS.filter(b=>b.lotX!==30).length);
+const b=houses.find(b=>b.lotX===90&&b.lotZ===30),{group,materials}=createDetailedHouse(b);assert.ok(group.children.length<=12);
 let vertices=0;group.traverse(o=>{if(!o.isMesh)return;for(const key of ['position','normal','uv'])assert.ok(o.geometry.attributes[key].array.every(Number.isFinite));vertices+=o.geometry.attributes.position.count;});
 assert.ok(vertices<40000);assert.ok(materials.glass.roughness<.25);
 // All visible body corners are covered, but the road and garden entrance remain accessible.

@@ -15,8 +15,7 @@ for(const x of [-90,-60,-30,30,60,90])for(const z of [-90,-60,-30,30,60,90]){
  if((x<0&&z>0)||(x<0&&z<0&&x>-80&&z>-80))continue;
  BUILDINGS.push({lotX:x,lotZ:z,x:x+(x===30?0:((BUILDINGS.length%3)-1)*.7),z:z+(x===30?0:((BUILDINGS.length%5)-2)*.4),w:18,d:18,h:6+((Math.abs(x)*7+Math.abs(z)*11+BUILDINGS.length*3)%9),color:[0xd5c5af,0xdfe1d9,0xc9d3d4,0xc5bba9][BUILDINGS.length%4]});
 }
-const prototype=BUILDINGS.find(b=>b.lotX===90&&b.lotZ===30);
-Object.assign(prototype,{detailed:true,w:12.6,d:14.6,h:6.65});
+for(const b of BUILDINGS){if(b.lotX===30)continue;const alongZ=Math.abs(b.lotZ)===90;Object.assign(b,{detailed:true,w:alongZ?14.6:12.6,d:alongZ?12.6:14.6,h:6.65});}
 export const DISTRICT_PROPS=districtProps(BUILDINGS);
 const SOLIDS=[...BUILDINGS,...STREET_PROPS,...DISTRICT_PROPS,...STREET_DETAIL_SOLIDS];
 export const onRoad=(x,z)=>STREETS.some(t=>Math.abs(x-t)<8||Math.abs(z-t)<8);
