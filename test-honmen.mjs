@@ -130,7 +130,7 @@ assert.ok(doc.querySelector('[data-h="reset"]').disabled,'unfinished work protec
 // Every hazard has three specific reasons; topic drills must respect the selected note.
 for(const question of bank.filter(q=>q.type==='hazard'))assert.equal(w.HonmenTeaching[question.id].length,3);
 click('[data-h="tab"][data-tab="learn"]');click('[data-h="learn-section"][data-value="notes"]');
-assert.equal(doc.querySelectorAll('[data-h-note]').length,71);
+assert.equal(doc.querySelectorAll('[data-h-note]').length,89);
 for(const el of doc.querySelectorAll('[data-h-note]')){w.HonmenNotes.populate(el,bank);assert.ok(el.querySelector('.note-content').textContent.length>20);}
 assert.ok(w.HonmenNotes.questions('n-rail',bank).every(q=>/踏切/.test(q.text)));
 assert.equal(w.HonmenNotes.questions('h-hazard',bank).length,40);
@@ -203,5 +203,20 @@ assert.ok(doc.querySelector('#result .flower-stamp'));assert.match(doc.querySele
 assert.match(doc.querySelector('#result .comparison').textContent,/\+10点/);
 click('[data-h="tab"][data-tab="mock"]');click('[data-h="set"][data-set="2"]');click(`[data-h="history"][data-record="${guidedFirst.id}"]`);
 assert.match(doc.querySelector('#result .comparison').textContent,/今回までの最高点90/);
+// Every added topic launches only its reviewed questions, with the displayed count.
+for(const n of w.HonmenNoteAdditions){
+ if(app.model.state.sessions.study)app.model.finish('study');
+ click('[data-h="tab"][data-tab="learn"]');click('[data-h="learn-section"][data-value="notes"]');
+ const el=doc.querySelector(`[data-h-note="${n.id}"]`);
+ w.HonmenNotes.populate(el,bank);
+ const expected=w.HonmenNotes.questions(n.id,bank).map(q=>q.id);
+ assert.ok(expected.length,n.id);
+ const button=el.querySelector('[data-h="note-drill"]');
+ assert.ok(button.textContent.includes(String(Math.min(10,expected.length))));
+ button.click();
+ assert.equal(app.view,'play');
+ assert.equal(app.model.state.sessions.study.ids.length,Math.min(10,expected.length));
+ assert.ok(app.model.state.sessions.study.ids.every(id=>expected.includes(id)),n.id);
+}
 await app.storage.flush();app.storage.close();dom.window.close();
 console.log('Honmen tests passed: weighted grading, boundaries, timer, resumes, spaced review, storage recovery/isolation, stale tabs, import protection, and UI flows.');

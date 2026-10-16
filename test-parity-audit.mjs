@@ -31,6 +31,21 @@ for(const q of bank){
  assert.equal(doc.querySelector('.answered-question .question').textContent,q.text);
  assert.ok(doc.querySelector('#play .source-link'));
  assert.ok(doc.querySelector('#play [data-h="answer-note"]'),'all questions retain notebook navigation');
+ const related=w.HonmenNotes.related(q);
+ assert.ok(related.length,`direct topic missing: ${q.id}`);
+ assert.ok(related.every(n=>w.HonmenNotes.questions(n.id,bank).some(x=>x.id===q.id)),`reverse topic missing: ${q.id}`);
+ if(w.HonmenNoteLinks[q.id]){
+  const link=doc.querySelector('#play [data-h="answer-note"]');
+  assert.equal(link.dataset.note,w.HonmenNoteLinks[q.id][0]);
+  click('#play [data-h="answer-note"]');
+  const note=doc.querySelector(`#notes [data-h-note="${link.dataset.note}"]`);
+  assert.ok(note?.open,`correct topic must open: ${q.id}`);
+  assert.ok(note.querySelector('.note-keypoints').textContent.includes(related[0].pts[0]));
+  click('#notes [data-h="note-return"]');
+  assert.equal(app.view,'play');
+  assert.equal(doc.querySelector('.answered-question .question').textContent,q.text);
+ }
+
  if(q===bank[0]){click('#play [data-h="answer-note"]');assert.equal(app.view,'notes');click('#notes [data-h="note-return"]');assert.equal(app.view,'play');assert.equal(doc.querySelector('.answered-question .question').textContent,q.text);}
  assert.equal(doc.querySelectorAll('#play [data-h="answer"]').length,0);
  assert.ok(m.finish('study'));
