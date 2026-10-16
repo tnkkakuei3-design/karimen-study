@@ -956,7 +956,7 @@ h2,h3{font-weight:700}
 
 /* Learning tab: one primary action; secondary fresh start. */
 #learn-categories>.learn-actions{display:flex;flex-direction:column;gap:2px;margin-bottom:18px}
-#learn-categories>.learn-actions>.recommend{min-height:72px;padding:14px 18px;border-radius:10px;box-shadow:none;background:var(--blue);color:#fff;gap:12px}
+#learn-categories>.learn-actions>.recommend{min-height:72px;padding:14px 18px;border-radius:10px;box-shadow:none;background:var(--action-bg);color:var(--action-fg);gap:12px}
 #learn-categories>.learn-actions>.recommend:before{display:none}
 #learn-categories>.learn-actions>.recommend strong{font-size:18px;font-weight:700}
 #learn-categories>.learn-actions>.recommend small{color:#fff;opacity:1;font-size:14px;line-height:1.6;margin-top:4px}
