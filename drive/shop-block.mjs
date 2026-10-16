@@ -19,26 +19,10 @@ export function addShopBlock({scene,box,mat,anisotropy=1}){
   const s=SHOPS[i],z=s.z;
   // Setback pavement, step, glazed door, display window, recessed shutters.
   box(15.5,.18,z,11,.12,20,0xc8c2ae);box(20.7,.35,z,1,.35,17,0xb5b2a6);
-  box(20.91,1.9,z, .16,3.1,16,0x424e4c);
-  box(20.78,1.85,z+s.door,.08,2.7,i===2?3.4:2,0x9fb5b3);box(20.68,1.9,z+s.door,.08,3,.12,0xe4ded1);
-  box(20.74,1.8,z+s.window,.08,2.35,s.windowW,0x8ea9ab);
-  for(let j=-s.windowW/2;j<=s.windowW/2+.01;j+=s.windowW/(i===4?4:2))box(20.65,1.8,z+s.window+j,.12,2.5,.12,0xe4ded1);
-  box(20.6,.62,z+s.window,.15,.25,s.windowW+.3,0xe4ded1);
   if(i===0)for(const j of [-.7,0,.7])box(20.5,2.65,z+s.door+j,.08,.65,.6,s.color); // noren
   if(i===2)for(const j of [-5,-3]){box(20.4,.65,z+j,.6,1,1.6,0xb29152);box(20.35,1.25,z+j,.7,.25,1.5,0x577862);}
-  if(i===4)for(let j=-1;j<=5;j+=1)box(20.6,1.1,z+j,.1,.6,.5,[0x925044,0xb29152,0x577862][(j+1)%3]);
+  if(i===4)for(let j=-1;j<=5;j+=1)box(21.5,1.1,z+j,.1,.6,.5,[0x925044,0xb29152,0x577862][(j+1)%3]);
   if(i===5){box(20.7,1.8,z+5,.1,2.8,4,0x9c9e93);for(let y=.55;y<3.1;y+=.22)box(20.6,y,z+5,.1,.035,4,0x697777);}
-  const roofY=BUILDINGS.find(b=>b.x===30&&b.z===z).h;
-  if(s.roof==='tile'||s.roof==='gable'){
-   const shape=new T.Shape();shape.moveTo(-9.6,0);shape.lineTo(9.6,0);shape.lineTo(0,s.roof==='tile'?2:3.6);shape.closePath();
-   const roof=new T.Mesh(new T.ExtrudeGeometry(shape,{depth:19.2,bevelEnabled:false,steps:1,curveSegments:1}),mat(s.roof==='tile'?0x925044:0x776959));
-   roof.rotation.y=Math.PI/2;roof.position.set(20.4,roofY,z);roof.castShadow=true;roof.receiveShadow=true;scene.add(roof);
-  }else{
-   box(30,roofY+.2,z,19.2,.4,19.2,0x697777);
-   if(s.roof==='clerestory'){box(30,roofY+1.1,z,10,1.5,12,0x8ea9ab);box(30,roofY+1.9,z,11,.25,13,0x697777);}
-   if(s.roof==='stepped'){box(21,roofY+.9,z,.4,1.8,14,s.color);box(21,roofY+2,z,.4,.6,7,s.color);}
-   if(s.roof==='parapet')for(const dz of [-9,9])box(30,roofY+.8,z+dz,18,1.2,.35,0xe4ded1);
-  }
   // Signboard and projecting canopy give the facades depth.
   box(20.58,3.65,z,.3,1.05,16.4,0xe4ded1);
   const geo=new T.PlaneGeometry(15.8,.92),uv=geo.attributes.uv;

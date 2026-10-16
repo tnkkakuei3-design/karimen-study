@@ -1,3 +1,4 @@
+import {createDetailedShops} from './drive/detailed-shops.mjs';
 import {createResidentialDistrict} from './drive/detailed-house.mjs';
 import {STOP_APPROACHES,PARKING,STREET_DETAIL_SOLIDS} from './drive/street-details-layout.mjs';
 import {applySurface} from './drive/external-assets.mjs';
@@ -13,7 +14,7 @@ const dom=new JSDOM('<canvas id="world"></canvas>',{runScripts:'outside-only'}),
 w.HTMLCanvasElement.prototype.getContext=()=>new Proxy({},{get:(_,key)=>(key==='createRadialGradient'||key==='createLinearGradient')?()=>({addColorStop(){}}):()=>{}});
 let renders=0,scene,renderer;
 class Renderer{constructor(options){renderer=this;this.options=options;}shadowMap={};setPixelRatio(value){this.ratio=value;}setSize(){}render(s,c){scene=s;renders++;assert.ok(c.projectionMatrix.elements.every(Number.isFinite));s.traverse(o=>{assert.ok(o.position.toArray().every(Number.isFinite));if(o.isInstancedMesh)assert.ok(o.instanceMatrix.array.every(Number.isFinite));});}}
-Object.assign(w,{createResidentialDistrict,loadHouseTextures:()=>Promise.resolve([]),STOP_APPROACHES,PARKING,STREET_DETAIL_SOLIDS,applySurface,installExternalAssets:()=>Promise.resolve({}),addRoadSurfaces,T:{...Three,WebGLRenderer:Renderer},STREETS,BUILDINGS,PLACES,STREET_PROPS,DISTRICT_PROPS,houseFront});
+Object.assign(w,{createDetailedShops,createResidentialDistrict,loadHouseTextures:()=>Promise.resolve([]),STOP_APPROACHES,PARKING,STREET_DETAIL_SOLIDS,applySurface,installExternalAssets:()=>Promise.resolve({}),addRoadSurfaces,T:{...Three,WebGLRenderer:Renderer},STREETS,BUILDINGS,PLACES,STREET_PROPS,DISTRICT_PROPS,houseFront});
 const source=fs.readFileSync(new URL('./drive/free-world.mjs',import.meta.url),'utf8').replace(/^import .*;\n/gm,'').replace('export function createWorld','function createWorld');
 const shops=fs.readFileSync(new URL('./drive/shop-block.mjs',import.meta.url),'utf8').replace(/^import .*;\n/gm,'').replace(/^export /gm,'');
 const districts=fs.readFileSync(new URL('./drive/district-scenery.mjs',import.meta.url),'utf8').replace(/^import .*;\n/gm,'').replace(/^export /gm,'');
