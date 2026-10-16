@@ -1,5 +1,5 @@
 import * as T from './vendor/three.module.min.js';
-import {BUILDINGS,DISTRICT_PROPS} from './free-model.mjs?v=district1';
+import {BUILDINGS,DISTRICT_PROPS} from './free-model.mjs?v=curb1';
 import {houseFront} from './district-layout.mjs?v=1';
 export function addDistricts({scene,box,mat}){
  const homes=BUILDINGS.filter(b=>b.x!==30),dummy=new T.Object3D();
@@ -27,7 +27,6 @@ export function addDistricts({scene,box,mat}){
   for(const u of [-5,5]){front(u,.5,10,6,.85,.25,0xb5b2a6);front(u,.96,10,6.2,.12,.35,0xe4ded1);for(let j=-2;j<=2;j++)front(u+j,.6,10.14,.025,.7,.015,0x697777);}
  }
  // Coastal promenade, kerb, sand and steps: no extra objects in the traffic lanes.
- box(140,.17,0,10,.15,286,0xd8ceb0);box(133.2,.22,0,.25,.3,286,0xe4ded1);
  for(let z=-138;z<140;z+=6)box(140,.26,z,10,.02,.04,0xb5b2a6);
  for(const p of DISTRICT_PROPS.filter(p=>p.kind==='bench')){
   box(p.x,.62,p.z,1.1,.12,2.5,0x776959);box(p.x+.48,1.04,p.z,.12,.8,2.5,0x776959);

@@ -1,7 +1,8 @@
-import {addDistricts} from './district-scenery.mjs?v=1';
+import {addRoadSurfaces} from './road-surfaces.mjs?v=1';
+import {addDistricts} from './district-scenery.mjs?v=2';
 import * as T from './vendor/three.module.min.js';
-import {addShopBlock} from './shop-block.mjs?v=1';
-import {STREETS,BUILDINGS,PLACES} from './free-model.mjs?v=district1';
+import {addShopBlock} from './shop-block.mjs?v=2';
+import {STREETS,BUILDINGS,PLACES} from './free-model.mjs?v=curb1';
 export function createWorld(canvas){
  const renderer=new T.WebGLRenderer({canvas,antialias:false,powerPreference:'low-power'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.outputColorSpace=T.SRGBColorSpace;
  const scene=new T.Scene();scene.background=new T.Color(0xc5d9dd);scene.fog=new T.Fog(0xc5d9dd,100,300);
@@ -24,6 +25,7 @@ export function createWorld(canvas){
  const trunks=[],crowns=[];for(let i=0;i<65;i++){const x=i<35?-101+(i%7)*14:137,z=i<35?-101+Math.floor(i/7)*15:-132+(i-35)*9;if(i<35&&Math.abs(x+58)<8)continue;trunks.push([x,1.2,z]);crowns.push([x,3.5,z]);}
  function instances(geometry,color,positions,scale){const mesh=new T.InstancedMesh(geometry,mat(color),positions.length),dummy=new T.Object3D();positions.forEach((p,i)=>{dummy.position.set(...p);dummy.scale.set(...scale);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.castShadow=true;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);}
  instances(cube,0x80684b,trunks,[.5,2.4,.5]);instances(new T.IcosahedronGeometry(1,0),0x547e58,crowns,[2.5,2.8,2.5]);
+ addRoadSurfaces(box);
  addShopBlock({scene,box,mat});
  addDistricts({scene,box,mat});
  for(const [color,arr]of batches){const mesh=new T.InstancedMesh(cube,mat(color),arr.length),dummy=new T.Object3D();arr.forEach((b,i)=>{dummy.position.set(b.x,b.y,b.z);dummy.scale.set(b.w,b.h,b.d);dummy.rotation.y=b.ry;dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.castShadow=true;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);}
