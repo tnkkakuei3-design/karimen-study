@@ -281,7 +281,10 @@
       ],
       "condition": "安全地帯の黄白二重枠、斜線なし",
       "oldHash": "9480d88d9dad5e46366e1076a9bf10eab78c1351abb350950e1109de19ca43ff",
-      "newHash": "d8c3dbf38cd2021767f73307e7149f4001553a60661558edf9e748742fb76f5d"
+      "newHash": "d8c3dbf38cd2021767f73307e7149f4001553a60661558edf9e748742fb76f5d",
+      "amendment": {
+        "explanation": "図は安全地帯です。車は安全地帯に乗り入れてはいけません。"
+      }
     },
     "h3-037": {
       "sources": [
@@ -369,7 +372,10 @@
       ],
       "condition": "横断歩道・自転車横断帯の一体標識",
       "oldHash": "64730ada1fd012af1817c2455b1b3dfa5d1993297029c00d66eb02a73f80e90d",
-      "newHash": "c5045aea9396ec1115d9a7ffbffea273d300a632b379832df8a25e3f2d8759dc"
+      "newHash": "c5045aea9396ec1115d9a7ffbffea273d300a632b379832df8a25e3f2d8759dc",
+      "amendment": {
+        "explanation": "横断歩道・自転車横断帯を示す標識です。自転車道や自転車専用道路を示すものではありません。"
+      }
     },
     "h4-019": {
       "sources": [
@@ -511,17 +517,20 @@
           "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
           "page": 1,
           "crop_points": [
-            657,
+            557,
             475.3,
-            695,
-            513.3
+            598,
+            514
           ],
           "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
         }
       ],
-      "condition": "特定小型原付・自転車通行止め",
+      "condition": "赤い円と斜線の中に二輪車の図柄がある標識",
       "oldHash": "58b5ce99cbac75016c2a1a52a9d8f39f6e1c49b4f582d45110ce3ab2c9ca008b",
-      "newHash": "0434e71078fb4280487958abbfe879214e998780a1f376296a30a666e59f73fc"
+      "newHash": "72d68e021557f5f797b73da2e984fee376c0a0fa99829fa8422f1c1fd2261e58",
+      "amendment": {
+        "imageAlt": "赤い円と斜線の中に二輪車の図柄がある標識"
+      }
     },
     "h5-046": {
       "sources": [
@@ -552,12 +561,22 @@
         {
           "publisher": "国土交通省「道路標識一覧」",
           "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
-          "reused_asset": "data/assets/c9a8860d3ee69b5899d7.png"
+          "page": 1,
+          "crop_points": [
+            263,
+            473,
+            305,
+            514
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
         }
       ],
-      "condition": "車両通行止め、進入禁止と区別",
+      "condition": "赤い円と交差する2本の赤線の通行止め標識",
       "oldHash": "ed51f90b0de61654067fc7207629f3bdc7822a5d5bb1c369ee943f1ded4cfec1",
-      "newHash": "dab17122da0849f96732e8851dcc7c53511787c9efa7016093f05e0cbc487b7e"
+      "newHash": "4cd1b9425bfef60258fe31e8838eb96f2fa7976bc38f2fd44c21d9dcbae569d3",
+      "amendment": {
+        "imageAlt": "赤い円と交差する2本の赤線の通行止め標識"
+      }
     },
     "h5-078": {
       "sources": [
@@ -752,13 +771,16 @@
         {
           "publisher": "石原自動車教習所「信号に従うこと」",
           "url": "https://www.iac-ds.co.jp/oyakudachi01002/",
-          "source_file": "iac_signals_oyakudachi_zu02003.png",
-          "source_sha256": "a0e7a6fb9bcfb5e1093392e39d26f0f50848a95d6b1cbf43d533e1b1eb20098a"
+          "source_file": "iac_signals_oyakudachi_zu02002.png",
+          "source_sha256": "e9e3a5d518ad6461154552111b4dbc4188ffc5af39e7184b837ca9235884e752"
         }
       ],
-      "condition": "赤主灯・黄右矢印。青矢印と区別。",
+      "condition": "赤主灯と青い右向き矢印",
       "oldHash": "8853665d75c4ddff5e67663c2b8537abd11c3164ff946746f26c7262dec3a834",
-      "newHash": "a8858a63586c55bfa0dae933773efa90e8384d1e6fa58dc37358076d32c8b2ff"
+      "newHash": "d854f3f04506956d5d05e747faa1e75306c1608141acde7ebebd6b256f0dff80",
+      "amendment": {
+        "imageAlt": "赤信号と青い右向き矢印の信号"
+      }
     },
     "h5-056": {
       "sources": [
@@ -771,7 +793,10 @@
       ],
       "condition": "腕を垂直に上げた状態・身体の正面に平行する方向",
       "oldHash": "2e90dc44689d103a66d1a32949f3121c5c484f639c68a2995180a9b101929223",
-      "newHash": "979ad1ec17fa4a16d5e30002a282e792ec75fbf8d432f52f554a6b4318702cb3"
+      "newHash": "979ad1ec17fa4a16d5e30002a282e792ec75fbf8d432f52f554a6b4318702cb3",
+      "amendment": {
+        "explanation": "腕を垂直に上げた警察官の身体の正面に平行する方向（図の矢印方向）の交通は、黄信号と同じです。青信号ではありません。"
+      }
     },
     "h7-013": {
       "sources": [
@@ -1181,7 +1206,10 @@
       "condition": "進行方向別通行区分・左直進、直進、右折",
       "oldHash": "96b754b79ed31930144d1dad9021f5e32927222440f7cf4c049e8bd4801384b7",
       "newHash": "09d815335123a79b7689e66475fe82a8ace797f64b71a43f27429c3959e2b7e4",
-      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。",
+      "amendment": {
+        "text": "図のような標識によって、交差点で進行する方向ごとに通行区分が指定されている場合でも、緊急自動車が近づいてきたときや道路工事などでやむを得ない場合は、他の通行帯を通行することができる。"
+      }
     },
     "h5-007": {
       "sources": [
@@ -1238,7 +1266,11 @@
       "condition": "徐行・日本語",
       "oldHash": "676283e214aecc9b8a6ba15ecd83bc3821ae24b0433f9278856d9f925613d578",
       "newHash": "e6ef19de074adc1b781e6bc75b1f5842e6c1d834ee44bfa4c771491a4faae062",
-      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。",
+      "amendment": {
+        "text": "この標識のある場所では、徐行さえすれば、周囲の安全を確認せずにそのまま通行してもよい。",
+        "explanation": "徐行の標識があっても、周囲の安全確認を省いてよいわけではありません。すぐに停止できる速度で進み、周囲の安全を確かめます。"
+      }
     },
     "h5-057": {
       "sources": [
@@ -1338,21 +1370,25 @@
     "h7-012": {
       "sources": [
         {
-          "publisher": "国土交通省 道路標識一覧",
+          "publisher": "国土交通省「道路標識一覧」",
           "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
           "page": 1,
-          "cropPoints": [
-            133.33333333333334,
-            592.5,
-            168.33333333333334,
-            629.1666666666667
-          ]
+          "crop_points": [
+            173,
+            705,
+            212,
+            746
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
         }
       ],
-      "condition": "学校、幼稚園、保育所等あり・黄色の菱形",
+      "condition": "黄色いひし形に工事をする人の図柄がある警戒標識",
       "oldHash": "7b2dc873e11aca022a4f148740a83bc4fd1278dc06083a2457270fd000de0ff2",
-      "newHash": "015e911b1d03df09e1f5892e925f2aa5e72fc770a36cbc90613950ca12dfe83a",
-      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。"
+      "newHash": "d5461dafd05b9bd7dff79ddf4c2bf41bab359288a9abe8b47f017719dc956d62",
+      "processing": "原図を切り抜き、隣接する表の罫線と見出しを範囲外にした。",
+      "amendment": {
+        "imageAlt": "黄色いひし形に工事をする人の図柄がある警戒標識"
+      }
     },
     "h7-056": {
       "sources": [
@@ -1585,74 +1621,90 @@
     "h3-009": {
       "sources": [
         {
-          "publisher": "japandrivinglicense.com",
-          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-1/",
-          "cropPixels": [
-            55,
-            10,
-            270,
-            200
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 77,
+          "crop_points": [
+            493,
+            394,
+            528,
+            447
           ],
-          "frame": 0
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
         }
       ],
-      "condition": "歩行者用路側帯の白い二本実線。英語の欄外表記と図番号を除外。",
+      "condition": "2本の白い実線で区画された路側帯",
       "oldHash": "d231b0fae5fc005982605b4fdfdcb702e06d64fc880b554d9697b2a5d83c2a14",
-      "newHash": "d7953a4c1abef69ba7d83029769e074d7b9da98bbc754694081488a6febf19e3"
+      "newHash": "aad9895be588d7cc7d7b9283a96c2bdf185ef3e0640cacb2c68c3d30650a4ea0",
+      "amendment": {
+        "imageAlt": "2本の白い実線で区画された路側帯"
+      }
     },
     "h7-034": {
       "sources": [
         {
-          "publisher": "japandrivinglicense.com",
-          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-1/",
-          "cropPixels": [
-            55,
-            10,
-            270,
-            200
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 77,
+          "crop_points": [
+            493,
+            394,
+            528,
+            447
           ],
-          "frame": 0
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
         }
       ],
-      "condition": "歩行者用路側帯の白い二本実線。英語の欄外表記と図番号を除外。",
+      "condition": "2本の白い実線で区画された路側帯",
       "oldHash": "60881e101378803d89c320185a613f944e48e326508e07c9fd9a1a78407d3e57",
-      "newHash": "d7953a4c1abef69ba7d83029769e074d7b9da98bbc754694081488a6febf19e3"
+      "newHash": "aad9895be588d7cc7d7b9283a96c2bdf185ef3e0640cacb2c68c3d30650a4ea0",
+      "amendment": {
+        "imageAlt": "2本の白い実線で区画された路側帯"
+      }
     },
     "h10-057": {
       "sources": [
         {
-          "publisher": "japandrivinglicense.com",
-          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-1/",
-          "cropPixels": [
-            55,
-            10,
-            270,
-            200
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 77,
+          "crop_points": [
+            493,
+            394,
+            528,
+            447
           ],
-          "frame": 0
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
         }
       ],
-      "condition": "歩行者用路側帯の白い二本実線。英語の欄外表記と図番号を除外。",
+      "condition": "2本の白い実線で区画された路側帯",
       "oldHash": "9f4f96782713eb4120e59a30eb3338e9c4783589be6980be90d7760d3d041b4f",
-      "newHash": "d7953a4c1abef69ba7d83029769e074d7b9da98bbc754694081488a6febf19e3"
+      "newHash": "aad9895be588d7cc7d7b9283a96c2bdf185ef3e0640cacb2c68c3d30650a4ea0",
+      "amendment": {
+        "imageAlt": "2本の白い実線で区画された路側帯"
+      }
     },
     "h5-084": {
       "sources": [
         {
-          "publisher": "japandrivinglicense.com",
-          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-4/",
-          "cropPixels": [
-            55,
-            8,
-            250,
-            232
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 77,
+          "crop_points": [
+            493,
+            336,
+            528,
+            389
           ],
-          "frame": 0
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
         }
       ],
-      "condition": "駐停車禁止路側帯の白い実線と破線。英語の欄外表記と図番号を除外。",
+      "condition": "白の実線と破線で区画された路側帯",
       "oldHash": "f4a9c7bb76dfd440318a0942c44adbb1f2cd59eccbb67d0a8cd9fd7d34e8aade",
-      "newHash": "664d3f90dac33b4d7e62e57292d5334e6eabad631e1d6c6649a5140ca1c5fa84"
+      "newHash": "b6b1be64bd73ea270f522d1ef3c2c1e5e4f82af90c3c687828d6e1f13f42b124",
+      "amendment": {
+        "imageAlt": "白の実線と破線で区画された路側帯"
+      }
     },
     "h4-010": {
       "sources": [
@@ -1677,38 +1729,47 @@
     "h2-018": {
       "sources": [
         {
-          "publisher": "japandrivinglicense.com",
-          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-3/",
-          "cropPixels": [
-            0,
-            0,
-            360,
-            158
+          "publisher": "警察庁「交通の方法に関する教則」",
+          "url": "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf",
+          "page": 136,
+          "crop_points": [
+            145,
+            292,
+            207,
+            379
           ],
-          "frame": 0
+          "source_sha256": "bf2f0c9d9f56bb487729ad344b1552f204ca0bd250a20020c0e106b72fec8027"
         }
       ],
-      "condition": "カーブで右側通行を認める道路標示。図番号を除外。",
+      "condition": "カーブの中央に白い破線の標示がある道路（公式の模式図）",
       "oldHash": "aa4e5a266a61076aa4fab65fb0c304f4703548861eb1ea98f3d0da56255025aa",
-      "newHash": "9f408892f56d9af6b4ef9839268bec41c27a2249ebefa814837200955a897ed0"
+      "newHash": "fadf2929c4ae5d63be7ed014c086643fe14d1db56b3220802e3b226e03f4c3a5",
+      "amendment": {
+        "imageAlt": "カーブの中央に白い破線の標示がある道路（公式の模式図）",
+        "text": "図のような白い標示があるカーブでは、右側部分にはみ出して通行できるが、対向車がくることがあるので注意しなければならない。"
+      }
     },
     "h8-048": {
       "sources": [
         {
-          "publisher": "japandrivinglicense.com",
-          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-3/",
-          "cropPixels": [
-            0,
-            0,
-            360,
-            158
+          "publisher": "警察庁「交通の方法に関する教則」",
+          "url": "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf",
+          "page": 136,
+          "crop_points": [
+            145,
+            292,
+            207,
+            379
           ],
-          "frame": 0
+          "source_sha256": "bf2f0c9d9f56bb487729ad344b1552f204ca0bd250a20020c0e106b72fec8027"
         }
       ],
-      "condition": "カーブで右側通行を認める道路標示。図番号を除外。",
+      "condition": "カーブの中央に白い破線の標示がある道路（公式の模式図）",
       "oldHash": "696c6d93b7dc230c3f068b39d09422236f3ba4d3d19205bbb89e1d5cf5e864d7",
-      "newHash": "9f408892f56d9af6b4ef9839268bec41c27a2249ebefa814837200955a897ed0"
+      "newHash": "fadf2929c4ae5d63be7ed014c086643fe14d1db56b3220802e3b226e03f4c3a5",
+      "amendment": {
+        "imageAlt": "カーブの中央に白い破線の標示がある道路（公式の模式図）"
+      }
     },
     "h4-012": {
       "sources": [
@@ -1753,56 +1814,68 @@
     "h4-006": {
       "sources": [
         {
-          "publisher": "japandrivinglicense.com",
-          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-2/",
-          "cropPixels": [
-            0,
-            0,
-            269,
-            350
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 84,
+          "crop_points": [
+            424,
+            150,
+            482,
+            159
           ],
-          "frame": 0
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
         }
       ],
-      "condition": "横断歩道等あり・白い菱形二つ。図番号を除外。",
+      "condition": "道路上の2個の白いひし形の標示",
       "oldHash": "75fca06afd81fa253d47aa9e0a497eba1140db8c322ca7b34a211611861088fd",
-      "newHash": "c924e3382de744608305dabcad6fa97160e24fc2bfd227eb3e10484c81e0899c"
+      "newHash": "f376dec1772bc6cdb34958b10dbfac42b5480d629f65754b772a9aa3f67d3a1e",
+      "amendment": {
+        "imageAlt": "道路上の2個の白いひし形の標示"
+      }
     },
     "h5-049": {
       "sources": [
         {
-          "publisher": "japandrivinglicense.com",
-          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-2/",
-          "cropPixels": [
-            0,
-            0,
-            269,
-            350
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 84,
+          "crop_points": [
+            424,
+            150,
+            482,
+            159
           ],
-          "frame": 0
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
         }
       ],
-      "condition": "横断歩道等あり・白い菱形二つ。図番号を除外。",
+      "condition": "道路上の2個の白いひし形の標示",
       "oldHash": "019627e23ed46c6fc5399d375b8ad2fb8926e363e380d8e8534893c32f1ca88a",
-      "newHash": "c924e3382de744608305dabcad6fa97160e24fc2bfd227eb3e10484c81e0899c"
+      "newHash": "f376dec1772bc6cdb34958b10dbfac42b5480d629f65754b772a9aa3f67d3a1e",
+      "amendment": {
+        "imageAlt": "道路上の2個の白いひし形の標示"
+      }
     },
     "h7-032": {
       "sources": [
         {
-          "publisher": "japandrivinglicense.com",
-          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-2/",
-          "cropPixels": [
-            0,
-            0,
-            269,
-            350
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 84,
+          "crop_points": [
+            424,
+            150,
+            482,
+            159
           ],
-          "frame": 0
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
         }
       ],
-      "condition": "横断歩道等あり・白い菱形二つ。図番号を除外。",
+      "condition": "道路上の2個の白いひし形の標示",
       "oldHash": "e0281f8539ecae0388893a0973b288e989c4210d61149c3dc465c58ac4734c9f",
-      "newHash": "c924e3382de744608305dabcad6fa97160e24fc2bfd227eb3e10484c81e0899c"
+      "newHash": "f376dec1772bc6cdb34958b10dbfac42b5480d629f65754b772a9aa3f67d3a1e",
+      "amendment": {
+        "imageAlt": "道路上の2個の白いひし形の標示"
+      }
     },
     "h8-024": {
       "sources": [
@@ -1827,20 +1900,26 @@
     "h7-022": {
       "sources": [
         {
-          "publisher": "japandrivinglicense.com",
-          "url": "https://japandrivinglicense.com/ja/questions/final-exam/set-2/",
-          "cropPixels": [
-            0,
-            0,
-            360,
-            320
+          "publisher": "警察庁「交通規制基準」2026年3月版",
+          "url": "https://www.npa.go.jp/bureau/traffic/seibi2/kisei/mokuteki/kiseikijun/260316kiseikijun.pdf",
+          "page": 114,
+          "crop_points": [
+            473,
+            161,
+            487,
+            175
           ],
-          "frame": 0
+          "source_sha256": "513486c6c79c0d26f60d74fc191ccd7453fb376f521c2c26b8e2db8631f56dee"
         }
       ],
-      "condition": "左側車線の直進左折矢印。図番号を除外。",
+      "condition": "1つの通行帯に描かれた左折の白い矢印",
       "oldHash": "f6b0df03443ce7066297f6fd254b25caa6ffb7ab3ca3cfbf0acdcc7713c1cd7b",
-      "newHash": "c016585e021352ab7630fd8caf72775a504a399750fbea257a83388df2e9fb39"
+      "newHash": "ce959b3e9a8aa47de79a32345843f5432d585e0a353147a87d2e7dd1498c6525",
+      "amendment": {
+        "imageAlt": "1つの通行帯に描かれた左折の白い矢印",
+        "text": "図の白い矢印の標示がある車両通行帯では、左折してはならない。",
+        "explanation": "図の通行帯は左折する車が通行するためのものです。左折を禁止する標示ではありません。"
+      }
     },
     "h2-012": {
       "sources": [
@@ -1895,27 +1974,24 @@
     "h5-023": {
       "sources": [
         {
-          "publisher": "警察庁 交通の方法に関する教則",
-          "url": "https://www.npa.go.jp/bureau/traffic/20241101kyousoku.pdf",
+          "publisher": "警察庁「交通の方法に関する教則」",
+          "url": "https://www.npa.go.jp/bureau/traffic/20241113kyousoku.pdf",
           "page": 135,
-          "imageBlock": 1,
-          "bbox": [
+          "crop_points": [
             150,
-            235.32000732421875,
-            202.8000030517578,
-            333.4800109863281
+            235,
+            170,
+            282
           ],
-          "subCrop": [
-            0,
-            0,
-            49,
-            75
-          ]
+          "source_sha256": "bf2f0c9d9f56bb487729ad344b1552f204ca0bd250a20020c0e106b72fec8027"
         }
       ],
-      "condition": "終わり・白い斜線の輪のみ",
+      "condition": "白い斜線入りの細長い輪の路面標示",
       "oldHash": "fa3406bf58eb55a2b544542868031280a9514694c6ef709a9ec959cc9a6797db",
-      "newHash": "09ef1fb4c560a665c6e8748760c30f6a1081faedbba38bdc9a8fe056a80bc6b4"
+      "newHash": "07c5cd655e143ed171801c27d5c368dc651e78c55d1366cb8134e60e6e15088f",
+      "amendment": {
+        "imageAlt": "白い斜線入りの細長い輪の路面標示"
+      }
     },
     "h4-007": {
       "sources": [
@@ -2189,15 +2265,24 @@
     "h5-048": {
       "sources": [
         {
-          "publisher": "www.gakka.info",
-          "url": "https://www.gakka.info/1-3-6.html",
-          "cropPixels": null,
-          "frame": 0
+          "publisher": "国土交通省「道路標識一覧」",
+          "url": "https://www.mlit.go.jp/road/sign/sign/douro/ichiran.pdf",
+          "page": 1,
+          "crop_points": [
+            655,
+            591,
+            696,
+            629
+          ],
+          "source_sha256": "ea44489d2449ec7577efe8d31f8f939db79184602078695936d4664408d81853"
         }
       ],
-      "condition": "歩行者・自転車専用の表示板",
+      "condition": "青い円に歩行者と自転車の図柄がある標識",
       "oldHash": "5d0abe1cb205e99b8046eab781d102fcc9c9d7c6d2f21305d8ce84af793f84ad",
-      "newHash": "c67b92e24491d04b2b11af558c6332ab7901e26957f816aad0bc78aeb845d82b"
+      "newHash": "ba7c5a8a9d3fd396e4c6fc5927a5c9e53858ede0465842ceb7a73c164946374e",
+      "amendment": {
+        "imageAlt": "青い円に歩行者と自転車の図柄がある標識"
+      }
     },
     "h2-029": {
       "sources": [
