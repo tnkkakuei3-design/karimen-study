@@ -33,6 +33,12 @@ const settle=async()=>{await app.storage.flush();await new Promise(r=>setTimeout
 click('[data-h="tab"][data-tab="learn"]');assert.ok(doc.querySelector('.learning-overview'));assert.equal(doc.querySelectorAll('.category-card').length,11);
 click('#tab-mock');const before=app.model.export();click('.town-directory-entry');assert.equal(app.view,'town');assert.equal(w.location.hash,'#town');click('[data-town-action="close"]');assert.equal(app.view,'mock');assert.equal(app.model.export(),before,'directory preserves honmen progress');
 click('[data-h="learn-section"][data-value="notes"]');
+assert.ok(doc.querySelector('#learn-categories').hidden,'notes hide study actions and scores');
+assert.ok(doc.querySelector('#learn-categories .learn-actions'),'study actions belong to the category panel');
+assert.equal(doc.querySelector('#learn .character-heading h2').textContent,'図解ノート');
+assert.equal(doc.querySelector('#learn .learn-switch').nextElementSibling.id,'learn-categories');
+assert.ok(!doc.querySelector('#learn-notes').hidden,'notebook panel is visible');
+
 for(const el of doc.querySelectorAll('[data-h-note]')){el.open=true;el.dispatchEvent(new w.Event('toggle'));assert.ok(el.querySelector('.note-content').textContent.trim(),'notebook topic renders');}
 click('[data-h="note-figure"]');assert.ok(doc.getElementById('figure-dialog').open);assert.ok(doc.querySelector('#figure-content svg, #figure-content img, #figure-content table'));click('[data-h="close-figure"]');
 click('[data-h="tab"][data-tab="review"]');assert.match(doc.getElementById('review').textContent,/今すぐ復習/);assert.match(doc.getElementById('review').textContent,/次の復習待ち/);
