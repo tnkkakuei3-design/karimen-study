@@ -1,5 +1,5 @@
 import {wheelSurface} from './road-surfaces.mjs?v=2';
-import {districtProps} from './district-layout.mjs?v=1';
+import {districtProps} from './district-layout.mjs?v=2';
 export const STREETS=[-120,0,120];
 export const LIMIT=145;
 export const PLACES=[
@@ -12,7 +12,7 @@ export const STREET_PROPS=[{x:19,z:-99,w:1.2,d:1},{x:19,z:39,w:1.2,d:1},...[-104
 export const BUILDINGS=[];
 for(const x of [-90,-60,-30,30,60,90])for(const z of [-90,-60,-30,30,60,90]){
  if((x<0&&z>0)||(x<0&&z<0&&x>-80&&z>-80))continue;
- BUILDINGS.push({x,z,w:18,d:18,h:7+((Math.abs(x)+Math.abs(z))%7),color:[0xd5c5af,0xdfe1d9,0xc9d3d4,0xc5bba9][BUILDINGS.length%4]});
+ BUILDINGS.push({lotX:x,lotZ:z,x:x+(x===30?0:((BUILDINGS.length%3)-1)*.7),z:z+(x===30?0:((BUILDINGS.length%5)-2)*.4),w:18,d:18,h:6+((Math.abs(x)*7+Math.abs(z)*11+BUILDINGS.length*3)%9),color:[0xd5c5af,0xdfe1d9,0xc9d3d4,0xc5bba9][BUILDINGS.length%4]});
 }
 export const DISTRICT_PROPS=districtProps(BUILDINGS);
 const SOLIDS=[...BUILDINGS,...STREET_PROPS,...DISTRICT_PROPS];

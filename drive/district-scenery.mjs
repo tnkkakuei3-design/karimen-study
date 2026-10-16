@@ -1,6 +1,6 @@
 import * as T from './vendor/three.module.min.js';
-import {BUILDINGS,DISTRICT_PROPS} from './free-model.mjs?v=finish1';
-import {houseFront} from './district-layout.mjs?v=1';
+import {BUILDINGS,DISTRICT_PROPS} from './free-model.mjs?v=polish1';
+import {houseFront} from './district-layout.mjs?v=2';
 export function addDistricts({scene,box,mat}){
  const homes=BUILDINGS.filter(b=>b.x!==30),dummy=new T.Object3D();
  // One shared gabled roof geometry, two instance batches for tile colours.
@@ -12,14 +12,18 @@ export function addDistricts({scene,box,mat}){
   const group=homes.filter((_,i)=>i%2===parity),mesh=new T.InstancedMesh(roof,mat(color),group.length);
   group.forEach((b,i)=>{dummy.position.set(b.x,b.h+.15,b.z);dummy.rotation.set(0,0,0);dummy.scale.set(b.w+1.6,2.6,b.d+1.6);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.castShadow=true;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);
  }
- for(const b of homes){
+ for(const [index,b] of homes.entries()){
   box(b.x,b.h+.04,b.z,b.w+1,.16,b.d+1,0xe4ded1);
   const f=houseFront(b);
   const front=(u,y,out,w,h,d,c)=>{const p=f.point(u,out);box(p.x,y,p.z,f.alongZ?w:d,h,f.alongZ?d:w,c);};
+  // Restrained facade differences: timber strips, plaster bands and roof vents.
+  if(index%3===0)for(const u of [-7,-6.4,-5.8])front(u,b.h/2,.2,.16,b.h-.5,.18,0x776959);
+  if(index%3===1)front(0,3.45,.15,17,.25,.2,0xe4ded1);
+  if(index%4===0){box(b.x+4,b.h+1.1,b.z+4,1,2,1,0x697777);box(b.x+4,b.h+2.15,b.z+4,1.3,.15,1.3,0xe4ded1);}
   front(0,1.55,.06,1.6,2.8,.16,0x776959);front(-.45,1.9,.17,.22,1.1,.05,0x9fb5b3);front(.5,1.5,.2,.06,.3,.06,0xe4ded1);
   front(0,.24,1.1,2.6,.35,2,0xb5b2a6);front(0,3.1,1,3,.16,2.4,0x627275);
   for(const u of [-5,5]){front(u,1.9,.12,2.8,1.8,.15,0x607f87);front(u,1.9,.25,.1,1.8,.08,0xe4ded1);front(u,.95,.35,3,.12,.7,0xe4ded1);}
-  if(!(Math.abs(b.x)===90||Math.abs(b.z)===90))continue;
+  if(!(Math.abs(b.lotX??b.x)===90||Math.abs(b.lotZ??b.z)===90))continue;
   // A recessed front garden with a clear path from the gate to the door.
   front(0,.12,5.5,17,.13,9,0x8caa77);front(0,.22,5.5,2,.05,9,0xd8ceb0);
   for(const u of [-7,7]){const p=f.point(u,6);greens.push([p.x,1,p.z]);front(u,.4,6,2.3,.65,2.3,0xb5b2a6);}
