@@ -11,3 +11,9 @@ Downloaded 2026-10-17 JST. All listed source assets are CC0. Served locally; no 
 - CC0: https://creativecommons.org/publicdomain/zero/1.0/
 
 Conversion script: dev/scripts/convert-town-assets.py. No generated replacement assets are represented as downloaded models. Existing procedural meshes remain as network-failure fallbacks.
+
+## Detailed house prototype
+- `house-roof.webp`, `house-roof-normal.webp`: Clay Roof Tiles 02, Amal Kumar, Poly Haven, CC0. https://polyhaven.com/a/clay_roof_tiles_02
+- `house-wall-normal.webp`: Plastered Wall 02, Charlotte Baglioni, Poly Haven, CC0. https://polyhaven.com/a/plastered_wall_02
+- Downloaded 1K JPG diffuse / OpenGL normal maps; resized to 512px WebP. Normal maps use linear colour space. Wall diffuse reuses `plaster.webp`.
+- House geometry is original code; no Blender or PLATEAU assets used.

@@ -1,5 +1,5 @@
 import * as T from './vendor/three.module.min.js';
-import {BUILDINGS,DISTRICT_PROPS} from './free-model.mjs?v=streets1';
+import {BUILDINGS,DISTRICT_PROPS} from './free-model.mjs?v=house1';
 import {houseFront} from './district-layout.mjs?v=3';
 export function addDistricts({scene,box,mat}){
  const homes=BUILDINGS.filter(b=>b.x!==30),dummy=new T.Object3D();
@@ -9,13 +9,15 @@ export function addDistricts({scene,box,mat}){
  const roof=new T.BufferGeometry();roof.setAttribute('position',new T.Float32BufferAttribute(vertices,3));roof.computeVertexNormals();
  const greens=[];
  for(const [parity,color]of [[0,0x966951],[1,0x627275]]){
-  const group=homes.filter((_,i)=>i%2===parity),mesh=new T.InstancedMesh(roof,mat(color),group.length);
+  const group=homes.filter((b,i)=>!b.detailed&&i%2===parity),mesh=new T.InstancedMesh(roof,mat(color),group.length);
   group.forEach((b,i)=>{dummy.position.set(b.x,b.h+.15,b.z);dummy.rotation.set(0,0,0);dummy.scale.set(b.w+1.6,2.6,b.d+1.6);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.castShadow=true;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);
  }
  for(const [index,b] of homes.entries()){
-  box(b.x,b.h+.04,b.z,b.w+1,.16,b.d+1,0xe4ded1);
+
   const f=houseFront(b);
   const front=(u,y,out,w,h,d,c)=>{const p=f.point(u,out);box(p.x,y,p.z,f.alongZ?w:d,h,f.alongZ?d:w,c);};
+  if(!b.detailed){
+  box(b.x,b.h+.04,b.z,b.w+1,.16,b.d+1,0xe4ded1);
   // Restrained facade differences: timber strips, plaster bands and roof vents.
   if(index%3===0)for(const u of [-7,-6.4,-5.8])front(u,b.h/2,.2,.16,b.h-.5,.18,0x776959);
   if(index%3===1)front(0,3.45,.15,17,.25,.2,0xe4ded1);
@@ -23,6 +25,7 @@ export function addDistricts({scene,box,mat}){
   front(0,1.55,.06,1.6,2.8,.16,0x776959);front(-.45,1.9,.17,.22,1.1,.05,0x9fb5b3);front(.5,1.5,.2,.06,.3,.06,0xe4ded1);
   front(0,.24,1.1,2.6,.35,2,0xb5b2a6);front(0,3.1,1,3,.16,2.4,0x627275);
   for(const u of [-5,5]){front(u,1.9,.12,2.8,1.8,.15,0x607f87);front(u,1.9,.25,.1,1.8,.08,0xe4ded1);front(u,.95,.35,3,.12,.7,0xe4ded1);}
+  }
   if(!(Math.abs(b.lotX??b.x)===90||Math.abs(b.lotZ??b.z)===90)){
    front(0,.14,2.6,17,.15,4.8,0x8caa77);front(0,.24,3.2,3.4,.06,5.8,0xbabcb1);
    for(const u of [-5,5]){front(u,.5,5,6,.85,.25,0xb5b2a6);front(u,.96,5,6.2,.12,.35,0xe4ded1);}

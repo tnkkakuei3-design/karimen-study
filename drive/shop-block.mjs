@@ -1,5 +1,5 @@
 import * as T from './vendor/three.module.min.js';
-import {STREET_PROPS,BUILDINGS} from './free-model.mjs?v=streets1';
+import {STREET_PROPS,BUILDINGS} from './free-model.mjs?v=house1';
 // Six west-facing shopfronts on the central street. All dimensions are metres.
 export const SHOPS=[
  {z:-90,door:3.8,window:-3,windowW:5.6,roof:'tile',canopy:12,name:'みなと食堂',sub:'定食・沖縄そば',color:0x925044},

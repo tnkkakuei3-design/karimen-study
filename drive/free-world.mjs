@@ -1,11 +1,12 @@
+import {createDetailedHouse,loadHouseTextures} from './detailed-house.mjs?v=1';
 import {addStreetDetails} from './street-details.mjs?v=1';
 import {installExternalAssets,applySurface} from './external-assets.mjs?v=2';
 import {createCar} from './free-car.mjs?v=1';
 import {addRoadSurfaces} from './road-surfaces.mjs?v=2';
-import {addDistricts} from './district-scenery.mjs?v=5';
+import {addDistricts} from './district-scenery.mjs?v=6';
 import * as T from './vendor/three.module.min.js';
 import {addShopBlock} from './shop-block.mjs?v=6';
-import {STREETS,BUILDINGS,PLACES} from './free-model.mjs?v=streets1';
+import {STREETS,BUILDINGS,PLACES} from './free-model.mjs?v=house1';
 export function createWorld(canvas){
  const renderer=new T.WebGLRenderer({canvas,antialias:true,powerPreference:'low-power'});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;
  const scene=new T.Scene();scene.background=new T.Color(0xc9dbdf);scene.fog=new T.Fog(0xc9dbdf,100,265);
@@ -30,7 +31,7 @@ export function createWorld(canvas){
   pane(.03,2.22,1.72,.14,0xe4ded1);pane(.13,1.94,1.44,.05,0x607f87);
   box(x+(alongX?.12:0),y-.87,z+(alongX?0:.12),alongX?.3:2.35,.12,alongX?2.35:.3,0xb5b2a6);
  }
- for(const b of BUILDINGS){box(b.x,b.h/2,b.z,b.w,b.h,b.d,b.color);for(let floor=3;floor<b.h;floor+=3)for(const off of [-5,0,5]){
+ for(const b of BUILDINGS){if(b.detailed)continue;box(b.x,b.h/2,b.z,b.w,b.h,b.d,b.color);for(let floor=3;floor<b.h;floor+=3)for(const off of [-5,0,5]){
   // Back facade faces +Z; east-facing sides use +X. West windows are mirrored below.
   facadeWindow(b.x+off,floor,b.z+9.05,false);facadeWindow(b.x+9.05,floor,b.z+off,true);
   box(b.x+off,floor,b.z-9.08,2.22,1.72,.14,0xe4ded1);box(b.x+off,floor,b.z-9.18,1.94,1.44,.05,0x607f87);box(b.x+off,floor-.87,b.z-9.17,2.35,.12,.3,0xb5b2a6);
@@ -55,7 +56,10 @@ export function createWorld(canvas){
  for(const {color,cast,items:arr}of batches.values()){const mesh=new T.InstancedMesh(cube,mat(color),arr.length),dummy=new T.Object3D();arr.forEach((b,i)=>{dummy.position.set(b.x,b.y,b.z);dummy.scale.set(b.w,b.h,b.d);dummy.rotation.y=b.ry;dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.castShadow=cast;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);}
  for(const color of [0x8caa77,0x78975c])if(materials.has(color))applySurface(materials.get(color),grassTexture(),4);
  const {car,wheels,lamps,red,braking}=createCar();scene.add(car);
- const assetsReady=installExternalAssets({scene,renderer,materials,car,wheels,lamps,trunks,treeMeshes});
+ const house=createDetailedHouse(BUILDINGS.find(b=>b.detailed));scene.add(house.group);
+ const houseReady=loadHouseTextures(house.materials,Math.min(8,renderer.capabilities?.getMaxAnisotropy?.()||1));
+ const externalReady=installExternalAssets({scene,renderer,materials,car,wheels,lamps,trunks,treeMeshes});
+ const assetsReady=Promise.allSettled([externalReady,houseReady]);
  const target=new T.Vector3(),look=new T.Vector3();let first=true,low=false,inside=false,lastW=0,lastH=0;
  function render(d,dt){const w=canvas.clientWidth,h=canvas.clientHeight;if(w!==lastW||h!==lastH){renderer.setPixelRatio(low?1:Math.min(devicePixelRatio,2,Math.sqrt(1400000/Math.max(1,w*h))));renderer.setSize(w,h,false);camera.aspect=w/Math.max(h,1);camera.updateProjectionMatrix();lastW=w;lastH=h;}
  car.position.set(d.x,0,d.z);car.rotation.y=-d.heading;car.visible=!inside;wheels.forEach(m=>m.rotation.y=-d.steer*.4);lamps.forEach(m=>m.material=d.input.brake?braking:red);
