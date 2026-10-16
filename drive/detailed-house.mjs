@@ -1,7 +1,7 @@
 import * as T from './vendor/three.module.min.js';
 // Local +Z is the entrance. Static components are merged by material.
 export function createDetailedHouse(b){
- const group=new T.Group();group.name='detailed-house';group.position.set(b.x,0,b.z);group.rotation.y=Math.PI/2;
+ const group=new T.Group();group.name='detailed-house';group.position.set(b.x,0,b.z);const alongZ=Math.abs(b.lotZ??b.z)===90,sign=alongZ?Math.sign(b.z):Math.sign(b.x),outer=Math.abs(b.lotX??b.x)===90||alongZ,gardenEnd=outer?19:14,mailX=1.9*(alongZ?sign:-sign);group.rotation.y=alongZ?(sign>0?0:Math.PI):sign*Math.PI/2;
  const material=(color,roughness=.85)=>new T.MeshStandardMaterial({color,roughness});
  const materials={wall:material(0xe9e5db),roof:material(0xbfc6c9,.78),trim:material(0xc7c8c3),metal:material(0x454e4e,.32),wood:material(0x96806a),concrete:material(0xb4b2a9),leaf:material(0x52654a),leafLight:material(0x6e7e50),glass:new T.MeshStandardMaterial({color:0xa7b5b8,roughness:.1,metalness:.15,envMapIntensity:1.25,transparent:true,opacity:.48,depthWrite:false}),dark:material(0x35403e)};
  const batches=new Map(),matrix=new T.Matrix4(),q=new T.Quaternion();
@@ -83,16 +83,16 @@ export function createDetailedHouse(b){
  for(const x of [-5,-2,2,5])box(x,.45,6.32,.5,.15,.035,'dark');
  box(0,3.55,6.05,14,.12,.12,'trim');box(-5,.9,-6.5,1.4,1,.55,'trim');for(let i=0;i<6;i++)box(-5,.58+i*.12,-6.79,1.1,.035,.03,'metal');
  // The garden follows the existing wall/mailbox/planter collision layout exactly.
- box(4.7,.185,12.4,5.6,.09,11.8,'concrete');
- for(let i=0;i<8;i++){box(0,.23,8.9+i*1.2,2.9,.09,1.16,'concrete');box(4.7,.237,7.1+i*1.45,5.6,.012,.025,'dark');}
+ box(4.7,.185,(6.5+gardenEnd-.7)/2,5.6,.09,gardenEnd-7.2,'concrete');
+ for(let z=8.9;z<gardenEnd-.5;z+=1.2)box(0,.23,z,2.9,.09,1.16,'concrete');for(let z=7.1;z<gardenEnd-.7;z+=1.45)box(4.7,.237,z,5.6,.012,.025,'dark');
  for(const side of [-1,1]){
-  box(side*5,.5,19,6,.85,.25,'concrete');box(side*5,.96,19,6.2,.12,.35,'trim');
-  for(let row=0;row<3;row++){box(side*5,.24+row*.23,19.132,5.95,.012,.012,'dark');for(let i=0;i<8;i++){const x=side*5-2.8+i*.75+(row%2)*.35;if(Math.abs(x-side*5)<2.95)box(x,.34+row*.23,19.134,.012,.2,.012,'dark');}}
-  box(side*7,.4,15,2.3,.65,2.3,'concrete');box(side*7,.745,15,2.05,.03,2.05,'dark');
+  box(side*5,.5,gardenEnd,6,.85,.25,'concrete');box(side*5,.96,gardenEnd,6.2,.12,.35,'trim');
+  for(let row=0;row<3;row++){box(side*5,.24+row*.23,gardenEnd+.132,5.95,.012,.012,'dark');for(let i=0;i<8;i++){const x=side*5-2.8+i*.75+(row%2)*.35;if(Math.abs(x-side*5)<2.95)box(x,.34+row*.23,gardenEnd+.134,.012,.2,.012,'dark');}}
+  if(outer){box(side*7,.4,15,2.3,.65,2.3,'concrete');box(side*7,.745,15,2.05,.03,2.05,'dark');
   // Small rounded clusters, varied deterministically; no single faceted blob.
-  for(let i=0;i<14;i++){const a=i*2.399,r=.25+(i%4)*.2,g=new T.IcosahedronGeometry(.42+(i%3)*.06,1);g.scale(1,.8,1);add(g,i%3?'leaf':'leafLight',side*7+Math.cos(a)*r,.92+(i%4)*.12,15+Math.sin(a)*r);}
+  for(let i=0;i<14;i++){const a=i*2.399,r=.25+(i%4)*.2,g=new T.IcosahedronGeometry(.42+(i%3)*.06,1);g.scale(1,.8,1);add(g,i%3?'leaf':'leafLight',side*7+Math.cos(a)*r,.92+(i%4)*.12,15+Math.sin(a)*r);}}
  }
- box(-1.9,1,18.9,.45,1.8,.45,'concrete');box(-1.9,1.4,19.15,.38,.35,.16,'metal');box(-1.9,1.45,19.24,.29,.035,.025,'dark');
+ box(mailX,1,gardenEnd-.1,.45,1.8,.45,'concrete');box(mailX,1.4,gardenEnd+.15,.38,.35,.16,'metal');box(mailX,1.45,gardenEnd+.24,.29,.035,.025,'dark');
  // Timber screen beside the recessed entrance, with narrow physical gaps.
  for(let i=0;i<9;i++)box(1.8+i*.12,1.95,6.13,.065,2.9,.1,'wood');
  for(const [key,attrs]of batches){const g=new T.BufferGeometry();for(const [name,data]of Object.entries(attrs))g.setAttribute(name,new T.Float32BufferAttribute(data,name==='uv'?2:3));if(key==='wall'||key==='concrete'){const pos=g.attributes.position,colors=[];for(let i=0;i<pos.count;i++){const y=pos.getY(i),shade=key==='wall'?(y<.7?.78:y>6.3&&y<7?.84:1):.93;colors.push(shade,shade,shade);}g.setAttribute('color',new T.Float32BufferAttribute(colors,3));materials[key].vertexColors=true;}g.computeBoundingSphere();const mesh=new T.Mesh(g,materials[key]);mesh.name='house-'+key;mesh.castShadow=key!=='glass';mesh.receiveShadow=true;group.add(mesh);}
@@ -102,8 +102,8 @@ export function createDetailedHouse(b){
  function shade(x,y,z,w,h,ground=false){const g=new T.PlaneGeometry(w,h).toNonIndexed();if(ground)g.rotateX(-Math.PI/2);g.translate(x,y,z);shadeBatches[ground?0:1].push(g);}
  shade(0,.012,0,16,14,true);shade(0,6.3,6.022,14,.55);shade(0,3.22,6.023,3.5,.5);
  for(const x of [-4.4,4.4])for(const y of [2,5.05])shade(x,y-.94,6.025,2.8,.24);
- for(const x of [-7,7])shade(x,.2,15,2.8,2.8,true);
- for(const [i,geometries]of shadeBatches.entries()){const g=new T.BufferGeometry();for(const name of ['position','normal','uv'])g.setAttribute(name,new T.Float32BufferAttribute(geometries.flatMap(a=>Array.from(a.attributes[name].array)),name==='uv'?2:3));const mesh=new T.Mesh(g,i===0?groundShade:wallShade);mesh.renderOrder=1;group.add(mesh);geometries.forEach(g=>g.dispose());}
+ if(outer)for(const x of [-7,7])shade(x,.2,15,2.8,2.8,true);
+ for(const [i,geometries]of shadeBatches.entries()){const g=new T.BufferGeometry();for(const name of ['position','normal','uv'])g.setAttribute(name,new T.Float32BufferAttribute(geometries.flatMap(a=>Array.from(a.attributes[name].array)),name==='uv'?2:3));const mesh=new T.Mesh(g,i===0?groundShade:wallShade);mesh.name=i===0?'house-ground-contact':'house-wall-contact';mesh.renderOrder=1;group.add(mesh);geometries.forEach(g=>g.dispose());}
  return {group,materials};
 }
 export async function loadHouseTextures(materials,anisotropy=1){
@@ -112,4 +112,24 @@ export async function loadHouseTextures(materials,anisotropy=1){
   const t=await loader.loadAsync(new URL(file,base).href);t.wrapS=t.wrapT=T.RepeatWrapping;t.anisotropy=anisotropy;if(slot==='map')t.colorSpace=T.SRGBColorSpace;
   materials[key][slot]=t;materials[key].normalScale.set(.35,.35);materials[key].needsUpdate=true;return file;
  }));
+}
+
+// Merge repeated residential details into district-wide material batches.
+// Colours vary through vertex colours, sharing textures rather than downloading per house.
+export function createResidentialDistrict(buildings){
+ const group=new T.Group();group.name='residential-district';const batches=new Map();let sharedMaterials;
+ const palettes=[{wall:0xffffff,roof:0xffffff,wood:0xffffff},{wall:0xe7edf0,roof:0xc5d4db,wood:0xd4c5b5},{wall:0xf1e9da,roof:0xb6beb9,wood:0xebd6bb},{wall:0xe0e5dc,roof:0xd0c8c0,wood:0xc5b19d}];
+ let count=0;
+ for(const b of buildings.filter(b=>b.detailed)){
+  const house=createDetailedHouse(b),palette=palettes[count++%palettes.length];sharedMaterials??=house.materials;house.group.updateMatrixWorld(true);
+  for(const mesh of house.group.children){
+   const key=mesh.name.replace('house-',''),g=mesh.geometry;g.applyMatrix4(mesh.matrixWorld);
+   const batch=batches.get(key)||{geometries:[],material:sharedMaterials[key]||mesh.material,cast:mesh.castShadow,receive:mesh.receiveShadow,order:mesh.renderOrder};
+   if(key!=='glass'&&!key.includes('contact')){const tint=new T.Color(palette[key]??0xffffff),existing=g.attributes.color,a=new Float32Array(g.attributes.position.count*3);for(let i=0;i<g.attributes.position.count;i++){a[i*3]=(existing?.getX(i)??1)*tint.r;a[i*3+1]=(existing?.getY(i)??1)*tint.g;a[i*3+2]=(existing?.getZ(i)??1)*tint.b;}g.setAttribute('color',new T.BufferAttribute(a,3));batch.material.vertexColors=true;}
+   batch.geometries.push(g);batches.set(key,batch);
+   if(mesh.material!==batch.material){if(key.includes('contact'))mesh.material.map?.dispose();mesh.material.dispose();}
+  }
+ }
+ for(const [key,batch]of batches){const merged=new T.BufferGeometry();for(const name of Object.keys(batch.geometries[0].attributes)){const itemSize=batch.geometries[0].attributes[name].itemSize,total=batch.geometries.reduce((n,g)=>n+g.attributes[name].array.length,0),a=new Float32Array(total);let offset=0;for(const g of batch.geometries){a.set(g.attributes[name].array,offset);offset+=g.attributes[name].array.length;}merged.setAttribute(name,new T.BufferAttribute(a,itemSize));}merged.computeBoundingBox();merged.computeBoundingSphere();const mesh=new T.Mesh(merged,batch.material);mesh.name='district-'+key;mesh.castShadow=batch.cast;mesh.receiveShadow=batch.receive;mesh.renderOrder=batch.order;group.add(mesh);batch.geometries.forEach(g=>g.dispose());}
+ group.userData.houseCount=count;return{group,materials:sharedMaterials};
 }

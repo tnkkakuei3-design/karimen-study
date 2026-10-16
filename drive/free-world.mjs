@@ -1,12 +1,12 @@
-import {createDetailedHouse,loadHouseTextures} from './detailed-house.mjs?v=3';
+import {createResidentialDistrict,loadHouseTextures} from './detailed-house.mjs?v=4';
 import {addStreetDetails} from './street-details.mjs?v=1';
 import {installExternalAssets,applySurface} from './external-assets.mjs?v=2';
 import {createCar} from './free-car.mjs?v=1';
 import {addRoadSurfaces} from './road-surfaces.mjs?v=2';
-import {addDistricts} from './district-scenery.mjs?v=7';
+import {addDistricts} from './district-scenery.mjs?v=8';
 import * as T from './vendor/three.module.min.js';
 import {addShopBlock} from './shop-block.mjs?v=6';
-import {STREETS,BUILDINGS,PLACES} from './free-model.mjs?v=house1';
+import {STREETS,BUILDINGS,PLACES} from './free-model.mjs?v=houses1';
 export function createWorld(canvas){
  const renderer=new T.WebGLRenderer({canvas,antialias:true,powerPreference:'low-power'});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;
  const scene=new T.Scene();scene.background=new T.Color(0xc9dbdf);scene.fog=new T.Fog(0xc9dbdf,100,265);
@@ -56,7 +56,7 @@ export function createWorld(canvas){
  for(const {color,cast,items:arr}of batches.values()){const mesh=new T.InstancedMesh(cube,mat(color),arr.length),dummy=new T.Object3D();arr.forEach((b,i)=>{dummy.position.set(b.x,b.y,b.z);dummy.scale.set(b.w,b.h,b.d);dummy.rotation.y=b.ry;dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.castShadow=cast;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);}
  for(const color of [0x8caa77,0x78975c])if(materials.has(color))applySurface(materials.get(color),grassTexture(),4);
  const {car,wheels,lamps,red,braking}=createCar();scene.add(car);
- const house=createDetailedHouse(BUILDINGS.find(b=>b.detailed));scene.add(house.group);
+ const house=createResidentialDistrict(BUILDINGS);scene.add(house.group);
  const houseReady=loadHouseTextures(house.materials,Math.min(8,renderer.capabilities?.getMaxAnisotropy?.()||1));
  const externalReady=installExternalAssets({scene,renderer,materials,car,wheels,lamps,trunks,treeMeshes});
  const assetsReady=Promise.allSettled([externalReady,houseReady]);
