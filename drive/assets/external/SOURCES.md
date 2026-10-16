@@ -17,3 +17,5 @@ Conversion script: dev/scripts/convert-town-assets.py. No generated replacement 
 - `house-wall-normal.webp`: Plastered Wall 02, Charlotte Baglioni, Poly Haven, CC0. https://polyhaven.com/a/plastered_wall_02
 - Downloaded 1K JPG diffuse / OpenGL normal maps; resized to 512px WebP. Normal maps use linear colour space. Wall diffuse reuses `plaster.webp`.
 - House geometry is original code; no Blender or PLATEAU assets used.
+
+`house-siding.webp`: derivative of the existing Plastered Wall 02 CC0 diffuse, with subtle siding joints added at 31cm intervals; 1024px WebP.

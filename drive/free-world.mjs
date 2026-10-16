@@ -1,4 +1,4 @@
-import {createDetailedHouse,loadHouseTextures} from './detailed-house.mjs?v=1';
+import {createDetailedHouse,loadHouseTextures} from './detailed-house.mjs?v=2';
 import {addStreetDetails} from './street-details.mjs?v=1';
 import {installExternalAssets,applySurface} from './external-assets.mjs?v=2';
 import {createCar} from './free-car.mjs?v=1';
