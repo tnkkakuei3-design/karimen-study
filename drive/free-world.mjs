@@ -1,8 +1,8 @@
 import {updateDetailedCar} from './detailed-car.mjs?v=1';
-import {createDetailedShops} from './detailed-shops.mjs?v=1';
-import {createResidentialDistrict,loadHouseTextures} from './detailed-house.mjs?v=4';
+import {createDetailedShops} from './detailed-shops.mjs?v=2';
+import {createResidentialDistrict,loadHouseTextures} from './detailed-house.mjs?v=5';
 import {addStreetDetails} from './street-details.mjs?v=1';
-import {installExternalAssets,applySurface} from './external-assets.mjs?v=4';
+import {installExternalAssets,applySurface} from './external-assets.mjs?v=5';
 import {createCar} from './free-car.mjs?v=1';
 import {addRoadSurfaces} from './road-surfaces.mjs?v=3';
 import {addDistricts} from './district-scenery.mjs?v=8';
@@ -10,18 +10,25 @@ import * as T from './vendor/three.module.min.js';
 import {addShopBlock,SHOPS} from './shop-block.mjs?v=8';
 import {STREETS,BUILDINGS,PLACES} from './free-model.mjs?v=houses1';
 export function createWorld(canvas){
- const renderer=new T.WebGLRenderer({canvas,antialias:true,powerPreference:'low-power'});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;
+ const renderer=new T.WebGLRenderer({canvas,antialias:true,powerPreference:'low-power'});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.02;
  const scene=new T.Scene();scene.background=new T.Color(0xc9dbdf);scene.fog=new T.Fog(0xc9dbdf,100,265);
- // A small sky gradient and reusable grain textures avoid large downloaded assets.
+ // The gradient remains usable while the photographic sky loads.
  const skyCanvas=document.createElement('canvas');skyCanvas.width=2;skyCanvas.height=256;const skyCtx=skyCanvas.getContext('2d');const skyGradient=skyCtx.createLinearGradient(0,0,0,256);skyGradient.addColorStop(0,'#91b4c9');skyGradient.addColorStop(.65,'#c9dbdf');skyGradient.addColorStop(1,'#e8e4d7');skyCtx.fillStyle=skyGradient;skyCtx.fillRect(0,0,2,256);const sky=new T.CanvasTexture(skyCanvas);sky.colorSpace=T.SRGBColorSpace;scene.background=sky;
- const camera=new T.PerspectiveCamera(58,1,.35,380);scene.add(new T.HemisphereLight(0xe4f0fa,0x80735d,2.1));const sun=new T.DirectionalLight(0xffdfb0,2.6);sun.position.set(-85,75,55);scene.add(sun);
+ const camera=new T.PerspectiveCamera(58,1,.35,380);scene.add(new T.HemisphereLight(0xe8f0f6,0x7d806e,1.45));const sun=new T.DirectionalLight(0xfff2de,2.4);sun.position.set(-85,75,55);scene.add(sun);
  renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFShadowMap;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-170,right:170,top:170,bottom:-170,near:1,far:320});sun.shadow.bias=-.00025;sun.shadow.normalBias=.08;
  const cube=new T.BoxGeometry(1,1,1),batches=new Map(),materials=new Map();
  let grass;
  function grassTexture(){if(grass)return grass;const c=document.createElement('canvas');c.width=c.height=128;const ctx=c.getContext('2d');ctx.fillStyle='#ededdf';ctx.fillRect(0,0,128,128);let seed=2731;for(let i=0;i<5000;i++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;const x=(seed>>>16)%128;seed=(Math.imul(seed,1664525)+1013904223)>>>0;const y=(seed>>>16)%128,shade=200+seed%45;ctx.fillStyle=`rgb(${shade},${Math.min(255,shade+8)},${shade-10})`;ctx.fillRect(x,y,1,2);}grass=new T.CanvasTexture(c);grass.colorSpace=T.SRGBColorSpace;grass.wrapS=grass.wrapT=T.RepeatWrapping;return grass;}
  let grain;
  function grainTexture(){if(grain)return grain;const c=document.createElement('canvas');c.width=c.height=128;const ctx=c.getContext('2d');ctx.fillStyle='#f4f4f4';ctx.fillRect(0,0,128,128);let seed=7381;for(let i=0;i<2200;i++){seed=(seed*1664525+1013904223)>>>0;const x=seed%128;seed=(seed*1664525+1013904223)>>>0;const y=seed%128;const shade=220+seed%31;ctx.fillStyle=`rgb(${shade},${shade},${shade})`;ctx.fillRect(x,y,1,1);}grain=new T.CanvasTexture(c);grain.colorSpace=T.SRGBColorSpace;grain.wrapS=grain.wrapT=T.RepeatWrapping;grain.repeat.set(4,4);return grain;}
- function mat(color){if(!materials.has(color))materials.set(color,([0xc8c2ae,0xd8ceb0].includes(color)?new T.MeshStandardMaterial({color,roughness:.94}):[0x607f87,0x8ea9ab,0x9fb5b3].includes(color)?new T.MeshStandardMaterial({color:0x91a9af,roughness:.22,metalness:.12,envMapIntensity:.65}):new T.MeshLambertMaterial({color,map:[0x555f62,0xc8c2ae,0xd8ceb0,0xd5c5af,0xdfe1d9,0xc9d3d4,0xc5bba9].includes(color)?grainTexture():null})));return materials.get(color);}
+ // Shared physical materials keep terrain, street furniture and buildings in the same light.
+ function mat(color){
+  if(materials.has(color))return materials.get(color);
+  const glass=[0x607f87,0x8ea9ab,0x9fb5b3].includes(color),paving=[0xc8c2ae,0xd8ceb0].includes(color),metal=[0x424e4c,0x5e7478,0xd5dcd9].includes(color),grassColor=color===0x8caa77?0x829377:color===0x78975c?0x778b66:color;
+  const m=new T.MeshStandardMaterial({color:glass?0x94a8ad:grassColor,roughness:glass?.13:metal?.53:paving?.94:.88,metalness:glass?.12:metal?.35:0,envMapIntensity:glass?1.05:.55});
+  if([0x555f62,0xd5c5af,0xdfe1d9,0xc9d3d4,0xc5bba9].includes(color))m.map=grainTexture();
+  materials.set(color,m);return m;
+ }
  function box(x,y,z,w,h,d,color,ry=0){const cast=y+h/2>.5&&Math.min(w,h,d)>.12,key=color+':'+cast;const batch=batches.get(key)||{color,cast,items:[]};batch.items.push({x,y,z,w,h,d,ry});batches.set(key,batch);}
  box(-350,-.3,0,1000,.5,1800,0x8caa77);box(1050,-.65,0,1800,.5,1800,0x5babbc);box(155,-.3,0,12,.3,1800,0xd8ceb0);
  for(const s of STREETS){box(s,-.01,0,20,.2,292,0xbabcb1);box(0,-.01,s,292,.2,20,0xbabcb1);box(s,.11,0,16,.04,292,0x555f62);box(0,.12,s,292,.04,16,0x555f62);}

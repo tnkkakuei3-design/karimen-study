@@ -1,8 +1,8 @@
 import * as T from './vendor/three.module.min.js';
 // Shop shells retain each lot footprint. Static surfaces share district material batches.
 export function createDetailedShops(buildings,shops){
- const make=(color,roughness=.85)=>new T.MeshStandardMaterial({color,roughness});
- const materials={wall:make(0xe8e5dc),roof:make(0xbfc6c9,.78),wood:make(0x9c8266),trim:make(0xd0d1ca,.5),metal:make(0x424e4f,.32),concrete:make(0xb4b2aa),dark:make(0x293431),glass:new T.MeshStandardMaterial({color:0xa9bdc1,roughness:.1,metalness:.15,envMapIntensity:1.2,transparent:true,opacity:.48,depthWrite:false})};
+ const make=(color,roughness=.85)=>new T.MeshStandardMaterial({color,roughness,envMapIntensity:.65});
+ const materials={wall:make(0xdcd9cf,.9),roof:make(0xaab1b4,.86),wood:make(0x9c8266),trim:make(0xd0d1ca,.5),metal:make(0x424e4f,.32),concrete:make(0xb4b2aa),dark:make(0x293431),glass:new T.MeshStandardMaterial({color:0x94a8ad,roughness:.13,metalness:.12,envMapIntensity:1.05,transparent:true,opacity:.48,depthWrite:false})};
  const group=new T.Group();group.name='detailed-shops';const batches=new Map();
  const palette=[0xf0e5d7,0xf7edda,0xe0e9de,0xe6eded,0xe7dfd5,0xdce5e8];
  for(const [index,s]of shops.entries()){

@@ -5,24 +5,24 @@ export function assetGeometry(data){const geometries=[];for(const [name,g]of Obj
 async function model(name){const response=await fetch(new URL(name,base),{signal:AbortSignal.timeout(12000)});if(!response.ok)throw new Error('Asset '+response.status);return assetGeometry(await response.json());}
 function texture(name){return new Promise((resolve,reject)=>{new T.TextureLoader().load(new URL(name+'?v=2',base).href,t=>{t.colorSpace=T.SRGBColorSpace;t.wrapS=t.wrapT=T.RepeatWrapping;resolve(t);},undefined,reject);});}
 // World-space projection keeps aggregate/plaster at a fixed scale on instanced boxes.
-export function applySurface(material,map,metres){material.map=map;material.onBeforeCompile=shader=>{
+export function applySurface(material,map,metres,contrast=1){material.map=map;material.onBeforeCompile=shader=>{
  shader.vertexShader='varying vec2 vSurfaceUv;\n'+shader.vertexShader;
  shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>',`#include <begin_vertex>\nvec4 surfacePoint=vec4(position,1.);vec3 surfaceNormal=normal;\n#ifdef USE_INSTANCING\nsurfacePoint=instanceMatrix*surfacePoint;surfaceNormal=mat3(instanceMatrix)*surfaceNormal;\n#endif\nsurfacePoint=modelMatrix*surfacePoint;surfaceNormal=abs(mat3(modelMatrix)*surfaceNormal);\nvSurfaceUv=(surfaceNormal.y>surfaceNormal.x&&surfaceNormal.y>surfaceNormal.z?surfacePoint.xz:(surfaceNormal.x>surfaceNormal.z?surfacePoint.zy:surfacePoint.xy))/${metres.toFixed(2)};`);
  shader.fragmentShader='varying vec2 vSurfaceUv;\n'+shader.fragmentShader;
- shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>',T.ShaderChunk.map_fragment.replaceAll('vMapUv','vSurfaceUv'));
- };material.customProgramCacheKey=()=>`world-surface-${metres}`;material.needsUpdate=true;}
+ shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>',T.ShaderChunk.map_fragment.replaceAll('vMapUv','vSurfaceUv').replace('diffuseColor *= sampledDiffuseColor;',`sampledDiffuseColor.rgb = mix(vec3(0.105), sampledDiffuseColor.rgb, ${contrast.toFixed(3)});\ndiffuseColor *= sampledDiffuseColor;`));
+ };material.customProgramCacheKey=()=>`world-surface-${metres}-${contrast}`;material.needsUpdate=true;}
 export function treeGeometryVariant(source,variant){
  const g=source.clone(),p=g.attributes.position,c=g.attributes.color;
  for(let i=0;i<p.count;i++){const y=p.getY(i),leaf=c.getY(i)>c.getX(i)*1.08&&c.getY(i)>c.getZ(i);if(!leaf)continue;const weight=Math.max(0,(y-.35)/1.1),x=p.getX(i),z=p.getZ(i);p.setXYZ(i,x*(variant===0?.92:variant===1?1.09:1)+Math.sin(y*5+variant)*weight*.045,y*(variant===2?1.05:1),z*(variant===1?.91:1.04));}
  g.computeVertexNormals();const n=g.attributes.normal;
- for(let i=0;i<p.count;i++){if(c.getY(i)<=c.getX(i)*1.08||c.getY(i)<=c.getZ(i))continue;const radial=new T.Vector3(p.getX(i), (p.getY(i)-.85)*.7,p.getZ(i)).normalize(),normal=new T.Vector3().fromBufferAttribute(n,i).lerp(radial,.45).normalize();n.setXYZ(i,normal.x,normal.y,normal.z);}
+ for(let i=0;i<p.count;i++){if(c.getY(i)<=c.getX(i)*1.08||c.getY(i)<=c.getZ(i))continue;const radial=new T.Vector3(p.getX(i), (p.getY(i)-.85)*.7,p.getZ(i)).normalize(),normal=new T.Vector3().fromBufferAttribute(n,i).lerp(radial,.45).normalize();n.setXYZ(i,normal.x,normal.y,normal.z);const grey=c.getX(i)*.2126+c.getY(i)*.7152+c.getZ(i)*.0722;c.setXYZ(i,c.getX(i)*.8+grey*.2,c.getY(i)*.8+grey*.2,c.getZ(i)*.8+grey*.2);}
  g.computeBoundingBox();g.computeBoundingSphere();return g;
 }
 export function installExternalAssets({scene,renderer,materials,car,wheels,lamps,trunks,treeMeshes}){
  const status={};const jobs=[];
  scene.backgroundIntensity=1;scene.backgroundBlurriness=0;
- jobs.push(Promise.all([texture('asphalt.webp'),texture('plaster.webp'),texture('paving.webp')]).then(([asphalt,plaster,paving])=>{for(const [color,m]of materials){if(color===0x555f62){m.color.setHex(0xdddddd);applySurface(m,asphalt,3);}else if([0xc8c2ae,0xd8ceb0].includes(color))applySurface(m,paving,2.2);else if([0xd5c5af,0xdfe1d9,0xc9d3d4,0xc5bba9].includes(color))applySurface(m,plaster,2.2);}status.surfaces=true;}));
- jobs.push(texture('sky.webp').then(t=>{t.mapping=T.EquirectangularReflectionMapping;t.wrapS=T.RepeatWrapping;t.wrapT=T.ClampToEdgeWrapping;if(!status.skyBackground)scene.background=t;scene.environment=t;scene.environmentIntensity=.4;scene.backgroundIntensity=1;status.sky=true;}));
+ jobs.push(Promise.all([texture('asphalt.webp'),texture('plaster.webp'),texture('paving.webp')]).then(([asphalt,plaster,paving])=>{for(const map of [asphalt,plaster,paving])map.anisotropy=Math.min(8,renderer.capabilities?.getMaxAnisotropy?.()||1);for(const [color,m]of materials){if(color===0x555f62){m.color.setHex(0xdddddd);applySurface(m,asphalt,3,.78);}else if([0xc8c2ae,0xd8ceb0].includes(color))applySurface(m,paving,2.2);else if([0xd5c5af,0xdfe1d9,0xc9d3d4,0xc5bba9].includes(color))applySurface(m,plaster,2.2);}status.surfaces=true;}));
+ jobs.push(texture('sky.webp').then(t=>{t.mapping=T.EquirectangularReflectionMapping;t.wrapS=T.RepeatWrapping;t.wrapT=T.ClampToEdgeWrapping;if(!status.skyBackground)scene.background=t;scene.environment=t;scene.environmentIntensity=.55;scene.backgroundIntensity=1;status.sky=true;}));
  jobs.push(texture('sky-background.webp').then(t=>{t.mapping=T.EquirectangularReflectionMapping;t.wrapT=T.ClampToEdgeWrapping;scene.background=t;if(scene.fog)scene.fog.color.setHex(0xb8c3cf);status.skyBackground=true;}));
  jobs.push(model('sedan.json').then(parts=>{
  const detailed=createDetailedSedan(parts);
@@ -37,6 +37,6 @@ export function installExternalAssets({scene,renderer,materials,car,wheels,lamps
  positions.forEach(({p:[x,,z],i},j)=>{dummy.position.set(x,0,z);const seed=((i+1)*16807)%2147483647,variation=.82+(seed%997)/997*.36,scale=3.8*variation;dummy.scale.set(scale*(.92+(i%5)*.04),scale,scale);dummy.rotation.y=(seed%628)/100;mesh.setColorAt(j,new T.Color().setHSL(.09+(i%5)*.012,.09,.86+(i%4)*.025));dummy.updateMatrix();mesh.setMatrixAt(j,dummy.matrix);});mesh.castShadow=true;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);
  }geo.dispose();}treeMeshes.forEach(m=>{scene.remove(m);});renderer.shadowMap.needsUpdate=true;status.trees=true;}));
  // Small stones remain inside the park planting area, outside driving lanes.
- jobs.push(model('rock.json').then(parts=>{const dummy=new T.Object3D();for(const {geo}of parts){const mesh=new T.InstancedMesh(geo,new T.MeshLambertMaterial({vertexColors:true}),6);for(let i=0;i<6;i++){dummy.position.set(-88+i*8,0,-84);dummy.scale.setScalar(1.2+(i%3)*.2);dummy.rotation.y=i;dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);}mesh.receiveShadow=true;scene.add(mesh);}status.props=true;}));
+ jobs.push(model('rock.json').then(parts=>{const dummy=new T.Object3D();for(const {geo}of parts){const mesh=new T.InstancedMesh(geo,new T.MeshStandardMaterial({vertexColors:true,roughness:.96,envMapIntensity:.55}),6);for(let i=0;i<6;i++){dummy.position.set(-88+i*8,0,-84);dummy.scale.setScalar(1.2+(i%3)*.2);dummy.rotation.y=i;dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);}mesh.receiveShadow=true;scene.add(mesh);}status.props=true;}));
  return Promise.allSettled(jobs).then(results=>{results.forEach((r,i)=>{if(r.status==='rejected')console.warn('External scenery fallback',i,r.reason);});return status;});
 }
