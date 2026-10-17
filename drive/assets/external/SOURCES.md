@@ -23,3 +23,6 @@ Conversion script: dev/scripts/convert-town-assets.py. No generated replacement 
 `house-roof-slate.webp`: desaturated, cool-grey derivative of Clay Roof Tiles 02 (CC0, above). `house-timber.webp`: original procedural grain, generated locally; not a photographic asset.
 
 Nature Kit tree geometry is additionally varied into three canopy shapes; leaf normals are partly smoothed. The shared original tree asset and its CC0 license remain unchanged.
+
+## Vehicle surface/detail refinement
+The Kenney sedan body is retained. Runtime geometry separates paint, glazing, lamp lenses and plastic; body paint normals are smoothed only across shallow creases. Original code supplies round tyres, five-spoke wheels, mirrors, window seals, lamp internals and a 64px procedural tyre normal map. No new externally sourced model or texture is required. Wheel rolling follows signed vehicle speed; rear lamps use brake/reverse state.

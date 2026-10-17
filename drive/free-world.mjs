@@ -1,7 +1,8 @@
+import {updateDetailedCar} from './detailed-car.mjs?v=1';
 import {createDetailedShops} from './detailed-shops.mjs?v=1';
 import {createResidentialDistrict,loadHouseTextures} from './detailed-house.mjs?v=4';
 import {addStreetDetails} from './street-details.mjs?v=1';
-import {installExternalAssets,applySurface} from './external-assets.mjs?v=3';
+import {installExternalAssets,applySurface} from './external-assets.mjs?v=4';
 import {createCar} from './free-car.mjs?v=1';
 import {addRoadSurfaces} from './road-surfaces.mjs?v=3';
 import {addDistricts} from './district-scenery.mjs?v=8';
@@ -65,7 +66,7 @@ export function createWorld(canvas){
  const assetsReady=Promise.allSettled([externalReady,houseReady,shopsReady]);
  const target=new T.Vector3(),look=new T.Vector3();let first=true,low=false,inside=false,lastW=0,lastH=0;
  function render(d,dt){const w=canvas.clientWidth,h=canvas.clientHeight;if(w!==lastW||h!==lastH){renderer.setPixelRatio(low?1:Math.min(devicePixelRatio,2,Math.sqrt(1400000/Math.max(1,w*h))));renderer.setSize(w,h,false);camera.aspect=w/Math.max(h,1);camera.updateProjectionMatrix();lastW=w;lastH=h;}
- car.position.set(d.x,0,d.z);car.rotation.y=-d.heading;car.visible=!inside;wheels.forEach(m=>m.rotation.y=-d.steer*.4);lamps.forEach(m=>m.material=d.input.brake?braking:red);
+ car.position.set(d.x,0,d.z);car.rotation.y=-d.heading;car.visible=!inside;wheels.forEach(m=>m.rotation.y=-d.steer*.4);lamps.forEach(m=>m.material=d.input.brake?(m.userData.brakeOn||braking):(m.userData.brakeOff||red));updateDetailedCar(car,d,dt);
  const sx=Math.sin(d.heading),sz=-Math.cos(d.heading);target.set(d.x-sx*(inside?-.6:9),inside?1.65:5.4,d.z-sz*(inside?-.6:9));look.set(d.x+sx*18,inside?1.45:1.4,d.z+sz*18);
  if(first||inside)camera.position.copy(target);else camera.position.lerp(target,1-Math.exp(-dt*9));first=false;camera.lookAt(look);renderer.render(scene,camera);}
  return{render,assetsReady,reset(){first=true;},camera(){inside=!inside;first=true;return inside;},quality(){low=!low;renderer.shadowMap.enabled=!low;renderer.shadowMap.needsUpdate=true;renderer.setPixelRatio(low?1:Math.min(devicePixelRatio,2));lastW=0;return low;}};
