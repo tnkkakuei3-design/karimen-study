@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import * as T from './drive/vendor/three.module.min.js';
+import {assetGeometry} from './drive/external-assets.mjs';
+import {createDetailedSedan,updateDetailedCar} from './drive/detailed-car.mjs';
+const parts=assetGeometry(JSON.parse(fs.readFileSync('drive/assets/external/sedan.json','utf8')));
+const {root,wheels,lamps,materials}=createDetailedSedan(parts),car=new T.Group();car.add(root);car.userData.vehicle=root.userData.vehicle;
+root.updateMatrixWorld(true);const bounds=new T.Box3().setFromObject(root),size=bounds.getSize(new T.Vector3());
+assert.ok(size.x<2.3&&size.z<4.4&&size.y<1.8,'vehicle fits existing collision/camera envelope');
+assert.equal(wheels.length,2);assert.ok(wheels.every(w=>w.position.z>0),'front wheels face the driving direction');
+const state=root.userData.vehicle;assert.equal(state.rollers.length,4);assert.equal(lamps.length,1);
+for(const roll of state.rollers){const tyre=roll.getObjectByName('tyre');tyre.geometry.computeBoundingBox();const dimensions=tyre.geometry.boundingBox.getSize(new T.Vector3());assert.ok(Math.abs(dimensions.y-dimensions.z)<1e-6,'tyres are round');assert.ok(Math.abs(dimensions.y-.75)<.001);}
+assert.ok(Math.abs(bounds.min.y-.145)<.001,'tyres rest at the road surface rather than below it');
+assert.ok(materials.paint.clearcoat>.5&&materials.paint.roughness<materials.rubber.roughness);assert.ok(materials.glass.envMapIntensity>materials.paint.envMapIntensity);
+assert.ok(root.getObjectByName('car-glass').geometry.attributes.position.count>=30,'original glazing and added rear quarter panes exist');
+let meshes=0,triangles=0;root.traverse(o=>{if(!o.isMesh)return;meshes++;triangles+=(o.geometry.index?.count||o.geometry.attributes.position.count)/3;for(const attr of Object.values(o.geometry.attributes))assert.ok(attr.array.every(Number.isFinite));});
+assert.ok(meshes<=32&&triangles<10000,'bounded mobile car geometry');
+updateDetailedCar(car,{v:3,gear:1},.1);const forward=state.spin;assert.ok(forward>0);assert.ok(state.rollers.every(w=>w.rotation.x===forward));
+wheels[0].rotation.y=-.3;updateDetailedCar(car,{v:0,gear:1},.1);assert.equal(state.spin,forward);assert.equal(wheels[0].rotation.y,-.3,'rolling must not overwrite steering');
+updateDetailedCar(car,{v:-3,gear:-1},.1);assert.ok(Math.abs(state.spin)<1e-10);assert.ok(state.reverseLamps.every(l=>l.material===materials.reverseOn));
+updateDetailedCar(car,{v:0,gear:1},.1);assert.ok(state.reverseLamps.every(l=>l.material===materials.reverse));
+assert.ok(lamps.every(l=>l.userData.brakeOn.emissiveIntensity>l.userData.brakeOff.emissiveIntensity));
+console.log({meshes,triangles,size:size.toArray().map(v=>+v.toFixed(3))});console.log('PASS: upgraded car geometry, surface separation, wheel fit/roundness, rolling in both gears, steering independence and brake/reverse materials. GPU appearance not tested.');

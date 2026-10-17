@@ -1,3 +1,4 @@
+import {createDetailedSedan} from './detailed-car.mjs?v=1';
 import * as T from './vendor/three.module.min.js';
 const base=new URL('./assets/external/',import.meta.url);
 export function assetGeometry(data){const geometries=[];for(const [name,g]of Object.entries(data.groups)){if(!g.positions.length||g.positions.length!==g.colors.length||g.positions.length%9)throw new Error('Invalid asset');const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(g.positions,3));geo.setAttribute('color',new T.Float32BufferAttribute(g.colors,3));geo.computeVertexNormals();geo.computeBoundingBox();geometries.push({name,geo});}return geometries;}
@@ -23,11 +24,12 @@ export function installExternalAssets({scene,renderer,materials,car,wheels,lamps
  jobs.push(Promise.all([texture('asphalt.webp'),texture('plaster.webp'),texture('paving.webp')]).then(([asphalt,plaster,paving])=>{for(const [color,m]of materials){if(color===0x555f62){m.color.setHex(0xdddddd);applySurface(m,asphalt,3);}else if([0xc8c2ae,0xd8ceb0].includes(color))applySurface(m,paving,2.2);else if([0xd5c5af,0xdfe1d9,0xc9d3d4,0xc5bba9].includes(color))applySurface(m,plaster,2.2);}status.surfaces=true;}));
  jobs.push(texture('sky.webp').then(t=>{t.mapping=T.EquirectangularReflectionMapping;t.wrapS=T.RepeatWrapping;t.wrapT=T.ClampToEdgeWrapping;if(!status.skyBackground)scene.background=t;scene.environment=t;scene.environmentIntensity=.4;scene.backgroundIntensity=1;status.sky=true;}));
  jobs.push(texture('sky-background.webp').then(t=>{t.mapping=T.EquirectangularReflectionMapping;t.wrapT=T.ClampToEdgeWrapping;scene.background=t;if(scene.fog)scene.fog.color.setHex(0xb8c3cf);status.skyBackground=true;}));
- jobs.push(model('sedan.json').then(parts=>{const root=new T.Group(),newWheels=[];root.rotation.y=Math.PI;root.scale.set(1.38,1.25,1.62);const material=new T.MeshStandardMaterial({vertexColors:true,roughness:.55,metalness:.08});
- for(const {name,geo}of parts){const mesh=new T.Mesh(geo,material);if(name.startsWith('wheel')){const center=geo.boundingBox.getCenter(new T.Vector3());geo.translate(-center.x,-center.y,-center.z);const pivot=new T.Group();pivot.position.copy(center);pivot.add(mesh);root.add(pivot);if(name.includes('front'))newWheels.push(pivot);}else root.add(mesh);}
- // Keep the existing brake lights and contact shadow; replace only the vehicle mesh.
- for(const child of car.children)if(!lamps.includes(child)&&!child.material?.transparent)child.visible=false;
- car.add(root);wheels.splice(0,wheels.length,...newWheels);status.car=true;
+ jobs.push(model('sedan.json').then(parts=>{
+ const detailed=createDetailedSedan(parts);
+ // Commit the upgrade only after construction succeeds; network errors retain the fallback.
+ for(const child of car.children)if(!child.material?.transparent)child.visible=false;
+ car.add(detailed.root);wheels.splice(0,wheels.length,...detailed.wheels);lamps.splice(0,lamps.length,...detailed.lamps);car.userData.vehicle=detailed.root.userData.vehicle;
+ parts.forEach(({geo})=>geo.dispose());status.car=true;
  }));
  jobs.push(model('tree.json').then(parts=>{const dummy=new T.Object3D(),material=new T.MeshStandardMaterial({vertexColors:true,roughness:.92,envMapIntensity:.35});for(const {geo}of parts){for(let variant=0;variant<3;variant++){
  const positions=trunks.map((p,i)=>({p,i})).filter(o=>o.i%3===variant);if(!positions.length)continue;
