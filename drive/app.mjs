@@ -163,7 +163,6 @@ $('quality').onclick=()=>{if(!three)return;lightQuality=!lightQuality;three.qual
 
 $('course-list').onclick=e=>{const b=e.target.closest('[data-course]');if(b)choose(Number(b.dataset.course));};
 for(const mode of ['guided','challenge'])$(mode).onclick=()=>{guided=mode==='guided';for(const m of ['guided','challenge']){$(m).classList.toggle('selected',m===mode);$(m).setAttribute('aria-pressed',String(m===mode));}renderHome();};
-$('free-start').onclick=()=>{const from=new URLSearchParams(location.search).get('from')==='honmen'?'honmen':'karimen';location.href='./free.html?from='+from;};
 $('sound').setAttribute('aria-pressed','true');$('sound').setAttribute('aria-label','音をオフにする');$('sound').querySelector('.slash').hidden=true;
 $('start').onclick=()=>{drivingAudio.setEnabled(soundEnabled);drivingAudio.unlock();drive.start();$('start-overlay').hidden=true;controls(true);last=performance.now();tone('mark');requestFrame();$(using3D()?'road3d':'road').focus({preventScroll:true});};
 $('pause').onclick=pause;$('resume').onclick=resume;$('restart').onclick=()=>choose(drive.index);$('leave').onclick=home;
