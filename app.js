@@ -125,9 +125,16 @@ function recentMockSummary(r) {
 function renderMock() {
   const passed = WORKSHEETS.filter(w => (resultsFor(w.worksheet, 'mock').best?.scoreSnapshot ?? -1) >= 45).length;
   const s = model.sessionFor('mock'), list = WORKSHEETS.filter(w => { const r = resultsFor(w.worksheet, 'mock'); return mockFilter === 'all' || (mockFilter === 'new' ? !r.last : (r.best?.scoreSnapshot ?? -1) < 45); });
-  const newLearner = !s && !model.sessionFor('study') && !model.sessionFor('review') && !state.attempts.length && !Object.keys(state.stats).length;
-  $('mock').innerHTML = `<div class="home-intro"><div><h2>仮免模試</h2><p class="muted">${s?.mode === 'exam' ? '中断した模試を再開できます。' : '50問・30分で、力だめし。'}</p>${newLearner ? '<button class="textbtn" data-action="quick-study">まずは10問練習する</button>' : ''}</div><img class="home-character" src="./image-155cadc1029a.png" width="1400" height="792" alt="プーリーくんとよりともさん"></div>${s?.mode === 'exam' ? entryCard('resume', `第${s.worksheet}回の続きへ`, `${s.answers.filter(a => a !== null).length} / 50問 回答済み · タイマー停止中`, 'play', 'mock') : ''}<div class="page-heading mock-heading"><h3>教習問題ベースの模試</h3><p class="inline muted">10回・各50問 <span class="badge">毎回ランダム順</span></p></div>
-    <div class="home-overview"><div class="achievement-progress"><div class="inline"><span><b>${passed}</b><small> / 10回 合格</small></span><small class="muted">達成率 ${passed * 10}%</small></div><div class="progress" role="progressbar" aria-label="模試の合格回数" aria-valuenow="${passed}" aria-valuemin="0" aria-valuemax="10"><i style="width:${passed * 10}%"></i></div></div></div>${filters('mock-filter', mockFilter, [['all','すべて'],['new','未受験'],['unpassed','未合格']])}
+  const resumeCards = ['mock','study','review'].map(mode => {
+    const session = model.sessionFor(mode);
+    if (!session) return '';
+    const title = mode === 'mock' ? `第${session.worksheet}回の続きへ` : mode === 'study' ? '続きから学ぶ' : '途中の復習を続ける';
+    const answered = session.answers.filter(answer => answer !== null).length;
+    const progress = `${answered} / ${session.ids.length}問 回答済み`;
+    return entryCard('resume', title, mode === 'mock' ? progress + ' · タイマー停止中' : session.label + ' · ' + progress, 'play', mode);
+  }).join('');
+  $('mock').innerHTML = `<div class="home-intro"><div><h2>仮免模試</h2><p class="muted">${s?.mode === 'exam' ? '中断した模試を再開できます。' : '50問・30分で、力だめし。'}</p>${!resumeCards ? '<button class="textbtn" data-action="quick-study">10問だけ練習する</button>' : ''}</div><img class="home-character" src="./image-155cadc1029a.png" width="1400" height="792" alt="プーリーくんとよりともさん"></div>${resumeCards}<div class="page-heading mock-heading"><h3>教習問題ベースの模試</h3><p class="inline muted">10回・各50問 <span class="badge">毎回ランダム順</span></p></div>
+    <div class="home-overview"><div class="achievement-progress"><div class="inline"><span><b>${passed}</b><small> / 10回 合格</small></span><small class="muted">合格した回の割合 ${passed * 10}%</small></div><div class="progress" role="progressbar" aria-label="模試の合格回数" aria-valuenow="${passed}" aria-valuemin="0" aria-valuemax="10"><i style="width:${passed * 10}%"></i></div></div></div>${filters('mock-filter', mockFilter, [['all','すべて'],['new','未受験'],['unpassed','未合格']])}
     <div class="mock-grid">${list.map(w => { const r = resultsFor(w.worksheet, 'mock'), on = s?.mode === 'exam' && s.worksheet === w.worksheet, score = r.best?.scoreSnapshot;
       return `<button class="set-card ${on ? 'in-progress' : ''} ${score === 50 ? 'perfect' : ''}" data-action="detail" data-set="${w.worksheet}" aria-label="第${w.worksheet}回 ${on ? '受験中 ' : ''}${r.last ? `直近${r.last.scoreSnapshot}点 ${r.last.scoreSnapshot >= 45 ? '合格' : '未合格'} 最高${score}点` : '未受験'}"><span class="mock-card-heading"><b>第${w.worksheet}回</b>${score >= 45 ? flowerStamp(score === 50 ? '満点' : '合格') : `<span class="chevron">${icon('chevron')}</span>`}</span>${r.last ? `<span class="mock-latest"><small>直近</small><strong>${r.last.scoreSnapshot}<span>点</span></strong><small class="mock-outcome ${r.last.scoreSnapshot >= 45 ? 'is-pass' : ''}">${r.last.scoreSnapshot >= 45 ? '合格' : '未合格'}</small></span><small class="mock-best">最高 ${score}点${on ? ' · 受験中' : ''}</small>` : `<span class="mock-unanswered">${on ? '受験中' : '未受験'}</span>`}</button>`; }).join('')}</div>
     ${!list.length ? '<div class="empty"><h3>この条件の回はありません</h3><p>「すべて」から各回の記録を確認できます。</p></div>' : ''}
@@ -144,7 +151,7 @@ function detail(n) {
   if (savedMock?.worksheet === w.worksheet) { resume('mock'); return; }
   const mock = resultsFor(w.worksheet, 'mock'), guided = resultsFor(w.worksheet, 'guided', false);
   const olderMocks = resultsFor(w.worksheet, 'mock', false).list.filter(a => a.contentVersion !== w.contentVersion);
-  $('detail-content').innerHTML = `<span class="badge">教習問題ベース</span><h2 id="detail-title">第${w.worksheet}回</h2><div class="details-list"><div><b>50問</b><span>毎回ランダムな順番で出題</span></div><div><b>30分</b><span>採点後に解説</span></div></div><p class="detail-pass">45点以上で、このアプリ内の合格です。</p><p class="detail-timer muted">${icon('clock')}中断中や別アプリを開いている間は、タイマーが止まります。</p><div class="stack"><button class="btn wide" data-action="start-mock" data-set="${w.worksheet}">30分模試を始める ${icon('arrow')}</button><button class="btn secondary wide" data-action="start-guided" data-set="${w.worksheet}">この回を解説付きで練習</button></div><details class="detail-rules"><summary>模試のルール・問題の内訳</summary><div class="detail-rules-body"><h3>出題の順番</h3><p>この回の50問を、開始するたびに並べ替えます。途中再開では同じ順番です。解説付き練習は教材の順番で進みます。</p><h3>途中終了・時間切れ</h3><p>途中終了は回答分だけで集計し、合否・最高点の対象外です。時間切れは50問で採点しますが、未回答は学習の正答率・復習に含めません。</p><h3>問題の内訳</h3><p>代替問題 ${w.replacementCount}問・補足問題 ${w.supplementalCount}問を含む50問です。</p></div></details><h3>30分模試の記録</h3>${mock.best ? `<p class="inline"><span class="badge ${mock.best.scoreSnapshot >= 45 ? 'success' : ''}">最高 ${mock.best.scoreSnapshot}点</span></p><p class="recent-mock">${recentMockSummary(mock)}</p>${attemptRows(mock.list.filter(a => !partialAttempt(a)), '30分模試')}` : '<p class="muted">まだ受験していません。</p>'}${mock.partial.length ? `<h3>模試の途中終了</h3>${attemptRows(mock.partial, '30分模試')}` : ''}${guided.partial.length ? `<h3>練習の途中終了</h3>${attemptRows(guided.partial, '解説付き練習')}` : ''}${olderMocks.length ? `<h3>以前の内容版の模試記録</h3><p class="muted">当時の得点を保持しています。現在の内容版の合格数・最高点とは分けて表示します。</p>${attemptRows(olderMocks, '30分模試・以前の内容版')}` : ''}${guided.best ? `<h3>解説付き練習の記録</h3><div class="guided-record ${guided.best.scoreSnapshot === 50 ? 'perfect' : ''}">${guided.best.scoreSnapshot >= 45 ? flowerStamp(guided.best.scoreSnapshot === 50 ? '満点' : '合格') : ''}<div><strong>最高 ${guided.best.scoreSnapshot}点</strong><p class="muted">${guided.best.scoreSnapshot >= 45 ? '解説付き練習で合格の目安を達成' : '解説付き練習の成績'}</p></div></div>${attemptRows(guided.list.filter(a => !partialAttempt(a)), '解説付き練習')}<p class="muted">この成績は30分模試の合格数には含めません。</p>` : ''}`;
+  $('detail-content').innerHTML = `<span class="badge">教習問題ベース</span><h2 id="detail-title">第${w.worksheet}回</h2><div class="details-list"><div><b>50問</b><span>毎回ランダムな順番で出題</span></div><div><b>30分</b><span>採点後に解説</span></div></div><p class="detail-pass">50点満点中45点以上で合格。1問1点です。</p><p class="detail-timer muted">${icon('clock')}中断中や別アプリを開いている間は、タイマーが止まります。</p><div class="stack"><button class="btn wide" data-action="start-mock" data-set="${w.worksheet}">30分模試を始める ${icon('arrow')}</button><button class="btn secondary wide" data-action="start-guided" data-set="${w.worksheet}">この回を解説付きで練習</button></div><details class="detail-rules"><summary>模試のルール・問題の内訳</summary><div class="detail-rules-body"><h3>出題の順番</h3><p>この回の50問を、開始するたびに並べ替えます。途中再開では同じ順番です。解説付き練習は教材の順番で進みます。</p><h3>途中終了・時間切れ</h3><p>途中終了は回答分だけで集計し、合否・最高点の対象外です。時間切れは50問で採点しますが、未回答は学習の正答率・復習に含めません。</p><h3>問題の内訳</h3><p>代替問題 ${w.replacementCount}問・補足問題 ${w.supplementalCount}問を含む50問です。</p></div></details><h3>30分模試の記録</h3>${mock.best ? `<p class="inline"><span class="badge ${mock.best.scoreSnapshot >= 45 ? 'success' : ''}">最高 ${mock.best.scoreSnapshot}点</span></p><p class="recent-mock">${recentMockSummary(mock)}</p>${attemptRows(mock.list.filter(a => !partialAttempt(a)), '30分模試')}` : '<p class="muted">まだ受験していません。</p>'}${mock.partial.length ? `<h3>模試の途中終了</h3>${attemptRows(mock.partial, '30分模試')}` : ''}${guided.partial.length ? `<h3>練習の途中終了</h3>${attemptRows(guided.partial, '解説付き練習')}` : ''}${olderMocks.length ? `<h3>以前の内容版の模試記録</h3><p class="muted">当時の得点を保持しています。現在の内容版の合格数・最高点とは分けて表示します。</p>${attemptRows(olderMocks, '30分模試・以前の内容版')}` : ''}${guided.best ? `<h3>解説付き練習の記録</h3><div class="guided-record ${guided.best.scoreSnapshot === 50 ? 'perfect' : ''}">${guided.best.scoreSnapshot >= 45 ? flowerStamp(guided.best.scoreSnapshot === 50 ? '満点' : '合格') : ''}<div><strong>最高 ${guided.best.scoreSnapshot}点</strong><p class="muted">${guided.best.scoreSnapshot >= 45 ? '解説付き練習で合格の目安を達成' : '解説付き練習の成績'}</p></div></div>${attemptRows(guided.list.filter(a => !partialAttempt(a)), '解説付き練習')}<p class="muted">この成績は30分模試の合格数には含めません。</p>` : ''}`;
   $('detail').showModal();
 }
 function replaceStudy(action, kind = 'study') {
@@ -448,7 +455,7 @@ function openNotes(id = null, figure = null) {
 }
 function settings() {
   const exam = state.session?.mode === 'exam', hasSessions = !!state.session || Object.keys(state.suspended).length > 0;
-  $('settings-content').innerHTML = `<div class="settings-group"><h3>画面の明るさ</h3><div class="seg">${[['auto','自動'],['light','ライト'],['dark','ダーク']].map(([k,t]) => `<button data-action="theme" data-value="${k}" aria-pressed="${state.theme === k}">${t}</button>`).join('')}</div></div><div class="settings-group"><h3>効果音</h3><div class="seg">${[[true,'オン'],[false,'オフ']].map(([v,t]) => `<button data-action="sound" data-value="${v}" aria-pressed="${state.sound === v}">${t}</button>`).join('')}</div><p class="muted">学習で答えたときに鳴ります。模試中は鳴りません。</p></div><div class="settings-group"><label class="confidence-control"><input id="reduce-motion" type="checkbox" ${state.reduceMotion ? 'checked' : ''}>動きを抑える</label><p class="muted">端末の「視差効果を減らす」設定にも対応します。</p><button class="textbtn" data-action="preview" data-score="45">花丸の見本を見る ${icon('chevron')}</button></div><div class="settings-group"><h3>学習記録の保存</h3><p class="muted">回答・成績・復習予定は自動で保存します。同じ端末・ブラウザでのサイト更新後も、そのまま続けられます。</p><p id="save-status" role="status"></p><details><summary>予備の書き出し・読み込み</summary><p class="muted">通常の更新では操作不要です。別の端末へ記録を渡す場合などに使用できます。</p><div class="btnrow"><button class="btn secondary" data-action="export">書き出す</button><button class="btn secondary" data-action="import" ${exam ? 'disabled' : ''}>読み込む</button></div></details></div><div class="settings-group"><button class="textbtn" data-action="archive" ${exam ? 'disabled' : ''}>以前の学習記録を見る ${icon('chevron')}</button><p class="muted">旧50問練習、判定A〜C、以前の問題の回答を保管しています。</p></div><div class="settings-group"><button class="textbtn danger" data-action="reset" ${hasSessions || state.sync?.owner ? 'disabled' : ''}>現在の学習記録を初期化する</button>${hasSessions ? '<p class="muted">各モードの途中の学習を終えると初期化できます。</p>' : ''}</div>`;
+  $('settings-content').innerHTML = `<div class="settings-group"><h3>画面の明るさ</h3><div class="seg">${[['auto','自動'],['light','ライト'],['dark','ダーク']].map(([k,t]) => `<button data-action="theme" data-value="${k}" aria-pressed="${state.theme === k}">${t}</button>`).join('')}</div></div><div class="settings-group"><h3>効果音</h3><div class="seg">${[[true,'オン'],[false,'オフ']].map(([v,t]) => `<button data-action="sound" data-value="${v}" aria-pressed="${state.sound === v}">${t}</button>`).join('')}</div><p class="muted">学習で答えたときに鳴ります。模試中は鳴りません。</p></div><div class="settings-group"><label class="confidence-control"><input id="reduce-motion" type="checkbox" ${state.reduceMotion ? 'checked' : ''}>動きを抑える</label><p class="muted">端末の「視差効果を減らす」設定にも対応します。</p><button class="textbtn" data-action="preview" data-score="45">花丸の見本を見る ${icon('chevron')}</button></div><div class="settings-group"><h3>学習記録の保存</h3><p class="muted">回答・成績・復習予定は自動で保存します。同じ端末・ブラウザでのサイト更新後も、そのまま続けられます。</p><p id="save-status" role="status"></p><details><summary>機種変更・学習記録の引き継ぎ</summary><p class="muted">今の端末で「書き出す」を押し、保存したファイルを新しい端末に送ります。新しい端末で仮免ドリルを開き、設定の「読み込む」でそのファイルを選んでください。</p><div class="btnrow"><button class="btn secondary" data-action="export">書き出す</button><button class="btn secondary" data-action="import" ${exam ? 'disabled' : ''}>読み込む</button></div></details></div><div class="settings-group"><button class="textbtn" data-action="archive" ${exam ? 'disabled' : ''}>以前の学習記録を見る ${icon('chevron')}</button><p class="muted">旧50問練習、判定A〜C、以前の問題の回答を保管しています。</p></div><div class="settings-group"><button class="textbtn danger" data-action="reset" ${hasSessions || state.sync?.owner ? 'disabled' : ''}>現在の学習記録を初期化する</button>${hasSessions ? '<p class="muted">各モードの途中の学習を終えると初期化できます。</p>' : ''}</div>`;
   $('settings-content').insertAdjacentHTML('afterbegin', (window.KarimenHomeInstall?.settingsMarkup() || '') + (typeof KarimenCloud !== 'undefined' ? KarimenCloud.settingsMarkup() : ''));
   if (!$('settings').open) $('settings').showModal(); updateChrome();
 }
@@ -475,10 +482,18 @@ function preview(score) {
   if (!$('achievement-preview').open) $('achievement-preview').showModal();
 }
 function resetFigureZoom() {
+    $('figure-scale').value = '100%';
+    $('figure-zoom').setAttribute('aria-valuetext', '100%');
+    const viewport = $('figure-dialog').querySelector('.figure-scroll');
+    viewport.scrollLeft = 0;
+    viewport.scrollTop = 0;
+
   $('figure-content').style.zoom = '1';
   $('figure-content').style.width = '100%';
 }
 function setFigureZoom(percent) {
+    $('figure-scale').value = percent + '%';
+    $('figure-zoom').setAttribute('aria-valuetext', percent + '%');
   const width = $('figure-dialog').querySelector('.figure-scroll').clientWidth;
   if (width) $('figure-content').style.width = width + 'px';
   $('figure-content').style.zoom = String(percent / 100);
@@ -489,7 +504,15 @@ function openQuestionArt(id, revealed) {
   if (state.session?.mode === 'exam') revealed = false;
   $('figure-content').innerHTML = questionArt(q,revealed,true); $('figure-zoom').value = '100'; resetFigureZoom(); $('figure-dialog').showModal();
 }
-function openFigure(k) { if (state.session?.mode === 'exam' || !FIG[k]) return; $('figure-content').innerHTML = figHTML(k); resetFigureZoom(); $('figure-zoom').value = '100'; $('figure-dialog').showModal(); }
+function openFigure(k) {
+  if (state.session?.mode === 'exam' || !FIG[k]) return;
+  const content = $('figure-content');
+  content.innerHTML = figHTML(k);
+  content.querySelector('[data-action="figure-open"]')?.remove();
+  resetFigureZoom();
+  $('figure-zoom').value = '100';
+  $('figure-dialog').showModal();
+}
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-action]'); if (!b || b.disabled || externalChange) return;
   const a = b.dataset.action, s = state.session;

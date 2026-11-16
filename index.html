@@ -53,7 +53,7 @@
   <dialog class="modal" id="detail" aria-labelledby="detail-title"><div id="detail-content"></div><button class="btn secondary wide" data-action="close-detail">閉じる</button></dialog>
   <dialog class="modal" id="settings" aria-labelledby="settings-title"><h2 id="settings-title">表示と学習記録</h2><div id="settings-content"></div><button class="btn secondary wide" data-action="close-settings">閉じる</button></dialog>
   <dialog class="modal" id="achievement-preview" aria-labelledby="preview-title"><h2 id="preview-title">花丸の見本</h2><p class="muted">見本です。学習記録には保存されません。</p><div class="seg"><button data-action="preview" data-score="44">44点</button><button data-action="preview" data-score="45">45点</button><button data-action="preview" data-score="48">48点</button><button data-action="preview" data-score="50">50点</button></div><div id="achievement-preview-body"></div><button class="btn secondary wide" data-action="close-preview">閉じる</button></dialog>
-  <dialog id="figure-dialog" class="figure-dialog" aria-label="図を拡大"><div class="figure-toolbar"><label>倍率 <input id="figure-zoom" type="range" min="100" max="250" step="25" value="100" aria-label="図の拡大率"></label><button class="btn secondary" data-action="close-figure">閉じる</button></div><p class="muted">拡大後は左右・上下にスクロールできます。</p><div class="figure-scroll"><div id="figure-content"></div></div></dialog>
+  <dialog id="figure-dialog" class="figure-dialog" aria-label="図を拡大"><div class="figure-toolbar"><label>倍率 <input id="figure-zoom" type="range" min="100" max="250" step="25" value="100" aria-label="図の拡大率"><output id="figure-scale" for="figure-zoom">100%</output></label><button class="btn secondary" data-action="close-figure">閉じる</button></div><p class="muted">拡大後は左右・上下にスクロールできます。</p><div class="figure-scroll"><div id="figure-content"></div></div></dialog>
   <aside id="home-install-prompt" class="install-prompt" aria-labelledby="home-install-prompt-title" hidden>
     <div class="install-prompt-heading"><img class="install-icon" src="./assets/icons/karimen-192.png" width="54" height="54" alt="" decoding="async"><div><h2 id="home-install-prompt-title">ホーム画面から、すぐに学習</h2><p>次回からアイコンをタップして開けます。</p></div></div>
     <div class="install-prompt-actions"><button class="btn" data-install-action="guide">追加方法を見る</button><button class="btn secondary" data-install-action="dismiss">あとで</button></div>
@@ -79,6 +79,6 @@
   <script defer src="./town-data.js?v=20261015-learning-finish"></script>
   <script defer src="./town-config.js?v=20261015-curated-photos-v3"></script>
   <script defer src="./town.js?v=yoritomo-1"></script>
-  <script defer src="./startup.js?v=20261012-progress-v35" data-build="20261012-cloud-v1" data-app-src="./app.js?v=study-entry-1"></script>
+  <script defer src="./startup.js?v=20261012-progress-v35" data-build="20261012-cloud-v1" data-app-src="./app.js?v=study-finish-2"></script>
 </body>
 </html>
